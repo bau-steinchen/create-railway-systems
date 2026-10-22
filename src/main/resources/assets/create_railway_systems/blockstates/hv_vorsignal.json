@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "aspect=vr0,facing=north": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0"
+    },
+    "aspect=vr0,facing=east": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 90
+    },
+    "aspect=vr0,facing=south": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 180
+    },
+    "aspect=vr0,facing=west": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 270
+    },
+    "aspect=vr1,facing=north": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1"
+    },
+    "aspect=vr1,facing=east": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 90
+    },
+    "aspect=vr1,facing=south": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 180
+    },
+    "aspect=vr1,facing=west": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 270
+    },
+    "aspect=vr2,facing=north": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2"
+    },
+    "aspect=vr2,facing=east": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 90
+    },
+    "aspect=vr2,facing=south": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 180
+    },
+    "aspect=vr2,facing=west": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 270
+    }
+  }
+}

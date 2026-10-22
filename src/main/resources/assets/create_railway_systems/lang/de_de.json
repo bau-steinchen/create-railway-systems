@@ -1,0 +1,18 @@
+{
+  "itemGroup.create_railway_systems": "Create: Railway Systems",
+  "block.create_railway_systems.hv_hauptsignal": "H/V-Lichthauptsignal",
+  "block.create_railway_systems.hv_vorsignal": "H/V-Lichtvorsignal",
+  "block.create_railway_systems.hv_kombisignal": "H/V-Hauptsignal mit Vorsignal am Mast",
+  "block.create_railway_systems.signal_mast": "Signalmast",
+
+  "create.create_railway_systems.hv_signal.set": "An Create-Signal gebunden",
+  "create.create_railway_systems.hv_signal.success": "Signal platziert und gebunden",
+  "create.create_railway_systems.hv_signal.clear": "Bindung gelöscht",
+  "create.create_railway_systems.hv_signal.invalid": "Zuerst per Rechtsklick an ein Create-Signal binden",
+  "create.create_railway_systems.hv_signal.too_far": "Zu weit vom gebundenen Create-Signal entfernt",
+
+  "create_railway_systems.hv_signal.tooltip.link": "Rechtsklick auf ein Create-Signal zum Binden, danach platzieren. Schleichen + Rechtsklick löscht die Bindung.",
+  "create_railway_systems.hv_signal.tooltip.wrench": "Schraubenschlüssel: zwischen Hp1 (Fahrt) und Hp2 (Langsamfahrt) umschalten",
+  "create_railway_systems.hv_signal.mode_normal": "Fahrtbegriff: Hp1 (Fahrt)",
+  "create_railway_systems.hv_signal.mode_slow": "Fahrtbegriff: Hp2 (Langsamfahrt)"
+}

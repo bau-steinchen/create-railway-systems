@@ -1,0 +1,8 @@
+{
+  "values": [
+    "create_railway_systems:hv_hauptsignal",
+    "create_railway_systems:hv_vorsignal",
+    "create_railway_systems:hv_kombisignal",
+    "create_railway_systems:signal_mast"
+  ]
+}

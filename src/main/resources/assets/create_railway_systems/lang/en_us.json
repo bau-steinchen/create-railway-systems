@@ -1,0 +1,18 @@
+{
+  "itemGroup.create_railway_systems": "Create: Railway Systems",
+  "block.create_railway_systems.hv_hauptsignal": "H/V Light Main Signal",
+  "block.create_railway_systems.hv_vorsignal": "H/V Light Distant Signal",
+  "block.create_railway_systems.hv_kombisignal": "H/V Main Signal with Distant Signal",
+  "block.create_railway_systems.signal_mast": "Signal Mast",
+
+  "create.create_railway_systems.hv_signal.set": "Linked to Create signal",
+  "create.create_railway_systems.hv_signal.success": "Signal placed and linked",
+  "create.create_railway_systems.hv_signal.clear": "Link cleared",
+  "create.create_railway_systems.hv_signal.invalid": "Right-click a Create signal to link first",
+  "create.create_railway_systems.hv_signal.too_far": "Too far from the linked Create signal",
+
+  "create_railway_systems.hv_signal.tooltip.link": "Right-click a Create signal to link, then place. Sneak + right-click clears the link.",
+  "create_railway_systems.hv_signal.tooltip.wrench": "Wrench: toggle between Hp1 (clear) and Hp2 (proceed slowly)",
+  "create_railway_systems.hv_signal.mode_normal": "Proceed aspect: Hp1 (clear)",
+  "create_railway_systems.hv_signal.mode_slow": "Proceed aspect: Hp2 (proceed slowly)"
+}
