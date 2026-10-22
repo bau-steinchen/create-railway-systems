@@ -16,6 +16,7 @@ DATA = ROOT / "data"
 
 FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
 HP = ["hp0", "hp1", "hp2"]
+MOUNTS = ["none", "back", "left", "right"]
 VR = ["vr0", "vr1", "vr2"]
 
 # Welche Lampen leuchten bei welchem Begriff
@@ -42,7 +43,7 @@ def box(frm, to, texture, north=None):
 
 
 def lamp(x0, y0, size, color, lit):
-    element = box([x0, y0, 4.5], [x0 + size, y0 + size, 5], "#screen",
+    element = box([x0, y0, 3.5], [x0 + size, y0 + size, 4], "#screen",
                   north=f"#lamp_{color}" if lit else "#lamp_off")
     element["faces"]["north"]["uv"] = [0, 0, 16, 16]
     if lit:
@@ -52,7 +53,18 @@ def lamp(x0, y0, size, color, lit):
 
 
 def post():
-    return box([6.5, 0, 7], [9.5, 16, 10], "#mast")
+    # deckungsgleich mit dem Signalmast-Block, damit kein Versatz am Übergang entsteht
+    return box([6.5, 0, 6.5], [9.5, 16, 9.5], "#mast")
+
+
+def support(mount, arm_heights):
+    """Senkrechter Mast (frei stehend) oder waagerechte Ausleger zum Nachbarblock (Wandmontage).
+    Modellraum: Schirm zeigt nach Norden; "links"/"rechts" aus Sicht des Betrachters vor dem Schirm."""
+    if mount == "none":
+        return [post()]
+    arms = {"back": ([7, 6.5], [9, 16]), "left": ([7, 6.5], [16, 8.5]), "right": ([0, 6.5], [9, 8.5])}
+    (x0, z0), (x1, z1) = arms[mount]
+    return [box([x0, y0, z0], [x1, y1, z1], "#mast") for y0, y1 in arm_heights]
 
 
 TEXTURES = {
@@ -72,28 +84,29 @@ def model(elements):
 
 
 def main_screen(lit, x0, x1, y0, y1, lamps):
-    elements = [box([x0, y0, 5], [x1, y1, 7], "#screen")]
+    elements = [box([x0, y0, 4], [x1, y1, 6.5], "#screen")]
     for name, (lx, ly, size) in lamps.items():
         elements.append(lamp(lx, ly, size, LAMP_COLOR[name], name in lit))
     return elements
 
 
-def hauptsignal_model(aspect):
-    elements = [post(), box([6, 0.5, 6], [10, 4.5, 7], "#mastschild", north="#mastschild")]
+def hauptsignal_model(aspect, mount):
+    elements = support(mount, [(13, 15), (1.5, 3.5)])
+    elements.append(box([6, 0.5, 5.5], [10, 4.5, 6.5], "#mastschild", north="#mastschild"))
     elements += main_screen(HP_LIT[aspect], 4.5, 11.5, 5, 16, {
         "green": (6.5, 12.5, 3), "red": (6.5, 9, 3), "yellow": (6.5, 5.5, 3)})
     return model(elements)
 
 
-def vorsignal_model(aspect):
-    elements = [post()]
+def vorsignal_model(aspect, mount):
+    elements = support(mount, [(7, 9)])
     elements += main_screen(VR_LIT[aspect], 3, 13, 4, 12, {
         "y_bl": (3.5, 5, 2.5), "g_bl": (6.5, 5, 2.5), "g_tr": (7, 8.5, 2.5), "y_tr": (10, 8.5, 2.5)})
     return model(elements)
 
 
-def kombisignal_model(hp, vr):
-    elements = [post()]
+def kombisignal_model(hp, vr, mount):
+    elements = support(mount, [(12, 14), (3, 5)])
     elements += main_screen(HP_LIT[hp], 5, 11, 8, 16, {
         "green": (7, 13.5, 2), "red": (7, 11, 2), "yellow": (7, 8.5, 2)})
     elements += main_screen(VR_LIT[vr], 4, 12.5, 1, 7, {
@@ -122,25 +135,35 @@ def variants(props, model_for):
     return {"variants": result}
 
 
+def model_name(base, mount):
+    return base if mount == "none" else f"{base}_{mount}"
+
+
 def generate_models():
-    for a in HP:
-        write_json(ASSETS / "models/block" / f"hv_hauptsignal_{a}.json", hauptsignal_model(a))
-    for a in VR:
-        write_json(ASSETS / "models/block" / f"hv_vorsignal_{a}.json", vorsignal_model(a))
-    for hp in HP:
-        for vr in VR + ["dark"]:
-            write_json(ASSETS / "models/block" / f"hv_kombisignal_{hp}_{vr}.json", kombisignal_model(hp, vr))
+    for mount in MOUNTS:
+        for a in HP:
+            write_json(ASSETS / "models/block" / f"{model_name(f'hv_hauptsignal_{a}', mount)}.json",
+                       hauptsignal_model(a, mount))
+        for a in VR:
+            write_json(ASSETS / "models/block" / f"{model_name(f'hv_vorsignal_{a}', mount)}.json",
+                       vorsignal_model(a, mount))
+        for hp in HP:
+            for vr in VR + ["dark"]:
+                write_json(ASSETS / "models/block" / f"{model_name(f'hv_kombisignal_{hp}_{vr}', mount)}.json",
+                           kombisignal_model(hp, vr, mount))
     write_json(ASSETS / "models/block/signal_mast.json",
                {"parent": "block/block", "textures": {"particle": tex("signal_mast"), "mast": tex("signal_mast")},
                 "elements": [box([6.5, 0, 6.5], [9.5, 16, 9.5], "#mast")]})
 
     write_json(ASSETS / "blockstates/hv_hauptsignal.json",
-               variants([("aspect", HP)], lambda s: f"hv_hauptsignal_{s['aspect']}"))
+               variants([("aspect", HP), ("mount", MOUNTS)],
+                        lambda s: model_name(f"hv_hauptsignal_{s['aspect']}", s["mount"])))
     write_json(ASSETS / "blockstates/hv_vorsignal.json",
-               variants([("aspect", VR)], lambda s: f"hv_vorsignal_{s['aspect']}"))
+               variants([("aspect", VR), ("mount", MOUNTS)],
+                        lambda s: model_name(f"hv_vorsignal_{s['aspect']}", s["mount"])))
     write_json(ASSETS / "blockstates/hv_kombisignal.json",
-               variants([("aspect", HP), ("distant", VR + ["dark"])],
-                        lambda s: f"hv_kombisignal_{s['aspect']}_{s['distant']}"))
+               variants([("aspect", HP), ("distant", VR + ["dark"]), ("mount", MOUNTS)],
+                        lambda s: model_name(f"hv_kombisignal_{s['aspect']}_{s['distant']}", s["mount"])))
     write_json(ASSETS / "blockstates/signal_mast.json",
                {"variants": {"": {"model": f"{MOD_ID}:block/signal_mast"}}})
 
