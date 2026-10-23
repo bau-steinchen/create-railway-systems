@@ -36,6 +36,17 @@ Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moder
 | Ks-Vorsignal | Ks1, Ks1 blinkend mit Zs3v, Ks2 (Halt erwarten), mit Ne 2-Tafel |
 | Ks-Mehrabschnittssignal | Hp0, Ks1, Ks1 blinkend mit Zs3v, Ks2, optional mit Zs3 |
 
+### Zusatzsignale an Hauptsignalen
+
+| Zusatzsignal | Aussehen | Wann es leuchtet |
+|---|---|---|
+| Zs1 Ersatzsignal | H/V: drei weiße Lichter in A-Form, Ks: weißes Blinklicht | Signal zeigt Halt und bekommt Redstone |
+| Zs7 Vorsichtsignal | drei gelbe Lichter in V-Form | Signal zeigt Halt und bekommt Redstone |
+| Zs6 Gegengleisanzeiger | weiße schräge Lichtpunktreihe | Signal zeigt Fahrt |
+| Kennlicht | weißes Licht oben links im Schirm | Signal ist abgeschaltet, alle anderen Lichter sind dunkel |
+
+Zs1/Zs7 sind rein optisch: Create-Züge fahren weiterhin nicht an einem Halt zeigenden Signal vorbei.
+
 Alle Blöcke stehen im Kreativ-Tab **Create: Railway Systems**.
 
 ### Benutzung
@@ -54,6 +65,16 @@ Ohne Bindung lässt sich ein Signal nicht platzieren.
 - **Hauptsignale sind zwei Blöcke hoch:** H/V-Hauptsignal, H/V-Hauptsignal mit Vorsignal am Mast, Ks-Hauptsignal und Ks-Mehrabschnittssignal. Über dem Platzierungsort muss ein Block frei sein. Wird eine Hälfte abgebaut, verschwindet auch die andere. Bindung, Schraubenschlüssel und Aufnehmen funktionieren an beiden Hälften. Vorsignale und das Lichtsperrsignal sind einen Block hoch.
 - **Lichtsperrsignal:** Auf dem Boden oder einem festen Block steht es auf einem kleinen Fuß. Steht darunter ein Signalmast, sitzt es ohne Fuß direkt auf dem Mast.
 - Der Schirm zeigt beim Platzieren immer zum Spieler.
+
+### Ausstattung einstellen
+
+H/V-Hauptsignale, H/V-Kombisignale, Ks-Hauptsignale und Ks-Mehrabschnittssignale haben auf der **Rückseite der unteren Hälfte** drei Create-Wertefelder. Mit dem **Schraubenschlüssel** auf ein Feld zielen, Rechtsklick gedrückt halten und auswählen:
+
+- **oben:** Ersatz-/Vorsichtsignal – keins, Zs1 oder Zs7
+- **Mitte:** Gegengleisanzeiger – keiner oder Zs6
+- **unten:** Betrieb – in Betrieb oder abgeschaltet (Kennlicht)
+
+Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7 kann an der oberen oder unteren Hälfte anliegen.
 
 ### Signallogik
 
@@ -88,12 +109,13 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
+  client/                              Overlay-Renderer für Zusatzanzeigen (Zs3, Zs3v, Zs1/Zs7, Zs6, Kennlicht)
 tools/generate_assets.py               Asset-Generator
 ```
 
 ## Geplant
 
-- Weitere Zusatzsignale (Zs1, Zs7, Zs6 …) und Kennlicht
+- Weitere Zusatzsignale (Zs2 Richtungsanzeiger, Zs8 …)
 - Bessere Texturen
 
 ## Lizenz

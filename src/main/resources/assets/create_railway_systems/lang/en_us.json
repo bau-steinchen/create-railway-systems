@@ -19,5 +19,15 @@
   "create_railway_systems.hv_signal.mode_slow": "Proceed aspect: Hp2 (proceed slowly)",
   "create_railway_systems.ks_signal.tooltip.wrench": "Wrench: set Zs3 speed indicator (off, 10–90 km/h)",
   "create_railway_systems.ks_signal.zs3": "Zs3: %s km/h",
-  "create_railway_systems.ks_signal.zs3_off": "Zs3: off"
+  "create_railway_systems.ks_signal.zs3_off": "Zs3: off",
+  "create_railway_systems.signal.option.zusatz": "Substitute/caution signal (redstone)",
+  "create_railway_systems.signal.option.zusatz.none": "None",
+  "create_railway_systems.signal.option.zusatz.zs1": "Zs1 substitute signal",
+  "create_railway_systems.signal.option.zusatz.zs7": "Zs7 caution signal",
+  "create_railway_systems.signal.option.gegengleis": "Opposite track indicator",
+  "create_railway_systems.signal.option.gegengleis.none": "None",
+  "create_railway_systems.signal.option.gegengleis.zs6": "Zs6 (leads onto opposite track)",
+  "create_railway_systems.signal.option.betrieb": "Operation",
+  "create_railway_systems.signal.option.betrieb.active": "Active",
+  "create_railway_systems.signal.option.betrieb.off": "Switched off (identification light)"
 }

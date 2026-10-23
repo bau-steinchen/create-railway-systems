@@ -4,8 +4,12 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 import de.bausteinchen.railwaysystems.signal.MountedSignalBlock;
+import de.bausteinchen.railwaysystems.signal.SignalFeature;
 import de.bausteinchen.railwaysystems.signal.SignalInput;
 import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
+
+import java.util.EnumSet;
+import java.util.Set;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -40,6 +44,9 @@ public abstract class HvSignalBlock extends MountedSignalBlock {
 	}
 
 	protected static HpAspect mainAspect(SignalInput input) {
+		if (input.getBlockEntity()
+			.isSwitchedOff())
+			return HpAspect.OFF;
 		if (!input.isClear())
 			return HpAspect.HP0;
 		return input.getBlockEntity()
@@ -50,6 +57,25 @@ public abstract class HvSignalBlock extends MountedSignalBlock {
 		if (!next.clear())
 			return VrAspect.VR0;
 		return next.speedLimit() > 0 ? VrAspect.VR2 : VrAspect.VR1;
+	}
+
+	@Override
+	public Set<SignalFeature> getFeatures() {
+		return hasMainAspect() ? EnumSet.of(SignalFeature.ZUSATZ, SignalFeature.ZS6, SignalFeature.KENNLICHT)
+			: Set.of();
+	}
+
+	@Override
+	public boolean showsProceed(BlockState state) {
+		if (!state.hasProperty(MAIN_ASPECT))
+			return false;
+		HpAspect aspect = state.getValue(MAIN_ASPECT);
+		return aspect == HpAspect.HP1 || aspect == HpAspect.HP2;
+	}
+
+	@Override
+	public boolean showsStop(BlockState state) {
+		return state.hasProperty(MAIN_ASPECT) && state.getValue(MAIN_ASPECT) == HpAspect.HP0;
 	}
 
 	@Override

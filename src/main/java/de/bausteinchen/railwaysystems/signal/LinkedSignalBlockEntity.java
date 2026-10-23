@@ -16,9 +16,15 @@ import com.simibubi.create.content.trains.signal.SignalBlockEntity.SignalState;
 import com.simibubi.create.content.trains.signal.SignalBoundary;
 import com.simibubi.create.content.trains.signal.SignalPropagator;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
 
+import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
+import de.bausteinchen.railwaysystems.signal.SignalOptions.Betrieb;
+import de.bausteinchen.railwaysystems.signal.SignalOptions.Gegengleis;
+import de.bausteinchen.railwaysystems.signal.SignalOptions.Zusatz;
 import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
 
 import net.createmod.catnip.nbt.NBTHelper;
@@ -27,9 +33,11 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 /**
  * Bindung an ein Create-Signal. Fragt dessen Zustand regelmäßig ab und lässt den Signalblock
@@ -45,9 +53,28 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 
 	private static final int CHAIN_REFRESH_INTERVAL = 20;
 
+	private static final BehaviourType<SignalOptionBehaviour<?>> ZUSATZ_TYPE = new BehaviourType<>("zusatz");
+	private static final BehaviourType<SignalOptionBehaviour<?>> GEGENGLEIS_TYPE = new BehaviourType<>("gegengleis");
+	private static final BehaviourType<SignalOptionBehaviour<?>> BETRIEB_TYPE = new BehaviourType<>("betrieb");
+
 	@Nullable
 	private BlockPos targetOffset;
 	private boolean slowMode;
+	/** eingestellte Geschwindigkeit des Zs3 in 10 km/h, 0 = kein Zs3 */
+	private int zs3;
+	/** angezeigte Geschwindigkeit des Zs3v in 10 km/h, 0 = dunkel */
+	private int zs3v;
+	/** Zs1/Zs7 leuchtet */
+	private boolean zusatzLit;
+	private boolean displayChanged;
+
+	// werden in addBehaviours() aus dem Konstruktor der Basisklasse gesetzt, daher ohne Initialisierer
+	@Nullable
+	private SignalOptionBehaviour<Zusatz> zusatz;
+	@Nullable
+	private SignalOptionBehaviour<Gegengleis> gegengleis;
+	@Nullable
+	private SignalOptionBehaviour<Betrieb> betrieb;
 
 	@Nullable
 	private Map<UUID, Boolean> chainedSignals;
@@ -59,7 +86,90 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 	}
 
 	@Override
-	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
+	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+		if (!(getBlockState().getBlock() instanceof LinkedSignal signal))
+			return;
+		var features = signal.getFeatures();
+		if (features.contains(SignalFeature.ZUSATZ)) {
+			zusatz = option(Zusatz.class, "zusatz", 13, ZUSATZ_TYPE, 1);
+			behaviours.add(zusatz);
+		}
+		if (features.contains(SignalFeature.ZS6)) {
+			gegengleis = option(Gegengleis.class, "gegengleis", 8, GEGENGLEIS_TYPE, 2);
+			behaviours.add(gegengleis);
+		}
+		if (features.contains(SignalFeature.KENNLICHT)) {
+			betrieb = option(Betrieb.class, "betrieb", 3, BETRIEB_TYPE, 3);
+			behaviours.add(betrieb);
+		}
+	}
+
+	private <E extends Enum<E> & INamedIconOptions> SignalOptionBehaviour<E> option(
+		Class<E> options, String name, float y, BehaviourType<SignalOptionBehaviour<?>> type, int netId) {
+		SignalOptionBehaviour<E> behaviour = new SignalOptionBehaviour<>(options,
+			Component.translatable(RailwaySystems.MOD_ID + ".signal.option." + name), this, new SignalValueBox(y), type,
+			netId, "Option" + name);
+		behaviour.withCallback(value -> updateAspect());
+		return behaviour;
+	}
+
+	public Zusatz getZusatz() {
+		return zusatz == null ? Zusatz.NONE : zusatz.get();
+	}
+
+	public boolean hasZs6() {
+		return gegengleis != null && gegengleis.get() == Gegengleis.ZS6;
+	}
+
+	/**
+	 * Abgeschaltete Signale zeigen statt ihres Begriffs nur das Kennlicht.
+	 */
+	public boolean isSwitchedOff() {
+		return betrieb != null && betrieb.get() == Betrieb.OFF;
+	}
+
+	public boolean isZusatzLit() {
+		return zusatzLit;
+	}
+
+	public int getZs3() {
+		return zs3;
+	}
+
+	public int cycleZs3() {
+		zs3 = (zs3 + 1) % 10;
+		displayChanged = true;
+		setChanged();
+		updateAspect();
+		return zs3;
+	}
+
+	public int getZs3v() {
+		return zs3v;
+	}
+
+	public void setZs3v(int zs3v) {
+		if (this.zs3v == zs3v)
+			return;
+		this.zs3v = zs3v;
+		displayChanged = true;
+	}
+
+	private boolean isPowered() {
+		if (level == null)
+			return false;
+		if (level.hasNeighborSignal(worldPosition))
+			return true;
+		// bei zwei Blöcke hohen Signalen zählt auch Redstone an der oberen Hälfte
+		BlockState above = level.getBlockState(worldPosition.above());
+		return MountedSignalBlock.isUpper(above) && level.hasNeighborSignal(worldPosition.above());
+	}
+
+	@Override
+	protected AABB createRenderBoundingBox() {
+		// Zusatzanzeigen können bis in die obere Hälfte reichen
+		return new AABB(worldPosition).expandTowards(0, 1, 0);
+	}
 
 	public static void clearSpeedLimits() {
 		SPEED_LIMITS.clear();
@@ -112,12 +222,22 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 
 		BlockState newState = signal.updateAspect(state, new Input(createSignal, target));
 
+		boolean lit = getZusatz() != Zusatz.NONE && signal.showsStop(newState) && isPowered();
+		if (lit != zusatzLit) {
+			zusatzLit = lit;
+			displayChanged = true;
+		}
+
 		int speedLimit = signal.getSpeedLimit(newState, this);
 		if (speedLimit >= 0 && target != null)
 			SPEED_LIMITS.put(GlobalPos.of(level.dimension(), target), speedLimit);
 
 		if (newState != state)
 			level.setBlock(worldPosition, newState, 3);
+		if (displayChanged) {
+			displayChanged = false;
+			sendData();
+		}
 	}
 
 	private class Input implements SignalInput {
@@ -232,6 +352,9 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		if (targetOffset != null)
 			tag.put("TargetOffset", NbtUtils.writeBlockPos(targetOffset));
 		tag.putBoolean("SlowMode", slowMode);
+		tag.putInt("Zs3", zs3);
+		tag.putInt("Zs3v", zs3v);
+		tag.putBoolean("ZusatzLit", zusatzLit);
 	}
 
 	@Override
@@ -239,6 +362,9 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		super.read(tag, registries, clientPacket);
 		targetOffset = tag.contains("TargetOffset") ? NBTHelper.readBlockPos(tag, "TargetOffset") : null;
 		slowMode = tag.getBoolean("SlowMode");
+		zs3 = tag.getInt("Zs3");
+		zs3v = tag.getInt("Zs3v");
+		zusatzLit = tag.getBoolean("ZusatzLit");
 	}
 
 }

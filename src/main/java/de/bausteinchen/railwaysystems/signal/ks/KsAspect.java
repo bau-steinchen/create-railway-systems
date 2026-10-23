@@ -15,7 +15,9 @@ public enum KsAspect implements StringRepresentable {
 	/** Fahrt, angezeigte Geschwindigkeit (Zs3v) erwarten */
 	KS1_BLINK,
 	/** Halt erwarten */
-	KS2;
+	KS2,
+	/** Signal abgeschaltet, nur Kennlicht */
+	OFF;
 
 	@Override
 	public String getSerializedName() {

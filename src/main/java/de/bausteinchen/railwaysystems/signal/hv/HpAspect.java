@@ -13,7 +13,9 @@ public enum HpAspect implements StringRepresentable {
 	/** Fahrt */
 	HP1,
 	/** Langsamfahrt */
-	HP2;
+	HP2,
+	/** Signal abgeschaltet, nur Kennlicht */
+	OFF;
 
 	@Override
 	public String getSerializedName() {

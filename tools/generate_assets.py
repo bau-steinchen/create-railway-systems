@@ -16,19 +16,19 @@ ASSETS = ROOT / "assets" / MOD_ID
 DATA = ROOT / "data"
 
 FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
-HP = ["hp0", "hp1", "hp2"]
+HP = ["hp0", "hp1", "hp2", "off"]
 MOUNTS = ["none", "back", "left", "right"]
 HALVES = ["lower", "upper"]
 TALL_BLOCKS = {"hv_hauptsignal", "hv_kombisignal", "ks_hauptsignal", "ks_mehrabschnittssignal"}
 VR = ["vr0", "vr1", "vr2"]
 
 # Welche Lampen leuchten bei welchem Begriff
-HP_LIT = {"hp0": {"red"}, "hp1": {"green"}, "hp2": {"green", "yellow"}}
+HP_LIT = {"hp0": {"red"}, "hp1": {"green"}, "hp2": {"green", "yellow"}, "off": set()}
 VR_LIT = {"vr0": {"y_bl", "y_tr"}, "vr1": {"g_bl", "g_tr"}, "vr2": {"g_bl", "y_tr"}, "dark": set()}
 SH_LIT = {"sh0": {"r_l", "r_r"}, "sh1": {"w_bl", "w_tr"}}
 # Ks: Lampe -> Textur (blinkendes Grün als animierte Textur)
 KS_LIT = {"hp0": {"red": "red"}, "ks1": {"green": "green"}, "ks1_blink": {"green": "green_blink"},
-          "ks2": {"yellow": "yellow"}}
+          "ks2": {"yellow": "yellow"}, "off": {}}
 SPEEDS = range(1, 10)
 LAMP_COLOR = {"red": "red", "green": "green", "yellow": "yellow",
               "r_l": "red", "r_r": "red", "w_bl": "white", "w_tr": "white",
@@ -101,6 +101,8 @@ TEXTURES = {
     "lamp_yellow": tex("lamp_yellow"),
     "lamp_white": tex("lamp_white"),
     "lamp_green_blink": tex("lamp_green_blink"),
+    "lamp_white_blink": tex("lamp_white_blink"),
+    "zs6_on": tex("zs6_on"),
     "zs_box": tex("zs_box"),
     "ne2": tex("ne2"),
     "mastschild_ms": tex("mastschild_ms"),
@@ -163,13 +165,25 @@ def main_screen(lit, vx0, vx1, y0, y1, lamps):
     return elements
 
 
+HV_HAUPT = {
+    "lamps": {"green": (6.375, 25.5, 3.25), "red": (6.375, 21.25, 3.25), "yellow": (6.375, 12.5, 3.25)},
+    "screen": (4.5, 11.5, 12, 30.5),
+    "arms": [(26, 28), (3, 5)],
+}
+HV_KOMBI = {
+    "lamps": {"green": (6.5, 27.5, 3), "red": (6.5, 24, 3), "yellow": (6.5, 17.25, 3)},
+    "screen": (4.75, 11.25, 17, 31.5),
+    "arms": [(27, 29), (4, 6)],
+}
+
+
 def hauptsignal_elements(aspect, mount):
-    """H/V-Hauptsignal, zwei Blöcke hoch."""
-    lamps = {"green": (6.25, 24.5, 3.5), "red": (6.25, 20, 3.5), "yellow": (6.25, 12.5, 3.5)}
-    elements = support(mount, [(26, 28), (5, 7)], height=32)
-    elements.append(mastschild(6.5, 9.5, 3, 9.5))
-    elements += main_screen(HP_LIT[aspect], 4.5, 11.5, 11.5, 29, lamps)
-    elements += [hood(vx, ly, size) for vx, ly, size in lamps.values()]
+    """H/V-Hauptsignal, zwei Blöcke hoch. Kennlicht, Zs1/Zs7 und Zs6 kommen als Overlay dazu."""
+    spec = HV_HAUPT
+    elements = support(mount, spec["arms"], height=32)
+    elements.append(mastschild(6.5, 9.5, 1, 6))
+    elements += main_screen(HP_LIT[aspect], *spec["screen"], spec["lamps"])
+    elements += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
     return elements
 
 
@@ -182,11 +196,11 @@ def vorsignal_model(aspect, mount):
 
 def kombisignal_elements(hp, vr, mount):
     """H/V-Hauptsignal mit Vorsignal am Mast, zwei Blöcke hoch: Hauptschirm, Mastschild, Vorsignal."""
-    lamps = {"green": (6.5, 27, 3), "red": (6.5, 23.25, 3), "yellow": (6.5, 19.5, 3)}
-    elements = support(mount, [(27, 29), (5, 7)], height=32)
-    elements += main_screen(HP_LIT[hp], 4.75, 11.25, 18.75, 31, lamps)
-    elements += [hood(vx, ly, size) for vx, ly, size in lamps.values()]
-    elements.append(mastschild(6.5, 9.5, 11.5, 17.5))
+    spec = HV_KOMBI
+    elements = support(mount, spec["arms"], height=32)
+    elements += main_screen(HP_LIT[hp], *spec["screen"], spec["lamps"])
+    elements += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
+    elements.append(mastschild(6.5, 9.5, 10.75, 16.5))
     elements += main_screen(VR_LIT[vr], 3, 13, 2.5, 10.5, {
         "y_bl": (3.5, 3.5, 2.5), "g_bl": (6.5, 3.5, 2.5), "g_tr": (7, 7.25, 2.5), "y_tr": (10, 7.25, 2.5)})
     return elements
@@ -222,32 +236,62 @@ def sperrsignal_model(aspect, on_mast):
 KS_TYPES = {
     "ks_hauptsignal": {
         "tall": True,
-        "arms": [(24, 26), (5, 7)],
-        "screen": (5, 11, 16.5, 25),
-        "lamps": {"red": (6.5, 21.25, 3), "green": (6.5, 17.25, 3)},
-        "aspects": ["hp0", "ks1"],
-        "zs3": (26, 30.5),
-        "extras": lambda: [mastschild(6.5, 9.5, 7, 13.5)],
+        "arms": [(24, 26), (4, 6)],
+        "screen": (4.5, 11.5, 16, 27.5),
+        "lamps": {"red": (6.5, 22.5, 3), "green": (6.5, 18.75, 3)},
+        "aspects": ["hp0", "ks1", "off"],
+        "extras": lambda: [mastschild(6.5, 9.5, 3, 9.5)],
     },
     "ks_mehrabschnittssignal": {
         "tall": True,
-        "arms": [(24, 26), (5, 7)],
-        "screen": (3.5, 12.5, 16.5, 26),
-        "lamps": {"red": (6.5, 22, 3), "green": (4.25, 17.5, 3), "yellow": (8.75, 17.5, 3)},
-        "aspects": ["hp0", "ks1", "ks1_blink", "ks2"],
-        "zs3": (27, 31.5),
-        "zs3v": (11.5, 15.75),
+        "arms": [(24, 26), (3, 5)],
+        "screen": (3.5, 12.5, 17.5, 27.5),
+        "lamps": {"red": (6.5, 23.5, 3), "green": (4.25, 19.5, 3), "yellow": (8.75, 19.5, 3)},
+        "aspects": ["hp0", "ks1", "ks1_blink", "ks2", "off"],
         # Mastschild mit gelbem Dreieck: Hauptsignal mit Vorsignalfunktion
-        "extras": lambda: [mastschild(6.5, 9.5, 2, 10.5, "#mastschild_ms")],
+        "extras": lambda: [mastschild(6.5, 9.5, 0.5, 8, "#mastschild_ms")],
     },
     "ks_vorsignal": {
         "arms": [(11, 13), (6, 8)],
         "screen": (3.5, 12.5, 9.5, 14),
         "lamps": {"green": (4.75, 10.5, 2.5), "yellow": (8.75, 10.5, 2.5)},
         "aspects": ["ks1", "ks1_blink", "ks2"],
-        "zs3v": (5.5, 9),
-        "zs_x": (6, 10),
         "extras": lambda: [mastschild(6.25, 9.75, 0.5, 5, "#ne2")],
+    },
+}
+
+# Zusatzanzeigen je Signal (Betrachterkoordinaten, 0..32 px bei hohen Signalen), gezeichnet vom
+# SignalOverlayRenderer. Lampen: (x, y, Größe); Kästen: (x0, x1, y0, y1).
+OVERLAYS = {
+    "hv_hauptsignal": {
+        "kennlicht": (4.9, 29, 1.25),
+        "zs1": [(7.25, 19.25, 1.5), (5.25, 16.75, 1.5), (9.25, 16.75, 1.5)], "zs1_blink": False,
+        "zs7": [(5.25, 19.25, 1.5), (9.25, 19.25, 1.5), (7.25, 16.75, 1.5)],
+        "zs6": (5.5, 10.5, 6.5, 11),
+    },
+    "hv_kombisignal": {
+        "kennlicht": (5, 30.25, 1),
+        "zs1": [(7.25, 22.25, 1.5), (5.5, 20.5, 1.5), (9, 20.5, 1.5)], "zs1_blink": False,
+        "zs7": [(5.5, 22.25, 1.5), (9, 22.25, 1.5), (7.25, 20.5, 1.5)],
+        "zs6": (9.75, 12.75, 10.75, 16.5),
+    },
+    "ks_hauptsignal": {
+        "kennlicht": (5, 26.25, 1.25),
+        "zs1": [(7.25, 16.5, 1.5)], "zs1_blink": True,
+        "zs7": [(4.75, 19.75, 1.5), (9.75, 19.75, 1.5), (7.25, 16.5, 1.5)],
+        "zs6": (5.5, 10.5, 10.5, 15.5),
+        "zs3": (5.5, 10.5, 28, 32),
+    },
+    "ks_mehrabschnittssignal": {
+        "kennlicht": (4.25, 26, 1.25),
+        "zs1": [(7.25, 17.75, 1.5)], "zs1_blink": True,
+        "zs7": [(4.5, 23.75, 1.5), (10, 23.75, 1.5), (7.25, 17.75, 1.5)],
+        "zs6": (5.5, 10.5, 8.5, 12.25),
+        "zs3": (5.5, 10.5, 28, 32),
+        "zs3v": (5.5, 10.5, 12.75, 17),
+    },
+    "ks_vorsignal": {
+        "zs3v": (6, 10, 5.5, 9),
     },
 }
 LAMP_COLOR.update({"green": "green", "yellow": "yellow", "red": "red"})
@@ -260,18 +304,44 @@ def ks_screen(spec, aspect):
     return elements
 
 
-def zs_box(y0, y1, vx0=6, vx1=10):
+def zs_box(vx0, vx1, y0, y1, texture="#zs_box"):
     x0, x1 = mirror_x(vx0, vx1)
-    return [box([x0, y0, 4], [x1, y1, 6.5], "#zs_box", north="#zs_box")]
+    return [box([x0, y0, 4], [x1, y1, 6.5], "#zs_box", north=texture)]
 
 
-def zs_digit(y0, y1, vx0=6, vx1=10):
-    """Leuchtende Ziffer; die Textur kommt über die Modellvariable #digit."""
+def zs_digit(vx0, vx1, y0, y1, texture="#digit"):
+    """Leuchtende Anzeige vor dem Kasten (Ziffer über #digit oder eigene Textur)."""
     x0, x1 = mirror_x(vx0 + 0.5, vx1 - 0.5)
-    element = box([x0, y0 + 0.5, 3.5], [x1, y1 - 0.5, 4], "#zs_box", north="#digit")
+    element = box([x0, y0 + 0.5, 3.5], [x1, y1 - 0.5, 4], "#zs_box", north=texture)
     element["shade"] = False
     element["neoforge_data"] = {"block_light": 15, "sky_light": 15}
     return [element]
+
+
+def generate_overlays():
+    """Overlay-Modelle für den SignalOverlayRenderer: block/overlay/<signal>/<teil>."""
+    for name, spec in OVERLAYS.items():
+        def out(part, elements, **extra):
+            write_json(ASSETS / "models/block/overlay" / name / f"{part}.json", model(elements, **extra))
+
+        for key in ("zs3", "zs3v"):
+            if key in spec:
+                out(f"{key}_box", zs_box(*spec[key]))
+                for n in SPEEDS:
+                    out(f"{key}_{n}", zs_digit(*spec[key]), digit=tex(f"{key}_{n}"))
+        if "kennlicht" in spec:
+            vx, y, size = spec["kennlicht"]
+            out("kennlicht_off", [lamp(vx, y, size, "white", False)])
+            out("kennlicht_on", [lamp(vx, y, size, "white", True)])
+        if "zs1" in spec:
+            color = "white_blink" if spec["zs1_blink"] else "white"
+            out("zs1_off", [lamp(vx, y, size, "white", False) for vx, y, size in spec["zs1"]])
+            out("zs1_on", [lamp(vx, y, size, color, True) for vx, y, size in spec["zs1"]])
+            out("zs7_off", [lamp(vx, y, size, "yellow", False) for vx, y, size in spec["zs7"]])
+            out("zs7_on", [lamp(vx, y, size, "yellow", True) for vx, y, size in spec["zs7"]])
+        if "zs6" in spec:
+            out("zs6_off", zs_box(*spec["zs6"]))
+            out("zs6_on", zs_box(*spec["zs6"]) + zs_digit(*spec["zs6"], texture="#zs6_on"))
 
 
 def multipart(parts):
@@ -302,11 +372,9 @@ def tall_item_model(elements):
 
 
 def generate_ks():
-    any_speed = "|".join(str(n) for n in SPEEDS)
     for name, spec in KS_TYPES.items():
         tall = spec.get("tall", False)
         height = 32 if tall else 16
-        zx0, zx1 = spec.get("zs_x", (5.5, 10.5))
         parts = []
         for mount in MOUNTS:
             write_part(parts, f"{name}_support_{mount}", support(mount, spec["arms"], height), {"mount": mount}, tall)
@@ -315,25 +383,11 @@ def generate_ks():
         for aspect in spec["aspects"]:
             write_part(parts, f"{name}_{aspect}", ks_screen(spec, aspect), {"aspect": aspect}, tall)
 
-        if "zs3" in spec:
-            y0, y1 = spec["zs3"]
-            lit_aspects = "|".join(a for a in spec["aspects"] if a != "hp0")
-            write_part(parts, f"{name}_zs3", zs_box(y0, y1, zx0, zx1), {"zs3": any_speed}, tall)
-            for n in SPEEDS:
-                write_part(parts, f"{name}_zs3_{n}", zs_digit(y0, y1, zx0, zx1),
-                           {"zs3": str(n), "aspect": lit_aspects}, tall, digit=tex(f"zs3_{n}"))
-        if "zs3v" in spec:
-            y0, y1 = spec["zs3v"]
-            write_part(parts, f"{name}_zs3v", zs_box(y0, y1, zx0, zx1), {}, tall)
-            for n in SPEEDS:
-                write_part(parts, f"{name}_zs3v_{n}", zs_digit(y0, y1, zx0, zx1), {"zs3v": str(n)}, tall,
-                           digit=tex(f"zs3v_{n}"))
-
         write_json(ASSETS / "blockstates" / f"{name}.json", multipart(parts))
 
         item_elements = support("none", spec["arms"], height) + extras + ks_screen(spec, "ks1")
-        if "zs3v" in spec:
-            item_elements += zs_box(*spec["zs3v"], zx0, zx1)
+        if "zs3v" in OVERLAYS[name]:
+            item_elements += zs_box(*OVERLAYS[name]["zs3v"])
         item = tall_item_model(item_elements) if tall else model(item_elements)
         write_json(ASSETS / "models/item" / f"{name}.json",
                    {**item, "render_type": "minecraft:cutout"} if "mastschild_ms" in json.dumps(item_elements) else item)
@@ -523,6 +577,21 @@ def generate_textures():
     save(blink, "lamp_green_blink")
     write_json(ASSETS / "textures/block/lamp_green_blink.png.mcmeta", {"animation": {"frametime": 10}})
 
+    r, g, b = colors["white"]
+    white_blink = Image.new("RGBA", (16, 32))
+    white_blink.paste(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255), (255, 255, 255, 255)), (0, 0))
+    white_blink.paste(off, (0, 16))
+    save(white_blink, "lamp_white_blink")
+    write_json(ASSETS / "textures/block/lamp_white_blink.png.mcmeta", {"animation": {"frametime": 10}})
+
+    # Zs6: weiße Lichtpunktreihe von links oben nach rechts unten
+    zs6 = Image.new("RGBA", (16, 16), (18, 18, 20, 255))
+    d = ImageDraw.Draw(zs6)
+    for i in range(6):
+        x, y = 2 + i * 2, 1 + i * 2.5
+        d.rectangle([x, int(y), x + 1, int(y) + 1], fill=(240, 240, 255, 255))
+    save(zs6, "zs6_on")
+
     zs = Image.new("RGBA", (16, 16), (18, 18, 20, 255))
     ImageDraw.Draw(zs).rectangle([0, 0, 15, 15], outline=(50, 50, 54, 255))
     save(zs, "zs_box")
@@ -544,6 +613,7 @@ def generate_textures():
 if __name__ == "__main__":
     generate_models()
     generate_ks()
+    generate_overlays()
     generate_data()
     generate_textures()
     print("Assets erzeugt unter", ROOT)

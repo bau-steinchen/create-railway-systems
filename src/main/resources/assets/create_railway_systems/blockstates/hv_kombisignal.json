@@ -1439,6 +1439,486 @@
     "aspect=hp2,distant=dark,facing=west,half=upper,mount=right": {
       "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_right_upper",
       "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_lower"
+    },
+    "aspect=off,distant=vr0,facing=east,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_upper"
+    },
+    "aspect=off,distant=vr0,facing=east,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_lower"
+    },
+    "aspect=off,distant=vr0,facing=east,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_upper"
+    },
+    "aspect=off,distant=vr0,facing=east,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_back_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_lower"
+    },
+    "aspect=off,distant=vr0,facing=east,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_upper"
+    },
+    "aspect=off,distant=vr0,facing=east,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_left_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_lower"
+    },
+    "aspect=off,distant=vr0,facing=east,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_upper"
+    },
+    "aspect=off,distant=vr0,facing=east,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_right_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_lower"
+    },
+    "aspect=off,distant=vr1,facing=east,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_upper"
+    },
+    "aspect=off,distant=vr1,facing=east,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_lower"
+    },
+    "aspect=off,distant=vr1,facing=east,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_upper"
+    },
+    "aspect=off,distant=vr1,facing=east,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_back_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_lower"
+    },
+    "aspect=off,distant=vr1,facing=east,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_upper"
+    },
+    "aspect=off,distant=vr1,facing=east,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_left_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_lower"
+    },
+    "aspect=off,distant=vr1,facing=east,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_upper"
+    },
+    "aspect=off,distant=vr1,facing=east,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_right_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_lower"
+    },
+    "aspect=off,distant=vr2,facing=east,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_upper"
+    },
+    "aspect=off,distant=vr2,facing=east,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_lower"
+    },
+    "aspect=off,distant=vr2,facing=east,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_upper"
+    },
+    "aspect=off,distant=vr2,facing=east,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_back_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_lower"
+    },
+    "aspect=off,distant=vr2,facing=east,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_upper"
+    },
+    "aspect=off,distant=vr2,facing=east,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_left_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_lower"
+    },
+    "aspect=off,distant=vr2,facing=east,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_upper"
+    },
+    "aspect=off,distant=vr2,facing=east,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_right_upper",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_lower"
+    },
+    "aspect=off,distant=dark,facing=east,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_lower",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_lower",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_lower",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_upper"
+    },
+    "aspect=off,distant=dark,facing=east,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_upper",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_upper",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_upper",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_lower"
+    },
+    "aspect=off,distant=dark,facing=east,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_lower",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_lower",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_lower",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_upper"
+    },
+    "aspect=off,distant=dark,facing=east,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_upper",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_upper",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_back_upper",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_lower"
+    },
+    "aspect=off,distant=dark,facing=east,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_lower",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_lower",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_lower",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_upper"
+    },
+    "aspect=off,distant=dark,facing=east,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_upper",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_upper",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_left_upper",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_lower"
+    },
+    "aspect=off,distant=dark,facing=east,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_lower",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_lower",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_lower",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_upper"
+    },
+    "aspect=off,distant=dark,facing=east,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_upper",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_upper",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_right_upper",
+      "y": 270
     }
   }
 }

@@ -11,6 +11,8 @@
     "lamp_yellow": "create_railway_systems:block/lamp_yellow",
     "lamp_white": "create_railway_systems:block/lamp_white",
     "lamp_green_blink": "create_railway_systems:block/lamp_green_blink",
+    "lamp_white_blink": "create_railway_systems:block/lamp_white_blink",
+    "zs6_on": "create_railway_systems:block/zs6_on",
     "zs_box": "create_railway_systems:block/zs_box",
     "ne2": "create_railway_systems:block/ne2",
     "mastschild_ms": "create_railway_systems:block/mastschild_ms",
@@ -21,12 +23,12 @@
     {
       "from": [
         7,
-        5,
+        3,
         6.5
       ],
       "to": [
         9,
-        7,
+        5,
         16
       ],
       "faces": {

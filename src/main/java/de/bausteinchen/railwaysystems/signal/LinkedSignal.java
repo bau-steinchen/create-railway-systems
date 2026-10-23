@@ -1,5 +1,7 @@
 package de.bausteinchen.railwaysystems.signal;
 
+import java.util.Set;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.world.level.block.state.BlockState;
@@ -21,6 +23,27 @@ public interface LinkedSignal {
 	 */
 	default int getSpeedLimit(BlockState state, LinkedSignalBlockEntity blockEntity) {
 		return -1;
+	}
+
+	/**
+	 * Zusatzanzeigen dieses Signals, dargestellt vom Overlay-Renderer.
+	 */
+	default Set<SignalFeature> getFeatures() {
+		return Set.of();
+	}
+
+	/**
+	 * Ob der Begriff Fahrt erlaubt; Zs3 und Zs6 leuchten nur dann.
+	 */
+	default boolean showsProceed(BlockState state) {
+		return false;
+	}
+
+	/**
+	 * Ob das Signal Halt zeigt; nur dann können Zs1/Zs7 leuchten.
+	 */
+	default boolean showsStop(BlockState state) {
+		return false;
 	}
 
 	/**

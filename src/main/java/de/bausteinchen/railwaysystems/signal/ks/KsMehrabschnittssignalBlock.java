@@ -1,5 +1,9 @@
 package de.bausteinchen.railwaysystems.signal.ks;
 
+import java.util.EnumSet;
+import java.util.Set;
+
+import de.bausteinchen.railwaysystems.signal.SignalFeature;
 import de.bausteinchen.railwaysystems.signal.SignalInput;
 
 import net.minecraft.world.level.block.Block;
@@ -17,9 +21,7 @@ public class KsMehrabschnittssignalBlock extends KsSignalBlock {
 
 	public KsMehrabschnittssignalBlock(Properties properties) {
 		super(properties);
-		registerDefaultState(defaultBlockState().setValue(ASPECT, KsAspect.HP0)
-			.setValue(ZS3, 0)
-			.setValue(ZS3V, 0));
+		registerDefaultState(defaultBlockState().setValue(ASPECT, KsAspect.HP0));
 	}
 
 	@Override
@@ -29,15 +31,35 @@ public class KsMehrabschnittssignalBlock extends KsSignalBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder.add(ASPECT, ZS3, ZS3V));
+		super.createBlockStateDefinition(builder.add(ASPECT));
+	}
+
+	@Override
+	public Set<SignalFeature> getFeatures() {
+		return EnumSet.of(SignalFeature.ZS3, SignalFeature.ZS3V, SignalFeature.ZUSATZ, SignalFeature.ZS6,
+			SignalFeature.KENNLICHT);
 	}
 
 	@Override
 	public BlockState updateAspect(BlockState state, SignalInput input) {
-		if (!input.isClear())
-			return state.setValue(ASPECT, KsAspect.HP0)
-				.setValue(ZS3V, 0);
-		return withDistantAspect(state, input.getNextSignal(), ASPECT);
+		if (input.getBlockEntity()
+			.isSwitchedOff() || !input.isClear()) {
+			input.getBlockEntity()
+				.setZs3v(0);
+			return state.setValue(ASPECT, input.getBlockEntity()
+				.isSwitchedOff() ? KsAspect.OFF : KsAspect.HP0);
+		}
+		return withDistantAspect(state, input.getNextSignal(), ASPECT, input);
+	}
+
+	@Override
+	public boolean showsProceed(BlockState state) {
+		return isProceed(state.getValue(ASPECT));
+	}
+
+	@Override
+	public boolean showsStop(BlockState state) {
+		return state.getValue(ASPECT) == KsAspect.HP0;
 	}
 
 }

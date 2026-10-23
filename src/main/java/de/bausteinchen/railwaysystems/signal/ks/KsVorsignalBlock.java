@@ -1,5 +1,9 @@
 package de.bausteinchen.railwaysystems.signal.ks;
 
+import java.util.EnumSet;
+import java.util.Set;
+
+import de.bausteinchen.railwaysystems.signal.SignalFeature;
 import de.bausteinchen.railwaysystems.signal.SignalInput;
 import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
 
@@ -19,18 +23,22 @@ public class KsVorsignalBlock extends KsSignalBlock {
 
 	public KsVorsignalBlock(Properties properties) {
 		super(properties);
-		registerDefaultState(defaultBlockState().setValue(ASPECT, KsAspect.KS2)
-			.setValue(ZS3V, 0));
+		registerDefaultState(defaultBlockState().setValue(ASPECT, KsAspect.KS2));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder.add(ASPECT, ZS3V));
+		super.createBlockStateDefinition(builder.add(ASPECT));
+	}
+
+	@Override
+	public Set<SignalFeature> getFeatures() {
+		return EnumSet.of(SignalFeature.ZS3V);
 	}
 
 	@Override
 	public BlockState updateAspect(BlockState state, SignalInput input) {
-		return withDistantAspect(state, new NextSignal(input.isClear(), input.getLinkedSpeedLimit()), ASPECT);
+		return withDistantAspect(state, new NextSignal(input.isClear(), input.getLinkedSpeedLimit()), ASPECT, input);
 	}
 
 }

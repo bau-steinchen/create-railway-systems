@@ -31,7 +31,7 @@ public class HvKombisignalBlock extends HvSignalBlock {
 	@Override
 	public BlockState updateAspect(BlockState state, SignalInput input) {
 		HpAspect main = mainAspect(input);
-		VrAspect distant = main == HpAspect.HP0 ? VrAspect.DARK : distantAspect(input.getNextSignal());
+		VrAspect distant = main == HpAspect.HP0 || main == HpAspect.OFF ? VrAspect.DARK : distantAspect(input.getNextSignal());
 		return state.setValue(MAIN_ASPECT, main)
 			.setValue(DISTANT_ASPECT, distant);
 	}

@@ -111,111 +111,12 @@
     },
     {
       "when": {
-        "zs3": "1|2|3|4|5|6|7|8|9",
+        "aspect": "off",
         "half": "upper",
         "facing": "north"
       },
       "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "1",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_1_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "2",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_2_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "3",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_3_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "4",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_4_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "5",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_5_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "6",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_6_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "7",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_7_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "8",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_8_upper"
-      }
-    },
-    {
-      "when": {
-        "zs3": "9",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_9_upper"
+        "model": "create_railway_systems:block/ks_hauptsignal_off_upper"
       }
     },
     {
@@ -340,120 +241,12 @@
     },
     {
       "when": {
-        "zs3": "1|2|3|4|5|6|7|8|9",
+        "aspect": "off",
         "half": "upper",
         "facing": "east"
       },
       "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "1",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_1_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "2",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_2_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "3",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_3_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "4",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_4_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "5",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_5_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "6",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_6_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "7",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_7_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "8",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_8_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "zs3": "9",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_9_upper",
+        "model": "create_railway_systems:block/ks_hauptsignal_off_upper",
         "y": 90
       }
     },
@@ -579,120 +372,12 @@
     },
     {
       "when": {
-        "zs3": "1|2|3|4|5|6|7|8|9",
+        "aspect": "off",
         "half": "upper",
         "facing": "south"
       },
       "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "1",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_1_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "2",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_2_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "3",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_3_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "4",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_4_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "5",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_5_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "6",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_6_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "7",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_7_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "8",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_8_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "zs3": "9",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_9_upper",
+        "model": "create_railway_systems:block/ks_hauptsignal_off_upper",
         "y": 180
       }
     },
@@ -818,120 +503,12 @@
     },
     {
       "when": {
-        "zs3": "1|2|3|4|5|6|7|8|9",
+        "aspect": "off",
         "half": "upper",
         "facing": "west"
       },
       "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "1",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_1_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "2",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_2_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "3",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_3_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "4",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_4_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "5",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_5_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "6",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_6_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "7",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_7_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "8",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_8_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "zs3": "9",
-        "aspect": "ks1",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_hauptsignal_zs3_9_upper",
+        "model": "create_railway_systems:block/ks_hauptsignal_off_upper",
         "y": 270
       }
     }
