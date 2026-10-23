@@ -23,6 +23,11 @@ public class KsMehrabschnittssignalBlock extends KsSignalBlock {
 	}
 
 	@Override
+	protected boolean isTall() {
+		return true;
+	}
+
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder.add(ASPECT, ZS3, ZS3V));
 	}

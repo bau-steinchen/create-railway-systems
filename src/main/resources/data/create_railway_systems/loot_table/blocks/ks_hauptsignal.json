@@ -12,6 +12,13 @@
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "create_railway_systems:ks_hauptsignal",
+          "properties": {
+            "half": "lower"
+          }
         }
       ]
     }

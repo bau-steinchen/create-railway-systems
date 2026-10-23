@@ -8,6 +8,7 @@ import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 import de.bausteinchen.railwaysystems.signal.MountedSignalBlock;
 import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.UseOnContext;
@@ -71,15 +72,17 @@ public abstract class KsSignalBlock extends MountedSignalBlock {
 		Level level = context.getLevel();
 		if (level.isClientSide)
 			return InteractionResult.SUCCESS;
-		BlockState newState = state.cycle(ZS3);
-		level.setBlock(context.getClickedPos(), newState, 3);
+		BlockPos mainPos = getMainPos(state, context.getClickedPos());
+		BlockState newState = level.getBlockState(mainPos)
+			.cycle(ZS3);
+		level.setBlock(mainPos, newState, 3);
 		int speed = newState.getValue(ZS3);
 		if (context.getPlayer() != null)
 			context.getPlayer()
 				.displayClientMessage(speed == 0 ? Component.translatable("create_railway_systems.ks_signal.zs3_off")
 					: Component.translatable("create_railway_systems.ks_signal.zs3", speed * 10), true);
 		IWrenchable.playRotateSound(level, context.getClickedPos());
-		withBlockEntityDo(level, context.getClickedPos(), LinkedSignalBlockEntity::updateAspect);
+		withBlockEntityDo(level, mainPos, LinkedSignalBlockEntity::updateAspect);
 		return InteractionResult.SUCCESS;
 	}
 

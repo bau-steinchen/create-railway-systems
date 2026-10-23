@@ -19,6 +19,11 @@ public class HvKombisignalBlock extends HvSignalBlock {
 	}
 
 	@Override
+	protected boolean isTall() {
+		return true;
+	}
+
+	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder.add(MAIN_ASPECT, DISTANT_ASPECT));
 	}

@@ -74,7 +74,7 @@ public abstract class HvSignalBlock extends MountedSignalBlock {
 		Level level = context.getLevel();
 		if (level.isClientSide)
 			return InteractionResult.SUCCESS;
-		return onBlockEntityUse(level, context.getClickedPos(), be -> {
+		return onBlockEntityUse(level, getMainPos(state, context.getClickedPos()), be -> {
 			boolean slow = be.toggleSlowMode();
 			if (context.getPlayer() != null)
 				context.getPlayer()

@@ -1,0 +1,66 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "create_railway_systems:block/signal_screen",
+    "screen": "create_railway_systems:block/signal_screen",
+    "mast": "create_railway_systems:block/signal_mast",
+    "mastschild": "create_railway_systems:block/mastschild_hp",
+    "lamp_off": "create_railway_systems:block/lamp_off",
+    "lamp_red": "create_railway_systems:block/lamp_red",
+    "lamp_green": "create_railway_systems:block/lamp_green",
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_white": "create_railway_systems:block/lamp_white",
+    "lamp_green_blink": "create_railway_systems:block/lamp_green_blink",
+    "zs_box": "create_railway_systems:block/zs_box",
+    "ne2": "create_railway_systems:block/ne2",
+    "mastschild_ms": "create_railway_systems:block/mastschild_ms",
+    "concrete": "create_railway_systems:block/concrete",
+    "number_plate": "create_railway_systems:block/number_plate",
+    "digit": "create_railway_systems:block/zs3_2"
+  },
+  "elements": [
+    {
+      "from": [
+        6.0,
+        10.5,
+        3.5
+      ],
+      "to": [
+        10.0,
+        14.0,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#digit",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#zs_box"
+        },
+        "south": {
+          "texture": "#zs_box"
+        },
+        "west": {
+          "texture": "#zs_box"
+        },
+        "up": {
+          "texture": "#zs_box"
+        },
+        "down": {
+          "texture": "#zs_box"
+        }
+      },
+      "shade": false,
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  ]
+}

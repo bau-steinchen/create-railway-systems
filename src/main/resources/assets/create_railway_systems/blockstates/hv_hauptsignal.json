@@ -1,183 +1,363 @@
 {
   "variants": {
-    "aspect=hp0,facing=north,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0"
+    "aspect=hp0,facing=north,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_lower"
     },
-    "aspect=hp0,facing=east,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0",
+    "aspect=hp0,facing=east,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_lower",
       "y": 90
     },
-    "aspect=hp0,facing=south,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0",
+    "aspect=hp0,facing=south,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_lower",
       "y": 180
     },
-    "aspect=hp0,facing=west,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0",
+    "aspect=hp0,facing=west,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_lower",
       "y": 270
     },
-    "aspect=hp0,facing=north,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back"
+    "aspect=hp0,facing=north,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_upper"
     },
-    "aspect=hp0,facing=east,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back",
+    "aspect=hp0,facing=east,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_upper",
       "y": 90
     },
-    "aspect=hp0,facing=south,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back",
+    "aspect=hp0,facing=south,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_upper",
       "y": 180
     },
-    "aspect=hp0,facing=west,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back",
+    "aspect=hp0,facing=west,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_upper",
       "y": 270
     },
-    "aspect=hp0,facing=north,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left"
+    "aspect=hp0,facing=north,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_lower"
     },
-    "aspect=hp0,facing=east,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left",
+    "aspect=hp0,facing=east,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_lower",
       "y": 90
     },
-    "aspect=hp0,facing=south,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left",
+    "aspect=hp0,facing=south,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_lower",
       "y": 180
     },
-    "aspect=hp0,facing=west,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left",
+    "aspect=hp0,facing=west,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_lower",
       "y": 270
     },
-    "aspect=hp0,facing=north,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right"
+    "aspect=hp0,facing=north,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_upper"
     },
-    "aspect=hp0,facing=east,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right",
+    "aspect=hp0,facing=east,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_upper",
       "y": 90
     },
-    "aspect=hp0,facing=south,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right",
+    "aspect=hp0,facing=south,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_upper",
       "y": 180
     },
-    "aspect=hp0,facing=west,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right",
+    "aspect=hp0,facing=west,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_back_upper",
       "y": 270
     },
-    "aspect=hp1,facing=north,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1"
+    "aspect=hp0,facing=north,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_lower"
     },
-    "aspect=hp1,facing=east,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1",
+    "aspect=hp0,facing=east,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_lower",
       "y": 90
     },
-    "aspect=hp1,facing=south,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1",
+    "aspect=hp0,facing=south,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_lower",
       "y": 180
     },
-    "aspect=hp1,facing=west,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1",
+    "aspect=hp0,facing=west,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_lower",
       "y": 270
     },
-    "aspect=hp1,facing=north,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back"
+    "aspect=hp0,facing=north,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_upper"
     },
-    "aspect=hp1,facing=east,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back",
+    "aspect=hp0,facing=east,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_upper",
       "y": 90
     },
-    "aspect=hp1,facing=south,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back",
+    "aspect=hp0,facing=south,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_upper",
       "y": 180
     },
-    "aspect=hp1,facing=west,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back",
+    "aspect=hp0,facing=west,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_left_upper",
       "y": 270
     },
-    "aspect=hp1,facing=north,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left"
+    "aspect=hp0,facing=north,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_lower"
     },
-    "aspect=hp1,facing=east,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left",
+    "aspect=hp0,facing=east,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_lower",
       "y": 90
     },
-    "aspect=hp1,facing=south,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left",
+    "aspect=hp0,facing=south,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_lower",
       "y": 180
     },
-    "aspect=hp1,facing=west,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left",
+    "aspect=hp0,facing=west,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_lower",
       "y": 270
     },
-    "aspect=hp1,facing=north,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right"
+    "aspect=hp0,facing=north,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_upper"
     },
-    "aspect=hp1,facing=east,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right",
+    "aspect=hp0,facing=east,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_upper",
       "y": 90
     },
-    "aspect=hp1,facing=south,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right",
+    "aspect=hp0,facing=south,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_upper",
       "y": 180
     },
-    "aspect=hp1,facing=west,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right",
+    "aspect=hp0,facing=west,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp0_right_upper",
       "y": 270
     },
-    "aspect=hp2,facing=north,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2"
+    "aspect=hp1,facing=north,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_lower"
     },
-    "aspect=hp2,facing=east,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2",
+    "aspect=hp1,facing=east,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_lower",
       "y": 90
     },
-    "aspect=hp2,facing=south,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2",
+    "aspect=hp1,facing=south,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_lower",
       "y": 180
     },
-    "aspect=hp2,facing=west,mount=none": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2",
+    "aspect=hp1,facing=west,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_lower",
       "y": 270
     },
-    "aspect=hp2,facing=north,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back"
+    "aspect=hp1,facing=north,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_upper"
     },
-    "aspect=hp2,facing=east,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back",
+    "aspect=hp1,facing=east,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_upper",
       "y": 90
     },
-    "aspect=hp2,facing=south,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back",
+    "aspect=hp1,facing=south,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_upper",
       "y": 180
     },
-    "aspect=hp2,facing=west,mount=back": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back",
+    "aspect=hp1,facing=west,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_upper",
       "y": 270
     },
-    "aspect=hp2,facing=north,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left"
+    "aspect=hp1,facing=north,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_lower"
     },
-    "aspect=hp2,facing=east,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left",
+    "aspect=hp1,facing=east,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_lower",
       "y": 90
     },
-    "aspect=hp2,facing=south,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left",
+    "aspect=hp1,facing=south,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_lower",
       "y": 180
     },
-    "aspect=hp2,facing=west,mount=left": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left",
+    "aspect=hp1,facing=west,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_lower",
       "y": 270
     },
-    "aspect=hp2,facing=north,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right"
+    "aspect=hp1,facing=north,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_upper"
     },
-    "aspect=hp2,facing=east,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right",
+    "aspect=hp1,facing=east,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_upper",
       "y": 90
     },
-    "aspect=hp2,facing=south,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right",
+    "aspect=hp1,facing=south,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_upper",
       "y": 180
     },
-    "aspect=hp2,facing=west,mount=right": {
-      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right",
+    "aspect=hp1,facing=west,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_back_upper",
+      "y": 270
+    },
+    "aspect=hp1,facing=north,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_lower"
+    },
+    "aspect=hp1,facing=east,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_lower",
+      "y": 90
+    },
+    "aspect=hp1,facing=south,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_lower",
+      "y": 180
+    },
+    "aspect=hp1,facing=west,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_lower",
+      "y": 270
+    },
+    "aspect=hp1,facing=north,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_upper"
+    },
+    "aspect=hp1,facing=east,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_upper",
+      "y": 90
+    },
+    "aspect=hp1,facing=south,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_upper",
+      "y": 180
+    },
+    "aspect=hp1,facing=west,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_left_upper",
+      "y": 270
+    },
+    "aspect=hp1,facing=north,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_lower"
+    },
+    "aspect=hp1,facing=east,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_lower",
+      "y": 90
+    },
+    "aspect=hp1,facing=south,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_lower",
+      "y": 180
+    },
+    "aspect=hp1,facing=west,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_lower",
+      "y": 270
+    },
+    "aspect=hp1,facing=north,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_upper"
+    },
+    "aspect=hp1,facing=east,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_upper",
+      "y": 90
+    },
+    "aspect=hp1,facing=south,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_upper",
+      "y": 180
+    },
+    "aspect=hp1,facing=west,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp1_right_upper",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_lower"
+    },
+    "aspect=hp2,facing=east,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_lower",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_lower",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=lower,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_lower",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_upper"
+    },
+    "aspect=hp2,facing=east,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_upper",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_upper",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=upper,mount=none": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_upper",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_lower"
+    },
+    "aspect=hp2,facing=east,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_lower",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_lower",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=lower,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_lower",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_upper"
+    },
+    "aspect=hp2,facing=east,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_upper",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_upper",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=upper,mount=back": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_back_upper",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_lower"
+    },
+    "aspect=hp2,facing=east,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_lower",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_lower",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=lower,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_lower",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_upper"
+    },
+    "aspect=hp2,facing=east,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_upper",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_upper",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=upper,mount=left": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_left_upper",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_lower"
+    },
+    "aspect=hp2,facing=east,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_lower",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_lower",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=lower,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_lower",
+      "y": 270
+    },
+    "aspect=hp2,facing=north,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_upper"
+    },
+    "aspect=hp2,facing=east,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_upper",
+      "y": 90
+    },
+    "aspect=hp2,facing=south,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_upper",
+      "y": 180
+    },
+    "aspect=hp2,facing=west,half=upper,mount=right": {
+      "model": "create_railway_systems:block/hv_hauptsignal_hp2_right_upper",
       "y": 270
     }
   }

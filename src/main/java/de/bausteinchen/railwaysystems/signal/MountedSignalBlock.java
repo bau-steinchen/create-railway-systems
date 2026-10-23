@@ -8,8 +8,14 @@ import com.simibubi.create.foundation.block.IBE;
 
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -17,14 +23,19 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -34,27 +45,64 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * Auslegern an einer Wand hängen. Der Schirm zeigt in Richtung {@link #FACING} (zum anfahrenden
  * Zug); der Begriff wird von {@link LinkedSignalBlockEntity} aus dem gebundenen Create-Signal
  * abgeleitet.
+ * <p>
+ * Hohe Signale ({@link #isTall()}) bestehen wie eine Tür aus unterer und oberer Hälfte. Bindung
+ * und Logik liegen in der unteren Hälfte; die obere übernimmt deren Zustand.
  */
 public abstract class MountedSignalBlock extends Block
 	implements IBE<LinkedSignalBlockEntity>, IWrenchable, LinkedSignal {
 
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<SignalMount> MOUNT = EnumProperty.create("mount", SignalMount.class);
+	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
 	private static final Map<Direction, Map<SignalMount, VoxelShape>> SHAPES = buildShapes();
 
 	protected MountedSignalBlock(Properties properties) {
 		super(properties);
-		registerDefaultState(defaultBlockState().setValue(MOUNT, SignalMount.NONE));
+		BlockState state = defaultBlockState().setValue(MOUNT, SignalMount.NONE);
+		registerDefaultState(isTall() ? state.setValue(HALF, DoubleBlockHalf.LOWER) : state);
+	}
+
+	/**
+	 * Ob das Signal zwei Blöcke hoch ist. Wird schon im Konstruktor abgefragt und darf daher nur
+	 * eine Konstante liefern.
+	 */
+	protected boolean isTall() {
+		return false;
+	}
+
+	public static boolean isUpper(BlockState state) {
+		return state.hasProperty(HALF) && state.getValue(HALF) == DoubleBlockHalf.UPPER;
+	}
+
+	/**
+	 * Position der unteren Hälfte, die Bindung und Logik trägt.
+	 */
+	public static BlockPos getMainPos(BlockState state, BlockPos pos) {
+		return isUpper(state) ? pos.below() : pos;
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder.add(FACING, MOUNT));
+		builder.add(FACING, MOUNT);
+		if (isTall())
+			builder.add(HALF);
+		super.createBlockStateDefinition(builder);
 	}
 
 	@Override
+	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		if (isTall()) {
+			BlockPos above = context.getClickedPos()
+				.above();
+			Level level = context.getLevel();
+			if (above.getY() >= level.getMaxBuildHeight() || !level.getBlockState(above)
+				.canBeReplaced(context))
+				return null;
+		}
+
 		Direction facing = context.getHorizontalDirection()
 			.getOpposite();
 		BlockState state = defaultBlockState().setValue(FACING, facing);
@@ -80,8 +128,42 @@ public abstract class MountedSignalBlock extends Block
 	}
 
 	@Override
+	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		super.setPlacedBy(level, pos, state, placer, stack);
+		if (isTall())
+			level.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
+	}
+
+	@Override
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+		// Im Kreativmodus soll das Abbauen der oberen Hälfte die untere nicht droppen lassen
+		if (!level.isClientSide && player.isCreative() && isUpper(state)) {
+			BlockPos below = pos.below();
+			BlockState lower = level.getBlockState(below);
+			if (lower.is(this) && !isUpper(lower)) {
+				level.setBlock(below, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
+				level.levelEvent(player, 2001, below, Block.getId(lower));
+			}
+		}
+		return super.playerWillDestroy(level, pos, state, player);
+	}
+
+	@Override
 	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
 		LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+		if (isTall()) {
+			boolean upper = isUpper(state);
+			if (direction == (upper ? Direction.DOWN : Direction.UP)) {
+				// andere Hälfte entfernt: diese auch
+				if (!neighborState.is(this) || isUpper(neighborState) == upper)
+					return Blocks.AIR.defaultBlockState();
+				// obere Hälfte übernimmt Begriff, Ausrichtung und Montage der unteren
+				return upper ? neighborState.setValue(HALF, DoubleBlockHalf.UPPER) : state;
+			}
+			if (upper)
+				return state;
+		}
+
 		// Stützblock entfernt: zurück auf freie Aufstellung
 		SignalMount mount = state.getValue(MOUNT);
 		if (direction == mount.getSupportDirection(state.getValue(FACING))
@@ -154,6 +236,27 @@ public abstract class MountedSignalBlock extends Block
 			if (canAttach(context.getLevel(), context.getClickedPos(), facing, mount))
 				return newState.setValue(MOUNT, mount);
 		return newState.setValue(MOUNT, SignalMount.NONE);
+	}
+
+	@Override
+	public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
+		// Aufnehmen mit dem Schraubenschlüssel immer über die untere Hälfte, die das Item droppt
+		if (isUpper(state) && context.getPlayer() != null) {
+			BlockPos main = context.getClickedPos()
+				.below();
+			UseOnContext mainContext = new UseOnContext(context.getPlayer(), context.getHand(),
+				new BlockHitResult(context.getClickLocation(), context.getClickedFace(), main, context.isInside()));
+			return IWrenchable.super.onSneakWrenched(context.getLevel()
+				.getBlockState(main), mainContext);
+		}
+		return IWrenchable.super.onSneakWrenched(state, context);
+	}
+
+	@Override
+	@Nullable
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		// nur die untere Hälfte trägt Bindung und Logik
+		return isUpper(state) ? null : IBE.super.newBlockEntity(pos, state);
 	}
 
 	@Override
