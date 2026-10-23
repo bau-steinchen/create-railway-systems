@@ -14,7 +14,8 @@
     "zs_box": "create_railway_systems:block/zs_box",
     "ne2": "create_railway_systems:block/ne2",
     "concrete": "create_railway_systems:block/concrete",
-    "number_plate": "create_railway_systems:block/number_plate"
+    "number_plate": "create_railway_systems:block/number_plate",
+    "digit": "create_railway_systems:block/zs3_1"
   },
   "elements": [
     {
@@ -30,7 +31,7 @@
       ],
       "faces": {
         "north": {
-          "texture": "create_railway_systems:block/zs3_1"
+          "texture": "#digit"
         },
         "east": {
           "texture": "#zs_box"

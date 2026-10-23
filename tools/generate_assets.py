@@ -98,8 +98,8 @@ TEXTURES = {
 }
 
 
-def model(elements):
-    return {"parent": "block/block", "textures": TEXTURES, "elements": elements}
+def model(elements, **extra_textures):
+    return {"parent": "block/block", "textures": {**TEXTURES, **extra_textures}, "elements": elements}
 
 
 def hood(vx0, y0, size):
@@ -208,9 +208,10 @@ def zs_box(y0, y1):
     return [box([x0, y0, 4], [x1, y1, 6.5], "#zs_box", north="#zs_box")]
 
 
-def zs_digit(y0, y1, texture):
+def zs_digit(y0, y1):
+    """Leuchtende Ziffer; die Textur kommt über die Modellvariable #digit."""
     x0, x1 = mirror_x(6.5, 9.5)
-    element = box([x0, y0 + 0.5, 3.5], [x1, y1 - 0.5, 4], "#zs_box", north=texture)
+    element = box([x0, y0 + 0.5, 3.5], [x1, y1 - 0.5, 4], "#zs_box", north="#digit")
     element["shade"] = False
     element["neoforge_data"] = {"block_light": 15, "sky_light": 15}
     return [element]
@@ -258,14 +259,14 @@ def generate_ks():
             write_json(ASSETS / "models/block" / f"{name}_zs3.json", model(zs_box(y0, y1)))
             parts.append(({"zs3": any_speed}, f"{name}_zs3"))
             for n in SPEEDS:
-                write_json(ASSETS / "models/block" / f"{name}_zs3_{n}.json", model(zs_digit(y0, y1, tex(f"zs3_{n}"))))
+                write_json(ASSETS / "models/block" / f"{name}_zs3_{n}.json", model(zs_digit(y0, y1), digit=tex(f"zs3_{n}")))
                 parts.append(({"zs3": str(n), "aspect": lit_aspects}, f"{name}_zs3_{n}"))
         if "zs3v" in spec:
             y0, y1 = spec["zs3v"]
             write_json(ASSETS / "models/block" / f"{name}_zs3v.json", model(zs_box(y0, y1)))
             parts.append(({}, f"{name}_zs3v"))
             for n in SPEEDS:
-                write_json(ASSETS / "models/block" / f"{name}_zs3v_{n}.json", model(zs_digit(y0, y1, tex(f"zs3v_{n}"))))
+                write_json(ASSETS / "models/block" / f"{name}_zs3v_{n}.json", model(zs_digit(y0, y1), digit=tex(f"zs3v_{n}")))
                 parts.append(({"zs3v": str(n)}, f"{name}_zs3v_{n}"))
 
         # Multipart-Bedingungen ohne Schlüssel gelten immer; "when" darf dann nur facing enthalten
