@@ -50,6 +50,12 @@ def box(frm, to, texture, north=None):
     return {"from": frm, "to": to, "faces": faces}
 
 
+def mastschild(vx0, vx1, y0, y1, texture="#mastschild"):
+    """Schild vor dem Mast; nur die Front trägt das Schildbild, Kanten in Mastfarbe."""
+    x0, x1 = mirror_x(vx0, vx1)
+    return box([x0, y0, 5.5], [x1, y1, 6.5], "#mast", north=texture)
+
+
 def mirror_x(x0, x1):
     """Betrachterkoordinate (x von links, vor dem Schirm stehend) -> Modellraum.
     Der Schirm zeigt nach Norden; der Betrachter blickt nach Süden, sein "links" ist +x."""
@@ -94,6 +100,7 @@ TEXTURES = {
     "lamp_green_blink": tex("lamp_green_blink"),
     "zs_box": tex("zs_box"),
     "ne2": tex("ne2"),
+    "mastschild_ms": tex("mastschild_ms"),
     "concrete": tex("concrete"),
     "number_plate": tex("number_plate"),
 }
@@ -121,7 +128,7 @@ def main_screen(lit, vx0, vx1, y0, y1, lamps):
 
 def hauptsignal_model(aspect, mount):
     elements = support(mount, [(13, 15), (1.5, 3.5)])
-    elements.append(box([6, 0.5, 5.5], [10, 4.5, 6.5], "#mastschild", north="#mastschild"))
+    elements.append(mastschild(6.75, 9.25, 0.25, 4.75))
     elements += main_screen(HP_LIT[aspect], 4.5, 11.5, 5, 16, {
         "green": (6.5, 12.5, 3), "red": (6.5, 9, 3), "yellow": (6.5, 5.5, 3)})
     return model(elements)
@@ -164,7 +171,7 @@ def sperrsignal_model(aspect, on_mast):
     x0, x1 = mirror_x(8, 11.5)
     elements.append(box([x0, 3.75, 3.5], [x1, 6.75, 4], "#screen", north="#number_plate"))
     x0, x1 = mirror_x(13.5, 15)
-    elements.append(box([x0, 1.5, 3.5], [x1, 7.5, 4], "#mastschild", north="#mastschild"))
+    elements.append(box([x0, 1.5, 3.5], [x1, 7.5, 4], "#mast", north="#mastschild"))
     return model(elements)
 
 
@@ -185,6 +192,7 @@ KS_TYPES = {
         "aspects": ["hp0", "ks1", "ks1_blink", "ks2"],
         "zs3": (13, 16),
         "zs3v": (0.5, 4),
+        "zs3v_x": (4, 8),
     },
     "ks_vorsignal": {
         "arms": [(11, 13), (6, 8)],
@@ -204,14 +212,14 @@ def ks_screen(spec, aspect):
     return elements
 
 
-def zs_box(y0, y1):
-    x0, x1 = mirror_x(6, 10)
+def zs_box(y0, y1, vx0=6, vx1=10):
+    x0, x1 = mirror_x(vx0, vx1)
     return [box([x0, y0, 4], [x1, y1, 6.5], "#zs_box", north="#zs_box")]
 
 
-def zs_digit(y0, y1):
+def zs_digit(y0, y1, vx0=6, vx1=10):
     """Leuchtende Ziffer; die Textur kommt über die Modellvariable #digit."""
-    x0, x1 = mirror_x(6.5, 9.5)
+    x0, x1 = mirror_x(vx0 + 0.5, vx1 - 0.5)
     element = box([x0, y0 + 0.5, 3.5], [x1, y1 - 0.5, 4], "#zs_box", north="#digit")
     element["shade"] = False
     element["neoforge_data"] = {"block_light": 15, "sky_light": 15}
@@ -221,10 +229,12 @@ def zs_digit(y0, y1):
 def ks_extras(name):
     """Schilder am Mast: Mastschild am Hauptsignal, Ne 2 am Vorsignal."""
     if name == "ks_hauptsignal":
-        return [box([6, 0.5, 5.5], [10, 4.5, 6.5], "#mastschild", north="#mastschild")]
+        return [mastschild(6.75, 9.25, 0.25, 4.75)]
+    if name == "ks_mehrabschnittssignal":
+        # Mastschild mit gelbem Dreieck (Hauptsignal mit Vorsignalfunktion), neben dem Zs3v
+        return [mastschild(9, 11.5, 0.25, 4.25, "#mastschild_ms")]
     if name == "ks_vorsignal":
-        x0, x1 = mirror_x(6.25, 9.75)
-        return [box([x0, 0.5, 5.5], [x1, 5, 6.5], "#mastschild", north="#ne2")]
+        return [mastschild(6.25, 9.75, 0.5, 5, "#ne2")]
     return []
 
 
@@ -248,7 +258,8 @@ def generate_ks():
             parts.append(({"mount": mount}, f"{name}_support_{mount}"))
         extras = ks_extras(name)
         if extras:
-            write_json(ASSETS / "models/block" / f"{name}_schild.json", model(extras))
+            write_json(ASSETS / "models/block" / f"{name}_schild.json",
+                       {**model(extras), "render_type": "minecraft:cutout"})
             parts.append(({}, f"{name}_schild"))
         for aspect in spec["aspects"]:
             write_json(ASSETS / "models/block" / f"{name}_{aspect}.json", model(ks_screen(spec, aspect)))
@@ -264,10 +275,11 @@ def generate_ks():
                 parts.append(({"zs3": str(n), "aspect": lit_aspects}, f"{name}_zs3_{n}"))
         if "zs3v" in spec:
             y0, y1 = spec["zs3v"]
-            write_json(ASSETS / "models/block" / f"{name}_zs3v.json", model(zs_box(y0, y1)))
+            vx0, vx1 = spec.get("zs3v_x", (6, 10))
+            write_json(ASSETS / "models/block" / f"{name}_zs3v.json", model(zs_box(y0, y1, vx0, vx1)))
             parts.append(({}, f"{name}_zs3v"))
             for n in SPEEDS:
-                write_json(ASSETS / "models/block" / f"{name}_zs3v_{n}.json", model(zs_digit(y0, y1), digit=tex(f"zs3v_{n}")))
+                write_json(ASSETS / "models/block" / f"{name}_zs3v_{n}.json", model(zs_digit(y0, y1, vx0, vx1), digit=tex(f"zs3v_{n}")))
                 parts.append(({"zs3v": str(n)}, f"{name}_zs3v_{n}"))
 
         # Multipart-Bedingungen ohne Schlüssel gelten immer; "when" darf dann nur facing enthalten
@@ -275,7 +287,7 @@ def generate_ks():
 
         item_elements = support("none", spec["arms"]) + extras + ks_screen(spec, "ks1")
         if "zs3v" in spec:
-            item_elements += zs_box(*spec["zs3v"])
+            item_elements += zs_box(*spec["zs3v"], *spec.get("zs3v_x", (6, 10)))
         write_json(ASSETS / "models/item" / f"{name}.json", model(item_elements))
 
 
@@ -399,11 +411,20 @@ def generate_textures():
             mast.putpixel((x, y), (shade, shade + 4, shade + 8, 255))
     save(mast, "signal_mast")
 
+    # Mastschild weiß-rot-weiß: drei gleich große Felder
     schild = Image.new("RGBA", (16, 16), (240, 240, 240, 255))
     d = ImageDraw.Draw(schild)
     d.rectangle([0, 5, 15, 10], fill=(200, 20, 30, 255))
     d.rectangle([0, 0, 15, 15], outline=(20, 20, 20, 255))
     save(schild, "mastschild_hp")
+
+    # Mastschild mit gelbem, nach unten zeigendem Dreieck darunter (Mehrabschnittssignal)
+    ms = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(ms)
+    d.rectangle([0, 0, 15, 11], fill=(240, 240, 240, 255), outline=(20, 20, 20, 255))
+    d.rectangle([1, 4, 14, 7], fill=(200, 20, 30, 255))
+    d.polygon([(2, 12), (13, 12), (8, 15), (7, 15)], fill=(250, 200, 30, 255))
+    save(ms, "mastschild_ms")
 
     concrete = Image.new("RGBA", (16, 16))
     for x in range(16):

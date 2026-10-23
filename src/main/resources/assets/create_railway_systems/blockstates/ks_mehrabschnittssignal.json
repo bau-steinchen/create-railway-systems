@@ -38,6 +38,14 @@
     },
     {
       "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild"
+      }
+    },
+    {
+      "when": {
         "aspect": "hp0",
         "facing": "north"
       },
@@ -302,6 +310,15 @@
     },
     {
       "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "aspect": "hp0",
         "facing": "east"
       },
@@ -590,6 +607,15 @@
     },
     {
       "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "aspect": "hp0",
         "facing": "south"
       },
@@ -873,6 +899,15 @@
       },
       "apply": {
         "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_right",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild",
         "y": 270
       }
     },

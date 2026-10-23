@@ -13,6 +13,7 @@
     "lamp_green_blink": "create_railway_systems:block/lamp_green_blink",
     "zs_box": "create_railway_systems:block/zs_box",
     "ne2": "create_railway_systems:block/ne2",
+    "mastschild_ms": "create_railway_systems:block/mastschild_ms",
     "concrete": "create_railway_systems:block/concrete",
     "number_plate": "create_railway_systems:block/number_plate"
   },
