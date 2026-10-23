@@ -480,7 +480,13 @@
       ],
       "faces": {
         "north": {
-          "texture": "#number_plate"
+          "texture": "#number_plate",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
           "texture": "#screen"
@@ -512,7 +518,13 @@
       ],
       "faces": {
         "north": {
-          "texture": "#mastschild"
+          "texture": "#mastschild",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
           "texture": "#mastschild"

@@ -44,7 +44,9 @@ def tex(name):
 def box(frm, to, texture, north=None):
     faces = {f: {"texture": texture} for f in ("north", "east", "south", "west", "up", "down")}
     if north:
-        faces["north"] = {"texture": north}
+        # Eigene Frontfläche (Lampe, Ziffer, Schild) zeigt immer die ganze Textur. Ohne "uv"
+        # schneidet Minecraft den Ausschnitt passend zur Position im Block aus.
+        faces["north"] = {"texture": north, "uv": [0, 0, 16, 16]}
     return {"from": frm, "to": to, "faces": faces}
 
 
@@ -58,7 +60,6 @@ def lamp(vx0, y0, size, color, lit):
     x0, _ = mirror_x(vx0, vx0 + size)
     element = box([x0, y0, 3.5], [x0 + size, y0 + size, 4], "#screen",
                   north=f"#lamp_{color}" if lit else "#lamp_off")
-    element["faces"]["north"]["uv"] = [0, 0, 16, 16]
     if lit:
         element["shade"] = False
         element["neoforge_data"] = {"block_light": 15, "sky_light": 15}
@@ -376,13 +377,13 @@ DIGITS = {
 
 
 def digit_img(n, color):
-    """Ziffer eines Lichtanzeigers (3x5-Raster, doppelt skaliert) auf dunklem Grund."""
+    """Ziffer eines Lichtanzeigers (3x5-Raster, dreifach skaliert) auf dunklem Grund."""
     img = Image.new("RGBA", (16, 16), (18, 18, 20, 255))
     for row, bits in enumerate(DIGITS[n]):
         for col, bit in enumerate(bits):
             if bit == "1":
-                x, y = 5 + col * 2, 3 + row * 2
-                ImageDraw.Draw(img).rectangle([x, y, x + 1, y + 1], fill=color)
+                x, y = 4 + col * 3, 1 + row * 3
+                ImageDraw.Draw(img).rectangle([x, y, x + 2, y + 2], fill=color)
     return img
 
 

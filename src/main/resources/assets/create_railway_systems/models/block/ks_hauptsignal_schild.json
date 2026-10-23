@@ -30,7 +30,13 @@
       ],
       "faces": {
         "north": {
-          "texture": "#mastschild"
+          "texture": "#mastschild",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
           "texture": "#mastschild"

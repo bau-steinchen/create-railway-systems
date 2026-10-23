@@ -62,7 +62,13 @@
       ],
       "faces": {
         "north": {
-          "texture": "#ne2"
+          "texture": "#ne2",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
           "texture": "#mastschild"
@@ -271,7 +277,13 @@
       ],
       "faces": {
         "north": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
           "texture": "#zs_box"
