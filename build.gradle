@@ -31,6 +31,9 @@ neoForge {
         client {
             client()
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            // ./gradlew runClient -PquickPlay=<Weltname> startet direkt in eine Einzelspielerwelt
+            if (project.hasProperty('quickPlay'))
+                programArguments.addAll('--quickPlaySingleplayer', project.property('quickPlay').toString())
         }
         server {
             server()

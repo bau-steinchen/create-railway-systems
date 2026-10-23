@@ -29,6 +29,7 @@ import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
 
 import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -36,6 +37,8 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RedStoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -158,11 +161,23 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 	private boolean isPowered() {
 		if (level == null)
 			return false;
-		if (level.hasNeighborSignal(worldPosition))
+		if (isPowered(worldPosition))
 			return true;
 		// bei zwei Blöcke hohen Signalen zählt auch Redstone an der oberen Hälfte
 		BlockState above = level.getBlockState(worldPosition.above());
-		return MountedSignalBlock.isUpper(above) && level.hasNeighborSignal(worldPosition.above());
+		return MountedSignalBlock.isUpper(above) && isPowered(worldPosition.above());
+	}
+
+	private boolean isPowered(BlockPos pos) {
+		if (level.hasNeighborSignal(pos))
+			return true;
+		// Redstone-Staub leitet nur in Blöcke, mit denen er sich verbindet; daneben liegender Staub zählt trotzdem
+		for (Direction direction : Direction.values()) {
+			BlockState neighbour = level.getBlockState(pos.relative(direction));
+			if (neighbour.is(Blocks.REDSTONE_WIRE) && neighbour.getValue(RedStoneWireBlock.POWER) > 0)
+				return true;
+		}
+		return false;
 	}
 
 	@Override

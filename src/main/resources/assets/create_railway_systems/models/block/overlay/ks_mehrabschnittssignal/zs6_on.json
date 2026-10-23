@@ -42,19 +42,49 @@
           ]
         },
         "east": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            9.5,
+            3.75,
+            12,
+            7.5
+          ]
         },
         "south": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            5.5,
+            3.75,
+            10.5,
+            7.5
+          ]
         },
         "west": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            4,
+            3.75,
+            6.5,
+            7.5
+          ]
         },
         "up": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            5.5,
+            4,
+            10.5,
+            6.5
+          ]
         },
         "down": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            5.5,
+            9.5,
+            10.5,
+            12
+          ]
         }
       }
     },
@@ -80,19 +110,49 @@
           ]
         },
         "east": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            12,
+            4.25,
+            12.5,
+            7.0
+          ]
         },
         "south": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            6.0,
+            4.25,
+            10.0,
+            7.0
+          ]
         },
         "west": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.5,
+            4.25,
+            4,
+            7.0
+          ]
         },
         "up": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            6.0,
+            3.5,
+            10.0,
+            4
+          ]
         },
         "down": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            6.0,
+            12,
+            10.0,
+            12.5
+          ]
         }
       },
       "shade": false,

@@ -111,8 +111,38 @@ TEXTURES = {
 }
 
 
+def auto_uv(face, frm, to):
+    """UV wie Minecraft sie ohne Angabe aus der Position berechnet."""
+    (x0, y0, z0), (x1, y1, z1) = frm, to
+    return {"down": [x0, 16 - z1, x1, 16 - z0], "up": [x0, z0, x1, z1],
+            "north": [16 - x1, 16 - y1, 16 - x0, 16 - y0], "south": [x0, 16 - y1, x1, 16 - y0],
+            "west": [z0, 16 - y1, z1, 16 - y0], "east": [16 - z1, 16 - y1, 16 - z0, 16 - y0]}[face]
+
+
+def fold(a, b):
+    """Bereich in 0..16 verschieben; sonst kleben bei Teilen über 16 px fremde Atlas-Texturen an."""
+    while min(a, b) < 0:
+        a, b = a + 16, b + 16
+    while max(a, b) > 16:
+        a, b = a - 16, b - 16
+    return max(0, min(16, a)), max(0, min(16, b))
+
+
+def with_uvs(elements):
+    """Jeder Fläche ohne UV eine explizite, gültige UV geben (wichtig für 32 px hohe Modelle)."""
+    elements = copy.deepcopy(elements)
+    for e in elements:
+        for name, face in e["faces"].items():
+            if "uv" not in face:
+                u0, v0, u1, v1 = auto_uv(name, e["from"], e["to"])
+                u0, u1 = fold(u0, u1)
+                v0, v1 = fold(v0, v1)
+                face["uv"] = [u0, v0, u1, v1]
+    return elements
+
+
 def model(elements, **extra_textures):
-    return {"parent": "block/block", "textures": {**TEXTURES, **extra_textures}, "elements": elements}
+    return {"parent": "block/block", "textures": {**TEXTURES, **extra_textures}, "elements": with_uvs(elements)}
 
 
 # --- Zwei Blöcke hohe Signale: Entwurf in 0..32 px, Aufteilung in untere/obere Hälfte ---

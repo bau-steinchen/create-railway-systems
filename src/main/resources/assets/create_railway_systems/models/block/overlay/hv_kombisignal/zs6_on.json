@@ -42,19 +42,49 @@
           ]
         },
         "east": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            9.5,
+            0,
+            12,
+            5.25
+          ]
         },
         "south": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.25,
+            0,
+            6.25,
+            5.25
+          ]
         },
         "west": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            4,
+            0,
+            6.5,
+            5.25
+          ]
         },
         "up": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.25,
+            4,
+            6.25,
+            6.5
+          ]
         },
         "down": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.25,
+            9.5,
+            6.25,
+            12
+          ]
         }
       }
     },
@@ -80,19 +110,49 @@
           ]
         },
         "east": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            12,
+            0,
+            12.5,
+            4.75
+          ]
         },
         "south": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.75,
+            0,
+            5.75,
+            4.75
+          ]
         },
         "west": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.5,
+            0,
+            4,
+            4.75
+          ]
         },
         "up": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.75,
+            3.5,
+            5.75,
+            4
+          ]
         },
         "down": {
-          "texture": "#zs_box"
+          "texture": "#zs_box",
+          "uv": [
+            3.75,
+            12,
+            5.75,
+            12.5
+          ]
         }
       },
       "shade": false,
