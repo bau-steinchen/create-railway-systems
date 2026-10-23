@@ -21,6 +21,9 @@ public class ModItems {
 	public static final DeferredItem<HvSignalBlockItem> HV_KOMBISIGNAL = ITEMS.register("hv_kombisignal",
 		() -> new HvSignalBlockItem(ModBlocks.HV_KOMBISIGNAL.get(), new Item.Properties()));
 
+	public static final DeferredItem<HvSignalBlockItem> SH_SPERRSIGNAL = ITEMS.register("sh_sperrsignal",
+		() -> new HvSignalBlockItem(ModBlocks.SH_SPERRSIGNAL.get(), new Item.Properties()));
+
 	public static final DeferredItem<BlockItem> SIGNAL_MAST = ITEMS.registerSimpleBlockItem(ModBlocks.SIGNAL_MAST);
 
 }

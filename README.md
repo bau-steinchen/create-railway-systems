@@ -25,6 +25,7 @@ Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moder
 | H/V-Lichthauptsignal | Hp0 (Halt), Hp1 (Fahrt), Hp2 (Langsamfahrt) |
 | H/V-Lichtvorsignal | Vr0 (Halt erwarten), Vr1 (Fahrt erwarten), Vr2 (Langsamfahrt erwarten) |
 | H/V-Hauptsignal mit Vorsignal am Mast | Hp + Vr, Vorsignal dunkel bei Hp0 |
+| Lichtsperrsignal (Zwergsignal) | Sh0 (Halt! Fahrverbot), Sh1 (Fahrverbot aufgehoben) |
 | Signalmast | Mast zum Aufbauen beliebig hoher Signale |
 
 Alle Blöcke stehen im Kreativ-Tab **Create: Railway Systems**.
@@ -42,12 +43,14 @@ Ohne Bindung lässt sich ein H/V-Signal nicht platzieren.
 
 - **Frei stehend:** Das Signal steht auf einem Mast. Mit Signalmast-Blöcken darunter wird es beliebig hoch.
 - **Wandmontage:** Gegen die Seite eines festen Blocks gesetzt (z. B. Tunnel- oder Brückenwand), bekommt das Signal waagerechte Ausleger statt eines Masts. Die Ausleger zeigen nach hinten oder zur Seite, je nachdem wo der Block liegt. Wird der Block entfernt, steht das Signal wieder auf einem Mast.
+- **Lichtsperrsignal:** Auf dem Boden oder einem festen Block steht es auf einem kleinen Fuß. Steht darunter ein Signalmast, sitzt es ohne Fuß direkt auf dem Mast.
 - Der Schirm zeigt beim Platzieren immer zum Spieler.
 
 ### Signallogik
 
 - **Hauptsignal:** Create-Signal rot → Hp0, grün/gelb → Hp1. Create kennt keine Geschwindigkeiten. Mit dem **Create-Schraubenschlüssel** schaltest du deshalb zwischen Hp1 und Hp2 um.
 - **Vorsignal:** Wird an das Create-Signal des **angekündigten** Hauptsignals gebunden und steht im Bremswegabstand davor. Ist das H/V-Hauptsignal dort auf Hp2 eingestellt, zeigt es Vr2.
+- **Lichtsperrsignal:** Create-Signal rot → Sh0, grün/gelb → Sh1.
 - **Hauptsignal mit Vorsignal am Mast:** Der Vorsignalteil kündigt automatisch die Signale am Ende des Blockabschnitts an. Gibt es durch Weichen mehrere Folgesignale, erwartet es nur Fahrt, wenn alle Fahrt zeigen, sonst Vr0. Zeigt das eigene Hauptsignal Hp0, ist das Vorsignal dunkel.
 
 ## Entwicklung
@@ -69,7 +72,7 @@ Blockstates, Modelle und Platzhalter-Texturen werden von `tools/generate_assets.
 src/main/java/de/bausteinchen/railwaysystems/
   RailwaySystems.java, Config.java     Einstieg und Server-Config
   registry/                            Blöcke, Items, Block-Entities, Kreativ-Tab
-  signal/hv/                           H/V-Signale (Blöcke, Signallogik, Bind-Item)
+  signal/hv/                           H/V- und Sh-Signale (Blöcke, Signallogik, Bind-Item)
 tools/generate_assets.py               Asset-Generator
 ```
 

@@ -123,6 +123,9 @@ public class HvSignalBlockEntity extends SmartBlockEntity {
 			newState = newState.setValue(HvVorsignalBlock.ASPECT, distant);
 		}
 
+		if (state.hasProperty(ShSperrsignalBlock.ASPECT))
+			newState = newState.setValue(ShSperrsignalBlock.ASPECT, clear ? ShAspect.SH1 : ShAspect.SH0);
+
 		if (newState != state)
 			level.setBlock(worldPosition, newState, 3);
 	}

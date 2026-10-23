@@ -8,7 +8,8 @@
     "lamp_off": "create_railway_systems:block/lamp_off",
     "lamp_red": "create_railway_systems:block/lamp_red",
     "lamp_green": "create_railway_systems:block/lamp_green",
-    "lamp_yellow": "create_railway_systems:block/lamp_yellow"
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_white": "create_railway_systems:block/lamp_white"
   },
   "elements": [
     {

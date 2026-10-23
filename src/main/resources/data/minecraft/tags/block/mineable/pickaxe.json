@@ -3,6 +3,7 @@
     "create_railway_systems:hv_hauptsignal",
     "create_railway_systems:hv_vorsignal",
     "create_railway_systems:hv_kombisignal",
+    "create_railway_systems:sh_sperrsignal",
     "create_railway_systems:signal_mast"
   ]
 }

@@ -4,6 +4,7 @@ import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.signal.hv.HvHauptsignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvKombisignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvVorsignalBlock;
+import de.bausteinchen.railwaysystems.signal.hv.ShSperrsignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.SignalMastBlock;
 
 import net.minecraft.world.level.block.SoundType;
@@ -24,6 +25,9 @@ public class ModBlocks {
 
 	public static final DeferredBlock<HvKombisignalBlock> HV_KOMBISIGNAL =
 		BLOCKS.register("hv_kombisignal", () -> new HvKombisignalBlock(signalProperties()));
+
+	public static final DeferredBlock<ShSperrsignalBlock> SH_SPERRSIGNAL =
+		BLOCKS.register("sh_sperrsignal", () -> new ShSperrsignalBlock(signalProperties()));
 
 	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST =
 		BLOCKS.register("signal_mast", () -> new SignalMastBlock(signalProperties()));

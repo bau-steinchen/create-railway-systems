@@ -17,6 +17,7 @@ public class ModBlockEntities {
 	@SuppressWarnings("DataFlowIssue")
 	public static final Supplier<BlockEntityType<HvSignalBlockEntity>> HV_SIGNAL = BLOCK_ENTITIES.register("hv_signal",
 		() -> BlockEntityType.Builder.of(HvSignalBlockEntity::new,
-			ModBlocks.HV_HAUPTSIGNAL.get(), ModBlocks.HV_VORSIGNAL.get(), ModBlocks.HV_KOMBISIGNAL.get()).build(null));
+			ModBlocks.HV_HAUPTSIGNAL.get(), ModBlocks.HV_VORSIGNAL.get(), ModBlocks.HV_KOMBISIGNAL.get(),
+			ModBlocks.SH_SPERRSIGNAL.get()).build(null));
 
 }

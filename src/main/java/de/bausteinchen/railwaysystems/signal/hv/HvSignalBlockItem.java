@@ -47,7 +47,7 @@ public class HvSignalBlockItem extends ClickToLinkBlockItem {
 		super.appendHoverText(stack, context, tooltip, flag);
 		tooltip.add(Component.translatable(RailwaySystems.MOD_ID + ".hv_signal.tooltip.link")
 			.withStyle(ChatFormatting.GRAY));
-		if (((HvSignalBlock) getBlock()).hasMainAspect())
+		if (getBlock() instanceof HvSignalBlock signal && signal.hasMainAspect())
 			tooltip.add(Component.translatable(RailwaySystems.MOD_ID + ".hv_signal.tooltip.wrench")
 				.withStyle(ChatFormatting.GRAY));
 	}

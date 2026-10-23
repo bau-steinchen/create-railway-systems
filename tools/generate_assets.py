@@ -22,7 +22,9 @@ VR = ["vr0", "vr1", "vr2"]
 # Welche Lampen leuchten bei welchem Begriff
 HP_LIT = {"hp0": {"red"}, "hp1": {"green"}, "hp2": {"green", "yellow"}}
 VR_LIT = {"vr0": {"y_bl", "y_tr"}, "vr1": {"g_bl", "g_tr"}, "vr2": {"g_bl", "y_tr"}, "dark": set()}
+SH_LIT = {"sh0": {"r_l", "r_r"}, "sh1": {"w_bl", "w_tr"}}
 LAMP_COLOR = {"red": "red", "green": "green", "yellow": "yellow",
+              "r_l": "red", "r_r": "red", "w_bl": "white", "w_tr": "white",
               "y_bl": "yellow", "y_tr": "yellow", "g_bl": "green", "g_tr": "green"}
 
 
@@ -76,6 +78,7 @@ TEXTURES = {
     "lamp_red": tex("lamp_red"),
     "lamp_green": tex("lamp_green"),
     "lamp_yellow": tex("lamp_yellow"),
+    "lamp_white": tex("lamp_white"),
 }
 
 
@@ -111,6 +114,16 @@ def kombisignal_model(hp, vr, mount):
         "green": (7, 13.5, 2), "red": (7, 11, 2), "yellow": (7, 8.5, 2)})
     elements += main_screen(VR_LIT[vr], 4, 12.5, 1, 7, {
         "y_bl": (4.5, 1.5, 2), "g_bl": (7, 1.5, 2), "g_tr": (7.5, 4.5, 2), "y_tr": (10, 4.5, 2)})
+    return model(elements)
+
+
+def sperrsignal_model(aspect, on_mast):
+    # Maststummel deckungsgleich mit dem Signalmast; frei stehend zusätzlich eine Fußplatte
+    elements = [box([6.5, 0, 6.5], [9.5, 3, 9.5], "#mast")]
+    if not on_mast:
+        elements.append(box([4, 0, 4], [12, 1, 12], "#mast"))
+    elements += main_screen(SH_LIT[aspect], 4, 12, 3, 11, {
+        "w_tr": (9.5, 8.5, 2), "r_l": (4.5, 6, 2), "r_r": (9.5, 6, 2), "w_bl": (4.5, 3.5, 2)})
     return model(elements)
 
 
@@ -151,6 +164,10 @@ def generate_models():
             for vr in VR + ["dark"]:
                 write_json(ASSETS / "models/block" / f"{model_name(f'hv_kombisignal_{hp}_{vr}', mount)}.json",
                            kombisignal_model(hp, vr, mount))
+    for a in SH_LIT:
+        for on_mast in (False, True):
+            write_json(ASSETS / "models/block" / f"sh_sperrsignal_{a}{'_mast' if on_mast else ''}.json",
+                       sperrsignal_model(a, on_mast))
     write_json(ASSETS / "models/block/signal_mast.json",
                {"parent": "block/block", "textures": {"particle": tex("signal_mast"), "mast": tex("signal_mast")},
                 "elements": [box([6.5, 0, 6.5], [9.5, 16, 9.5], "#mast")]})
@@ -164,17 +181,21 @@ def generate_models():
     write_json(ASSETS / "blockstates/hv_kombisignal.json",
                variants([("aspect", HP), ("distant", VR + ["dark"]), ("mount", MOUNTS)],
                         lambda s: model_name(f"hv_kombisignal_{s['aspect']}_{s['distant']}", s["mount"])))
+    write_json(ASSETS / "blockstates/sh_sperrsignal.json",
+               variants([("aspect", list(SH_LIT)), ("mast", ["false", "true"])],
+                        lambda s: f"sh_sperrsignal_{s['aspect']}{'_mast' if s['mast'] == 'true' else ''}"))
     write_json(ASSETS / "blockstates/signal_mast.json",
                {"variants": {"": {"model": f"{MOD_ID}:block/signal_mast"}}})
 
     items = {"hv_hauptsignal": "hv_hauptsignal_hp1", "hv_vorsignal": "hv_vorsignal_vr1",
-             "hv_kombisignal": "hv_kombisignal_hp1_vr1", "signal_mast": "signal_mast"}
+             "hv_kombisignal": "hv_kombisignal_hp1_vr1", "sh_sperrsignal": "sh_sperrsignal_sh0",
+             "signal_mast": "signal_mast"}
     for item, parent in items.items():
         write_json(ASSETS / "models/item" / f"{item}.json", {"parent": f"{MOD_ID}:block/{parent}"})
 
 
 def generate_data():
-    blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "signal_mast"]
+    blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "signal_mast"]
     for b in blocks:
         write_json(DATA / MOD_ID / "loot_table/blocks" / f"{b}.json", {
             "type": "minecraft:block",
@@ -211,7 +232,7 @@ def generate_textures():
     d.rectangle([0, 0, 15, 15], outline=(20, 20, 20, 255))
     save(schild, "mastschild_hp")
 
-    colors = {"red": (255, 40, 30), "green": (40, 255, 110), "yellow": (255, 200, 40)}
+    colors = {"red": (255, 40, 30), "green": (40, 255, 110), "yellow": (255, 200, 40), "white": (225, 230, 255)}
 
     def lamp_img(core, ring, highlight):
         img = Image.new("RGBA", (16, 16), (21, 21, 23, 255))
