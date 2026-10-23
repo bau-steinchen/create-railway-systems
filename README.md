@@ -79,7 +79,7 @@ tools/generate_assets.py               Asset-Generator
 ## Geplant
 
 - Ks-Signale
-- Zusatzanzeiger (Zs3, Zs1, Sh1 …)
+- Zusatzanzeiger (Zs3, Zs3v, Zs1, Zs7 …)
 - Bessere Texturen
 
 ## Lizenz
