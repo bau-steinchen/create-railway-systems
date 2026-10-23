@@ -44,7 +44,14 @@ def box(frm, to, texture, north=None):
     return {"from": frm, "to": to, "faces": faces}
 
 
-def lamp(x0, y0, size, color, lit):
+def mirror_x(x0, x1):
+    """Betrachterkoordinate (x von links, vor dem Schirm stehend) -> Modellraum.
+    Der Schirm zeigt nach Norden; der Betrachter blickt nach Süden, sein "links" ist +x."""
+    return 16 - x1, 16 - x0
+
+
+def lamp(vx0, y0, size, color, lit):
+    x0, _ = mirror_x(vx0, vx0 + size)
     element = box([x0, y0, 3.5], [x0 + size, y0 + size, 4], "#screen",
                   north=f"#lamp_{color}" if lit else "#lamp_off")
     element["faces"]["north"]["uv"] = [0, 0, 16, 16]
@@ -79,6 +86,8 @@ TEXTURES = {
     "lamp_green": tex("lamp_green"),
     "lamp_yellow": tex("lamp_yellow"),
     "lamp_white": tex("lamp_white"),
+    "concrete": tex("concrete"),
+    "number_plate": tex("number_plate"),
 }
 
 
@@ -86,7 +95,15 @@ def model(elements):
     return {"parent": "block/block", "textures": TEXTURES, "elements": elements}
 
 
-def main_screen(lit, x0, x1, y0, y1, lamps):
+def hood(vx0, y0, size):
+    """Schute über einer Lampe."""
+    x0, x1 = mirror_x(vx0 - 0.25, vx0 + size + 0.25)
+    return box([x0, y0 + size, 2.5], [x1, y0 + size + 0.5, 4], "#screen")
+
+
+def main_screen(lit, vx0, vx1, y0, y1, lamps):
+    """Schirm mit Lampen; alle x-Werte in Betrachterkoordinaten (siehe mirror_x)."""
+    x0, x1 = mirror_x(vx0, vx1)
     elements = [box([x0, y0, 4], [x1, y1, 6.5], "#screen")]
     for name, (lx, ly, size) in lamps.items():
         elements.append(lamp(lx, ly, size, LAMP_COLOR[name], name in lit))
@@ -118,12 +135,27 @@ def kombisignal_model(hp, vr, mount):
 
 
 def sperrsignal_model(aspect, on_mast):
-    # Maststummel deckungsgleich mit dem Signalmast; frei stehend zusätzlich eine Fußplatte
-    elements = [box([6.5, 0, 6.5], [9.5, 3, 9.5], "#mast")]
-    if not on_mast:
-        elements.append(box([4, 0, 4], [12, 1, 12], "#mast"))
-    elements += main_screen(SH_LIT[aspect], 4, 12, 3, 11, {
-        "w_tr": (9.5, 8.5, 2), "r_l": (4.5, 6, 2), "r_r": (9.5, 6, 2), "w_bl": (4.5, 3.5, 2)})
+    """Gleissperrsignal nach DB-Vorbild: breiter Schirm, oben Rot – Lücke – Weiß/Rot, unten links Weiß,
+    rechts Nummernschild und weiß-rot-weißes Mastschild."""
+    if on_mast:
+        # Maststummel deckungsgleich mit dem Signalmast
+        elements = [box([6.5, 0, 6.5], [9.5, 2.5, 9.5], "#mast")]
+    else:
+        # Betonsockel mit kurzem Halter
+        elements = [box([5, 0, 5], [11, 2, 11], "#concrete"), box([7, 2, 7], [9, 2.5, 9], "#mast")]
+    elements.append(box([4.5, 2.5, 4], [11.5, 3, 9.5], "#mast"))  # Halteplatte unter dem Schirm
+
+    lamps = {"r_l": (2.75, 7.75, 2.5), "w_tr": (8, 7.75, 2.5), "r_r": (10.75, 7.75, 2.5), "w_bl": (2.75, 4, 2.5)}
+    elements += main_screen(SH_LIT[aspect], 2, 14, 3, 10.5, lamps)
+    x0, x1 = mirror_x(2.5, 13.5)
+    elements.append(box([x0, 10.5, 4], [x1, 11, 6.5], "#screen"))  # abgerundete Oberkante
+    for vx, ly, size in lamps.values():
+        elements.append(hood(vx, ly, size))
+
+    x0, x1 = mirror_x(8, 11.5)
+    elements.append(box([x0, 3.75, 3.5], [x1, 6.75, 4], "#screen", north="#number_plate"))
+    x0, x1 = mirror_x(13.5, 15)
+    elements.append(box([x0, 1.5, 3.5], [x1, 7.5, 4], "#mastschild", north="#mastschild"))
     return model(elements)
 
 
@@ -231,6 +263,20 @@ def generate_textures():
     d.rectangle([0, 5, 15, 10], fill=(200, 20, 30, 255))
     d.rectangle([0, 0, 15, 15], outline=(20, 20, 20, 255))
     save(schild, "mastschild_hp")
+
+    concrete = Image.new("RGBA", (16, 16))
+    for x in range(16):
+        for y in range(16):
+            v = 150 + ((x * 7 + y * 13) % 5) * 6 - (8 if (x + y * 3) % 7 == 0 else 0)
+            concrete.putpixel((x, y), (v, v, v - 6, 255))
+    save(concrete, "concrete")
+
+    plate = Image.new("RGBA", (16, 16), (245, 245, 245, 255))
+    d = ImageDraw.Draw(plate)
+    d.rectangle([0, 0, 15, 15], outline=(20, 20, 20, 255))
+    for x0 in (3, 7, 11):  # stilisierte Ziffern
+        d.rectangle([x0, 5, x0 + 2, 10], outline=(20, 20, 20, 255))
+    save(plate, "number_plate")
 
     colors = {"red": (255, 40, 30), "green": (40, 255, 110), "yellow": (255, 200, 40), "white": (225, 230, 255)}
 

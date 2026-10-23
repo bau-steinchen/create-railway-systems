@@ -9,7 +9,9 @@
     "lamp_red": "create_railway_systems:block/lamp_red",
     "lamp_green": "create_railway_systems:block/lamp_green",
     "lamp_yellow": "create_railway_systems:block/lamp_yellow",
-    "lamp_white": "create_railway_systems:block/lamp_white"
+    "lamp_white": "create_railway_systems:block/lamp_white",
+    "concrete": "create_railway_systems:block/concrete",
+    "number_plate": "create_railway_systems:block/number_plate"
   },
   "elements": [
     {
@@ -78,12 +80,12 @@
     },
     {
       "from": [
-        3.5,
+        10.0,
         5,
         3.5
       ],
       "to": [
-        6.0,
+        12.5,
         7.5,
         4
       ],
@@ -121,12 +123,12 @@
     },
     {
       "from": [
-        6.5,
+        7.0,
         5,
         3.5
       ],
       "to": [
-        9.0,
+        9.5,
         7.5,
         4
       ],
@@ -159,12 +161,12 @@
     },
     {
       "from": [
-        7,
+        6.5,
         8.5,
         3.5
       ],
       "to": [
-        9.5,
+        9.0,
         11.0,
         4
       ],
@@ -197,12 +199,12 @@
     },
     {
       "from": [
-        10,
+        3.5,
         8.5,
         3.5
       ],
       "to": [
-        12.5,
+        6.0,
         11.0,
         4
       ],
