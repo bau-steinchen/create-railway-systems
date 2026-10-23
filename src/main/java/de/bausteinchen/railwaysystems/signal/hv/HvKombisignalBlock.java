@@ -1,5 +1,7 @@
 package de.bausteinchen.railwaysystems.signal.hv;
 
+import de.bausteinchen.railwaysystems.signal.SignalInput;
+
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -19,6 +21,14 @@ public class HvKombisignalBlock extends HvSignalBlock {
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder.add(MAIN_ASPECT, DISTANT_ASPECT));
+	}
+
+	@Override
+	public BlockState updateAspect(BlockState state, SignalInput input) {
+		HpAspect main = mainAspect(input);
+		VrAspect distant = main == HpAspect.HP0 ? VrAspect.DARK : distantAspect(input.getNextSignal());
+		return state.setValue(MAIN_ASPECT, main)
+			.setValue(DISTANT_ASPECT, distant);
 	}
 
 }

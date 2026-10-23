@@ -1,4 +1,4 @@
-package de.bausteinchen.railwaysystems.signal.hv;
+package de.bausteinchen.railwaysystems.signal;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 
 /**
- * Platziert ein H/V-Signal: zuerst per Rechtsklick an ein Create-Signal binden, dann platzieren.
+ * Platziert ein Signal: zuerst per Rechtsklick an ein Create-Signal binden, dann platzieren.
  * Bindung, Reichweitenprüfung und Hervorhebung des Ziels übernimmt Create's {@link ClickToLinkBlockItem}.
  */
-public class HvSignalBlockItem extends ClickToLinkBlockItem {
+public class LinkedSignalBlockItem extends ClickToLinkBlockItem {
 
-	public HvSignalBlockItem(Block block, Properties properties) {
+	public LinkedSignalBlockItem(Block block, Properties properties) {
 		super(block, properties);
 	}
 
@@ -34,7 +34,7 @@ public class HvSignalBlockItem extends ClickToLinkBlockItem {
 	@Override
 	public String getMessageTranslationKey() {
 		// ClickToLinkBlockItem stellt "create." voran
-		return RailwaySystems.MOD_ID + ".hv_signal";
+		return RailwaySystems.MOD_ID + ".signal";
 	}
 
 	@Override
@@ -45,10 +45,10 @@ public class HvSignalBlockItem extends ClickToLinkBlockItem {
 	@Override
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltip, flag);
-		tooltip.add(Component.translatable(RailwaySystems.MOD_ID + ".hv_signal.tooltip.link")
+		tooltip.add(Component.translatable(RailwaySystems.MOD_ID + ".signal.tooltip.link")
 			.withStyle(ChatFormatting.GRAY));
-		if (getBlock() instanceof HvSignalBlock signal && signal.hasMainAspect())
-			tooltip.add(Component.translatable(RailwaySystems.MOD_ID + ".hv_signal.tooltip.wrench")
+		if (getBlock() instanceof LinkedSignal signal && signal.getWrenchTooltipKey() != null)
+			tooltip.add(Component.translatable(signal.getWrenchTooltipKey())
 				.withStyle(ChatFormatting.GRAY));
 	}
 

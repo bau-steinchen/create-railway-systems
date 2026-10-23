@@ -1,4 +1,4 @@
-package de.bausteinchen.railwaysystems.signal.hv;
+package de.bausteinchen.railwaysystems.signal;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

@@ -4,7 +4,7 @@ import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
 import de.bausteinchen.railwaysystems.registry.ModBlocks;
 import de.bausteinchen.railwaysystems.registry.ModCreativeTabs;
 import de.bausteinchen.railwaysystems.registry.ModItems;
-import de.bausteinchen.railwaysystems.signal.hv.HvSignalBlockEntity;
+import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -26,7 +26,7 @@ public class RailwaySystems {
 		ModCreativeTabs.TABS.register(modBus);
 		container.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
 
-		NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> HvSignalBlockEntity.clearSlowSignals());
+		NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> LinkedSignalBlockEntity.clearSpeedLimits());
 	}
 
 	public static ResourceLocation asResource(String path) {

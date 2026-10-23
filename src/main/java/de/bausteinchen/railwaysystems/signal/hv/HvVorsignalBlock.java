@@ -1,5 +1,8 @@
 package de.bausteinchen.railwaysystems.signal.hv;
 
+import de.bausteinchen.railwaysystems.signal.SignalInput;
+import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
+
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -22,6 +25,11 @@ public class HvVorsignalBlock extends HvSignalBlock {
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder.add(ASPECT));
+	}
+
+	@Override
+	public BlockState updateAspect(BlockState state, SignalInput input) {
+		return state.setValue(ASPECT, distantAspect(new NextSignal(input.isClear(), input.getLinkedSpeedLimit())));
 	}
 
 }

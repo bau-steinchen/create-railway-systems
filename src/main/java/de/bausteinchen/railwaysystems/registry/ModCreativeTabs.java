@@ -22,6 +22,9 @@ public class ModCreativeTabs {
 			output.accept(ModItems.HV_VORSIGNAL.get());
 			output.accept(ModItems.HV_KOMBISIGNAL.get());
 			output.accept(ModItems.SH_SPERRSIGNAL.get());
+			output.accept(ModItems.KS_HAUPTSIGNAL.get());
+			output.accept(ModItems.KS_VORSIGNAL.get());
+			output.accept(ModItems.KS_MEHRABSCHNITTSSIGNAL.get());
 			output.accept(ModItems.SIGNAL_MAST.get());
 		})
 		.build());

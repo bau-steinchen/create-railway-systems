@@ -1,0 +1,698 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "mount": "none",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_none"
+      }
+    },
+    {
+      "when": {
+        "mount": "back",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_back"
+      }
+    },
+    {
+      "when": {
+        "mount": "left",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_left"
+      }
+    },
+    {
+      "when": {
+        "mount": "right",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_right"
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_schild"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1_blink"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks2"
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "1",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_1"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "2",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_2"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "3",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_3"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "4",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_4"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "5",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_5"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "6",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_6"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "7",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_7"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "8",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_8"
+      }
+    },
+    {
+      "when": {
+        "zs3v": "9",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_9"
+      }
+    },
+    {
+      "when": {
+        "mount": "none",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_none",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "back",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_back",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "left",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_left",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "right",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_right",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_schild",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1_blink",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "1",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "2",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "3",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "4",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_4",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "5",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_5",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "6",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_6",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "7",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_7",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "8",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_8",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "zs3v": "9",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_9",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "none",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_none",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "back",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_back",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "left",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_left",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "right",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_right",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_schild",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1_blink",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "1",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "2",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "3",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "4",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_4",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "5",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_5",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "6",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_6",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "7",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_7",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "8",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_8",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "zs3v": "9",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_9",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "none",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_none",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "back",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_back",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "left",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_left",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "right",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_right",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_schild",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks1_blink",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_ks2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "1",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "2",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "3",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "4",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_4",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "5",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_5",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "6",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_6",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "7",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_7",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "8",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_8",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "zs3v": "9",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_zs3v_9",
+        "y": 270
+      }
+    }
+  ]
+}

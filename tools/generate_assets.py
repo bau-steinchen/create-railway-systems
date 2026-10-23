@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Erzeugt Blockstates, Modelle, Platzhalter-Texturen, Loot-Tables und Tags der H/V-Signale.
+"""Erzeugt Blockstates, Modelle, Platzhalter-Texturen, Loot-Tables und Tags der Signale.
 
 Aufruf aus dem Projektverzeichnis:  python3 tools/generate_assets.py
 Benötigt Pillow (pip install pillow) für die Texturen.
@@ -23,6 +23,10 @@ VR = ["vr0", "vr1", "vr2"]
 HP_LIT = {"hp0": {"red"}, "hp1": {"green"}, "hp2": {"green", "yellow"}}
 VR_LIT = {"vr0": {"y_bl", "y_tr"}, "vr1": {"g_bl", "g_tr"}, "vr2": {"g_bl", "y_tr"}, "dark": set()}
 SH_LIT = {"sh0": {"r_l", "r_r"}, "sh1": {"w_bl", "w_tr"}}
+# Ks: Lampe -> Textur (blinkendes Grün als animierte Textur)
+KS_LIT = {"hp0": {"red": "red"}, "ks1": {"green": "green"}, "ks1_blink": {"green": "green_blink"},
+          "ks2": {"yellow": "yellow"}}
+SPEEDS = range(1, 10)
 LAMP_COLOR = {"red": "red", "green": "green", "yellow": "yellow",
               "r_l": "red", "r_r": "red", "w_bl": "white", "w_tr": "white",
               "y_bl": "yellow", "y_tr": "yellow", "g_bl": "green", "g_tr": "green"}
@@ -86,6 +90,9 @@ TEXTURES = {
     "lamp_green": tex("lamp_green"),
     "lamp_yellow": tex("lamp_yellow"),
     "lamp_white": tex("lamp_white"),
+    "lamp_green_blink": tex("lamp_green_blink"),
+    "zs_box": tex("zs_box"),
+    "ne2": tex("ne2"),
     "concrete": tex("concrete"),
     "number_plate": tex("number_plate"),
 }
@@ -106,7 +113,8 @@ def main_screen(lit, vx0, vx1, y0, y1, lamps):
     x0, x1 = mirror_x(vx0, vx1)
     elements = [box([x0, y0, 4], [x1, y1, 6.5], "#screen")]
     for name, (lx, ly, size) in lamps.items():
-        elements.append(lamp(lx, ly, size, LAMP_COLOR[name], name in lit))
+        color = lit[name] if isinstance(lit, dict) and name in lit else LAMP_COLOR[name]
+        elements.append(lamp(lx, ly, size, color, name in lit))
     return elements
 
 
@@ -157,6 +165,116 @@ def sperrsignal_model(aspect, on_mast):
     x0, x1 = mirror_x(13.5, 15)
     elements.append(box([x0, 1.5, 3.5], [x1, 7.5, 4], "#mastschild", north="#mastschild"))
     return model(elements)
+
+
+# --- Ks-Signale (Multipart: Träger, Schirm und Zs3/Zs3v-Anzeiger als getrennte Teile) ---
+
+KS_TYPES = {
+    "ks_hauptsignal": {
+        "arms": [(13, 15), (1.5, 3.5)],
+        "screen": (5, 11, 5, 12),
+        "lamps": {"red": (6.75, 8.75, 2.5), "green": (6.75, 5.5, 2.5)},
+        "aspects": ["hp0", "ks1"],
+        "zs3": (12.5, 15.5),
+    },
+    "ks_mehrabschnittssignal": {
+        "arms": [(10, 12), (5, 7)],
+        "screen": (3.5, 12.5, 4.5, 12.5),
+        "lamps": {"red": (6.75, 9.25, 2.5), "green": (4.25, 5.5, 2.5), "yellow": (9.25, 5.5, 2.5)},
+        "aspects": ["hp0", "ks1", "ks1_blink", "ks2"],
+        "zs3": (13, 16),
+        "zs3v": (0.5, 4),
+    },
+    "ks_vorsignal": {
+        "arms": [(11, 13), (6, 8)],
+        "screen": (3.5, 12.5, 9.5, 14),
+        "lamps": {"green": (4.75, 10.5, 2.5), "yellow": (8.75, 10.5, 2.5)},
+        "aspects": ["ks1", "ks1_blink", "ks2"],
+        "zs3v": (5.5, 9),
+    },
+}
+LAMP_COLOR.update({"green": "green", "yellow": "yellow", "red": "red"})
+
+
+def ks_screen(spec, aspect):
+    vx0, vx1, y0, y1 = spec["screen"]
+    elements = main_screen(KS_LIT[aspect], vx0, vx1, y0, y1, spec["lamps"])
+    elements += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
+    return elements
+
+
+def zs_box(y0, y1):
+    x0, x1 = mirror_x(6, 10)
+    return [box([x0, y0, 4], [x1, y1, 6.5], "#zs_box", north="#zs_box")]
+
+
+def zs_digit(y0, y1, texture):
+    x0, x1 = mirror_x(6.5, 9.5)
+    element = box([x0, y0 + 0.5, 3.5], [x1, y1 - 0.5, 4], "#zs_box", north=texture)
+    element["shade"] = False
+    element["neoforge_data"] = {"block_light": 15, "sky_light": 15}
+    return [element]
+
+
+def ks_extras(name):
+    """Schilder am Mast: Mastschild am Hauptsignal, Ne 2 am Vorsignal."""
+    if name == "ks_hauptsignal":
+        return [box([6, 0.5, 5.5], [10, 4.5, 6.5], "#mastschild", north="#mastschild")]
+    if name == "ks_vorsignal":
+        x0, x1 = mirror_x(6.25, 9.75)
+        return [box([x0, 0.5, 5.5], [x1, 5, 6.5], "#mastschild", north="#ne2")]
+    return []
+
+
+def multipart(parts):
+    entries = []
+    for facing, rot in FACINGS.items():
+        for when, model_name_ in parts:
+            apply = {"model": f"{MOD_ID}:block/{model_name_}"}
+            if rot:
+                apply["y"] = rot
+            entries.append({"when": {**when, "facing": facing}, "apply": apply})
+    return {"multipart": entries}
+
+
+def generate_ks():
+    any_speed = "|".join(str(n) for n in SPEEDS)
+    for name, spec in KS_TYPES.items():
+        parts = []
+        for mount in MOUNTS:
+            write_json(ASSETS / "models/block" / f"{name}_support_{mount}.json", model(support(mount, spec["arms"])))
+            parts.append(({"mount": mount}, f"{name}_support_{mount}"))
+        extras = ks_extras(name)
+        if extras:
+            write_json(ASSETS / "models/block" / f"{name}_schild.json", model(extras))
+            parts.append(({}, f"{name}_schild"))
+        for aspect in spec["aspects"]:
+            write_json(ASSETS / "models/block" / f"{name}_{aspect}.json", model(ks_screen(spec, aspect)))
+            parts.append(({"aspect": aspect}, f"{name}_{aspect}"))
+
+        if "zs3" in spec:
+            y0, y1 = spec["zs3"]
+            lit_aspects = "|".join(a for a in spec["aspects"] if a != "hp0")
+            write_json(ASSETS / "models/block" / f"{name}_zs3.json", model(zs_box(y0, y1)))
+            parts.append(({"zs3": any_speed}, f"{name}_zs3"))
+            for n in SPEEDS:
+                write_json(ASSETS / "models/block" / f"{name}_zs3_{n}.json", model(zs_digit(y0, y1, tex(f"zs3_{n}"))))
+                parts.append(({"zs3": str(n), "aspect": lit_aspects}, f"{name}_zs3_{n}"))
+        if "zs3v" in spec:
+            y0, y1 = spec["zs3v"]
+            write_json(ASSETS / "models/block" / f"{name}_zs3v.json", model(zs_box(y0, y1)))
+            parts.append(({}, f"{name}_zs3v"))
+            for n in SPEEDS:
+                write_json(ASSETS / "models/block" / f"{name}_zs3v_{n}.json", model(zs_digit(y0, y1, tex(f"zs3v_{n}"))))
+                parts.append(({"zs3v": str(n)}, f"{name}_zs3v_{n}"))
+
+        # Multipart-Bedingungen ohne Schlüssel gelten immer; "when" darf dann nur facing enthalten
+        write_json(ASSETS / "blockstates" / f"{name}.json", multipart(parts))
+
+        item_elements = support("none", spec["arms"]) + extras + ks_screen(spec, "ks1")
+        if "zs3v" in spec:
+            item_elements += zs_box(*spec["zs3v"])
+        write_json(ASSETS / "models/item" / f"{name}.json", model(item_elements))
 
 
 def variants(props, model_for):
@@ -227,7 +345,8 @@ def generate_models():
 
 
 def generate_data():
-    blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "signal_mast"]
+    blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "ks_hauptsignal",
+              "ks_vorsignal", "ks_mehrabschnittssignal", "signal_mast"]
     for b in blocks:
         write_json(DATA / MOD_ID / "loot_table/blocks" / f"{b}.json", {
             "type": "minecraft:block",
@@ -244,6 +363,26 @@ def save(img, name):
     path = ASSETS / "textures/block" / f"{name}.png"
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
+
+
+DIGITS = {
+    1: ["010", "110", "010", "010", "111"], 2: ["111", "001", "111", "100", "111"],
+    3: ["111", "001", "011", "001", "111"], 4: ["101", "101", "111", "001", "001"],
+    5: ["111", "100", "111", "001", "111"], 6: ["111", "100", "111", "101", "111"],
+    7: ["111", "001", "010", "010", "010"], 8: ["111", "101", "111", "101", "111"],
+    9: ["111", "101", "111", "001", "111"],
+}
+
+
+def digit_img(n, color):
+    """Ziffer eines Lichtanzeigers (3x5-Raster, doppelt skaliert) auf dunklem Grund."""
+    img = Image.new("RGBA", (16, 16), (18, 18, 20, 255))
+    for row, bits in enumerate(DIGITS[n]):
+        for col, bit in enumerate(bits):
+            if bit == "1":
+                x, y = 5 + col * 2, 3 + row * 2
+                ImageDraw.Draw(img).rectangle([x, y, x + 1, y + 1], fill=color)
+    return img
 
 
 def generate_textures():
@@ -289,7 +428,31 @@ def generate_textures():
             d.ellipse([4, 4, 8, 8], fill=highlight)
         return img
 
-    save(lamp_img((48, 48, 52, 255), (30, 30, 33, 255), None), "lamp_off")
+    off = lamp_img((48, 48, 52, 255), (30, 30, 33, 255), None)
+    save(off, "lamp_off")
+
+    # blinkendes Grün: zwei Frames (an/aus) als animierte Textur
+    r, g, b = colors["green"]
+    blink = Image.new("RGBA", (16, 32))
+    blink.paste(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255),
+                         (min(255, r + 120), min(255, g + 120), min(255, b + 120), 255)), (0, 0))
+    blink.paste(off, (0, 16))
+    save(blink, "lamp_green_blink")
+    write_json(ASSETS / "textures/block/lamp_green_blink.png.mcmeta", {"animation": {"frametime": 10}})
+
+    zs = Image.new("RGBA", (16, 16), (18, 18, 20, 255))
+    ImageDraw.Draw(zs).rectangle([0, 0, 15, 15], outline=(50, 50, 54, 255))
+    save(zs, "zs_box")
+    for n in SPEEDS:
+        save(digit_img(n, (240, 240, 240, 255)), f"zs3_{n}")
+        save(digit_img(n, (255, 200, 40, 255)), f"zs3v_{n}")
+
+    ne2 = Image.new("RGBA", (16, 16), (245, 245, 245, 255))
+    d = ImageDraw.Draw(ne2)
+    d.rectangle([0, 0, 15, 15], outline=(15, 15, 15, 255), width=2)
+    d.line([(2, 2), (8, 8), (13, 2)], fill=(15, 15, 15, 255), width=2)
+    d.line([(2, 13), (8, 8), (13, 13)], fill=(15, 15, 15, 255), width=2)
+    save(ne2, "ne2")
     for name, (r, g, b) in colors.items():
         save(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255),
                       (min(255, r + 120), min(255, g + 120), min(255, b + 120), 255)), f"lamp_{name}")
@@ -297,6 +460,7 @@ def generate_textures():
 
 if __name__ == "__main__":
     generate_models()
+    generate_ks()
     generate_data()
     generate_textures()
     print("Assets erzeugt unter", ROOT)

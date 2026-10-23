@@ -1,11 +1,14 @@
 package de.bausteinchen.railwaysystems.registry;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.signal.SignalMastBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvHauptsignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvKombisignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvVorsignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.ShSperrsignalBlock;
-import de.bausteinchen.railwaysystems.signal.hv.SignalMastBlock;
+import de.bausteinchen.railwaysystems.signal.ks.KsHauptsignalBlock;
+import de.bausteinchen.railwaysystems.signal.ks.KsMehrabschnittssignalBlock;
+import de.bausteinchen.railwaysystems.signal.ks.KsVorsignalBlock;
 
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -28,6 +31,15 @@ public class ModBlocks {
 
 	public static final DeferredBlock<ShSperrsignalBlock> SH_SPERRSIGNAL =
 		BLOCKS.register("sh_sperrsignal", () -> new ShSperrsignalBlock(signalProperties()));
+
+	public static final DeferredBlock<KsHauptsignalBlock> KS_HAUPTSIGNAL =
+		BLOCKS.register("ks_hauptsignal", () -> new KsHauptsignalBlock(signalProperties()));
+
+	public static final DeferredBlock<KsVorsignalBlock> KS_VORSIGNAL =
+		BLOCKS.register("ks_vorsignal", () -> new KsVorsignalBlock(signalProperties()));
+
+	public static final DeferredBlock<KsMehrabschnittssignalBlock> KS_MEHRABSCHNITTSSIGNAL =
+		BLOCKS.register("ks_mehrabschnittssignal", () -> new KsMehrabschnittssignalBlock(signalProperties()));
 
 	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST =
 		BLOCKS.register("signal_mast", () -> new SignalMastBlock(signalProperties()));

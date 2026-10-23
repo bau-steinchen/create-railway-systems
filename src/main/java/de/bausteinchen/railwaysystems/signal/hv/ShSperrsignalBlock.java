@@ -4,6 +4,10 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
+import de.bausteinchen.railwaysystems.signal.LinkedSignal;
+import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
+import de.bausteinchen.railwaysystems.signal.SignalInput;
+import de.bausteinchen.railwaysystems.signal.SignalMastBlock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -28,7 +32,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * Lichtsperrsignal (Zwergsignal) für Rangierfahrten: Sh0 / Sh1. Steht auf einem kleinen Fuß
  * oder, wenn darunter ein {@link SignalMastBlock} steht, direkt auf dem Mast.
  */
-public class ShSperrsignalBlock extends Block implements IBE<HvSignalBlockEntity>, IWrenchable {
+public class ShSperrsignalBlock extends Block implements IBE<LinkedSignalBlockEntity>, IWrenchable, LinkedSignal {
 
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<ShAspect> ASPECT = EnumProperty.create("aspect", ShAspect.class);
@@ -69,6 +73,11 @@ public class ShSperrsignalBlock extends Block implements IBE<HvSignalBlockEntity
 	}
 
 	@Override
+	public BlockState updateAspect(BlockState state, SignalInput input) {
+		return state.setValue(ASPECT, input.isClear() ? ShAspect.SH1 : ShAspect.SH0);
+	}
+
+	@Override
 	protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
@@ -95,13 +104,13 @@ public class ShSperrsignalBlock extends Block implements IBE<HvSignalBlockEntity
 	}
 
 	@Override
-	public Class<HvSignalBlockEntity> getBlockEntityClass() {
-		return HvSignalBlockEntity.class;
+	public Class<LinkedSignalBlockEntity> getBlockEntityClass() {
+		return LinkedSignalBlockEntity.class;
 	}
 
 	@Override
-	public BlockEntityType<? extends HvSignalBlockEntity> getBlockEntityType() {
-		return ModBlockEntities.HV_SIGNAL.get();
+	public BlockEntityType<? extends LinkedSignalBlockEntity> getBlockEntityType() {
+		return ModBlockEntities.LINKED_SIGNAL.get();
 	}
 
 }
