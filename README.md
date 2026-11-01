@@ -1,6 +1,6 @@
 # Create: Railway Systems
 
-Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moderne Bahnsysteme in Minecraft bringt. Den Anfang machen **deutsche Lichtsignale** (H/V, Ks und Sh) mit Zusatzsignalen (Zs1, Zs3, Zs3v, Zs6, Zs7), die den Zustand der Create-Zugsignale vorbildgerecht anzeigen.
+Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moderne Bahnsysteme in Minecraft bringt. Den Anfang machen **deutsche Lichtsignale** (H/V, Ks und Sh) mit Zusatzsignalen (Zs1, Zs2, Zs2v, Zs3, Zs3v, Zs6, Zs7, Zs8), die den Zustand der Create-Zugsignale vorbildgerecht anzeigen.
 
 ## Voraussetzungen
 
@@ -42,10 +42,15 @@ Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moder
 |---|---|---|
 | Zs1 Ersatzsignal | H/V: drei weiße Lichter in A-Form, Ks: weißes Blinklicht | Signal zeigt Halt und bekommt Redstone |
 | Zs7 Vorsichtsignal | drei gelbe Lichter in V-Form | Signal zeigt Halt und bekommt Redstone |
+| Zs8 Gegengleis-Ersatzsignal | weiße schräge Lichtpunktreihe, blinkend (im Kasten des Zs6) | Signal zeigt Halt und bekommt Redstone |
+| Zs2 Richtungsanzeiger | weißer Buchstabe A–Z | Signal zeigt Fahrt und bekommt Redstone |
+| Zs2v Richtungsvoranzeiger | gelber Buchstabe am Vorsignal | angekündigtes Hauptsignal zeigt seinen Zs2 |
 | Zs6 Gegengleisanzeiger | weiße schräge Lichtpunktreihe | Signal zeigt Fahrt |
 | Kennlicht | weißes Licht oben links im Schirm | Signal ist abgeschaltet, alle anderen Lichter sind dunkel |
 
-Zs1/Zs7 sind rein optisch: Create-Züge fahren weiterhin nicht an einem Halt zeigenden Signal vorbei.
+Zs1/Zs7/Zs8 sind rein optisch: Create-Züge fahren weiterhin nicht an einem Halt zeigenden Signal vorbei. Ein Signal kann sowohl ein Ersatzsignal als auch einen Zs2 tragen: Dasselbe Redstone-Signal lässt bei Halt das Ersatzsignal, bei Fahrt den Zs2 leuchten.
+
+Zs2v gibt es am H/V-Vorsignal, am H/V-Kombisignal, am Ks-Vorsignal und am Ks-Mehrabschnittssignal.
 
 Alle Blöcke stehen im Kreativ-Tab **Create: Railway Systems**.
 
@@ -68,13 +73,16 @@ Ohne Bindung lässt sich ein Signal nicht platzieren.
 
 ### Ausstattung einstellen
 
-H/V-Hauptsignale, H/V-Kombisignale, Ks-Hauptsignale und Ks-Mehrabschnittssignale haben auf der **Rückseite der unteren Hälfte** drei Create-Wertefelder. Mit dem **Schraubenschlüssel** auf ein Feld zielen, Rechtsklick gedrückt halten und auswählen:
+H/V-Hauptsignale, H/V-Kombisignale, Ks-Hauptsignale und Ks-Mehrabschnittssignale haben auf der **Rückseite der unteren Hälfte** vier Create-Wertefelder im Quadrat. Mit dem **Schraubenschlüssel** auf ein Feld zielen, Rechtsklick gedrückt halten und auswählen:
 
-- **oben:** Ersatz-/Vorsichtsignal – keins, Zs1 oder Zs7
-- **Mitte:** Gegengleisanzeiger – keiner oder Zs6
-- **unten:** Betrieb – in Betrieb oder abgeschaltet (Kennlicht)
+| | links | rechts |
+|---|---|---|
+| **oben** | Ersatzsignal: keins, Zs1, Zs7 oder Zs8 | Zs2-Buchstabe: keiner oder A–Z |
+| **unten** | Gegengleisanzeiger: keiner oder Zs6 | Betrieb: in Betrieb oder abgeschaltet (Kennlicht) |
 
-Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7 kann an der oberen oder unteren Hälfte anliegen, z. B. als Hebel, Redstone-Block oder Redstone-Staub direkt neben dem Signal.
+Links und rechts gelten von hinten gesehen. Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7/Zs8 und Zs2 kann an der oberen oder unteren Hälfte anliegen, z. B. als Hebel, Redstone-Block oder Redstone-Staub direkt neben dem Signal.
+
+**Eingebaute Funkverbindung:** Die zwei Blöcke hohen Signale haben auf der Rückseite der **oberen Hälfte** zwei Frequenzfelder wie ein Create-Redstone-Link. Mit einem Gegenstand in der Hand auf ein Feld rechtsklicken setzt die Frequenz. Sendet ein Redstone-Link auf derselben Frequenz, wirkt das wie Redstone am Signal. Ein zusätzlicher Redstone-Link-Block am Signal ist nicht nötig.
 
 ### Signallogik
 
@@ -85,6 +93,7 @@ Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bis
 - **Ks-Hauptsignal:** Create-Signal rot → Hp0, grün/gelb → Ks1. Mit dem **Schraubenschlüssel** wird der Geschwindigkeitsanzeiger **Zs3** eingestellt (aus, 10–90 km/h). Er leuchtet, solange das Signal Fahrt zeigt.
 - **Ks-Vorsignal:** Wird wie das H/V-Vorsignal an das Create-Signal des angekündigten Hauptsignals gebunden. Hält das Hauptsignal → Ks2. Gibt es dort eine Geschwindigkeit vor (Zs3 oder H/V-Hp2) → Ks1 blinkt und der **Zs3v** zeigt sie an. Sonst Ks1.
 - **Ks-Mehrabschnittssignal:** Eigenes Create-Signal rot → Hp0. Sonst kündigt es wie das H/V-Kombisignal automatisch die Folgesignale an: Ks2, Ks1 blinkend mit Zs3v oder Ks1. Zusätzlich lässt sich ein eigener Zs3 einstellen.
+- **Zs2v:** Vorsignale kündigen den Buchstaben an, den der Zs2 des nächsten Hauptsignals gerade zeigt. Führen mehrere Folgesignale unterschiedliche Buchstaben, bleibt der Zs2v dunkel.
 - **Systemübergreifend:** H/V- und Ks-Signale kündigen sich gegenseitig an. Ein H/V-Hp2 gilt als 40 km/h, ein Ks-Zs3 lässt H/V-Vorsignale Vr2 zeigen. Bei mehreren Folgesignalen wird die niedrigste Geschwindigkeit angekündigt.
 
 ## Entwicklung
@@ -110,13 +119,12 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
-  client/                              Overlay-Renderer für Zusatzanzeigen (Zs3, Zs3v, Zs1/Zs7, Zs6, Kennlicht)
+  client/                              Overlay-Renderer für Zusatzanzeigen (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, Kennlicht)
 tools/generate_assets.py               Asset-Generator
 ```
 
 ## Geplant
 
-- Weitere Zusatzsignale (Zs2 Richtungsanzeiger, Zs8 …)
 - Bessere Texturen
 
 ## Lizenz

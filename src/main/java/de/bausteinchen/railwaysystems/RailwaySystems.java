@@ -26,7 +26,7 @@ public class RailwaySystems {
 		ModCreativeTabs.TABS.register(modBus);
 		container.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
 
-		NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> LinkedSignalBlockEntity.clearSpeedLimits());
+		NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> LinkedSignalBlockEntity.clearAnnouncements());
 	}
 
 	public static ResourceLocation asResource(String path) {

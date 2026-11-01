@@ -5,6 +5,7 @@ import java.util.Set;
 
 import de.bausteinchen.railwaysystems.signal.SignalFeature;
 import de.bausteinchen.railwaysystems.signal.SignalInput;
+import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,8 +37,8 @@ public class KsMehrabschnittssignalBlock extends KsSignalBlock {
 
 	@Override
 	public Set<SignalFeature> getFeatures() {
-		return EnumSet.of(SignalFeature.ZS3, SignalFeature.ZS3V, SignalFeature.ZUSATZ, SignalFeature.ZS6,
-			SignalFeature.KENNLICHT);
+		return EnumSet.of(SignalFeature.ZS3, SignalFeature.ZS3V, SignalFeature.ZS2, SignalFeature.ZS2V,
+			SignalFeature.ZUSATZ, SignalFeature.ZS6, SignalFeature.KENNLICHT);
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class KsMehrabschnittssignalBlock extends KsSignalBlock {
 		if (input.getBlockEntity()
 			.isSwitchedOff() || !input.isClear()) {
 			input.getBlockEntity()
-				.setZs3v(0);
+				.announce(NextSignal.STOP);
 			return state.setValue(ASPECT, input.getBlockEntity()
 				.isSwitchedOff() ? KsAspect.OFF : KsAspect.HP0);
 		}

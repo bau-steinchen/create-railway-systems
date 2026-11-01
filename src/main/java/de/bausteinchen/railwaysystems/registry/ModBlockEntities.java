@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
+import de.bausteinchen.railwaysystems.signal.SignalLinkBlockEntity;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -20,6 +21,13 @@ public class ModBlockEntities {
 		() -> BlockEntityType.Builder.of(LinkedSignalBlockEntity::new,
 			ModBlocks.HV_HAUPTSIGNAL.get(), ModBlocks.HV_VORSIGNAL.get(), ModBlocks.HV_KOMBISIGNAL.get(),
 			ModBlocks.SH_SPERRSIGNAL.get(), ModBlocks.KS_HAUPTSIGNAL.get(), ModBlocks.KS_VORSIGNAL.get(),
+			ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get()).build(null));
+
+	/** Funkverbindung in der oberen Hälfte der zwei Blöcke hohen Signale */
+	@SuppressWarnings("DataFlowIssue")
+	public static final Supplier<BlockEntityType<SignalLinkBlockEntity>> SIGNAL_LINK = BLOCK_ENTITIES.register("signal_link",
+		() -> BlockEntityType.Builder.of(SignalLinkBlockEntity::new,
+			ModBlocks.HV_HAUPTSIGNAL.get(), ModBlocks.HV_KOMBISIGNAL.get(), ModBlocks.KS_HAUPTSIGNAL.get(),
 			ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get()).build(null));
 
 }

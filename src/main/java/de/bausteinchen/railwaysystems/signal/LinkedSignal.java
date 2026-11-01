@@ -33,14 +33,14 @@ public interface LinkedSignal {
 	}
 
 	/**
-	 * Ob der Begriff Fahrt erlaubt; Zs3 und Zs6 leuchten nur dann.
+	 * Ob der Begriff Fahrt erlaubt; Zs2, Zs3 und Zs6 leuchten nur dann.
 	 */
 	default boolean showsProceed(BlockState state) {
 		return false;
 	}
 
 	/**
-	 * Ob das Signal Halt zeigt; nur dann können Zs1/Zs7 leuchten.
+	 * Ob das Signal Halt zeigt; nur dann können Zs1/Zs7/Zs8 leuchten.
 	 */
 	default boolean showsStop(BlockState state) {
 		return false;

@@ -14,6 +14,7 @@ import de.bausteinchen.railwaysystems.signal.LinkedSignal;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 import de.bausteinchen.railwaysystems.signal.MountedSignalBlock;
 import de.bausteinchen.railwaysystems.signal.SignalFeature;
+import de.bausteinchen.railwaysystems.signal.SignalLetterBehaviour;
 import de.bausteinchen.railwaysystems.signal.SignalOptions.Zusatz;
 
 import net.minecraft.client.Minecraft;
@@ -31,7 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 
 /**
- * Zeichnet die Zusatzanzeigen eines Signals (Zs3, Zs3v, Zs1/Zs7, Zs6, Kennlicht) aus den Daten
+ * Zeichnet die Zusatzanzeigen eines Signals (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, Kennlicht) aus den Daten
  * des Block-Entity. Die Modelle liegen unter {@code block/overlay/<signal>/<teil>} und sind wie
  * die Signalmodelle mit dem Schirm nach Norden entworfen.
  */
@@ -52,8 +53,15 @@ public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalB
 					for (int n = 1; n <= 9; n++)
 						parts.add(name + "_" + n);
 				}
-				case ZUSATZ -> parts.addAll(List.of("zs1_off", "zs1_on", "zs7_off", "zs7_on"));
-				case ZS6 -> parts.addAll(List.of("zs6_off", "zs6_on"));
+				case ZS2, ZS2V -> {
+					String name = feature == SignalFeature.ZS2 ? "zs2" : "zs2v";
+					parts.add(name + "_box");
+					for (int n = 1; n <= SignalLetterBehaviour.LETTERS; n++)
+						parts.add(name + "_" + n);
+				}
+				// Zs8 nutzt den Kasten des Zs6
+				case ZUSATZ -> parts.addAll(List.of("zs1_off", "zs1_on", "zs7_off", "zs7_on", "zs8_on"));
+				case ZS6 -> parts.addAll(List.of("zs6_box", "zs6_on"));
 				case KENNLICHT -> parts.addAll(List.of("kennlicht_off", "kennlicht_on"));
 			}
 		}
@@ -96,15 +104,32 @@ public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalB
 			if (be.getZs3v() > 0)
 				draw(ms, consumer, state, model(block, "zs3v_" + be.getZs3v()), LightTexture.FULL_BRIGHT, overlay);
 		}
-		if (features.contains(SignalFeature.ZUSATZ) && be.getZusatz() != Zusatz.NONE) {
-			String name = be.getZusatz() == Zusatz.ZS1 ? "zs1" : "zs7";
+		if (features.contains(SignalFeature.ZS2) && be.getZs2() > 0) {
+			draw(ms, consumer, state, model(block, "zs2_box"), light, overlay);
+			if (be.isZs2Lit())
+				draw(ms, consumer, state, model(block, "zs2_" + be.getZs2()), LightTexture.FULL_BRIGHT, overlay);
+		}
+		if (features.contains(SignalFeature.ZS2V)) {
+			draw(ms, consumer, state, model(block, "zs2v_box"), light, overlay);
+			if (be.getZs2v() > 0)
+				draw(ms, consumer, state, model(block, "zs2v_" + be.getZs2v()), LightTexture.FULL_BRIGHT, overlay);
+		}
+		Zusatz zusatz = features.contains(SignalFeature.ZUSATZ) ? be.getZusatz() : Zusatz.NONE;
+		if (zusatz == Zusatz.ZS1 || zusatz == Zusatz.ZS7) {
+			String name = zusatz == Zusatz.ZS1 ? "zs1" : "zs7";
 			boolean lit = be.isZusatzLit();
 			draw(ms, consumer, state, model(block, name + (lit ? "_on" : "_off")), lit ? LightTexture.FULL_BRIGHT : light,
 				overlay);
 		}
-		if (features.contains(SignalFeature.ZS6) && be.hasZs6())
-			draw(ms, consumer, state, model(block, proceed ? "zs6_on" : "zs6_off"),
-				proceed ? LightTexture.FULL_BRIGHT : light, overlay);
+		// Zs6 und Zs8 teilen sich einen Kasten: Zs6 leuchtet bei Fahrt, Zs8 blinkt bei Halt
+		boolean zs6 = features.contains(SignalFeature.ZS6) && be.hasZs6();
+		if (zs6 || zusatz == Zusatz.ZS8) {
+			draw(ms, consumer, state, model(block, "zs6_box"), light, overlay);
+			if (zs6 && proceed)
+				draw(ms, consumer, state, model(block, "zs6_on"), LightTexture.FULL_BRIGHT, overlay);
+			else if (zusatz == Zusatz.ZS8 && be.isZusatzLit())
+				draw(ms, consumer, state, model(block, "zs8_on"), LightTexture.FULL_BRIGHT, overlay);
+		}
 		if (features.contains(SignalFeature.KENNLICHT)) {
 			boolean lit = be.isSwitchedOff();
 			draw(ms, consumer, state, model(block, lit ? "kennlicht_on" : "kennlicht_off"),

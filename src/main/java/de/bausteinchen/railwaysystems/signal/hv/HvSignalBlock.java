@@ -59,10 +59,23 @@ public abstract class HvSignalBlock extends MountedSignalBlock {
 		return next.speedLimit() > 0 ? VrAspect.VR2 : VrAspect.VR1;
 	}
 
+	/**
+	 * Ob dieses Signal einen Vorsignalbegriff (Vr) zeigt.
+	 */
+	public boolean hasDistantAspect() {
+		return !hasMainAspect() || getStateDefinition().getProperties()
+			.contains(DISTANT_ASPECT);
+	}
+
 	@Override
 	public Set<SignalFeature> getFeatures() {
-		return hasMainAspect() ? EnumSet.of(SignalFeature.ZUSATZ, SignalFeature.ZS6, SignalFeature.KENNLICHT)
-			: Set.of();
+		Set<SignalFeature> features = EnumSet.noneOf(SignalFeature.class);
+		if (hasMainAspect())
+			features.addAll(EnumSet.of(SignalFeature.ZS2, SignalFeature.ZUSATZ, SignalFeature.ZS6,
+				SignalFeature.KENNLICHT));
+		if (hasDistantAspect())
+			features.add(SignalFeature.ZS2V);
+		return features;
 	}
 
 	@Override

@@ -29,7 +29,10 @@ public class HvVorsignalBlock extends HvSignalBlock {
 
 	@Override
 	public BlockState updateAspect(BlockState state, SignalInput input) {
-		return state.setValue(ASPECT, distantAspect(new NextSignal(input.isClear(), input.getLinkedSpeedLimit())));
+		NextSignal next = input.getLinkedSignal();
+		input.getBlockEntity()
+			.announce(next);
+		return state.setValue(ASPECT, distantAspect(next));
 	}
 
 }
