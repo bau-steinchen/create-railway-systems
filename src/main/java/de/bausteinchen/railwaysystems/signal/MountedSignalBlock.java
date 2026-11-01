@@ -47,7 +47,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * abgeleitet.
  * <p>
  * Hohe Signale ({@link #isTall()}) bestehen wie eine Tür aus unterer und oberer Hälfte. Bindung
- * und Logik liegen in der unteren Hälfte; die obere übernimmt deren Zustand.
+ * und Logik liegen in der unteren Hälfte; die obere übernimmt deren Zustand und trägt eine
+ * eingebaute Funkverbindung ({@link SignalLinkBlockEntity}).
  */
 public abstract class MountedSignalBlock extends Block
 	implements IBE<LinkedSignalBlockEntity>, IWrenchable, LinkedSignal {
@@ -255,8 +256,9 @@ public abstract class MountedSignalBlock extends Block
 	@Override
 	@Nullable
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		// nur die untere Hälfte trägt Bindung und Logik
-		return isUpper(state) ? null : IBE.super.newBlockEntity(pos, state);
+		// die untere Hälfte trägt Bindung und Logik, die obere die eingebaute Funkverbindung
+		return isUpper(state) ? ModBlockEntities.SIGNAL_LINK.get()
+			.create(pos, state) : IBE.super.newBlockEntity(pos, state);
 	}
 
 	@Override

@@ -209,9 +209,11 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 			return false;
 		if (isPowered(worldPosition))
 			return true;
-		// bei zwei Blöcke hohen Signalen zählt auch Redstone an der oberen Hälfte
-		BlockState above = level.getBlockState(worldPosition.above());
-		return MountedSignalBlock.isUpper(above) && isPowered(worldPosition.above());
+		// bei zwei Blöcke hohen Signalen zählen auch Redstone an der oberen Hälfte und deren Funkverbindung
+		BlockPos upper = worldPosition.above();
+		if (!MountedSignalBlock.isUpper(level.getBlockState(upper)))
+			return false;
+		return isPowered(upper) || level.getBlockEntity(upper) instanceof SignalLinkBlockEntity link && link.isPowered();
 	}
 
 	private boolean isPowered(BlockPos pos) {

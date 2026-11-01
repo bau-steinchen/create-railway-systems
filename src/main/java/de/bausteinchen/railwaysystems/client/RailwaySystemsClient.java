@@ -1,5 +1,7 @@
 package de.bausteinchen.railwaysystems.client;
 
+import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
+
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
 import de.bausteinchen.railwaysystems.registry.ModBlocks;
@@ -18,6 +20,7 @@ public class RailwaySystemsClient {
 	@SubscribeEvent
 	public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerBlockEntityRenderer(ModBlockEntities.LINKED_SIGNAL.get(), SignalOverlayRenderer::new);
+		event.registerBlockEntityRenderer(ModBlockEntities.SIGNAL_LINK.get(), SmartBlockEntityRenderer::new);
 	}
 
 	@SubscribeEvent
