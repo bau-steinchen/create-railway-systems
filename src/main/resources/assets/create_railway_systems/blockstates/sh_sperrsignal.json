@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "aspect=sh0,facing=north,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0"
+    },
+    "aspect=sh0,facing=east,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0",
+      "y": 90
+    },
+    "aspect=sh0,facing=south,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0",
+      "y": 180
+    },
+    "aspect=sh0,facing=west,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0",
+      "y": 270
+    },
+    "aspect=sh0,facing=north,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0_mast"
+    },
+    "aspect=sh0,facing=east,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0_mast",
+      "y": 90
+    },
+    "aspect=sh0,facing=south,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0_mast",
+      "y": 180
+    },
+    "aspect=sh0,facing=west,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh0_mast",
+      "y": 270
+    },
+    "aspect=sh1,facing=north,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1"
+    },
+    "aspect=sh1,facing=east,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1",
+      "y": 90
+    },
+    "aspect=sh1,facing=south,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1",
+      "y": 180
+    },
+    "aspect=sh1,facing=west,mast=false": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1",
+      "y": 270
+    },
+    "aspect=sh1,facing=north,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1_mast"
+    },
+    "aspect=sh1,facing=east,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1_mast",
+      "y": 90
+    },
+    "aspect=sh1,facing=south,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1_mast",
+      "y": 180
+    },
+    "aspect=sh1,facing=west,mast=true": {
+      "model": "create_railway_systems:block/sh_sperrsignal_sh1_mast",
+      "y": 270
+    }
+  }
+}
