@@ -7,8 +7,8 @@ Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moder
 | | Version |
 |---|---|
 | Minecraft | 1.21.1 |
-| NeoForge | 21.1.219 oder neuer |
-| Create | 6.0.10 oder neuer |
+| NeoForge | 21.1.215 oder neuer |
+| Create | 6.0.9 oder neuer |
 
 ## Installation
 
