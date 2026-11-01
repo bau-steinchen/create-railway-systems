@@ -1,6 +1,6 @@
 # Create: Railway Systems
 
-Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moderne Bahnsysteme in Minecraft bringt. Den Anfang machen **deutsche Lichtsignale** (H/V, Ks und Sh), die den Zustand der Create-Zugsignale vorbildgerecht anzeigen.
+Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moderne Bahnsysteme in Minecraft bringt. Den Anfang machen **deutsche Lichtsignale** (H/V, Ks und Sh) mit Zusatzsignalen (Zs1, Zs3, Zs3v, Zs6, Zs7), die den Zustand der Create-Zugsignale vorbildgerecht anzeigen.
 
 ## Voraussetzungen
 
@@ -74,7 +74,7 @@ H/V-Hauptsignale, H/V-Kombisignale, Ks-Hauptsignale und Ks-Mehrabschnittssignale
 - **Mitte:** Gegengleisanzeiger – keiner oder Zs6
 - **unten:** Betrieb – in Betrieb oder abgeschaltet (Kennlicht)
 
-Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7 kann an der oberen oder unteren Hälfte anliegen.
+Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7 kann an der oberen oder unteren Hälfte anliegen, z. B. als Hebel, Redstone-Block oder Redstone-Staub direkt neben dem Signal.
 
 ### Signallogik
 
@@ -94,6 +94,7 @@ Benötigt JDK 21.
 ```sh
 ./gradlew build                    # Jar nach build/libs/
 ./gradlew runClient                # Testclient starten
+./gradlew runClient -PquickPlay=<Welt>  # Testclient direkt in eine Einzelspielerwelt starten
 ./gradlew runServer                # Testserver starten
 python3 tools/generate_assets.py   # Modelle, Blockstates, Texturen, Loot-Tables neu erzeugen (Pillow nötig)
 ```
