@@ -8,20 +8,23 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Wertefeld auf der Rückseite des Masts (untere Signalhälfte), übereinander in der Höhe {@code y}.
+ * Wertefeld auf der Rückseite des Masts (untere Signalhälfte) an der Stelle {@code x}, {@code y}
+ * (von hinten gesehen, in Pixeln).
  */
 public class SignalValueBox extends ValueBoxTransform.Sided {
 
+	private final float x;
 	private final float y;
 
-	public SignalValueBox(float y) {
+	public SignalValueBox(float x, float y) {
+		this.x = x;
 		this.y = y;
 	}
 
 	@Override
 	protected Vec3 getSouthLocation() {
 		// knapp hinter der Mastrückseite (Mast endet bei 9,5 px)
-		return VecHelper.voxelSpace(8, y, 9.75);
+		return VecHelper.voxelSpace(x, y, 9.75);
 	}
 
 	@Override

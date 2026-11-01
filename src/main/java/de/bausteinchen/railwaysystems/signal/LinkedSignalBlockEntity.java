@@ -49,16 +49,25 @@ import net.minecraft.world.phys.AABB;
 public class LinkedSignalBlockEntity extends SmartBlockEntity {
 
 	/**
-	 * Geschwindigkeiten (in 10 km/h), die Hauptsignale an ihrem Create-Signal vorgeben. Vorsignale
-	 * schlagen hier nach, ob sie eine Geschwindigkeitsbeschränkung ankündigen müssen.
+	 * Was Hauptsignale an ihrem Create-Signal vorgeben. Vorsignale schlagen hier nach, ob sie eine
+	 * Geschwindigkeitsbeschränkung oder eine Richtung ankündigen müssen.
 	 */
-	private static final Map<GlobalPos, Integer> SPEED_LIMITS = new ConcurrentHashMap<>();
+	private static final Map<GlobalPos, Announcement> ANNOUNCEMENTS = new ConcurrentHashMap<>();
+
+	/**
+	 * @param speedLimit Geschwindigkeit in 10 km/h, 0 = keine Beschränkung
+	 * @param direction  leuchtender Buchstabe des Zs2 (1–26 = A–Z), 0 = keiner
+	 */
+	private record Announcement(int speedLimit, int direction) {
+		static final Announcement NONE = new Announcement(0, 0);
+	}
 
 	private static final int CHAIN_REFRESH_INTERVAL = 20;
 
 	private static final BehaviourType<SignalOptionBehaviour<?>> ZUSATZ_TYPE = new BehaviourType<>("zusatz");
 	private static final BehaviourType<SignalOptionBehaviour<?>> GEGENGLEIS_TYPE = new BehaviourType<>("gegengleis");
 	private static final BehaviourType<SignalOptionBehaviour<?>> BETRIEB_TYPE = new BehaviourType<>("betrieb");
+	private static final BehaviourType<SignalLetterBehaviour> RICHTUNG_TYPE = new BehaviourType<>("richtung");
 
 	@Nullable
 	private BlockPos targetOffset;
@@ -67,8 +76,12 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 	private int zs3;
 	/** angezeigte Geschwindigkeit des Zs3v in 10 km/h, 0 = dunkel */
 	private int zs3v;
-	/** Zs1/Zs7 leuchtet */
+	/** angezeigter Buchstabe des Zs2v (1–26 = A–Z), 0 = dunkel */
+	private int zs2v;
+	/** Zs1/Zs7/Zs8 leuchtet */
 	private boolean zusatzLit;
+	/** Zs2 leuchtet */
+	private boolean zs2Lit;
 	private boolean displayChanged;
 
 	// werden in addBehaviours() aus dem Konstruktor der Basisklasse gesetzt, daher ohne Initialisierer
@@ -78,6 +91,8 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 	private SignalOptionBehaviour<Gegengleis> gegengleis;
 	@Nullable
 	private SignalOptionBehaviour<Betrieb> betrieb;
+	@Nullable
+	private SignalLetterBehaviour richtung;
 
 	@Nullable
 	private Map<UUID, Boolean> chainedSignals;
@@ -92,28 +107,38 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		if (!(getBlockState().getBlock() instanceof LinkedSignal signal))
 			return;
+		// Wertefelder auf der Rückseite, von hinten gesehen: oben Zs1/Zs7/Zs8 und Zs2, unten Zs6 und Betrieb
 		var features = signal.getFeatures();
 		if (features.contains(SignalFeature.ZUSATZ)) {
-			zusatz = option(Zusatz.class, "zusatz", 13, ZUSATZ_TYPE, 1);
+			zusatz = option(Zusatz.class, "zusatz", new SignalValueBox(5.5f, 11.5f), ZUSATZ_TYPE, 1);
 			behaviours.add(zusatz);
 		}
 		if (features.contains(SignalFeature.ZS6)) {
-			gegengleis = option(Gegengleis.class, "gegengleis", 8, GEGENGLEIS_TYPE, 2);
+			gegengleis = option(Gegengleis.class, "gegengleis", new SignalValueBox(5.5f, 4.5f), GEGENGLEIS_TYPE, 2);
 			behaviours.add(gegengleis);
 		}
 		if (features.contains(SignalFeature.KENNLICHT)) {
-			betrieb = option(Betrieb.class, "betrieb", 3, BETRIEB_TYPE, 3);
+			betrieb = option(Betrieb.class, "betrieb", new SignalValueBox(10.5f, 4.5f), BETRIEB_TYPE, 3);
 			behaviours.add(betrieb);
+		}
+		if (features.contains(SignalFeature.ZS2)) {
+			richtung = new SignalLetterBehaviour(label("richtung"), this, new SignalValueBox(10.5f, 11.5f),
+				RICHTUNG_TYPE, 4, "Optionrichtung");
+			richtung.withCallback(value -> updateAspect());
+			behaviours.add(richtung);
 		}
 	}
 
 	private <E extends Enum<E> & INamedIconOptions> SignalOptionBehaviour<E> option(
-		Class<E> options, String name, float y, BehaviourType<SignalOptionBehaviour<?>> type, int netId) {
-		SignalOptionBehaviour<E> behaviour = new SignalOptionBehaviour<>(options,
-			Component.translatable(RailwaySystems.MOD_ID + ".signal.option." + name), this, new SignalValueBox(y), type,
-			netId, "Option" + name);
+		Class<E> options, String name, SignalValueBox slot, BehaviourType<SignalOptionBehaviour<?>> type, int netId) {
+		SignalOptionBehaviour<E> behaviour = new SignalOptionBehaviour<>(options, label(name), this, slot, type, netId,
+			"Option" + name);
 		behaviour.withCallback(value -> updateAspect());
 		return behaviour;
+	}
+
+	private static Component label(String name) {
+		return Component.translatable(RailwaySystems.MOD_ID + ".signal.option." + name);
 	}
 
 	public Zusatz getZusatz() {
@@ -135,6 +160,21 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		return zusatzLit;
 	}
 
+	/**
+	 * Eingestellter Buchstabe des Zs2 (1–26 = A–Z), 0 = kein Richtungsanzeiger.
+	 */
+	public int getZs2() {
+		return richtung == null ? 0 : richtung.getValue();
+	}
+
+	public boolean isZs2Lit() {
+		return zs2Lit;
+	}
+
+	public int getZs2v() {
+		return zs2v;
+	}
+
 	public int getZs3() {
 		return zs3;
 	}
@@ -151,10 +191,16 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		return zs3v;
 	}
 
-	public void setZs3v(int zs3v) {
-		if (this.zs3v == zs3v)
+	/**
+	 * Zeigt an Zs3v und Zs2v an, was das angekündigte Signal vorgibt; dunkel, wenn es Halt zeigt.
+	 */
+	public void announce(NextSignal next) {
+		int speed = next.clear() ? next.speedLimit() : 0;
+		int direction = next.clear() ? next.direction() : 0;
+		if (zs3v == speed && zs2v == direction)
 			return;
-		this.zs3v = zs3v;
+		zs3v = speed;
+		zs2v = direction;
 		displayChanged = true;
 	}
 
@@ -186,14 +232,14 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		return new AABB(worldPosition).expandTowards(0, 1, 0);
 	}
 
-	public static void clearSpeedLimits() {
-		SPEED_LIMITS.clear();
+	public static void clearAnnouncements() {
+		ANNOUNCEMENTS.clear();
 	}
 
-	private static int getSpeedLimit(ResourceKey<Level> dimension, @Nullable BlockPos createSignalPos) {
+	private static Announcement getAnnouncement(ResourceKey<Level> dimension, @Nullable BlockPos createSignalPos) {
 		if (createSignalPos == null)
-			return 0;
-		return SPEED_LIMITS.getOrDefault(GlobalPos.of(dimension, createSignalPos), 0);
+			return Announcement.NONE;
+		return ANNOUNCEMENTS.getOrDefault(GlobalPos.of(dimension, createSignalPos), Announcement.NONE);
 	}
 
 	private static boolean isClear(SignalState state) {
@@ -237,15 +283,20 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 
 		BlockState newState = signal.updateAspect(state, new Input(createSignal, target));
 
-		boolean lit = getZusatz() != Zusatz.NONE && signal.showsStop(newState) && isPowered();
-		if (lit != zusatzLit) {
+		// Zs1/Zs7/Zs8 gelten bei Halt, Zs2 bei Fahrt; beide werden über Redstone ausgelöst
+		boolean powered = isPowered();
+		boolean lit = getZusatz() != Zusatz.NONE && signal.showsStop(newState) && powered;
+		boolean directionLit = getZs2() > 0 && signal.showsProceed(newState) && powered;
+		if (lit != zusatzLit || directionLit != zs2Lit) {
 			zusatzLit = lit;
+			zs2Lit = directionLit;
 			displayChanged = true;
 		}
 
 		int speedLimit = signal.getSpeedLimit(newState, this);
 		if (speedLimit >= 0 && target != null)
-			SPEED_LIMITS.put(GlobalPos.of(level.dimension(), target), speedLimit);
+			ANNOUNCEMENTS.put(GlobalPos.of(level.dimension(), target),
+				new Announcement(speedLimit, zs2Lit ? getZs2() : 0));
 
 		if (newState != state)
 			level.setBlock(worldPosition, newState, 3);
@@ -275,8 +326,11 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		}
 
 		@Override
-		public int getLinkedSpeedLimit() {
-			return level == null ? 0 : getSpeedLimit(level.dimension(), target);
+		public NextSignal getLinkedSignal() {
+			if (level == null)
+				return NextSignal.STOP;
+			Announcement announcement = getAnnouncement(level.dimension(), target);
+			return new NextSignal(isClear(), announcement.speedLimit(), announcement.direction());
 		}
 
 		@Override
@@ -296,7 +350,8 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 	/**
 	 * Wertet die Signale am Ende des Blockabschnitts hinter dem gebundenen Create-Signal aus.
 	 * Bei mehreren erreichbaren Folgesignalen (Weichen) gilt nur dann Fahrt, wenn alle Fahrt
-	 * zeigen; angekündigt wird die niedrigste Geschwindigkeit.
+	 * zeigen; angekündigt wird die niedrigste Geschwindigkeit und eine Richtung nur, wenn alle
+	 * leuchtenden Zs2 denselben Buchstaben zeigen.
 	 */
 	private NextSignal resolveNextSignal(@Nullable SignalBlockEntity createSignal) {
 		if (createSignal == null)
@@ -317,6 +372,8 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 
 		boolean anyFound = false;
 		int speedLimit = 0;
+		int direction = 0;
+		boolean conflictingDirections = false;
 		for (Entry<UUID, Boolean> entry : chainedSignals.entrySet()) {
 			SignalBoundary next = graph.getPoint(EdgePointType.SIGNAL, entry.getKey());
 			if (next == null) {
@@ -334,13 +391,21 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 			ResourceKey<Level> dimension = next.edgeLocation.getFirst()
 				.getDimension();
 			for (BlockPos pos : signalBlocks.keySet()) {
-				int limit = getSpeedLimit(dimension, pos);
+				Announcement announcement = getAnnouncement(dimension, pos);
+				int limit = announcement.speedLimit();
 				if (limit > 0 && (speedLimit == 0 || limit < speedLimit))
 					speedLimit = limit;
+				int letter = announcement.direction();
+				if (letter > 0 && direction > 0 && letter != direction)
+					conflictingDirections = true;
+				else if (letter > 0)
+					direction = letter;
 			}
 		}
 
-		return anyFound ? new NextSignal(true, speedLimit) : NextSignal.STOP;
+		if (!anyFound)
+			return NextSignal.STOP;
+		return new NextSignal(true, speedLimit, conflictingDirections ? 0 : direction);
 	}
 
 	@Nullable
@@ -358,7 +423,7 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		BlockState state = getBlockState();
 		if (level != null && target != null && state.getBlock() instanceof LinkedSignal signal
 			&& signal.getSpeedLimit(state, this) >= 0)
-			SPEED_LIMITS.remove(GlobalPos.of(level.dimension(), target));
+			ANNOUNCEMENTS.remove(GlobalPos.of(level.dimension(), target));
 	}
 
 	@Override
@@ -369,7 +434,9 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		tag.putBoolean("SlowMode", slowMode);
 		tag.putInt("Zs3", zs3);
 		tag.putInt("Zs3v", zs3v);
+		tag.putInt("Zs2v", zs2v);
 		tag.putBoolean("ZusatzLit", zusatzLit);
+		tag.putBoolean("Zs2Lit", zs2Lit);
 	}
 
 	@Override
@@ -379,7 +446,9 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 		slowMode = tag.getBoolean("SlowMode");
 		zs3 = tag.getInt("Zs3");
 		zs3v = tag.getInt("Zs3v");
+		zs2v = tag.getInt("Zs2v");
 		zusatzLit = tag.getBoolean("ZusatzLit");
+		zs2Lit = tag.getBoolean("Zs2Lit");
 	}
 
 }

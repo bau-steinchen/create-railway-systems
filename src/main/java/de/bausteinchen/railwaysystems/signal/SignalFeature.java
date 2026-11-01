@@ -10,7 +10,11 @@ public enum SignalFeature {
 	ZS3,
 	/** Geschwindigkeitsvoranzeiger (gelbe Ziffer, kündigt das nächste Hauptsignal an) */
 	ZS3V,
-	/** Ersatzsignal Zs1 oder Vorsichtsignal Zs7, per Redstone ausgelöst */
+	/** Richtungsanzeiger (weißer Buchstabe, per Redstone ausgelöst) */
+	ZS2,
+	/** Richtungsvoranzeiger (gelber Buchstabe, kündigt den Zs2 des nächsten Hauptsignals an) */
+	ZS2V,
+	/** Ersatzsignal Zs1, Vorsichtsignal Zs7 oder Gegengleis-Ersatzsignal Zs8, per Redstone ausgelöst */
 	ZUSATZ,
 	/** Gegengleisanzeiger */
 	ZS6,

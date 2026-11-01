@@ -19,11 +19,12 @@ public final class SignalOptions {
 			.toLowerCase(Locale.ROOT);
 	}
 
-	/** Ausstattung mit Ersatzsignal (Zs1) oder Vorsichtsignal (Zs7) */
+	/** Ausstattung mit Ersatzsignal (Zs1), Vorsichtsignal (Zs7) oder Gegengleis-Ersatzsignal (Zs8) */
 	public enum Zusatz implements INamedIconOptions {
 		NONE(AllIcons.I_NONE),
 		ZS1(AllIcons.I_CONFIRM),
-		ZS7(AllIcons.I_PRIORITY_LOW);
+		ZS7(AllIcons.I_PRIORITY_LOW),
+		ZS8(AllIcons.I_TUNNEL_SPLIT);
 
 		private final AllIcons icon;
 

@@ -5,7 +5,6 @@ import java.util.Set;
 
 import de.bausteinchen.railwaysystems.signal.SignalFeature;
 import de.bausteinchen.railwaysystems.signal.SignalInput;
-import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,7 +12,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 /**
- * Ks-Vorsignal: Ks1 / Ks1 blinkend mit Zs3v / Ks2. Wird an das Create-Signal des angekündigten
+ * Ks-Vorsignal: Ks1 / Ks1 blinkend mit Zs3v / Ks2, dazu Zs2v. Wird an das Create-Signal des angekündigten
  * Hauptsignals gebunden.
  */
 public class KsVorsignalBlock extends KsSignalBlock {
@@ -33,12 +32,12 @@ public class KsVorsignalBlock extends KsSignalBlock {
 
 	@Override
 	public Set<SignalFeature> getFeatures() {
-		return EnumSet.of(SignalFeature.ZS3V);
+		return EnumSet.of(SignalFeature.ZS3V, SignalFeature.ZS2V);
 	}
 
 	@Override
 	public BlockState updateAspect(BlockState state, SignalInput input) {
-		return withDistantAspect(state, new NextSignal(input.isClear(), input.getLinkedSpeedLimit()), ASPECT, input);
+		return withDistantAspect(state, input.getLinkedSignal(), ASPECT, input);
 	}
 
 }

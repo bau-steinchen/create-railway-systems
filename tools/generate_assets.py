@@ -6,6 +6,7 @@ Benötigt Pillow (pip install pillow) für die Texturen.
 """
 import copy
 import json
+import shutil
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -30,6 +31,7 @@ SH_LIT = {"sh0": {"r_l", "r_r"}, "sh1": {"w_bl", "w_tr"}}
 KS_LIT = {"hp0": {"red": "red"}, "ks1": {"green": "green"}, "ks1_blink": {"green": "green_blink"},
           "ks2": {"yellow": "yellow"}, "off": {}}
 SPEEDS = range(1, 10)
+LETTERS = range(1, 27)  # Zs2/Zs2v: 1–26 = A–Z wie im SignalLetterBehaviour
 LAMP_COLOR = {"red": "red", "green": "green", "yellow": "yellow",
               "r_l": "red", "r_r": "red", "w_bl": "white", "w_tr": "white",
               "y_bl": "yellow", "y_tr": "yellow", "g_bl": "green", "g_tr": "green"}
@@ -103,6 +105,7 @@ TEXTURES = {
     "lamp_green_blink": tex("lamp_green_blink"),
     "lamp_white_blink": tex("lamp_white_blink"),
     "zs6_on": tex("zs6_on"),
+    "zs8_on": tex("zs8_on"),
     "zs_box": tex("zs_box"),
     "ne2": tex("ne2"),
     "mastschild_ms": tex("mastschild_ms"),
@@ -291,37 +294,48 @@ KS_TYPES = {
 }
 
 # Zusatzanzeigen je Signal (Betrachterkoordinaten, 0..32 px bei hohen Signalen), gezeichnet vom
-# SignalOverlayRenderer. Lampen: (x, y, Größe); Kästen: (x0, x1, y0, y1).
+# SignalOverlayRenderer. Lampen: (x, y, Größe); Kästen: (x0, x1, y0, y1). Der Zs8 nutzt den Kasten
+# des Zs6. "zs2v_inset": Zs2v sitzt in einer freien Ecke des Vorsignalschirms und braucht keinen Kasten.
 OVERLAYS = {
     "hv_hauptsignal": {
         "kennlicht": (4.9, 29, 1.25),
         "zs1": [(7.25, 19.25, 1.5), (5.25, 16.75, 1.5), (9.25, 16.75, 1.5)], "zs1_blink": False,
         "zs7": [(5.25, 19.25, 1.5), (9.25, 19.25, 1.5), (7.25, 16.75, 1.5)],
-        "zs6": (5.5, 10.5, 6.5, 11),
+        "zs2": (3, 7.75, 6.5, 11),
+        "zs6": (8.25, 13, 6.5, 11),
     },
     "hv_kombisignal": {
         "kennlicht": (5, 30.25, 1),
         "zs1": [(7.25, 22.25, 1.5), (5.5, 20.5, 1.5), (9, 20.5, 1.5)], "zs1_blink": False,
         "zs7": [(5.5, 22.25, 1.5), (9, 22.25, 1.5), (7.25, 20.5, 1.5)],
+        "zs2": (3.25, 6.25, 10.75, 16.5),
         "zs6": (9.75, 12.75, 10.75, 16.5),
+        "zs2v": (3.5, 6.5, 7, 10.25), "zs2v_inset": True,
+    },
+    "hv_vorsignal": {
+        "zs2v": (3.5, 6.5, 8.25, 11.75), "zs2v_inset": True,
     },
     "ks_hauptsignal": {
         "kennlicht": (5, 26.25, 1.25),
         "zs1": [(7.25, 16.5, 1.5)], "zs1_blink": True,
         "zs7": [(4.75, 19.75, 1.5), (9.75, 19.75, 1.5), (7.25, 16.5, 1.5)],
-        "zs6": (5.5, 10.5, 10.5, 15.5),
+        "zs2": (3, 7.75, 10.5, 15.5),
+        "zs6": (8.25, 13, 10.5, 15.5),
         "zs3": (5.5, 10.5, 28, 32),
     },
     "ks_mehrabschnittssignal": {
         "kennlicht": (4.25, 26, 1.25),
         "zs1": [(7.25, 17.75, 1.5)], "zs1_blink": True,
         "zs7": [(4.5, 23.75, 1.5), (10, 23.75, 1.5), (7.25, 17.75, 1.5)],
-        "zs6": (5.5, 10.5, 8.5, 12.25),
+        "zs2": (3, 7.75, 12.75, 17),
+        "zs6": (8.25, 13, 12.75, 17),
         "zs3": (5.5, 10.5, 28, 32),
-        "zs3v": (5.5, 10.5, 12.75, 17),
+        "zs3v": (3, 7.75, 8.25, 12.5),
+        "zs2v": (8.25, 13, 8.25, 12.5),
     },
     "ks_vorsignal": {
-        "zs3v": (6, 10, 5.5, 9),
+        "zs3v": (3.5, 7.5, 5.5, 9),
+        "zs2v": (8.5, 12.5, 5.5, 9),
     },
 }
 LAMP_COLOR.update({"green": "green", "yellow": "yellow", "red": "red"})
@@ -350,6 +364,7 @@ def zs_digit(vx0, vx1, y0, y1, texture="#digit"):
 
 def generate_overlays():
     """Overlay-Modelle für den SignalOverlayRenderer: block/overlay/<signal>/<teil>."""
+    shutil.rmtree(ASSETS / "models/block/overlay", ignore_errors=True)
     for name, spec in OVERLAYS.items():
         def out(part, elements, **extra):
             write_json(ASSETS / "models/block/overlay" / name / f"{part}.json", model(elements, **extra))
@@ -358,6 +373,11 @@ def generate_overlays():
             if key in spec:
                 out(f"{key}_box", zs_box(*spec[key]))
                 for n in SPEEDS:
+                    out(f"{key}_{n}", zs_digit(*spec[key]), digit=tex(f"{key}_{n}"))
+        for key in ("zs2", "zs2v"):
+            if key in spec:
+                out(f"{key}_box", [] if spec.get(f"{key}_inset") else zs_box(*spec[key]))
+                for n in LETTERS:
                     out(f"{key}_{n}", zs_digit(*spec[key]), digit=tex(f"{key}_{n}"))
         if "kennlicht" in spec:
             vx, y, size = spec["kennlicht"]
@@ -370,8 +390,9 @@ def generate_overlays():
             out("zs7_off", [lamp(vx, y, size, "yellow", False) for vx, y, size in spec["zs7"]])
             out("zs7_on", [lamp(vx, y, size, "yellow", True) for vx, y, size in spec["zs7"]])
         if "zs6" in spec:
-            out("zs6_off", zs_box(*spec["zs6"]))
-            out("zs6_on", zs_box(*spec["zs6"]) + zs_digit(*spec["zs6"], texture="#zs6_on"))
+            out("zs6_box", zs_box(*spec["zs6"]))
+            out("zs6_on", zs_digit(*spec["zs6"], texture="#zs6_on"))
+            out("zs8_on", zs_digit(*spec["zs6"], texture="#zs8_on"))
 
 
 def multipart(parts):
@@ -528,10 +549,28 @@ DIGITS = {
 }
 
 
-def digit_img(n, color):
-    """Ziffer eines Lichtanzeigers (3x5-Raster, dreifach skaliert) auf dunklem Grund."""
+# Buchstaben der Richtungsanzeiger Zs2/Zs2v im selben 3x5-Raster
+LETTER_GLYPHS = {
+    "A": ["010", "101", "111", "101", "101"], "B": ["110", "101", "110", "101", "110"],
+    "C": ["011", "100", "100", "100", "011"], "D": ["110", "101", "101", "101", "110"],
+    "E": ["111", "100", "110", "100", "111"], "F": ["111", "100", "110", "100", "100"],
+    "G": ["011", "100", "101", "101", "011"], "H": ["101", "101", "111", "101", "101"],
+    "I": ["111", "010", "010", "010", "111"], "J": ["001", "001", "001", "101", "010"],
+    "K": ["101", "101", "110", "101", "101"], "L": ["100", "100", "100", "100", "111"],
+    "M": ["101", "111", "111", "101", "101"], "N": ["110", "101", "101", "101", "101"],
+    "O": ["010", "101", "101", "101", "010"], "P": ["110", "101", "110", "100", "100"],
+    "Q": ["010", "101", "101", "110", "011"], "R": ["110", "101", "110", "101", "101"],
+    "S": ["011", "100", "010", "001", "110"], "T": ["111", "010", "010", "010", "010"],
+    "U": ["101", "101", "101", "101", "111"], "V": ["101", "101", "101", "101", "010"],
+    "W": ["101", "101", "111", "111", "101"], "X": ["101", "101", "010", "101", "101"],
+    "Y": ["101", "101", "010", "010", "010"], "Z": ["111", "001", "010", "100", "111"],
+}
+
+
+def glyph_img(rows, color):
+    """Zeichen eines Lichtanzeigers (3x5-Raster, dreifach skaliert) auf dunklem Grund."""
     img = Image.new("RGBA", (16, 16), (18, 18, 20, 255))
-    for row, bits in enumerate(DIGITS[n]):
+    for row, bits in enumerate(rows):
         for col, bit in enumerate(bits):
             if bit == "1":
                 x, y = 4 + col * 3, 1 + row * 3
@@ -622,12 +661,22 @@ def generate_textures():
         d.rectangle([x, int(y), x + 1, int(y) + 1], fill=(240, 240, 255, 255))
     save(zs6, "zs6_on")
 
+    # Zs8: Lichtpunktreihe des Zs6, blinkend (zwei Frames an/aus)
+    zs8 = Image.new("RGBA", (16, 32), (18, 18, 20, 255))
+    zs8.paste(zs6, (0, 0))
+    save(zs8, "zs8_on")
+    write_json(ASSETS / "textures/block/zs8_on.png.mcmeta", {"animation": {"frametime": 10}})
+
     zs = Image.new("RGBA", (16, 16), (18, 18, 20, 255))
     ImageDraw.Draw(zs).rectangle([0, 0, 15, 15], outline=(50, 50, 54, 255))
     save(zs, "zs_box")
     for n in SPEEDS:
-        save(digit_img(n, (240, 240, 240, 255)), f"zs3_{n}")
-        save(digit_img(n, (255, 200, 40, 255)), f"zs3v_{n}")
+        save(glyph_img(DIGITS[n], (240, 240, 240, 255)), f"zs3_{n}")
+        save(glyph_img(DIGITS[n], (255, 200, 40, 255)), f"zs3v_{n}")
+    for n in LETTERS:
+        rows = LETTER_GLYPHS[chr(ord("A") + n - 1)]
+        save(glyph_img(rows, (240, 240, 240, 255)), f"zs2_{n}")
+        save(glyph_img(rows, (255, 200, 40, 255)), f"zs2v_{n}")
 
     ne2 = Image.new("RGBA", (16, 16), (245, 245, 245, 255))
     d = ImageDraw.Draw(ne2)

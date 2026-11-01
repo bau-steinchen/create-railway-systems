@@ -35,15 +35,14 @@ public abstract class KsSignalBlock extends MountedSignalBlock {
 
 	/**
 	 * Vorsignalbegriff: Ks2 bei Halt, Ks1 blinkend mit Zs3v bei angekündigter Geschwindigkeit.
+	 * Der Zs2v kündigt die Richtung des nächsten Hauptsignals an.
 	 */
 	protected static BlockState withDistantAspect(BlockState state, NextSignal next, EnumProperty<KsAspect> aspect,
 		SignalInput input) {
-		LinkedSignalBlockEntity be = input.getBlockEntity();
-		if (!next.clear()) {
-			be.setZs3v(0);
+		input.getBlockEntity()
+			.announce(next);
+		if (!next.clear())
 			return state.setValue(aspect, KsAspect.KS2);
-		}
-		be.setZs3v(next.speedLimit());
 		return state.setValue(aspect, next.speedLimit() > 0 ? KsAspect.KS1_BLINK : KsAspect.KS1);
 	}
 

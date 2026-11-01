@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 /**
- * Ks-Hauptsignal: Hp0 / Ks1, optional mit Zs3, Zs1/Zs7, Zs6 und Kennlicht.
+ * Ks-Hauptsignal: Hp0 / Ks1, optional mit Zs2, Zs3, Zs1/Zs7/Zs8, Zs6 und Kennlicht.
  */
 public class KsHauptsignalBlock extends KsSignalBlock {
 
@@ -36,7 +36,7 @@ public class KsHauptsignalBlock extends KsSignalBlock {
 
 	@Override
 	public Set<SignalFeature> getFeatures() {
-		return EnumSet.of(SignalFeature.ZS3, SignalFeature.ZUSATZ, SignalFeature.ZS6, SignalFeature.KENNLICHT);
+		return EnumSet.of(SignalFeature.ZS3, SignalFeature.ZS2, SignalFeature.ZUSATZ, SignalFeature.ZS6, SignalFeature.KENNLICHT);
 	}
 
 	@Override
