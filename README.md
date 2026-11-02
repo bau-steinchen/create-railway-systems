@@ -98,17 +98,65 @@ Links und rechts gelten von hinten gesehen. Ein Rechtsklick mit dem Schraubensch
 
 ## Entwicklung
 
-Benötigt JDK 21.
+Benötigt JDK 21 und Python 3.10+ mit Pillow (`pip install pillow`).
 
 ```sh
-./gradlew build                    # Jar nach build/libs/
-./gradlew runClient                # Testclient starten
-./gradlew runClient -PquickPlay=<Welt>  # Testclient direkt in eine Einzelspielerwelt starten
-./gradlew runServer                # Testserver starten
-python3 tools/generate_assets.py   # Modelle, Blockstates, Texturen, Loot-Tables neu erzeugen (Pillow nötig)
+./gradlew build                                # Jar nach build/libs/ (Windows: .\gradlew.bat build)
+./gradlew runClient                            # Testclient starten
+./gradlew runClient -PquickPlay=<Welt>         # Testclient direkt in eine Einzelspielerwelt starten
+./gradlew runServer                            # Testserver starten
+python tools/generate_assets.py                # Modelle, Blockstates, Texturen, Loot-Tables neu erzeugen
+python tools/generate_assets.py --vorlagen     # eingebaute Signale als Blockbench-Vorlagen ausgeben
 ```
 
-Blockstates, Modelle und Platzhalter-Texturen werden von `tools/generate_assets.py` erzeugt. Änderungen an der Geometrie gehören dort hinein, nicht in die erzeugten JSON-Dateien.
+Blockstates, Modelle und Platzhalter-Texturen werden von `tools/generate_assets.py` erzeugt. Änderungen an der Geometrie gehören dort hinein (oder in ein Blockbench-Modell, siehe unten), nicht in die erzeugten JSON-Dateien. Der Generator löscht Modelle und Blockstates, die er nicht mehr erzeugt.
+
+### Eigene Modelle mit Blockbench
+
+Ein Signalkopf lässt sich in [Blockbench](https://www.blockbench.net/) gestalten. Das Skript erzeugt daraus alle Varianten: Signalbegriffe, Mast oder Wandausleger, bei hohen Signalen die untere/obere Hälfte und die Overlay-Anzeigen an den markierten Stellen.
+
+1. `python tools/generate_assets.py --vorlagen` ausführen. Die eingebauten Signale landen als `tools/models/vorlagen/<block>.json` (nicht im Git, enthalten lokale Texturpfade).
+2. Vorlage in der Blockbench-Desktop-App öffnen (*File → Open Model*), Projekttyp **Java Block/Item**. Unter Windows werden die Texturen direkt mitgeladen.
+3. Modell bearbeiten und mit *File → Export → Export Block/Item Model* als `tools/models/<block>.json` speichern, z. B. `tools/models/ks_hauptsignal.json`. Der Dateiname muss genau der Blockname sein.
+4. `python tools/generate_assets.py` ausführen und das Spiel starten.
+
+Ohne Datei in `tools/models/` gilt die eingebaute Geometrie.
+
+**Namen der Elemente (oder ihrer Gruppe) steuern die Funktion:**
+
+| Name | Bedeutung |
+|---|---|
+| `lamp_<name>` | Lampe. Ihre **Nordfläche** zeigt je nach Begriff die passende Lampentextur, an oder aus. Leuchten stellt das Skript ein. |
+| `mast` | Nur sichtbar, wenn das Signal frei steht. Ohne `mast` kommt der eingebaute Mast. |
+| `arm` | Nur Markierung: Höhe (y von–bis) der Wandausleger, wird selbst nicht gezeichnet. |
+| `sockel` | Nur Lichtsperrsignal: Fuß, wenn es nicht auf einem Signalmast steht. Auf dem Mast ersetzt ihn ein Maststummel bis zur Sockeloberkante. |
+| `kennlicht`, `zs1`, `zs7` | Nur Markierung: Lage der Lampen dieser Overlay-Anzeigen. Bei `zs1`/`zs7` ein Element je Lampe. |
+| `zs2`, `zs2v`, `zs3`, `zs3v`, `zs6` | Nur Markierung: Kasten der Anzeige. Das Skript setzt Gehäuse und Zeichen davor ein; der Zs8 nutzt den Kasten des Zs6. |
+| alles andere | Fester Signalkörper (Schirm, Schuten, Mastschild …) |
+
+Eine angehängte Zahl ist erlaubt (`arm2`, `lamp_red2`, `zs12`), `mastschild` zählt dagegen nicht als `mast`. Fehlt eine Markierung, sitzt die Anzeige an der Stelle des eingebauten Modells; das Skript weist darauf hin. Welche Anzeigen ein Signal hat, zeigt seine Vorlage.
+
+**Lampennamen je Block:**
+
+| Block | Lampen |
+|---|---|
+| `hv_hauptsignal` | `lamp_red`, `lamp_green`, `lamp_yellow` |
+| `hv_vorsignal` | `lamp_y_bl`, `lamp_y_tr`, `lamp_g_bl`, `lamp_g_tr` (gelb/grün, unten links/oben rechts) |
+| `hv_kombisignal` | beide Sätze oben |
+| `sh_sperrsignal` | `lamp_r_l`, `lamp_r_r`, `lamp_w_bl`, `lamp_w_tr` |
+| `ks_hauptsignal` | `lamp_red`, `lamp_green` |
+| `ks_vorsignal` | `lamp_green`, `lamp_yellow` |
+| `ks_mehrabschnittssignal` | `lamp_red`, `lamp_green`, `lamp_yellow` |
+
+**Regeln:**
+
+- Der Schirm zeigt nach **Norden**. Die übrigen Richtungen dreht der Blockstate.
+- Zwei Blöcke hohe Signale (H/V-Haupt-, H/V-Kombi-, Ks-Haupt- und Ks-Mehrabschnittssignal) werden in 0–32 px Höhe gebaut, die anderen in 0–16 px. Das Skript teilt hohe Modelle an y = 16. Gedrehte Elemente werden nicht geschnitten, sondern landen ganz in der Hälfte ihrer Mitte.
+- Alle Koordinaten liegen zwischen −16 und 32. Gedreht wird nur um **eine** Achse in Schritten von 22,5° (−45 bis 45). Sonst bricht das Skript mit einer Meldung ab.
+- Texturen liegen in `src/main/resources/assets/create_railway_systems/textures/block/` oder in `tools/models/textures/`. Von dort kopiert das Skript sie mit; das ersetzt auch Platzhalter wie `lamp_red.png`. Andere Texturpfade im Export werden auf den Dateinamen zurückgeführt.
+- Texturvariablen mit eingebauten Namen (`mast`, `screen`, `lamp_red` …) gelten auch für die erzeugten Teile. Wer `mast` auf eine eigene Textur zeigen lässt, bekommt sie auch an den Wandauslegern.
+- Modelle aus Blockbench werden mit `render_type: cutout` geschrieben, durchsichtige Pixel funktionieren also. Halbtransparenz geht nicht.
+- Die `display`-Einstellungen aus Blockbench gelten für das Item.
 
 ### Struktur
 
@@ -121,6 +169,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/ks/                           Ks-Signale
   client/                              Overlay-Renderer für Zusatzanzeigen (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, Kennlicht)
 tools/generate_assets.py               Asset-Generator
+tools/models/                          Eigene Blockbench-Modelle und Texturen (optional)
 ```
 
 ## Geplant
