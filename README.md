@@ -1,181 +1,183 @@
 # Create: Railway Systems
 
-Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moderne Bahnsysteme in Minecraft bringt. Den Anfang machen **deutsche Lichtsignale** (H/V, Ks und Sh) mit Zusatzsignalen (Zs1, Zs2, Zs2v, Zs3, Zs3v, Zs6, Zs7, Zs8), die den Zustand der Create-Zugsignale vorbildgerecht anzeigen.
+**English** | [Deutsch](README.de.md)
 
-## Voraussetzungen
+An addon for [Create](https://github.com/Creators-of-Create/Create) that brings modern railway systems to Minecraft. It starts with **German light signals** (H/V, Ks and Sh) and their supplementary signals (Zs1, Zs2, Zs2v, Zs3, Zs3v, Zs6, Zs7, Zs8), which display the state of Create's train signals the way the real ones do.
+
+## Requirements
 
 | | Version |
 |---|---|
 | Minecraft | 1.21.1 |
-| NeoForge | 21.1.215 oder neuer |
-| Create | 6.0.9 oder neuer |
+| NeoForge | 21.1.215 or newer |
+| Create | 6.0.9 or newer |
 
 ## Installation
 
-1. NeoForge für Minecraft 1.21.1 installieren.
-2. Create (NeoForge 1.21.1) in den `mods`-Ordner legen.
-3. `create_railway_systems-<version>.jar` in den `mods`-Ordner legen.
+1. Install NeoForge for Minecraft 1.21.1.
+2. Put Create (NeoForge 1.21.1) into the `mods` folder.
+3. Put `create_railway_systems-<version>.jar` into the `mods` folder.
 
-## Inhalt (v0.1.0)
+## Contents (v0.1.0)
 
-### Deutsche H/V- und Sh-Lichtsignale
+### German H/V and Sh light signals
 
-| Block | Signalbegriffe |
+| Block | Aspects |
 |---|---|
-| H/V-Lichthauptsignal | Hp0 (Halt), Hp1 (Fahrt), Hp2 (Langsamfahrt) |
-| H/V-Lichtvorsignal | Vr0 (Halt erwarten), Vr1 (Fahrt erwarten), Vr2 (Langsamfahrt erwarten) |
-| H/V-Hauptsignal mit Vorsignal am Mast | Hp + Vr, Vorsignal dunkel bei Hp0 |
-| Lichtsperrsignal (Zwergsignal) | Sh0 (Halt! Fahrverbot), Sh1 (Fahrverbot aufgehoben) |
-| Signalmast | Mast zum Aufbauen beliebig hoher Signale |
+| H/V light main signal | Hp0 (stop), Hp1 (proceed), Hp2 (proceed at reduced speed) |
+| H/V light distant signal | Vr0 (expect stop), Vr1 (expect proceed), Vr2 (expect reduced speed) |
+| H/V main signal with distant signal on the mast | Hp + Vr, distant signal dark when Hp0 |
+| Light shunting signal (dwarf signal) | Sh0 (stop, movement prohibited), Sh1 (movement permitted) |
+| Signal mast | Mast for building signals of any height |
 
-### Deutsche Ks-Signale
+### German Ks signals
 
-| Block | Signalbegriffe |
+| Block | Aspects |
 |---|---|
-| Ks-Hauptsignal | Hp0 (Halt), Ks1 (Fahrt), optional mit Zs3 |
-| Ks-Vorsignal | Ks1, Ks1 blinkend mit Zs3v, Ks2 (Halt erwarten), mit Ne 2-Tafel |
-| Ks-Mehrabschnittssignal | Hp0, Ks1, Ks1 blinkend mit Zs3v, Ks2, optional mit Zs3 |
+| Ks main signal | Hp0 (stop), Ks1 (proceed), optionally with Zs3 |
+| Ks distant signal | Ks1, flashing Ks1 with Zs3v, Ks2 (expect stop), with Ne 2 board |
+| Ks multi-section signal | Hp0, Ks1, flashing Ks1 with Zs3v, Ks2, optionally with Zs3 |
 
-### Zusatzsignale an Hauptsignalen
+### Supplementary signals on main signals
 
-| Zusatzsignal | Aussehen | Wann es leuchtet |
+| Signal | Appearance | When it is lit |
 |---|---|---|
-| Zs1 Ersatzsignal | H/V: drei weiße Lichter in A-Form, Ks: weißes Blinklicht | Signal zeigt Halt und bekommt Redstone |
-| Zs7 Vorsichtsignal | drei gelbe Lichter in V-Form | Signal zeigt Halt und bekommt Redstone |
-| Zs8 Gegengleis-Ersatzsignal | weiße schräge Lichtpunktreihe, blinkend (im Kasten des Zs6) | Signal zeigt Halt und bekommt Redstone |
-| Zs2 Richtungsanzeiger | weißer Buchstabe A–Z | Signal zeigt Fahrt und bekommt Redstone |
-| Zs2v Richtungsvoranzeiger | gelber Buchstabe am Vorsignal | angekündigtes Hauptsignal zeigt seinen Zs2 |
-| Zs6 Gegengleisanzeiger | weiße schräge Lichtpunktreihe | Signal zeigt Fahrt |
-| Kennlicht | weißes Licht oben links im Schirm | Signal ist abgeschaltet, alle anderen Lichter sind dunkel |
+| Zs1 substitute signal | H/V: three white lights in an A shape, Ks: flashing white light | Signal shows stop and receives redstone |
+| Zs7 caution signal | three yellow lights in a V shape | Signal shows stop and receives redstone |
+| Zs8 opposite track substitute signal | diagonal row of white lights, flashing (in the Zs6 housing) | Signal shows stop and receives redstone |
+| Zs2 route indicator | white letter A–Z | Signal shows proceed and receives redstone |
+| Zs2v route pre-indicator | yellow letter on the distant signal | Announced main signal shows its Zs2 |
+| Zs6 opposite track indicator | diagonal row of white lights | Signal shows proceed |
+| Identification light (Kennlicht) | white light in the top left of the signal head | Signal is switched off, all other lights are dark |
 
-Zs1/Zs7/Zs8 sind rein optisch: Create-Züge fahren weiterhin nicht an einem Halt zeigenden Signal vorbei. Ein Signal kann sowohl ein Ersatzsignal als auch einen Zs2 tragen: Dasselbe Redstone-Signal lässt bei Halt das Ersatzsignal, bei Fahrt den Zs2 leuchten.
+Zs1/Zs7/Zs8 are purely visual: Create trains still won't pass a signal showing stop. A signal can carry both a substitute signal and a Zs2: the same redstone signal lights the substitute signal at stop and the Zs2 at proceed.
 
-Zs2v gibt es am H/V-Vorsignal, am H/V-Kombisignal, am Ks-Vorsignal und am Ks-Mehrabschnittssignal.
+Zs2v is available on the H/V distant signal, the H/V combined signal, the Ks distant signal and the Ks multi-section signal.
 
-Alle Blöcke stehen im Kreativ-Tab **Create: Railway Systems**.
+All blocks are in the **Create: Railway Systems** creative tab.
 
-### Benutzung
+### Usage
 
-1. Ein Create-Signal wie gewohnt an die Strecke setzen.
-2. Mit dem Signal in der Hand **Rechtsklick auf das Create-Signal**. Das Signal ist jetzt gebunden, das Create-Signal wird hervorgehoben.
-3. Das Signal platzieren. Es darf höchstens 32 Blöcke vom Create-Signal entfernt stehen (Server-Config `signalLinkRange`).
-4. **Schleichen + Rechtsklick** löscht eine Bindung, bevor das Signal platziert ist.
+1. Place a Create signal on the track as usual.
+2. With the signal in hand, **right-click the Create signal**. The signal is now linked and the Create signal is highlighted.
+3. Place the signal. It may be at most 32 blocks away from the Create signal (server config `signalLinkRange`).
+4. **Sneak + right-click** clears a link before the signal is placed.
 
-Ohne Bindung lässt sich ein Signal nicht platzieren.
+A signal can't be placed without a link.
 
-### Aufstellung
+### Placement
 
-- **Frei stehend:** Das Signal steht auf einem Mast. Mit Signalmast-Blöcken darunter wird es beliebig hoch.
-- **Wandmontage:** Gegen die Seite eines festen Blocks gesetzt (z. B. Tunnel- oder Brückenwand), bekommt das Signal waagerechte Ausleger statt eines Masts. Die Ausleger zeigen nach hinten oder zur Seite, je nachdem wo der Block liegt. Wird der Block entfernt, steht das Signal wieder auf einem Mast.
-- **Hauptsignale sind zwei Blöcke hoch:** H/V-Hauptsignal, H/V-Hauptsignal mit Vorsignal am Mast, Ks-Hauptsignal und Ks-Mehrabschnittssignal. Über dem Platzierungsort muss ein Block frei sein. Wird eine Hälfte abgebaut, verschwindet auch die andere. Bindung, Schraubenschlüssel und Aufnehmen funktionieren an beiden Hälften. Vorsignale und das Lichtsperrsignal sind einen Block hoch.
-- **Lichtsperrsignal:** Auf dem Boden oder einem festen Block steht es auf einem kleinen Fuß. Steht darunter ein Signalmast, sitzt es ohne Fuß direkt auf dem Mast.
-- Der Schirm zeigt beim Platzieren immer zum Spieler.
+- **Free-standing:** The signal stands on a mast. Put signal mast blocks underneath to make it as tall as you like.
+- **Wall-mounted:** Placed against the side of a solid block (e.g. a tunnel or bridge wall), the signal gets horizontal brackets instead of a mast. The brackets point backwards or sideways depending on where the block is. If the block is removed, the signal stands on a mast again.
+- **Main signals are two blocks tall:** H/V main signal, H/V main signal with distant signal on the mast, Ks main signal and Ks multi-section signal. The block above the placement position must be free. Breaking one half removes the other as well. Linking, wrench and pick-block work on both halves. Distant signals and the shunting signal are one block tall.
+- **Shunting signal:** On the ground or on a solid block it stands on a small base. With a signal mast below, it sits directly on the mast without a base.
+- The signal head always faces the player when placed.
 
-### Ausstattung einstellen
+### Configuring equipment
 
-H/V-Hauptsignale, H/V-Kombisignale, Ks-Hauptsignale und Ks-Mehrabschnittssignale haben auf der **Rückseite der unteren Hälfte** vier Create-Wertefelder im Quadrat. Mit dem **Schraubenschlüssel** auf ein Feld zielen, Rechtsklick gedrückt halten und auswählen:
+H/V main signals, H/V combined signals, Ks main signals and Ks multi-section signals have four Create value boxes arranged in a square on the **back of the lower half**. Aim at a box with the **wrench**, hold right-click and choose:
 
-| | links | rechts |
+| | left | right |
 |---|---|---|
-| **oben** | Ersatzsignal: keins, Zs1, Zs7 oder Zs8 | Zs2-Buchstabe: keiner oder A–Z |
-| **unten** | Gegengleisanzeiger: keiner oder Zs6 | Betrieb: in Betrieb oder abgeschaltet (Kennlicht) |
+| **top** | Substitute signal: none, Zs1, Zs7 or Zs8 | Zs2 letter: none or A–Z |
+| **bottom** | Opposite track indicator: none or Zs6 | Operation: in service or switched off (identification light) |
 
-Links und rechts gelten von hinten gesehen. Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7/Zs8 und Zs2 kann an der oberen oder unteren Hälfte anliegen, z. B. als Hebel, Redstone-Block oder Redstone-Staub direkt neben dem Signal.
+Left and right are as seen from behind. Right-clicking with the wrench outside the boxes toggles Hp2 (H/V) or sets Zs3 (Ks) as before. Redstone for Zs1/Zs7/Zs8 and Zs2 can be applied to the upper or lower half, e.g. a lever, redstone block or redstone dust right next to the signal.
 
-**Eingebaute Funkverbindung:** Die zwei Blöcke hohen Signale haben auf der Rückseite der **oberen Hälfte** zwei Frequenzfelder wie ein Create-Redstone-Link. Mit einem Gegenstand in der Hand auf ein Feld rechtsklicken setzt die Frequenz. Sendet ein Redstone-Link auf derselben Frequenz, wirkt das wie Redstone am Signal. Ein zusätzlicher Redstone-Link-Block am Signal ist nicht nötig.
+**Built-in wireless link:** The two-block-tall signals have two frequency slots on the back of the **upper half**, just like a Create Redstone Link. Right-click a slot with an item in hand to set the frequency. A Redstone Link transmitting on the same frequency acts like redstone applied to the signal. No extra Redstone Link block is needed at the signal.
 
-### Signallogik
+### Signal logic
 
-- **H/V-Hauptsignal:** Create-Signal rot → Hp0, grün/gelb → Hp1. Create kennt keine Geschwindigkeiten. Mit dem **Create-Schraubenschlüssel** schaltest du deshalb zwischen Hp1 und Hp2 um.
-- **H/V-Vorsignal:** Wird an das Create-Signal des **angekündigten** Hauptsignals gebunden und steht im Bremswegabstand davor. Gibt das Hauptsignal dort eine Geschwindigkeit vor (Hp2 oder Ks-Zs3), zeigt es Vr2.
-- **H/V-Hauptsignal mit Vorsignal am Mast:** Der Hauptsignalteil arbeitet wie das H/V-Hauptsignal. Der Vorsignalteil kündigt automatisch die Signale am Ende des Blockabschnitts an. Gibt es durch Weichen mehrere Folgesignale, erwartet es nur Fahrt, wenn alle Fahrt zeigen, sonst Vr0. Zeigt das eigene Hauptsignal Hp0, ist das Vorsignal dunkel.
-- **Lichtsperrsignal:** Create-Signal rot → Sh0, grün/gelb → Sh1.
-- **Ks-Hauptsignal:** Create-Signal rot → Hp0, grün/gelb → Ks1. Mit dem **Schraubenschlüssel** wird der Geschwindigkeitsanzeiger **Zs3** eingestellt (aus, 10–90 km/h). Er leuchtet, solange das Signal Fahrt zeigt.
-- **Ks-Vorsignal:** Wird wie das H/V-Vorsignal an das Create-Signal des angekündigten Hauptsignals gebunden. Hält das Hauptsignal → Ks2. Gibt es dort eine Geschwindigkeit vor (Zs3 oder H/V-Hp2) → Ks1 blinkt und der **Zs3v** zeigt sie an. Sonst Ks1.
-- **Ks-Mehrabschnittssignal:** Eigenes Create-Signal rot → Hp0. Sonst kündigt es wie das H/V-Kombisignal automatisch die Folgesignale an: Ks2, Ks1 blinkend mit Zs3v oder Ks1. Zusätzlich lässt sich ein eigener Zs3 einstellen.
-- **Zs2v:** Vorsignale kündigen den Buchstaben an, den der Zs2 des nächsten Hauptsignals gerade zeigt. Führen mehrere Folgesignale unterschiedliche Buchstaben, bleibt der Zs2v dunkel.
-- **Systemübergreifend:** H/V- und Ks-Signale kündigen sich gegenseitig an. Ein H/V-Hp2 gilt als 40 km/h, ein Ks-Zs3 lässt H/V-Vorsignale Vr2 zeigen. Bei mehreren Folgesignalen wird die niedrigste Geschwindigkeit angekündigt.
+- **H/V main signal:** Create signal red → Hp0, green/yellow → Hp1. Create has no concept of speeds, so the **Create wrench** toggles between Hp1 and Hp2.
+- **H/V distant signal:** Linked to the Create signal of the **announced** main signal and placed at braking distance in front of it. If that main signal imposes a speed (Hp2 or Ks Zs3), it shows Vr2.
+- **H/V main signal with distant signal on the mast:** The main signal part works like the H/V main signal. The distant signal part automatically announces the signals at the end of the block section. If switches lead to several following signals, it only expects proceed when all of them show proceed, otherwise Vr0. When its own main signal shows Hp0, the distant signal is dark.
+- **Shunting signal:** Create signal red → Sh0, green/yellow → Sh1.
+- **Ks main signal:** Create signal red → Hp0, green/yellow → Ks1. The **wrench** sets the speed indicator **Zs3** (off, 10–90 km/h). It is lit while the signal shows proceed.
+- **Ks distant signal:** Linked like the H/V distant signal to the Create signal of the announced main signal. Main signal at stop → Ks2. Main signal imposes a speed (Zs3 or H/V Hp2) → Ks1 flashes and the **Zs3v** shows it. Otherwise Ks1.
+- **Ks multi-section signal:** Own Create signal red → Hp0. Otherwise, like the H/V combined signal, it automatically announces the following signals: Ks2, flashing Ks1 with Zs3v, or Ks1. Its own Zs3 can be set as well.
+- **Zs2v:** Distant signals announce the letter the next main signal's Zs2 is currently showing. If several following signals show different letters, the Zs2v stays dark.
+- **Cross-system:** H/V and Ks signals announce each other. An H/V Hp2 counts as 40 km/h, and a Ks Zs3 makes H/V distant signals show Vr2. With several following signals, the lowest speed is announced.
 
-## Entwicklung
+## Development
 
-Benötigt JDK 21 und Python 3.10+ mit Pillow (`pip install pillow`).
+Requires JDK 21 and Python 3.10+ with Pillow (`pip install pillow`).
 
 ```sh
-./gradlew build                                # Jar nach build/libs/ (Windows: .\gradlew.bat build)
-./gradlew runClient                            # Testclient starten
-./gradlew runClient -PquickPlay=<Welt>         # Testclient direkt in eine Einzelspielerwelt starten
-./gradlew runServer                            # Testserver starten
-python tools/generate_assets.py                # Modelle, Blockstates, Texturen, Loot-Tables neu erzeugen
-python tools/generate_assets.py --vorlagen     # eingebaute Signale als Blockbench-Vorlagen ausgeben
+./gradlew build                                # jar to build/libs/ (Windows: .\gradlew.bat build)
+./gradlew runClient                            # start test client
+./gradlew runClient -PquickPlay=<world>        # start test client directly into a singleplayer world
+./gradlew runServer                            # start test server
+python tools/generate_assets.py                # regenerate models, blockstates, textures, loot tables
+python tools/generate_assets.py --vorlagen     # export the built-in signals as Blockbench templates
 ```
 
-Blockstates, Modelle und Platzhalter-Texturen werden von `tools/generate_assets.py` erzeugt. Änderungen an der Geometrie gehören dort hinein (oder in ein Blockbench-Modell, siehe unten), nicht in die erzeugten JSON-Dateien. Der Generator löscht Modelle und Blockstates, die er nicht mehr erzeugt.
+Blockstates, models and placeholder textures are generated by `tools/generate_assets.py`. Geometry changes belong there (or in a Blockbench model, see below), not in the generated JSON files. The generator deletes models and blockstates it no longer produces.
 
-### Eigene Modelle mit Blockbench
+### Custom models with Blockbench
 
-Ein Signalkopf lässt sich in [Blockbench](https://www.blockbench.net/) gestalten. Das Skript erzeugt daraus alle Varianten: Signalbegriffe, Mast oder Wandausleger, bei hohen Signalen die untere/obere Hälfte und die Overlay-Anzeigen an den markierten Stellen.
+A signal head can be designed in [Blockbench](https://www.blockbench.net/). The script generates all variants from it: aspects, mast or wall brackets, the lower/upper half for tall signals, and the overlay indicators at the marked positions.
 
-1. `python tools/generate_assets.py --vorlagen` ausführen. Die eingebauten Signale landen als `tools/models/vorlagen/<block>.json` (nicht im Git, enthalten lokale Texturpfade).
-2. Vorlage in der Blockbench-Desktop-App öffnen (*File → Open Model*), Projekttyp **Java Block/Item**. Unter Windows werden die Texturen direkt mitgeladen.
-3. Modell bearbeiten und mit *File → Export → Export Block/Item Model* als `tools/models/<block>.json` speichern, z. B. `tools/models/ks_hauptsignal.json`. Der Dateiname muss genau der Blockname sein.
-4. `python tools/generate_assets.py` ausführen und das Spiel starten.
+1. Run `python tools/generate_assets.py --vorlagen`. The built-in signals are written to `tools/models/vorlagen/<block>.json` (not in Git, they contain local texture paths).
+2. Open the template in the Blockbench desktop app (*File → Open Model*), project type **Java Block/Item**. On Windows the textures are loaded along with it.
+3. Edit the model and save it with *File → Export → Export Block/Item Model* as `tools/models/<block>.json`, e.g. `tools/models/ks_hauptsignal.json`. The file name must be exactly the block name.
+4. Run `python tools/generate_assets.py` and start the game.
 
-Ohne Datei in `tools/models/` gilt die eingebaute Geometrie.
+Without a file in `tools/models/`, the built-in geometry is used.
 
-**Namen der Elemente (oder ihrer Gruppe) steuern die Funktion:**
+**The names of elements (or their group) control their function:**
 
-| Name | Bedeutung |
+| Name | Meaning |
 |---|---|
-| `lamp_<name>` | Lampe. Ihre **Nordfläche** zeigt je nach Begriff die passende Lampentextur, an oder aus. Leuchten stellt das Skript ein. |
-| `mast` | Nur sichtbar, wenn das Signal frei steht. Ohne `mast` kommt der eingebaute Mast. |
-| `arm` | Nur Markierung: Höhe (y von–bis) der Wandausleger, wird selbst nicht gezeichnet. |
-| `sockel` | Nur Lichtsperrsignal: Fuß, wenn es nicht auf einem Signalmast steht. Auf dem Mast ersetzt ihn ein Maststummel bis zur Sockeloberkante. |
-| `kennlicht`, `zs1`, `zs7` | Nur Markierung: Lage der Lampen dieser Overlay-Anzeigen. Bei `zs1`/`zs7` ein Element je Lampe. |
-| `zs2`, `zs2v`, `zs3`, `zs3v`, `zs6` | Nur Markierung: Kasten der Anzeige. Das Skript setzt Gehäuse und Zeichen davor ein; der Zs8 nutzt den Kasten des Zs6. |
-| alles andere | Fester Signalkörper (Schirm, Schuten, Mastschild …) |
+| `lamp_<name>` | Lamp. Its **north face** shows the matching lamp texture, on or off, depending on the aspect. The script sets up the glow. |
+| `mast` | Only visible when the signal is free-standing. Without `mast`, the built-in mast is used. |
+| `arm` | Marker only: height (y from–to) of the wall brackets, not rendered itself. |
+| `sockel` | Shunting signal only: base when it is not on a signal mast. On a mast it is replaced by a mast stub up to the top of the base. |
+| `kennlicht`, `zs1`, `zs7` | Marker only: position of the lamps of these overlay indicators. For `zs1`/`zs7`, one element per lamp. |
+| `zs2`, `zs2v`, `zs3`, `zs3v`, `zs6` | Marker only: box of the indicator. The script inserts the housing and symbol in front of it; the Zs8 uses the Zs6 box. |
+| anything else | Solid signal body (screen, hoods, mast plate …) |
 
-Eine angehängte Zahl ist erlaubt (`arm2`, `lamp_red2`, `zs12`), `mastschild` zählt dagegen nicht als `mast`. Fehlt eine Markierung, sitzt die Anzeige an der Stelle des eingebauten Modells; das Skript weist darauf hin. Welche Anzeigen ein Signal hat, zeigt seine Vorlage.
+A trailing number is allowed (`arm2`, `lamp_red2`, `zs12`), but `mastschild` does not count as `mast`. If a marker is missing, the indicator sits where it is in the built-in model; the script will point this out. A signal's template shows which indicators it has.
 
-**Lampennamen je Block:**
+**Lamp names per block:**
 
-| Block | Lampen |
+| Block | Lamps |
 |---|---|
 | `hv_hauptsignal` | `lamp_red`, `lamp_green`, `lamp_yellow` |
-| `hv_vorsignal` | `lamp_y_bl`, `lamp_y_tr`, `lamp_g_bl`, `lamp_g_tr` (gelb/grün, unten links/oben rechts) |
-| `hv_kombisignal` | beide Sätze oben |
+| `hv_vorsignal` | `lamp_y_bl`, `lamp_y_tr`, `lamp_g_bl`, `lamp_g_tr` (yellow/green, bottom left/top right) |
+| `hv_kombisignal` | both sets above |
 | `sh_sperrsignal` | `lamp_r_l`, `lamp_r_r`, `lamp_w_bl`, `lamp_w_tr` |
 | `ks_hauptsignal` | `lamp_red`, `lamp_green` |
 | `ks_vorsignal` | `lamp_green`, `lamp_yellow` |
 | `ks_mehrabschnittssignal` | `lamp_red`, `lamp_green`, `lamp_yellow` |
 
-**Regeln:**
+**Rules:**
 
-- Der Schirm zeigt nach **Norden**. Die übrigen Richtungen dreht der Blockstate.
-- Zwei Blöcke hohe Signale (H/V-Haupt-, H/V-Kombi-, Ks-Haupt- und Ks-Mehrabschnittssignal) werden in 0–32 px Höhe gebaut, die anderen in 0–16 px. Das Skript teilt hohe Modelle an y = 16. Gedrehte Elemente werden nicht geschnitten, sondern landen ganz in der Hälfte ihrer Mitte.
-- Alle Koordinaten liegen zwischen −16 und 32. Gedreht wird nur um **eine** Achse in Schritten von 22,5° (−45 bis 45). Sonst bricht das Skript mit einer Meldung ab.
-- Texturen liegen in `src/main/resources/assets/create_railway_systems/textures/block/` oder in `tools/models/textures/`. Von dort kopiert das Skript sie mit; das ersetzt auch Platzhalter wie `lamp_red.png`. Andere Texturpfade im Export werden auf den Dateinamen zurückgeführt.
-- Texturvariablen mit eingebauten Namen (`mast`, `screen`, `lamp_red` …) gelten auch für die erzeugten Teile. Wer `mast` auf eine eigene Textur zeigen lässt, bekommt sie auch an den Wandauslegern.
-- Modelle aus Blockbench werden mit `render_type: cutout` geschrieben, durchsichtige Pixel funktionieren also. Halbtransparenz geht nicht.
-- Die `display`-Einstellungen aus Blockbench gelten für das Item.
+- The screen faces **north**. The blockstate rotates it for the other directions.
+- Two-block-tall signals (H/V main, H/V combined, Ks main and Ks multi-section signal) are built at 0–32 px height, the others at 0–16 px. The script splits tall models at y = 16. Rotated elements are not cut but end up entirely in the half containing their center.
+- All coordinates lie between −16 and 32. Rotation is only allowed around **one** axis in steps of 22.5° (−45 to 45). Otherwise the script aborts with a message.
+- Textures go in `src/main/resources/assets/create_railway_systems/textures/block/` or in `tools/models/textures/`. The script copies them from the latter; this also replaces placeholders such as `lamp_red.png`. Other texture paths in the export are reduced to the file name.
+- Texture variables with built-in names (`mast`, `screen`, `lamp_red` …) also apply to the generated parts. If you point `mast` to your own texture, the wall brackets get it too.
+- Models from Blockbench are written with `render_type: cutout`, so transparent pixels work. Translucency does not.
+- The `display` settings from Blockbench apply to the item.
 
-### Struktur
+### Structure
 
 ```
 src/main/java/de/bausteinchen/railwaysystems/
-  RailwaySystems.java, Config.java     Einstieg und Server-Config
-  registry/                            Blöcke, Items, Block-Entities, Kreativ-Tab
-  signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast
-  signal/hv/                           H/V- und Sh-Signale
-  signal/ks/                           Ks-Signale
-  client/                              Overlay-Renderer für Zusatzanzeigen (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, Kennlicht)
-tools/generate_assets.py               Asset-Generator
-tools/models/                          Eigene Blockbench-Modelle und Texturen (optional)
+  RailwaySystems.java, Config.java     Entry point and server config
+  registry/                            Blocks, items, block entities, creative tab
+  signal/                              Shared base: linking, block entity, mounting, mast
+  signal/hv/                           H/V and Sh signals
+  signal/ks/                           Ks signals
+  client/                              Overlay renderers for indicators (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, identification light)
+tools/generate_assets.py               Asset generator
+tools/models/                          Custom Blockbench models and textures (optional)
 ```
 
-## Geplant
+## Planned
 
-- Bessere Texturen
+- Better textures
 
-## Lizenz
+## License
 
 MIT
