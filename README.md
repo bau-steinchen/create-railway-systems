@@ -32,6 +32,15 @@ An addon for [Create](https://github.com/Creators-of-Create/Create) that brings 
 | Light signal mast | Slim mast: a single pole |
 | Lattice signal mast | Wide square lattice mast: corner posts with diagonal braces |
 
+### German H/V semaphore signals
+
+| Block | Aspects |
+|---|---|
+| Semaphore main signal (one arm) | Hp0 (arm horizontal), Hp1 (arm raised 45°) |
+| Semaphore main signal (two arms) | Hp0 (upper arm horizontal, lower arm hanging along the mast), Hp1 and Hp2 (both arms raised 45°; told apart at night by the lantern) |
+
+The arms swing smoothly into their new position and reach beyond the block; the hitbox stays within the signal's blocks. At night a lantern shows red (Hp0), green (Hp1) or green above yellow (Hp2). Semaphore signals are three blocks tall and have no supplementary signals yet.
+
 ### German Ks signals
 
 | Block | Aspects |
@@ -74,7 +83,7 @@ A signal can't be placed without a link.
 - **On a signal mast:** Placed against any of the three signal mast blocks, the head also sits flush at the edge of its own block, without a mast of its own, and two short holder bars reach to the mast surface. Two-block-tall signals need a mast block behind both halves. This way one mast column can carry signals on several sides and at any height. Masts rotate in 16 steps of 22.5°: when placed they face the player's view direction, and each wrench click turns them one step. A signal on a mast turns with it around the mast centre, towards the nearest side of the mast; signals elsewhere keep their usual orientation. Masts from worlds made before this version reset to their default orientation.
 - **Side brackets:** Placed against a solid block to the left or right, the signal keeps its centred position and gets a horizontal bracket to that block.
 - If the supporting block is removed, the signal stands on its own mast again; if a mast is replaced by a solid block, it sits flat on the wall.
-- **Main signals are two blocks tall:** H/V main signal, H/V main signal with distant signal on the mast, Ks main signal and Ks multi-section signal. The block above the placement position must be free. Breaking one half removes the other as well. Linking, wrench and pick-block work on both halves. Distant signals and the shunting signal are one block tall.
+- **Main signals are two blocks tall:** H/V main signal, H/V main signal with distant signal on the mast, Ks main signal and Ks multi-section signal. The block above the placement position must be free. Breaking one half removes the other as well. Linking, wrench and pick-block work on both halves. Semaphore main signals are three blocks tall and need two free blocks above. Distant signals and the shunting signal are one block tall.
 - **Shunting signal:** On the ground or on a solid block it stands on a small base. With a signal mast below, it sits directly on the mast without a base.
 - The signal head always faces the player when placed.
 
@@ -94,6 +103,7 @@ Left and right are as seen from the front. Right-clicking with the wrench outsid
 ### Signal logic
 
 - **H/V main signal:** Create signal red → Hp0, green/yellow → Hp1. Create has no concept of speeds, so the **Create wrench** toggles between Hp1 and Hp2.
+- **Semaphore main signal:** Same logic as the H/V main signal. Only the two-arm version can show Hp2 (preselected with the wrench); on the one-arm version the wrench rotates the signal.
 - **H/V distant signal:** Linked to the Create signal of the **announced** main signal and placed at braking distance in front of it. If that main signal imposes a speed (Hp2 or Ks Zs3), it shows Vr2.
 - **H/V main signal with distant signal on the mast:** The main signal part works like the H/V main signal. The distant signal part automatically announces the signals at the end of the block section. If switches lead to several following signals, it only expects proceed when all of them show proceed, otherwise Vr0. When its own main signal shows Hp0, the distant signal is dark.
 - **Shunting signal:** Create signal red → Sh0, green/yellow → Sh1.

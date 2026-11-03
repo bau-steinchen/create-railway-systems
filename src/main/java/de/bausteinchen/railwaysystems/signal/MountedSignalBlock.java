@@ -48,9 +48,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * Zug); der Begriff wird von {@link LinkedSignalBlockEntity} aus dem gebundenen Create-Signal
  * abgeleitet.
  * <p>
- * Hohe Signale ({@link #isTall()}) bestehen wie eine Tür aus unterer und oberer Hälfte. Bindung
- * und Logik liegen in der unteren Hälfte; die obere übernimmt deren Zustand und trägt eine
- * eingebaute Funkverbindung ({@link SignalLinkBlockEntity}).
+ * Hohe Signale ({@link #getHeight()} > 1) bestehen wie eine Tür aus übereinanderliegenden Teilen:
+ * zwei Blöcke hohe aus unterer und oberer Hälfte ({@link #HALF}), drei Blöcke hohe aus unterem,
+ * mittlerem und oberem Teil ({@link #PART}). Bindung und Logik liegen im untersten Teil; die Teile
+ * darüber übernehmen dessen Zustand, der oberste trägt eine eingebaute Funkverbindung
+ * ({@link SignalLinkBlockEntity}).
  */
 public abstract class MountedSignalBlock extends Block
 	implements IBE<LinkedSignalBlockEntity>, IWrenchable, LinkedSignal {
@@ -58,6 +60,8 @@ public abstract class MountedSignalBlock extends Block
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<SignalMount> MOUNT = EnumProperty.create("mount", SignalMount.class);
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	/** Teil eines drei Blöcke hohen Signals. */
+	public static final EnumProperty<SignalPart> PART = EnumProperty.create("part", SignalPart.class);
 	/**
 	 * Neigung am gedrehten Signalmast in 22,5°-Stufen gegenüber {@link #FACING}, siehe
 	 * {@link #tiltSteps}. Nur bei {@link SignalMount#isMast()}, sonst 0.
@@ -73,7 +77,7 @@ public abstract class MountedSignalBlock extends Block
 		super(properties);
 		BlockState state = defaultBlockState().setValue(MOUNT, SignalMount.NONE)
 			.setValue(TILT, 0);
-		registerDefaultState(isTall() ? state.setValue(HALF, DoubleBlockHalf.LOWER) : state);
+		registerDefaultState(withPart(state, 0));
 	}
 
 	/**
@@ -84,32 +88,71 @@ public abstract class MountedSignalBlock extends Block
 		return false;
 	}
 
-	public static boolean isUpper(BlockState state) {
-		return state.hasProperty(HALF) && state.getValue(HALF) == DoubleBlockHalf.UPPER;
+	/**
+	 * Höhe in Blöcken (1–3). Wird schon im Konstruktor abgefragt und darf daher nur eine Konstante
+	 * liefern.
+	 */
+	protected int getHeight() {
+		return isTall() ? 2 : 1;
 	}
 
 	/**
-	 * Position der unteren Hälfte, die Bindung und Logik trägt.
+	 * Anzahl der Blockteile dieses Signals laut Zustand.
+	 */
+	public static int partCount(BlockState state) {
+		return state.hasProperty(PART) ? 3 : state.hasProperty(HALF) ? 2 : 1;
+	}
+
+	/**
+	 * Teil von unten gezählt, 0 = unterster Teil mit Bindung und Logik.
+	 */
+	public static int partIndex(BlockState state) {
+		if (state.hasProperty(PART))
+			return state.getValue(PART)
+				.ordinal();
+		return state.hasProperty(HALF) && state.getValue(HALF) == DoubleBlockHalf.UPPER ? 1 : 0;
+	}
+
+	private static BlockState withPart(BlockState state, int part) {
+		if (state.hasProperty(PART))
+			return state.setValue(PART, SignalPart.values()[part]);
+		if (state.hasProperty(HALF))
+			return state.setValue(HALF, part == 0 ? DoubleBlockHalf.LOWER : DoubleBlockHalf.UPPER);
+		return state;
+	}
+
+	/**
+	 * Oberster Teil eines hohen Signals, der die Funkverbindung trägt.
+	 */
+	public static boolean isUpper(BlockState state) {
+		int count = partCount(state);
+		return count > 1 && partIndex(state) == count - 1;
+	}
+
+	/**
+	 * Position des untersten Teils, der Bindung und Logik trägt.
 	 */
 	public static BlockPos getMainPos(BlockState state, BlockPos pos) {
-		return isUpper(state) ? pos.below() : pos;
+		return pos.below(partIndex(state));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, MOUNT, TILT);
-		if (isTall())
+		if (getHeight() == 2)
 			builder.add(HALF);
+		else if (getHeight() == 3)
+			builder.add(PART);
 		super.createBlockStateDefinition(builder);
 	}
 
 	@Override
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		if (isTall()) {
+		Level level = context.getLevel();
+		for (int part = 1; part < getHeight(); part++) {
 			BlockPos above = context.getClickedPos()
-				.above();
-			Level level = context.getLevel();
+				.above(part);
 			if (above.getY() >= level.getMaxBuildHeight() || !level.getBlockState(above)
 				.canBeReplaced(context))
 				return null;
@@ -175,8 +218,8 @@ public abstract class MountedSignalBlock extends Block
 	}
 
 	/**
-	 * Signalmast hinter dem Signal, oder null. Hohe Signale brauchen hinter beiden Hälften einen
-	 * Mastblock; Bauform und Ausrichtung gibt der untere vor.
+	 * Signalmast hinter dem Signal, oder null. Hohe Signale brauchen hinter jedem Teil einen
+	 * Mastblock; Bauform und Ausrichtung gibt der unterste vor.
 	 */
 	@Nullable
 	private BlockState mastBehind(LevelReader level, BlockPos pos, Direction facing) {
@@ -184,9 +227,10 @@ public abstract class MountedSignalBlock extends Block
 		BlockState mast = level.getBlockState(behind);
 		if (!(mast.getBlock() instanceof SignalMastBlock))
 			return null;
-		if (isTall() && !(level.getBlockState(behind.above())
-			.getBlock() instanceof SignalMastBlock))
-			return null;
+		for (int part = 1; part < getHeight(); part++)
+			if (!(level.getBlockState(behind.above(part))
+				.getBlock() instanceof SignalMastBlock))
+				return null;
 		return mast;
 	}
 
@@ -202,19 +246,19 @@ public abstract class MountedSignalBlock extends Block
 	@Override
 	public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(level, pos, state, placer, stack);
-		if (isTall())
-			level.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
+		for (int part = 1; part < getHeight(); part++)
+			level.setBlock(pos.above(part), withPart(state, part), 3);
 	}
 
 	@Override
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-		// Im Kreativmodus soll das Abbauen der oberen Hälfte die untere nicht droppen lassen
-		if (!level.isClientSide && player.isCreative() && isUpper(state)) {
-			BlockPos below = pos.below();
-			BlockState lower = level.getBlockState(below);
-			if (lower.is(this) && !isUpper(lower)) {
-				level.setBlock(below, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
-				level.levelEvent(player, 2001, below, Block.getId(lower));
+		// Im Kreativmodus soll das Abbauen eines oberen Teils den untersten nicht droppen lassen
+		if (!level.isClientSide && player.isCreative() && partIndex(state) > 0) {
+			BlockPos main = getMainPos(state, pos);
+			BlockState lower = level.getBlockState(main);
+			if (lower.is(this) && partIndex(lower) == 0) {
+				level.setBlock(main, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
+				level.levelEvent(player, 2001, main, Block.getId(lower));
 			}
 		}
 		return super.playerWillDestroy(level, pos, state, player);
@@ -223,18 +267,18 @@ public abstract class MountedSignalBlock extends Block
 	@Override
 	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
 		LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-		if (isTall()) {
-			boolean upper = isUpper(state);
-			if (direction == (upper ? Direction.DOWN : Direction.UP)) {
-				// andere Hälfte entfernt: diese auch
-				if (!neighborState.is(this) || isUpper(neighborState) == upper)
-					return Blocks.AIR.defaultBlockState();
-				// obere Hälfte übernimmt Begriff, Ausrichtung und Montage der unteren; die untere Montage
-				// und Neigung der oberen, falls deren Mastblock wegfällt
-				return upper ? neighborState.setValue(HALF, DoubleBlockHalf.UPPER)
-					: state.setValue(MOUNT, neighborState.getValue(MOUNT))
-						.setValue(TILT, neighborState.getValue(TILT));
-			}
+		int part = partIndex(state);
+		boolean below = direction == Direction.DOWN && part > 0;
+		boolean above = direction == Direction.UP && part < getHeight() - 1;
+		if (below || above) {
+			// benachbarter Teil entfernt: dieser auch
+			if (!neighborState.is(this) || partIndex(neighborState) != part + (above ? 1 : -1))
+				return Blocks.AIR.defaultBlockState();
+			// ein Teil übernimmt Begriff, Ausrichtung und Montage des Teils darunter; Montage und
+			// Neigung auch von oben, falls dort der Mastblock wegfällt
+			return below ? withPart(neighborState, part)
+				: state.setValue(MOUNT, neighborState.getValue(MOUNT))
+					.setValue(TILT, neighborState.getValue(TILT));
 		}
 
 		// Stützblock geändert (auch gedrehter Mast): Wand, Mast oder freie Aufstellung neu bestimmen
@@ -405,10 +449,9 @@ public abstract class MountedSignalBlock extends Block
 
 	@Override
 	public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
-		// Aufnehmen mit dem Schraubenschlüssel immer über die untere Hälfte, die das Item droppt
-		if (isUpper(state) && context.getPlayer() != null) {
-			BlockPos main = context.getClickedPos()
-				.below();
+		// Aufnehmen mit dem Schraubenschlüssel immer über den untersten Teil, der das Item droppt
+		if (partIndex(state) > 0 && context.getPlayer() != null) {
+			BlockPos main = getMainPos(state, context.getClickedPos());
 			UseOnContext mainContext = new UseOnContext(context.getPlayer(), context.getHand(),
 				new BlockHitResult(context.getClickLocation(), context.getClickedFace(), main, context.isInside()));
 			return IWrenchable.super.onSneakWrenched(context.getLevel()
@@ -420,9 +463,11 @@ public abstract class MountedSignalBlock extends Block
 	@Override
 	@Nullable
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		// die untere Hälfte trägt Bindung und Logik, die obere die eingebaute Funkverbindung
-		return isUpper(state) ? ModBlockEntities.SIGNAL_LINK.get()
-			.create(pos, state) : IBE.super.newBlockEntity(pos, state);
+		// der unterste Teil trägt Bindung und Logik, der oberste die eingebaute Funkverbindung
+		if (isUpper(state))
+			return ModBlockEntities.SIGNAL_LINK.get()
+				.create(pos, state);
+		return partIndex(state) == 0 ? IBE.super.newBlockEntity(pos, state) : null;
 	}
 
 	@Override

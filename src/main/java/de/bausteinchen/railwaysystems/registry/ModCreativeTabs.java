@@ -25,6 +25,8 @@ public class ModCreativeTabs {
 			output.accept(ModItems.KS_HAUPTSIGNAL.get());
 			output.accept(ModItems.KS_VORSIGNAL.get());
 			output.accept(ModItems.KS_MEHRABSCHNITTSSIGNAL.get());
+			output.accept(ModItems.FORM_HAUPTSIGNAL_1.get());
+			output.accept(ModItems.FORM_HAUPTSIGNAL_2.get());
 			output.accept(ModItems.SIGNAL_MAST.get());
 			output.accept(ModItems.SIGNAL_MAST_LIGHT.get());
 			output.accept(ModItems.SIGNAL_MAST_LATTICE.get());

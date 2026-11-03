@@ -32,6 +32,15 @@ Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moder
 | Leichter Signalmast | Schlanker Mast: ein einzelner Stab |
 | Gittermast | Breiter, quadratischer Gittermast: Eckstiele mit diagonalen Streben |
 
+### Deutsche H/V-Formsignale
+
+| Block | Signalbegriffe |
+|---|---|
+| Formhauptsignal (einflügelig) | Hp0 (Flügel waagerecht), Hp1 (Flügel 45° schräg nach oben) |
+| Formhauptsignal (zweiflügelig) | Hp0 (Oberflügel waagerecht, Unterflügel hängt senkrecht am Mast), Hp1 und Hp2 (beide Flügel 45° schräg nach oben; nachts an der Laterne zu unterscheiden) |
+
+Die Flügel schwenken weich in die neue Stellung und ragen über den Block hinaus; die Hitbox bleibt in den Blöcken des Signals. Nachts zeigt eine Laterne Rot (Hp0), Grün (Hp1) oder Grün über Gelb (Hp2). Formsignale sind drei Blöcke hoch und haben noch keine Zusatzanzeiger.
+
 ### Deutsche Ks-Signale
 
 | Block | Signalbegriffe |
@@ -74,7 +83,7 @@ Ohne Bindung lässt sich ein Signal nicht platzieren.
 - **Am Signalmast:** Gegen einen der drei Signalmast-Blöcke gesetzt, sitzt der Kopf ebenfalls bündig an der Kante seines eigenen Blocks, ohne eigenen Mast, und zwei kurze Halterstangen reichen bis an die Mastoberfläche. Zwei Blöcke hohe Signale brauchen hinter beiden Hälften einen Mastblock. So trägt eine Mastsäule Signale an mehreren Seiten und in beliebiger Höhe. Masten drehen sich in 16 Stufen zu 22,5°: Beim Platzieren richten sie sich nach der Blickrichtung aus, jeder Klick mit dem Schraubenschlüssel dreht sie eine Stufe weiter. Ein Signal am Mast dreht sich mit, um die Mastmitte zur nächstgelegenen Mastseite; Signale woanders behalten ihre gewohnte Ausrichtung. Masten aus Welten vor dieser Version stehen wieder in Grundstellung.
 - **Seitlicher Ausleger:** Gegen einen festen Block links oder rechts gesetzt, bleibt das Signal mittig und bekommt einen waagerechten Ausleger zu diesem Block.
 - Wird der tragende Block entfernt, steht das Signal wieder auf seinem eigenen Mast; wird ein Mast durch einen festen Block ersetzt, sitzt es flach an der Wand.
-- **Hauptsignale sind zwei Blöcke hoch:** H/V-Hauptsignal, H/V-Hauptsignal mit Vorsignal am Mast, Ks-Hauptsignal und Ks-Mehrabschnittssignal. Über dem Platzierungsort muss ein Block frei sein. Wird eine Hälfte abgebaut, verschwindet auch die andere. Bindung, Schraubenschlüssel und Aufnehmen funktionieren an beiden Hälften. Vorsignale und das Lichtsperrsignal sind einen Block hoch.
+- **Hauptsignale sind zwei Blöcke hoch:** H/V-Hauptsignal, H/V-Hauptsignal mit Vorsignal am Mast, Ks-Hauptsignal und Ks-Mehrabschnittssignal. Über dem Platzierungsort muss ein Block frei sein. Wird eine Hälfte abgebaut, verschwindet auch die andere. Bindung, Schraubenschlüssel und Aufnehmen funktionieren an beiden Hälften. Formhauptsignale sind drei Blöcke hoch und brauchen zwei freie Blöcke darüber. Vorsignale und das Lichtsperrsignal sind einen Block hoch.
 - **Lichtsperrsignal:** Auf dem Boden oder einem festen Block steht es auf einem kleinen Fuß. Steht darunter ein Signalmast, sitzt es ohne Fuß direkt auf dem Mast.
 - Der Schirm zeigt beim Platzieren immer zum Spieler.
 
@@ -94,6 +103,7 @@ Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschl�
 ### Signallogik
 
 - **H/V-Hauptsignal:** Create-Signal rot → Hp0, grün/gelb → Hp1. Create kennt keine Geschwindigkeiten. Mit dem **Create-Schraubenschlüssel** schaltest du deshalb zwischen Hp1 und Hp2 um.
+- **Formhauptsignal:** Logik wie beim H/V-Hauptsignal. Nur das zweiflügelige kann Hp2 zeigen (Vorwahl per Schraubenschlüssel); beim einflügeligen dreht der Schraubenschlüssel das Signal.
 - **H/V-Vorsignal:** Wird an das Create-Signal des **angekündigten** Hauptsignals gebunden und steht im Bremswegabstand davor. Gibt das Hauptsignal dort eine Geschwindigkeit vor (Hp2 oder Ks-Zs3), zeigt es Vr2.
 - **H/V-Hauptsignal mit Vorsignal am Mast:** Der Hauptsignalteil arbeitet wie das H/V-Hauptsignal. Der Vorsignalteil kündigt automatisch die Signale am Ende des Blockabschnitts an. Gibt es durch Weichen mehrere Folgesignale, erwartet es nur Fahrt, wenn alle Fahrt zeigen, sonst Vr0. Zeigt das eigene Hauptsignal Hp0, ist das Vorsignal dunkel.
 - **Lichtsperrsignal:** Create-Signal rot → Sh0, grün/gelb → Sh1.

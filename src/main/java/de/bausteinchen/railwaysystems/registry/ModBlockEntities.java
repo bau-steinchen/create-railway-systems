@@ -21,13 +21,15 @@ public class ModBlockEntities {
 		() -> BlockEntityType.Builder.of(LinkedSignalBlockEntity::new,
 			ModBlocks.HV_HAUPTSIGNAL.get(), ModBlocks.HV_VORSIGNAL.get(), ModBlocks.HV_KOMBISIGNAL.get(),
 			ModBlocks.SH_SPERRSIGNAL.get(), ModBlocks.KS_HAUPTSIGNAL.get(), ModBlocks.KS_VORSIGNAL.get(),
-			ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get()).build(null));
+			ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get(), ModBlocks.FORM_HAUPTSIGNAL_1.get(),
+			ModBlocks.FORM_HAUPTSIGNAL_2.get()).build(null));
 
-	/** Funkverbindung in der oberen Hälfte der zwei Blöcke hohen Signale */
+	/** Funkverbindung im obersten Teil der hohen Signale */
 	@SuppressWarnings("DataFlowIssue")
 	public static final Supplier<BlockEntityType<SignalLinkBlockEntity>> SIGNAL_LINK = BLOCK_ENTITIES.register("signal_link",
 		() -> BlockEntityType.Builder.of(SignalLinkBlockEntity::new,
 			ModBlocks.HV_HAUPTSIGNAL.get(), ModBlocks.HV_KOMBISIGNAL.get(), ModBlocks.KS_HAUPTSIGNAL.get(),
-			ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get()).build(null));
+			ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get(), ModBlocks.FORM_HAUPTSIGNAL_1.get(),
+			ModBlocks.FORM_HAUPTSIGNAL_2.get()).build(null));
 
 }

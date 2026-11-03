@@ -365,10 +365,18 @@ def clip_y(element, lo, hi):
     return piece
 
 
+PART_NAMES = {2: ("lower", "upper"), 3: ("lower", "middle", "upper")}
+
+
+def split_parts(elements, count):
+    """{"lower": [...], ...} aus einem count·16 px hohen Entwurf, ein Modell je Blockteil."""
+    return {name: [p for p in (clip_y(e, 16 * i, 16 * i + 16) for e in elements) if p]
+            for i, name in enumerate(PART_NAMES[count])}
+
+
 def split_tall(elements):
     """{"lower": [...], "upper": [...]} aus einem 32 px hohen Entwurf."""
-    return {half: [p for p in (clip_y(e, lo, lo + 16) for e in elements) if p]
-            for half, lo in (("lower", 0), ("upper", 16))}
+    return split_parts(elements, 2)
 
 
 def hood(vx0, y0, size):
@@ -840,15 +848,113 @@ def generate_models():
             {"display": bb.display} if bb and bb.display else {})})
 
 
+# --- Formhauptsignale (drei Blöcke hoch; Flügel zeichnet der Overlay-Renderer, hier Mast und Laternen) ---
+
+# Block -> Anzahl Flügel
+FORM_TYPES = {"form_hauptsignal_1": 1, "form_hauptsignal_2": 2}
+# Begriff -> Laternenbild: einflügelig kein Hp2; ohne Kennlicht zeigt "off" wie Hp0
+FORM_LANTERNS = {1: {"hp0": "hp0", "hp1": "hp1", "hp2": "hp1", "off": "hp0"},
+                 2: {"hp0": "hp0", "hp1": "hp1", "hp2": "hp2", "off": "hp0"}}
+# Laterne je Flügel: Unterkante y; obere Laterne rot/grün, untere nur bei Hp2 gelb
+FORM_LANTERN_Y = (39.5, 23.5)
+FORM_LIT = {"hp0": {0: "red"}, "hp1": {0: "green"}, "hp2": {0: "green", 1: "yellow"}}
+# Höhe der Wandausleger bzw. Halterstangen zum Signalmast
+FORM_ARMS = [(40, 42), (24, 26), (6, 8)]
+# Drehpunkte der Flügel im Modellraum (px), wie SignalOverlayRenderer.ARM_PIVOTS
+FORM_PIVOTS = ((6, 42, 5), (6, 26, 5))
+
+
+def form_head(arms, lantern):
+    """Lager der Flügel am Mast und Laternen links vom Mast (Betrachtersicht)."""
+    elements = []
+    for arm in range(arms):
+        px, py, pz = FORM_PIVOTS[arm]
+        elements.append(box([px - 0.5, py - 1, pz - 0.25], [6.5, py + 1, 6.5], "#mast", name="lager"))
+        y = FORM_LANTERN_Y[arm]
+        x0, x1 = mirror_x(3, 6.5)
+        elements.append(box([x0, y, 4], [x1, y + 4, 6.5], "#screen", name="laterne"))
+        color = FORM_LIT[lantern].get(arm)
+        elements.append(lamp(3.5, y + 0.75, 2.5, color or "red", color is not None, name="lampe"))
+    return elements
+
+
+def form_elements(arms, lantern, mount):
+    return mounted(form_head(arms, lantern), mount, FORM_ARMS, 48)
+
+
+def form_arm_model():
+    """Flügel mit Drehpunkt (8, 8, 8): Blatt und runde Endscheibe nach -x (vom Zug aus rechts), Lager."""
+    def blade(x0, x1, half):
+        element = box([x0, 8 - half, 7.75], [x1, 8 + half, 8.25], "#mast", north="#arm")
+        element["faces"]["south"] = {"texture": "#arm_back", "uv": [0, 0, 16, 16]}
+        return element
+    elements = [blade(-12, -7, 2.5), blade(-7, 9, 1.5),
+                box([6.25, 6.25, 7.25], [9.75, 9.75, 8.75], "#mast")]
+    return {"parent": "block/block",
+            "textures": {"particle": tex("form_arm"), "arm": tex("form_arm"), "arm_back": tex("form_arm_back"),
+                         "mast": tex("signal_mast")},
+            "elements": with_uvs(elements)}
+
+
+def arm_at(arm, angle):
+    """Flügel als feste Elemente in Stellung 0° (waagerecht) oder 90° (hängend), für das Item-Modell."""
+    px, py, pz = FORM_PIVOTS[arm]
+    result = []
+    for e in form_arm_model()["elements"]:
+        (x0, y0, z0), (x1, y1, z1) = e["from"], e["to"]
+        dz = pz - 8
+        if angle == 0:
+            frm, to = [x0 - 8 + px, y0 - 8 + py, z0 + dz], [x1 - 8 + px, y1 - 8 + py, z1 + dz]
+        else:
+            # (dx, dy) -> (-dy, dx): Blatt zeigt nach unten
+            frm, to = [px - (y1 - 8), py + (x0 - 8), z0 + dz], [px - (y0 - 8), py + (x1 - 8), z1 + dz]
+        result.append({**e, "from": frm, "to": to,
+                       "faces": {f: {k: v for k, v in face.items() if k != "uv"} for f, face in e["faces"].items()}})
+    return result
+
+
+def scaled(elements, factor):
+    """Elemente um (8, 0, 8) skalieren; das Item-Modell muss in -16..32 px passen."""
+    result = []
+    for e in copy.deepcopy(elements):
+        for key in ("from", "to"):
+            x, y, z = e[key]
+            e[key] = [8 + (x - 8) * factor, y * factor, 8 + (z - 8) * factor]
+        e.pop("rotation", None)
+        result.append(e)
+    return result
+
+
+def generate_form():
+    write_json(ASSETS / "models/block/form_arm.json", form_arm_model())
+    for name, arms in FORM_TYPES.items():
+        lanterns = FORM_LANTERNS[arms]
+        for lantern in sorted(set(lanterns.values())):
+            for mount in MOUNTS:
+                for part, elements in split_parts(form_elements(arms, lantern, mount), 3).items():
+                    write_json(ASSETS / "models/block" / f"{model_name(f'{name}_{lantern}', mount)}_{part}.json",
+                               model(elements))
+        write_json(ASSETS / "blockstates" / f"{name}.json",
+                   variants([("aspect", HP), ("mount", MOUNTS), ("part", list(PART_NAMES[3])), ("tilt", TILTS)],
+                            lambda st, name=name, lanterns=lanterns: tilted(
+                                model_name(f"{name}_{lanterns[st['aspect']]}", st["mount"]) + f"_{st['part']}",
+                                st["mount"], st["tilt"])))
+        # Item: Signal in Hp0 mit festen Flügeln, auf zwei Drittel verkleinert
+        item_elements = form_elements(arms, "hp0", "none") + arm_at(0, 0) + (arm_at(1, 90) if arms == 2 else [])
+        write_json(ASSETS / "models/item" / f"{name}.json",
+                   {**model(scaled(item_elements, 2 / 3), arm=tex("form_arm"), arm_back=tex("form_arm_back")),
+                    "display": TALL_ITEM_DISPLAY})
+
+
 def generate_data():
     blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "ks_hauptsignal",
-              "ks_vorsignal", "ks_mehrabschnittssignal", *MAST_BLOCKS]
+              "ks_vorsignal", "ks_mehrabschnittssignal", *FORM_TYPES, *MAST_BLOCKS]
     for b in blocks:
         conditions = [{"condition": "minecraft:survives_explosion"}]
-        if b in TALL_BLOCKS:
-            # nur die untere Hälfte droppt das Signal
+        if b in TALL_BLOCKS or b in FORM_TYPES:
+            # nur der unterste Teil droppt das Signal
             conditions.append({"condition": "minecraft:block_state_property", "block": f"{MOD_ID}:{b}",
-                               "properties": {"half": "lower"}})
+                               "properties": {"part" if b in FORM_TYPES else "half": "lower"}})
         write_json(DATA / MOD_ID / "loot_table/blocks" / f"{b}.json", {
             "type": "minecraft:block",
             "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": f"{MOD_ID}:{b}"}],
@@ -1261,6 +1367,14 @@ def generate_textures():
     d.line([(2, 2), (8, 8), (13, 2)], fill=(15, 15, 15, 255), width=2)
     d.line([(2, 13), (8, 8), (13, 13)], fill=(15, 15, 15, 255), width=2)
     save(ne2, "ne2")
+
+    # Formsignal-Flügel: vorn rot mit weißem Rand, hinten weiß mit dunklem Rand
+    arm = Image.new("RGBA", (16, 16), (196, 24, 32, 255))
+    ImageDraw.Draw(arm).rectangle([0, 0, 15, 15], outline=(240, 240, 240, 255), width=2)
+    save(arm, "form_arm")
+    arm_back = Image.new("RGBA", (16, 16), (232, 232, 228, 255))
+    ImageDraw.Draw(arm_back).rectangle([0, 0, 15, 15], outline=(40, 40, 44, 255))
+    save(arm_back, "form_arm_back")
     for name, (r, g, b) in colors.items():
         save(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255),
                       (min(255, r + 120), min(255, g + 120), min(255, b + 120), 255)), f"lamp_{name}")
@@ -1273,6 +1387,7 @@ if __name__ == "__main__":
     BLOCKBENCH.update(load_blockbench())
     generate_models()
     generate_ks()
+    generate_form()
     generate_overlays()
     generate_data()
     generate_textures()

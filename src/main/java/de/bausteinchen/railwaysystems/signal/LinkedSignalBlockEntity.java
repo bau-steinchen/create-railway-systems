@@ -26,7 +26,10 @@ import de.bausteinchen.railwaysystems.signal.SignalOptions.Betrieb;
 import de.bausteinchen.railwaysystems.signal.SignalOptions.Gegengleis;
 import de.bausteinchen.railwaysystems.signal.SignalOptions.Zusatz;
 import de.bausteinchen.railwaysystems.signal.SignalInput.NextSignal;
+import de.bausteinchen.railwaysystems.signal.hv.FormHauptsignalBlock;
 
+import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -96,6 +99,9 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 
 	@Nullable
 	private Map<UUID, Boolean> chainedSignals;
+	/** Nur auf dem Client: Stellung der Formsignal-Flügel. */
+	@Nullable
+	private LerpedFloat[] arms;
 	private int chainRefreshTimer;
 
 	public LinkedSignalBlockEntity(BlockPos pos, BlockState state) {
@@ -209,11 +215,13 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 			return false;
 		if (isPowered(worldPosition))
 			return true;
-		// bei zwei Blöcke hohen Signalen zählen auch Redstone an der oberen Hälfte und deren Funkverbindung
-		BlockPos upper = worldPosition.above();
-		if (!MountedSignalBlock.isUpper(level.getBlockState(upper)))
-			return false;
-		return isPowered(upper) || level.getBlockEntity(upper) instanceof SignalLinkBlockEntity link && link.isPowered();
+		// bei hohen Signalen zählen auch Redstone an den Teilen darüber und die Funkverbindung im obersten
+		for (int part = 1; part < MountedSignalBlock.partCount(getBlockState()); part++) {
+			BlockPos above = worldPosition.above(part);
+			if (isPowered(above) || level.getBlockEntity(above) instanceof SignalLinkBlockEntity link && link.isPowered())
+				return true;
+		}
+		return false;
 	}
 
 	private boolean isPowered(BlockPos pos) {
@@ -230,8 +238,9 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 
 	@Override
 	protected AABB createRenderBoundingBox() {
-		// Zusatzanzeigen können bis in die obere Hälfte reichen
-		return new AABB(worldPosition).expandTowards(0, 1, 0);
+		// Zusatzanzeigen und Formsignal-Flügel reichen in die Teile darüber und seitlich über den Block hinaus
+		return new AABB(worldPosition).expandTowards(0, MountedSignalBlock.partCount(getBlockState()) - 1, 0)
+			.inflate(2, 0, 2);
 	}
 
 	public static void clearAnnouncements() {
@@ -268,6 +277,41 @@ public class LinkedSignalBlockEntity extends SmartBlockEntity {
 	public void lazyTick() {
 		super.lazyTick();
 		updateAspect();
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (level != null && level.isClientSide)
+			tickArms();
+	}
+
+	/**
+	 * Formsignal-Flügel auf dem Client zur Stellung des aktuellen Begriffs schwenken.
+	 */
+	private void tickArms() {
+		if (!(getBlockState().getBlock() instanceof FormHauptsignalBlock form))
+			return;
+		if (arms == null) {
+			// beim Laden des Chunks sofort in Endstellung, nur Wechsel danach werden animiert
+			arms = new LerpedFloat[form.getArms()];
+			for (int arm = 0; arm < arms.length; arm++)
+				arms[arm] = LerpedFloat.linear()
+					.startWithValue(FormHauptsignalBlock.armAngle(getBlockState(), arm));
+		}
+		for (int arm = 0; arm < arms.length; arm++) {
+			arms[arm].chase(FormHauptsignalBlock.armAngle(getBlockState(), arm), 0.12, Chaser.EXP);
+			arms[arm].tickChaser();
+		}
+	}
+
+	/**
+	 * Aktuelle Stellung eines Formsignal-Flügels in Grad, siehe {@link FormHauptsignalBlock#armAngle}.
+	 */
+	public float getArmAngle(int arm, float partialTicks) {
+		if (arms == null || arm >= arms.length)
+			return FormHauptsignalBlock.armAngle(getBlockState(), arm);
+		return arms[arm].getValue(partialTicks);
 	}
 
 	public void updateAspect() {

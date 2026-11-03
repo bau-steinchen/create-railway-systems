@@ -39,8 +39,9 @@ public class SignalLinkBlockEntity extends SmartBlockEntity {
 		if (receivedStrength == strength)
 			return;
 		receivedStrength = strength;
-		// das Signal in der unteren Hälfte sofort neu bewerten statt auf den nächsten Takt zu warten
-		if (level != null && level.getBlockEntity(worldPosition.below()) instanceof LinkedSignalBlockEntity signal)
+		// das Signal im untersten Teil sofort neu bewerten statt auf den nächsten Takt zu warten
+		if (level != null && level.getBlockEntity(MountedSignalBlock.getMainPos(getBlockState(), worldPosition))
+			instanceof LinkedSignalBlockEntity signal)
 			signal.updateAspect();
 	}
 

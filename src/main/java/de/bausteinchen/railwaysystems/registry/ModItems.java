@@ -33,6 +33,12 @@ public class ModItems {
 	public static final DeferredItem<LinkedSignalBlockItem> KS_MEHRABSCHNITTSSIGNAL = ITEMS.register("ks_mehrabschnittssignal",
 		() -> new LinkedSignalBlockItem(ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get(), new Item.Properties()));
 
+	public static final DeferredItem<LinkedSignalBlockItem> FORM_HAUPTSIGNAL_1 = ITEMS.register("form_hauptsignal_1",
+		() -> new LinkedSignalBlockItem(ModBlocks.FORM_HAUPTSIGNAL_1.get(), new Item.Properties()));
+
+	public static final DeferredItem<LinkedSignalBlockItem> FORM_HAUPTSIGNAL_2 = ITEMS.register("form_hauptsignal_2",
+		() -> new LinkedSignalBlockItem(ModBlocks.FORM_HAUPTSIGNAL_2.get(), new Item.Properties()));
+
 	public static final DeferredItem<BlockItem> SIGNAL_MAST = ITEMS.registerSimpleBlockItem(ModBlocks.SIGNAL_MAST);
 	public static final DeferredItem<BlockItem> SIGNAL_MAST_LIGHT =
 		ITEMS.registerSimpleBlockItem(ModBlocks.SIGNAL_MAST_LIGHT);
