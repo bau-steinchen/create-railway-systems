@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -56,6 +57,11 @@ public abstract class MountedSignalBlock extends Block
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<SignalMount> MOUNT = EnumProperty.create("mount", SignalMount.class);
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	/**
+	 * Versatz des Signalkopfs nach hinten bei bündiger Montage, in Pixeln. Der Kopf endet mittig
+	 * montiert bei z = 6,5 und bündig an der Blockkante; tools/generate_assets.py nutzt denselben Wert.
+	 */
+	public static final double FLUSH_SHIFT = 9.5;
 
 	private static final Map<Direction, Map<SignalMount, VoxelShape>> SHAPES = buildShapes();
 
@@ -108,24 +114,47 @@ public abstract class MountedSignalBlock extends Block
 			.getOpposite();
 		BlockState state = defaultBlockState().setValue(FACING, facing);
 
-		// Gegen die Seite eines festen Blocks gesetzt: waagerechter Ausleger statt Mast
+		// Gegen einen Block gesetzt: hinten bündig an Wand oder Signalmast, seitlich mit Ausleger
 		Direction clickedFace = context.getClickedFace();
 		if (clickedFace.getAxis()
 			.isHorizontal()) {
 			SignalMount mount = SignalMount.fromSupportDirection(facing, clickedFace.getOpposite());
-			if (mount != SignalMount.NONE && canAttach(context.getLevel(), context.getClickedPos(), facing, mount))
-				state = state.setValue(MOUNT, mount);
+			if (mount != SignalMount.NONE)
+				state = state.setValue(MOUNT, attach(context.getLevel(), context.getClickedPos(), facing, mount));
 		}
 		return state;
 	}
 
-	private static boolean canAttach(LevelReader level, BlockPos pos, Direction facing, SignalMount mount) {
+	/**
+	 * Passende Montage zur gewünschten Seite: hinten ein Signalmast ergibt {@link SignalMount#MAST},
+	 * ein fester Block {@link SignalMount#BACK}; sonst {@link SignalMount#NONE}.
+	 *
+	 * @param pos Position der unteren Hälfte
+	 */
+	private SignalMount attach(LevelReader level, BlockPos pos, Direction facing, SignalMount wanted) {
+		if (wanted.isFlush()) {
+			if (canAttach(level, pos, facing, SignalMount.MAST))
+				return SignalMount.MAST;
+			wanted = SignalMount.BACK;
+		}
+		return canAttach(level, pos, facing, wanted) ? wanted : SignalMount.NONE;
+	}
+
+	private boolean canAttach(LevelReader level, BlockPos pos, Direction facing, SignalMount mount) {
 		Direction support = mount.getSupportDirection(facing);
 		if (support == null)
 			return true;
 		BlockPos supportPos = pos.relative(support);
+		if (mount == SignalMount.MAST)
+			// hohe Signale tragen eine Halterstange je Hälfte und brauchen dahinter zwei Mastblöcke
+			return isMast(level, supportPos) && (!isTall() || isMast(level, supportPos.above()));
 		return level.getBlockState(supportPos)
 			.isFaceSturdy(level, supportPos, support.getOpposite());
+	}
+
+	private static boolean isMast(LevelReader level, BlockPos pos) {
+		return level.getBlockState(pos)
+			.getBlock() instanceof SignalMastBlock;
 	}
 
 	@Override
@@ -158,18 +187,18 @@ public abstract class MountedSignalBlock extends Block
 				// andere Hälfte entfernt: diese auch
 				if (!neighborState.is(this) || isUpper(neighborState) == upper)
 					return Blocks.AIR.defaultBlockState();
-				// obere Hälfte übernimmt Begriff, Ausrichtung und Montage der unteren
-				return upper ? neighborState.setValue(HALF, DoubleBlockHalf.UPPER) : state;
+				// obere Hälfte übernimmt Begriff, Ausrichtung und Montage der unteren; die untere die
+				// Montage der oberen, falls deren Mastblock wegfällt
+				return upper ? neighborState.setValue(HALF, DoubleBlockHalf.UPPER)
+					: state.setValue(MOUNT, neighborState.getValue(MOUNT));
 			}
-			if (upper)
-				return state;
 		}
 
-		// Stützblock entfernt: zurück auf freie Aufstellung
+		// Stützblock geändert: Wand, Mast oder freie Aufstellung neu bestimmen
 		SignalMount mount = state.getValue(MOUNT);
-		if (direction == mount.getSupportDirection(state.getValue(FACING))
-			&& !canAttach(level, pos, state.getValue(FACING), mount))
-			return state.setValue(MOUNT, SignalMount.NONE);
+		Direction facing = state.getValue(FACING);
+		if (direction == mount.getSupportDirection(facing))
+			return state.setValue(MOUNT, attach(level, getMainPos(state, pos), facing, mount));
 		return state;
 	}
 
@@ -184,13 +213,49 @@ public abstract class MountedSignalBlock extends Block
 		for (Direction facing : Direction.Plane.HORIZONTAL) {
 			Map<SignalMount, VoxelShape> byMount = new EnumMap<>(SignalMount.class);
 			VoxelShape screen = rotatedBox(facing, 3, 0, 3.5, 13, 16, 9.5);
+			// bündig: Schirm um 9,5 px nach hinten an die Blockkante gerückt (wie im Asset-Generator)
+			VoxelShape flush = rotatedBox(facing, 3, 0, 12, 13, 16, 16);
 			byMount.put(SignalMount.NONE, screen);
-			byMount.put(SignalMount.BACK, Shapes.or(screen, rotatedBox(facing, 6.5, 1, 9.5, 9.5, 15, 16)));
+			byMount.put(SignalMount.BACK, flush);
+			byMount.put(SignalMount.MAST, flush);
 			byMount.put(SignalMount.LEFT, Shapes.or(screen, rotatedBox(facing, 9.5, 1, 6.5, 16, 15, 9.5)));
 			byMount.put(SignalMount.RIGHT, Shapes.or(screen, rotatedBox(facing, 0, 1, 6.5, 6.5, 15, 9.5)));
 			shapes.put(facing, byMount);
 		}
 		return shapes;
+	}
+
+	/**
+	 * Punkt für Bedienfelder an der Seite des Schirms (Modellraum, Pixel), gedreht in Blockkoordinaten.
+	 * {@code plusX}: Seite bei x = 13 (aus Sicht des Betrachters vor dem Schirm links), sonst x = 3.
+	 * Die Tiefe folgt der Montage: Schirmmitte mittig im Block oder bündig an der Rückkante.
+	 */
+	public static Vec3 sideSlot(BlockState state, boolean plusX, double y) {
+		double x = plusX ? 13.25 : 2.75;
+		double z = state.getValue(MOUNT)
+			.isFlush() ? 14.75 : 5.25;
+		Direction facing = state.getValue(FACING);
+		double rx = switch (facing) {
+			case EAST -> 16 - z;
+			case SOUTH -> 16 - x;
+			case WEST -> z;
+			default -> x;
+		};
+		double rz = switch (facing) {
+			case EAST -> x;
+			case SOUTH -> 16 - z;
+			case WEST -> 16 - x;
+			default -> z;
+		};
+		return new Vec3(rx / 16, y / 16, rz / 16);
+	}
+
+	/**
+	 * Welt-Seite, auf der {@link #sideSlot} liegt.
+	 */
+	public static Direction slotSide(BlockState state, boolean plusX) {
+		Direction facing = state.getValue(FACING);
+		return plusX ? facing.getClockWise() : facing.getCounterClockWise();
 	}
 
 	/**
@@ -229,13 +294,16 @@ public abstract class MountedSignalBlock extends Block
 
 	@Override
 	public BlockState updateAfterWrenched(BlockState newState, UseOnContext context) {
-		// nach dem Drehen den Ausleger an einen passenden Nachbarblock hängen
+		// nach dem Drehen an einen passenden Nachbarblock hängen: hinten Mast oder Wand, sonst seitlich
 		if (newState.getValue(MOUNT) == SignalMount.NONE)
 			return newState;
 		Direction facing = newState.getValue(FACING);
-		for (SignalMount mount : new SignalMount[] { SignalMount.BACK, SignalMount.LEFT, SignalMount.RIGHT })
-			if (canAttach(context.getLevel(), context.getClickedPos(), facing, mount))
+		BlockPos main = getMainPos(newState, context.getClickedPos());
+		for (SignalMount wanted : new SignalMount[] { SignalMount.BACK, SignalMount.LEFT, SignalMount.RIGHT }) {
+			SignalMount mount = attach(context.getLevel(), main, facing, wanted);
+			if (mount != SignalMount.NONE)
 				return newState.setValue(MOUNT, mount);
+		}
 		return newState.setValue(MOUNT, SignalMount.NONE);
 	}
 

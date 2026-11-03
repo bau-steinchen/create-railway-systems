@@ -68,23 +68,26 @@ A signal can't be placed without a link.
 ### Placement
 
 - **Free-standing:** The signal stands on a mast. Put signal mast blocks underneath to make it as tall as you like.
-- **Wall-mounted:** Placed against the side of a solid block (e.g. a tunnel or bridge wall), the signal gets horizontal brackets instead of a mast. The brackets point backwards or sideways depending on where the block is. If the block is removed, the signal stands on a mast again.
+- **On a wall:** Placed against a solid block behind it (e.g. a tunnel or bridge wall), the signal head moves to the back edge of the block and sits flat on the wall, without a mast or brackets.
+- **On a signal mast:** Placed against a signal mast block, the head also sits flush at the block edge, and two holder bars connect it to the mast. Two-block-tall signals need a mast block behind both halves. This way one mast column can carry signals on several sides and at any height.
+- **Side brackets:** Placed against a solid block to the left or right, the signal keeps its centred position and gets a horizontal bracket to that block.
+- If the supporting block is removed, the signal stands on its own mast again; if a mast is replaced by a solid block, it sits flat on the wall.
 - **Main signals are two blocks tall:** H/V main signal, H/V main signal with distant signal on the mast, Ks main signal and Ks multi-section signal. The block above the placement position must be free. Breaking one half removes the other as well. Linking, wrench and pick-block work on both halves. Distant signals and the shunting signal are one block tall.
 - **Shunting signal:** On the ground or on a solid block it stands on a small base. With a signal mast below, it sits directly on the mast without a base.
 - The signal head always faces the player when placed.
 
 ### Configuring equipment
 
-H/V main signals, H/V combined signals, Ks main signals and Ks multi-section signals have four Create value boxes arranged in a square on the **back of the lower half**. Aim at a box with the **wrench**, hold right-click and choose:
+H/V main signals, H/V combined signals, Ks main signals and Ks multi-section signals have four Create value boxes on the **sides of the lower half**, two on each side, so they stay reachable when the signal sits on a wall. Aim at a box with the **wrench**, hold right-click and choose:
 
-| | left | right |
+| | right side | left side |
 |---|---|---|
 | **top** | Substitute signal: none, Zs1, Zs7 or Zs8 | Zs2 letter: none or A–Z |
 | **bottom** | Opposite track indicator: none or Zs6 | Operation: in service or switched off (identification light) |
 
-Left and right are as seen from behind. Right-clicking with the wrench outside the boxes toggles Hp2 (H/V) or sets Zs3 (Ks) as before. Redstone for Zs1/Zs7/Zs8 and Zs2 can be applied to the upper or lower half, e.g. a lever, redstone block or redstone dust right next to the signal.
+Left and right are as seen from the front. Right-clicking with the wrench outside the boxes toggles Hp2 (H/V) or sets Zs3 (Ks) as before. Redstone for Zs1/Zs7/Zs8 and Zs2 can be applied to the upper or lower half, e.g. a lever, redstone block or redstone dust right next to the signal.
 
-**Built-in wireless link:** The two-block-tall signals have two frequency slots on the back of the **upper half**, just like a Create Redstone Link. Right-click a slot with an item in hand to set the frequency. A Redstone Link transmitting on the same frequency acts like redstone applied to the signal. No extra Redstone Link block is needed at the signal.
+**Built-in wireless link:** The two-block-tall signals have two frequency slots on the left side of the **upper half** (seen from the front), just like a Create Redstone Link. Right-click a slot with an item in hand to set the frequency. A Redstone Link transmitting on the same frequency acts like redstone applied to the signal. No extra Redstone Link block is needed at the signal.
 
 ### Signal logic
 
@@ -132,7 +135,7 @@ The signal mast block can be replaced the same way with `tools/models/signal_mas
 |---|---|
 | `lamp_<name>` | Lamp. Its **north face** shows the matching lamp texture, on or off, depending on the aspect. The script sets up the glow. |
 | `mast` | Only visible when the signal is free-standing. Without `mast`, the built-in mast is used. |
-| `arm` | Marker only: height (y from–to) of the wall brackets, not rendered itself. |
+| `arm` | Marker only: height (y from–to) of the holder bars to a signal mast and of the side brackets, not rendered itself. |
 | `sockel` | Shunting signal only: base when it is not on a signal mast. On a mast it is replaced by a mast stub up to the top of the base. |
 | `kennlicht`, `zs1`, `zs7` | Marker only: position of the lamps of these overlay indicators. For `zs1`/`zs7`, one element per lamp. |
 | `zs2`, `zs2v`, `zs3`, `zs3v`, `zs6` | Marker only: box of the indicator. The script inserts the housing and symbol in front of it; the Zs8 uses the Zs6 box. |
@@ -155,6 +158,7 @@ A trailing number is allowed (`arm2`, `lamp_red2`, `zs12`), but `mastschild` doe
 **Rules:**
 
 - The screen faces **north**. The blockstate rotates it for the other directions.
+- The back of the signal head is at z = 6.5, as in the templates. On a wall or signal mast the whole head, overlays included, moves 9.5 px back to the block edge.
 - Two-block-tall signals (H/V main, H/V combined, Ks main and Ks multi-section signal) are built at 0–32 px height, the others at 0–16 px. The script splits tall models at y = 16. Rotated elements are not cut but end up entirely in the half containing their center.
 - All coordinates lie between −16 and 32. Rotation is only allowed around **one** axis in steps of 22.5° (−45 to 45). Otherwise the script aborts with a message.
 - Textures go in `src/main/resources/assets/create_railway_systems/textures/block/` or in `tools/models/textures/`. The script copies them from the latter; this also replaces placeholders such as `lamp_red.png`. Other texture paths in the export are reduced to the file name.

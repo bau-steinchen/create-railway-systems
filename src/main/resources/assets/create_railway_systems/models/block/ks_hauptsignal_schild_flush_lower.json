@@ -1,0 +1,93 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "create_railway_systems:block/signal_screen",
+    "screen": "create_railway_systems:block/signal_screen",
+    "mast": "create_railway_systems:block/signal_mast",
+    "mastschild": "create_railway_systems:block/mastschild_hp",
+    "lamp_off": "create_railway_systems:block/lamp_off",
+    "lamp_red": "create_railway_systems:block/lamp_red",
+    "lamp_green": "create_railway_systems:block/lamp_green",
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_white": "create_railway_systems:block/lamp_white",
+    "lamp_green_blink": "create_railway_systems:block/lamp_green_blink",
+    "lamp_white_blink": "create_railway_systems:block/lamp_white_blink",
+    "zs6_on": "create_railway_systems:block/zs6_on",
+    "zs8_on": "create_railway_systems:block/zs8_on",
+    "zs_box": "create_railway_systems:block/zs_box",
+    "ne2": "create_railway_systems:block/ne2",
+    "mastschild_ms": "create_railway_systems:block/mastschild_ms",
+    "concrete": "create_railway_systems:block/concrete",
+    "number_plate": "create_railway_systems:block/number_plate"
+  },
+  "elements": [
+    {
+      "from": [
+        6.5,
+        3,
+        15.0
+      ],
+      "to": [
+        9.5,
+        9.5,
+        16.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mastschild",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#mast",
+          "uv": [
+            0,
+            6.5,
+            1.0,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            6.5,
+            9.5,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#mast",
+          "uv": [
+            15.0,
+            6.5,
+            16,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            15.0,
+            9.5,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            0,
+            9.5,
+            1.0
+          ]
+        }
+      }
+    }
+  ]
+}

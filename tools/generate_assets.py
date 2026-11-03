@@ -31,7 +31,11 @@ BB_TEMPLATES = BB_DIR / "vorlagen"
 
 FACINGS = {"north": 0, "east": 90, "south": 180, "west": 270}
 HP = ["hp0", "hp1", "hp2", "off"]
-MOUNTS = ["none", "back", "left", "right"]
+MOUNTS = ["none", "back", "left", "right", "mast"]
+# bündig an der Blockkante: an der Wand (back) oder vor einem Signalmast-Block (mast)
+FLUSH = ("back", "mast")
+# Versatz des Kopfs nach hinten bei bündiger Montage (wie MountedSignalBlock.FLUSH_SHIFT)
+FLUSH_SHIFT = 9.5
 HALVES = ["lower", "upper"]
 TALL_BLOCKS = {"hv_hauptsignal", "hv_kombisignal", "ks_hauptsignal", "ks_mehrabschnittssignal"}
 VR = ["vr0", "vr1", "vr2"]
@@ -84,10 +88,11 @@ def glow(element):
     return element
 
 
-def mastschild(vx0, vx1, y0, y1, texture="#mastschild"):
-    """Schild vor dem Mast; nur die Front trägt das Schildbild, Kanten in Mastfarbe."""
+def mastschild(vx0, vx1, y0, y1, texture="#mastschild", flush=False):
+    """Schild vor dem Mast; nur die Front trägt das Schildbild, Kanten in Mastfarbe.
+    flush: Kopf sitzt bündig an der Wand bzw. vor dem Signalmast-Block, das Schild an der Rückkante."""
     x0, x1 = mirror_x(vx0, vx1)
-    z1 = mast_front()
+    z1 = 6.5 if flush else mast_front()
     return box([x0, y0, z1 - 1], [x1, y1, z1], "#mast", north=texture, name="mastschild")
 
 
@@ -173,13 +178,38 @@ def uncovered(piece, covers):
 
 
 def support(mount, arm_heights, height=16, name="arm"):
-    """Senkrechter Mast (frei stehend) oder waagerechte Ausleger zum Nachbarblock (Wandmontage).
+    """Senkrechter Mast (frei stehend), nichts (bündig an der Wand), Halterstangen bis zur Mitte des
+    Signalmast-Blocks dahinter (bündig am Mast) oder waagerechte Ausleger zum seitlichen Nachbarblock.
     Modellraum: Schirm zeigt nach Norden; "links"/"rechts" aus Sicht des Betrachters vor dem Schirm."""
     if mount == "none":
         return [post(height)]
-    arms = {"back": ([7, 6.5], [9, 16]), "left": ([7, 6.5], [16, 8.5]), "right": ([0, 6.5], [9, 8.5])}
+    if mount == "back":
+        return []
+    arms = {"mast": ([7, 16], [9, 24]), "left": ([7, 6.5], [16, 8.5]), "right": ([0, 6.5], [9, 8.5])}
     (x0, z0), (x1, z1) = arms[mount]
     return [box([x0, y0, z0], [x1, y1, z1], "#mast", name=name) for y0, y1 in arm_heights]
+
+
+def arm_markers(arm_heights):
+    """Ausleger nach hinten als benannte Markierung für die Blockbench-Vorlagen."""
+    return [box([7, y0, 6.5], [9, y1, 16], "#mast", name="arm") for y0, y1 in arm_heights]
+
+
+def shift_z(elements, dz=FLUSH_SHIFT):
+    elements = copy.deepcopy(elements)
+    for e in elements:
+        e["from"][2] += dz
+        e["to"][2] += dz
+        if "rotation" in e:
+            e["rotation"]["origin"][2] += dz
+    return elements
+
+
+def mounted(head, mount, arm_heights, height):
+    """Träger und Signalkopf; bündig montiert rückt der Kopf an die hintere Blockkante."""
+    if mount in FLUSH:
+        head = shift_z(head)
+    return fit_mast(support(mount, arm_heights, height) + head)
 
 
 TEXTURES = {
@@ -349,18 +379,17 @@ def hauptsignal_elements(lit, mount):
     bb = BLOCKBENCH.get("hv_hauptsignal")
     if bb:
         return bb.assemble(lit, mount, spec["arms"], 32)
-    elements = support(mount, spec["arms"], height=32)
-    elements.append(mastschild(6.5, 9.5, 1, 6))
-    elements += main_screen(lit, *spec["screen"], spec["lamps"])
-    elements += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
-    return fit_mast(elements)
+    head = [mastschild(6.5, 9.5, 1, 6, flush=mount in FLUSH)]
+    head += main_screen(lit, *spec["screen"], spec["lamps"])
+    head += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
+    return mounted(head, mount, spec["arms"], 32)
 
 
 def vorsignal_elements(lit, mount):
     bb = BLOCKBENCH.get("hv_vorsignal")
     if bb:
         return bb.assemble(lit, mount, HV_VOR["arms"], 16)
-    return fit_mast(support(mount, HV_VOR["arms"]) + main_screen(lit, 3, 13, 4, 12, HV_VOR["lamps"]))
+    return mounted(main_screen(lit, 3, 13, 4, 12, HV_VOR["lamps"]), mount, HV_VOR["arms"], 16)
 
 
 def kombisignal_elements(lit, mount):
@@ -369,12 +398,11 @@ def kombisignal_elements(lit, mount):
     bb = BLOCKBENCH.get("hv_kombisignal")
     if bb:
         return bb.assemble(lit, mount, spec["arms"], 32)
-    elements = support(mount, spec["arms"], height=32)
-    elements += main_screen(lit, *spec["screen"], spec["lamps"])
-    elements += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
-    elements.append(mastschild(6.5, 9.5, 10.75, 16.5))
-    elements += main_screen(lit, 3, 13, 2.5, 10.5, spec["vr_lamps"])
-    return fit_mast(elements)
+    head = main_screen(lit, *spec["screen"], spec["lamps"])
+    head += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
+    head.append(mastschild(6.5, 9.5, 10.75, 16.5, flush=mount in FLUSH))
+    head += main_screen(lit, 3, 13, 2.5, 10.5, spec["vr_lamps"])
+    return mounted(head, mount, spec["arms"], 32)
 
 
 def sperrsignal_foot(on_mast, top=2.5):
@@ -426,7 +454,7 @@ KS_TYPES = {
         "screen": (4.5, 11.5, 16, 27.5),
         "lamps": {"red": (6.5, 22.5, 3), "green": (6.5, 18.75, 3)},
         "aspects": ["hp0", "ks1", "off"],
-        "extras": lambda: [mastschild(6.5, 9.5, 3, 9.5)],
+        "extras": lambda flush=False: [mastschild(6.5, 9.5, 3, 9.5, flush=flush)],
     },
     "ks_mehrabschnittssignal": {
         "tall": True,
@@ -435,14 +463,14 @@ KS_TYPES = {
         "lamps": {"red": (6.5, 23.5, 3), "green": (4.25, 19.5, 3), "yellow": (8.75, 19.5, 3)},
         "aspects": ["hp0", "ks1", "ks1_blink", "ks2", "off"],
         # Mastschild mit gelbem Dreieck: Hauptsignal mit Vorsignalfunktion
-        "extras": lambda: [mastschild(6.5, 9.5, 0.5, 8, "#mastschild_ms")],
+        "extras": lambda flush=False: [mastschild(6.5, 9.5, 0.5, 8, "#mastschild_ms", flush)],
     },
     "ks_vorsignal": {
         "arms": [(11, 13), (6, 8)],
         "screen": (3.5, 12.5, 9.5, 14),
         "lamps": {"green": (4.75, 10.5, 2.5), "yellow": (8.75, 10.5, 2.5)},
         "aspects": ["ks1", "ks1_blink", "ks2"],
-        "extras": lambda: [mastschild(6.25, 9.75, 0.5, 5, "#ne2")],
+        "extras": lambda flush=False: [mastschild(6.25, 9.75, 0.5, 5, "#ne2", flush)],
     },
 }
 
@@ -620,11 +648,17 @@ def generate_ks():
             elements = fit_mast(elements, covers)
             write_part(parts, f"{name}_support_{mount}", elements, {"mount": mount}, tall, bb)
         # mit Blockbench-Modell: fester Teil = alles außer Lampen, je Begriff nur die Lampen
+        for flush in (False, True):
+            # mittig (frei, seitlicher Ausleger) oder bündig (Wand, Signalmast): Kopf um FLUSH_SHIFT versetzt
+            when = {"mount": "|".join(m for m in MOUNTS if (m in FLUSH) == flush)}
+            place = shift_z if flush else (lambda elements: elements)
+            suffix = "_flush" if flush else ""
+            body = bb.body if bb else spec["extras"](flush)
+            write_part(parts, f"{name}_schild{suffix}", place(body), when, tall, bb)
+            for aspect in spec["aspects"]:
+                elements = bb.lamps_for(KS_LIT[aspect]) if bb else ks_screen(spec, KS_LIT[aspect])
+                write_part(parts, f"{name}_{aspect}{suffix}", place(elements), {"aspect": aspect, **when}, tall, bb)
         extras = bb.body if bb else spec["extras"]()
-        write_part(parts, f"{name}_schild", extras, {}, tall, bb)
-        for aspect in spec["aspects"]:
-            elements = bb.lamps_for(KS_LIT[aspect]) if bb else ks_screen(spec, KS_LIT[aspect])
-            write_part(parts, f"{name}_{aspect}", elements, {"aspect": aspect}, tall, bb)
 
         write_json(ASSETS / "blockstates" / f"{name}.json", multipart(parts))
 
@@ -837,6 +871,9 @@ class BlockbenchModel:
         for key, markers in self.overlay.items():
             if key not in ("zs1", "zs7") and len(markers) > 1:
                 self.warn(f"mehrere Markierungen '{key}' – nur die erste zählt")
+        head = self.body + [e for _, e in self.lamps]
+        if block not in ("sh_sperrsignal", "signal_mast") and head and max(e["to"][2] for e in head) > 6.5:
+            self.warn("Signalkopf reicht hinter z = 6,5 – an Wand oder Signalmast ragt er über die Blockkante")
         top = 32 if tall else 16
         if any(e["to"][1] > top for e in self.body + self.mast + [e for _, e in self.lamps]):
             self.warn(f"Elemente ragen über {top} px hinaus" + ("" if tall else
@@ -916,7 +953,8 @@ class BlockbenchModel:
         return support(mount, self.arm_heights or arm_heights, height)
 
     def assemble(self, lit, mount, arm_heights, height):
-        return fit_mast(self.support(mount, arm_heights, height) + copy.deepcopy(self.body) + self.lamps_for(lit))
+        head = copy.deepcopy(self.body) + self.lamps_for(lit)
+        return fit_mast(self.support(mount, arm_heights, height) + (shift_z(head) if mount in FLUSH else head))
 
 
 def load_blockbench():
@@ -964,16 +1002,16 @@ def write_templates():
     every = {name: set(lamps) for name, lamps in signal_lamps().items()}
     templates = {
         "hv_hauptsignal": hauptsignal_elements(every["hv_hauptsignal"], "none")
-        + support("back", HV_HAUPT["arms"], 32),
-        "hv_vorsignal": vorsignal_elements(every["hv_vorsignal"], "none") + support("back", HV_VOR["arms"]),
+        + arm_markers(HV_HAUPT["arms"]),
+        "hv_vorsignal": vorsignal_elements(every["hv_vorsignal"], "none") + arm_markers(HV_VOR["arms"]),
         "hv_kombisignal": kombisignal_elements(every["hv_kombisignal"], "none")
-        + support("back", HV_KOMBI["arms"], 32),
+        + arm_markers(HV_KOMBI["arms"]),
         "sh_sperrsignal": sperrsignal_foot(False) + sperrsignal_head(every["sh_sperrsignal"]),
         "signal_mast": [post(16)],
     }
     for name, spec in KS_TYPES.items():
         height = 32 if spec.get("tall") else 16
-        elements = support("none", spec["arms"], height) + support("back", spec["arms"], height)
+        elements = support("none", spec["arms"], height) + arm_markers(spec["arms"])
         templates[name] = elements + spec["extras"]() + ks_screen(spec, every[name])
 
     for name, elements in templates.items():

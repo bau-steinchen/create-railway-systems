@@ -22,26 +22,6 @@
     },
     {
       "when": {
-        "mount": "back",
-        "half": "lower",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_lower"
-      }
-    },
-    {
-      "when": {
-        "mount": "back",
-        "half": "upper",
-        "facing": "north"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_upper"
-      }
-    },
-    {
-      "when": {
         "mount": "left",
         "half": "lower",
         "facing": "north"
@@ -82,6 +62,27 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lower"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_upper"
+      }
+    },
+    {
+      "when": {
+        "mount": "none|left|right",
         "half": "lower",
         "facing": "north"
       },
@@ -92,6 +93,7 @@
     {
       "when": {
         "aspect": "hp0",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "north"
       },
@@ -102,6 +104,7 @@
     {
       "when": {
         "aspect": "ks1",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "north"
       },
@@ -112,6 +115,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "north"
       },
@@ -122,6 +126,7 @@
     {
       "when": {
         "aspect": "ks2",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "north"
       },
@@ -132,6 +137,7 @@
     {
       "when": {
         "aspect": "off",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "north"
       },
@@ -141,6 +147,71 @@
     },
     {
       "when": {
+        "mount": "back|mast",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild_flush_lower"
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_hp0_flush_upper"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_flush_upper"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_blink_flush_upper"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks2_flush_upper"
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_off_flush_upper"
+      }
+    },
+    {
+      "when": {
         "mount": "none",
         "half": "lower",
         "facing": "east"
@@ -158,28 +229,6 @@
       },
       "apply": {
         "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_none_upper",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "mount": "back",
-        "half": "lower",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_lower",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "mount": "back",
-        "half": "upper",
-        "facing": "east"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_upper",
         "y": 90
       }
     },
@@ -229,6 +278,29 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lower",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "none|left|right",
         "half": "lower",
         "facing": "east"
       },
@@ -240,6 +312,7 @@
     {
       "when": {
         "aspect": "hp0",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "east"
       },
@@ -251,6 +324,7 @@
     {
       "when": {
         "aspect": "ks1",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "east"
       },
@@ -262,6 +336,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "east"
       },
@@ -273,6 +348,7 @@
     {
       "when": {
         "aspect": "ks2",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "east"
       },
@@ -284,11 +360,83 @@
     {
       "when": {
         "aspect": "off",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "east"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_mehrabschnittssignal_off_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "back|mast",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild_flush_lower",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_hp0_flush_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_flush_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_blink_flush_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks2_flush_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_off_flush_upper",
         "y": 90
       }
     },
@@ -311,28 +459,6 @@
       },
       "apply": {
         "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_none_upper",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "mount": "back",
-        "half": "lower",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_lower",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "mount": "back",
-        "half": "upper",
-        "facing": "south"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_upper",
         "y": 180
       }
     },
@@ -382,6 +508,29 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lower",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "none|left|right",
         "half": "lower",
         "facing": "south"
       },
@@ -393,6 +542,7 @@
     {
       "when": {
         "aspect": "hp0",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "south"
       },
@@ -404,6 +554,7 @@
     {
       "when": {
         "aspect": "ks1",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "south"
       },
@@ -415,6 +566,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "south"
       },
@@ -426,6 +578,7 @@
     {
       "when": {
         "aspect": "ks2",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "south"
       },
@@ -437,11 +590,83 @@
     {
       "when": {
         "aspect": "off",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "south"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_mehrabschnittssignal_off_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "back|mast",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild_flush_lower",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_hp0_flush_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_flush_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_blink_flush_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks2_flush_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_off_flush_upper",
         "y": 180
       }
     },
@@ -464,28 +689,6 @@
       },
       "apply": {
         "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_none_upper",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "mount": "back",
-        "half": "lower",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_lower",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "mount": "back",
-        "half": "upper",
-        "facing": "west"
-      },
-      "apply": {
-        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_back_upper",
         "y": 270
       }
     },
@@ -535,6 +738,29 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lower",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "none|left|right",
         "half": "lower",
         "facing": "west"
       },
@@ -546,6 +772,7 @@
     {
       "when": {
         "aspect": "hp0",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "west"
       },
@@ -557,6 +784,7 @@
     {
       "when": {
         "aspect": "ks1",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "west"
       },
@@ -568,6 +796,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "west"
       },
@@ -579,6 +808,7 @@
     {
       "when": {
         "aspect": "ks2",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "west"
       },
@@ -590,11 +820,83 @@
     {
       "when": {
         "aspect": "off",
+        "mount": "none|left|right",
         "half": "upper",
         "facing": "west"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_mehrabschnittssignal_off_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "back|mast",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_schild_flush_lower",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_hp0_flush_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_flush_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1_blink",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks1_blink_flush_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks2",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_ks2_flush_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "back|mast",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_off_flush_upper",
         "y": 270
       }
     }
