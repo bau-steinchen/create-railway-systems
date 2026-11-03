@@ -28,7 +28,9 @@ Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moder
 | H/V-Lichtvorsignal | Vr0 (Halt erwarten), Vr1 (Fahrt erwarten), Vr2 (Langsamfahrt erwarten) |
 | H/V-Hauptsignal mit Vorsignal am Mast | Hp + Vr, Vorsignal dunkel bei Hp0 |
 | Lichtsperrsignal (Zwergsignal) | Sh0 (Halt! Fahrverbot), Sh1 (Fahrverbot aufgehoben) |
-| Signalmast | Mast zum Aufbauen beliebig hoher Signale |
+| Signalmast | Standardmast: zwei Platten mit Sprossen dazwischen |
+| Leichter Signalmast | Schlanker Mast: ein einzelner Stab |
+| Gittermast | Breiter, quadratischer Gittermast: Eckstiele mit diagonalen Streben |
 
 ### Deutsche Ks-Signale
 
@@ -69,7 +71,7 @@ Ohne Bindung lässt sich ein Signal nicht platzieren.
 
 - **Frei stehend:** Das Signal steht auf einem Mast. Mit Signalmast-Blöcken darunter wird es beliebig hoch.
 - **An der Wand:** Gegen einen festen Block dahinter gesetzt (z. B. Tunnel- oder Brückenwand), rückt der Signalkopf an die hintere Blockkante und sitzt flach auf der Wand, ohne Mast und Ausleger.
-- **Am Signalmast:** Gegen einen Signalmast-Block gesetzt, sitzt der Kopf ebenfalls bündig an der Blockkante, und zwei Halterstangen verbinden ihn mit dem Mast. Zwei Blöcke hohe Signale brauchen hinter beiden Hälften einen Mastblock. So trägt eine Mastsäule Signale an mehreren Seiten und in beliebiger Höhe.
+- **Am Signalmast:** Gegen einen der drei Signalmast-Blöcke gesetzt, sitzt der Kopf ebenfalls bündig an der Kante seines eigenen Blocks, ohne eigenen Mast, und zwei kurze Halterstangen reichen bis an die Mastoberfläche. Zwei Blöcke hohe Signale brauchen hinter beiden Hälften einen Mastblock. So trägt eine Mastsäule Signale an mehreren Seiten und in beliebiger Höhe. Masten drehen sich beim Platzieren zum Spieler und lassen sich mit dem Schraubenschlüssel drehen; daran montierte Signale passen sich an.
 - **Seitlicher Ausleger:** Gegen einen festen Block links oder rechts gesetzt, bleibt das Signal mittig und bekommt einen waagerechten Ausleger zu diesem Block.
 - Wird der tragende Block entfernt, steht das Signal wieder auf seinem eigenen Mast; wird ein Mast durch einen festen Block ersetzt, sitzt es flach an der Wand.
 - **Hauptsignale sind zwei Blöcke hoch:** H/V-Hauptsignal, H/V-Hauptsignal mit Vorsignal am Mast, Ks-Hauptsignal und Ks-Mehrabschnittssignal. Über dem Platzierungsort muss ein Block frei sein. Wird eine Hälfte abgebaut, verschwindet auch die andere. Bindung, Schraubenschlüssel und Aufnehmen funktionieren an beiden Hälften. Vorsignale und das Lichtsperrsignal sind einen Block hoch.
@@ -127,7 +129,7 @@ Ein Signalkopf lässt sich in [Blockbench](https://www.blockbench.net/) gestalte
 
 Ohne Datei in `tools/models/` gilt die eingebaute Geometrie.
 
-Den Signalmast-Block ersetzt `tools/models/signal_mast.json` genauso (ohne Lampen und Marker, alle Elemente werden gezeichnet). Signale ohne eigenen `mast` nutzen dann ebenfalls diesen Mast, alle 16 px wiederholt und auf ihre Höhe gekürzt. Wo ein Schirm oder Schild den Mast schneidet, fällt der Mast in dieser Höhe weg. Mastschild und Overlay-Kästen rücken vor den Mast. Die Wandausleger behalten ihre eingebaute Form.
+Die Signalmast-Blöcke ersetzen `tools/models/signal_mast.json`, `signal_mast_light.json` oder `signal_mast_lattice.json` genauso (ohne Lampen und Marker, alle Elemente werden gezeichnet). Signale ohne eigenen `mast` nutzen dann ebenfalls den Standardmast, alle 16 px wiederholt und auf ihre Höhe gekürzt. Wo ein Schirm oder Schild den Mast schneidet, fällt der Mast in dieser Höhe weg. Mastschild und Overlay-Kästen rücken vor den Mast. Die Wandausleger behalten ihre eingebaute Form.
 
 **Namen der Elemente (oder ihrer Gruppe) steuern die Funktion:**
 

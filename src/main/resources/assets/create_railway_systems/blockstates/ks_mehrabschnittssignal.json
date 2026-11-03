@@ -82,6 +82,46 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_lower"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_upper"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_lower"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_upper"
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "half": "lower",
         "facing": "north"
@@ -147,7 +187,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "lower",
         "facing": "north"
       },
@@ -158,7 +198,7 @@
     {
       "when": {
         "aspect": "hp0",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "north"
       },
@@ -169,7 +209,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "north"
       },
@@ -180,7 +220,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "north"
       },
@@ -191,7 +231,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "north"
       },
@@ -202,7 +242,7 @@
     {
       "when": {
         "aspect": "off",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "north"
       },
@@ -300,6 +340,50 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_lower",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_lower",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "half": "lower",
         "facing": "east"
@@ -371,7 +455,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "lower",
         "facing": "east"
       },
@@ -383,7 +467,7 @@
     {
       "when": {
         "aspect": "hp0",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "east"
       },
@@ -395,7 +479,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "east"
       },
@@ -407,7 +491,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "east"
       },
@@ -419,7 +503,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "east"
       },
@@ -431,7 +515,7 @@
     {
       "when": {
         "aspect": "off",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "east"
       },
@@ -530,6 +614,50 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_lower",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_lower",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "half": "lower",
         "facing": "south"
@@ -601,7 +729,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "lower",
         "facing": "south"
       },
@@ -613,7 +741,7 @@
     {
       "when": {
         "aspect": "hp0",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "south"
       },
@@ -625,7 +753,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "south"
       },
@@ -637,7 +765,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "south"
       },
@@ -649,7 +777,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "south"
       },
@@ -661,7 +789,7 @@
     {
       "when": {
         "aspect": "off",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "south"
       },
@@ -760,6 +888,50 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_lower",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_plate_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_lower",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_mehrabschnittssignal_support_mast_lattice_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "half": "lower",
         "facing": "west"
@@ -831,7 +1003,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "lower",
         "facing": "west"
       },
@@ -843,7 +1015,7 @@
     {
       "when": {
         "aspect": "hp0",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "west"
       },
@@ -855,7 +1027,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "west"
       },
@@ -867,7 +1039,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "west"
       },
@@ -879,7 +1051,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "west"
       },
@@ -891,7 +1063,7 @@
     {
       "when": {
         "aspect": "off",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "half": "upper",
         "facing": "west"
       },

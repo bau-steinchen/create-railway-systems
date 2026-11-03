@@ -38,6 +38,24 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_plate"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_lattice"
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "facing": "north"
       },
@@ -77,7 +95,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "north"
       },
       "apply": {
@@ -87,7 +105,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "north"
       },
       "apply": {
@@ -97,7 +115,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "north"
       },
       "apply": {
@@ -107,7 +125,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "north"
       },
       "apply": {
@@ -156,6 +174,26 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_plate",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_lattice",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "facing": "east"
       },
@@ -199,7 +237,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "east"
       },
       "apply": {
@@ -210,7 +248,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "east"
       },
       "apply": {
@@ -221,7 +259,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "east"
       },
       "apply": {
@@ -232,7 +270,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "east"
       },
       "apply": {
@@ -282,6 +320,26 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_plate",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_lattice",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "facing": "south"
       },
@@ -325,7 +383,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "south"
       },
       "apply": {
@@ -336,7 +394,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "south"
       },
       "apply": {
@@ -347,7 +405,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "south"
       },
       "apply": {
@@ -358,7 +416,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "south"
       },
       "apply": {
@@ -408,6 +466,26 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_plate",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_vorsignal_support_mast_lattice",
+        "y": 270
+      }
+    },
+    {
+      "when": {
         "mount": "none|left|right",
         "facing": "west"
       },
@@ -451,7 +529,7 @@
     },
     {
       "when": {
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "west"
       },
       "apply": {
@@ -462,7 +540,7 @@
     {
       "when": {
         "aspect": "ks1",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "west"
       },
       "apply": {
@@ -473,7 +551,7 @@
     {
       "when": {
         "aspect": "ks1_blink",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "west"
       },
       "apply": {
@@ -484,7 +562,7 @@
     {
       "when": {
         "aspect": "ks2",
-        "mount": "back|mast",
+        "mount": "back|mast|mast_plate|mast_lattice",
         "facing": "west"
       },
       "apply": {

@@ -7,6 +7,8 @@
     "create_railway_systems:ks_hauptsignal",
     "create_railway_systems:ks_vorsignal",
     "create_railway_systems:ks_mehrabschnittssignal",
-    "create_railway_systems:signal_mast"
+    "create_railway_systems:signal_mast",
+    "create_railway_systems:signal_mast_light",
+    "create_railway_systems:signal_mast_lattice"
   ]
 }

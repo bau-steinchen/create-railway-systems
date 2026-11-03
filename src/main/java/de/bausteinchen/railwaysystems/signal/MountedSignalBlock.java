@@ -57,11 +57,6 @@ public abstract class MountedSignalBlock extends Block
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	public static final EnumProperty<SignalMount> MOUNT = EnumProperty.create("mount", SignalMount.class);
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
-	/**
-	 * Versatz des Signalkopfs nach hinten bei bündiger Montage, in Pixeln. Der Kopf endet mittig
-	 * montiert bei z = 6,5 und bündig an der Blockkante; tools/generate_assets.py nutzt denselben Wert.
-	 */
-	public static final double FLUSH_SHIFT = 9.5;
 
 	private static final Map<Direction, Map<SignalMount, VoxelShape>> SHAPES = buildShapes();
 
@@ -126,18 +121,36 @@ public abstract class MountedSignalBlock extends Block
 	}
 
 	/**
-	 * Passende Montage zur gewünschten Seite: hinten ein Signalmast ergibt {@link SignalMount#MAST},
-	 * ein fester Block {@link SignalMount#BACK}; sonst {@link SignalMount#NONE}.
+	 * Passende Montage zur gewünschten Seite: hinten ein Signalmast ergibt {@link SignalMount#MAST}
+	 * bzw. beim Gittermast {@link SignalMount#MAST_LATTICE}, ein fester Block {@link SignalMount#BACK};
+	 * sonst {@link SignalMount#NONE}.
 	 *
 	 * @param pos Position der unteren Hälfte
 	 */
 	private SignalMount attach(LevelReader level, BlockPos pos, Direction facing, SignalMount wanted) {
 		if (wanted.isFlush()) {
-			if (canAttach(level, pos, facing, SignalMount.MAST))
-				return SignalMount.MAST;
+			BlockState mast = mastBehind(level, pos, facing);
+			if (mast != null)
+				return ((SignalMastBlock) mast.getBlock()).mountFor(mast, facing);
 			wanted = SignalMount.BACK;
 		}
 		return canAttach(level, pos, facing, wanted) ? wanted : SignalMount.NONE;
+	}
+
+	/**
+	 * Signalmast hinter dem Signal, oder null. Hohe Signale brauchen hinter beiden Hälften einen
+	 * Mastblock; Bauform und Ausrichtung gibt der untere vor.
+	 */
+	@Nullable
+	private BlockState mastBehind(LevelReader level, BlockPos pos, Direction facing) {
+		BlockPos behind = pos.relative(facing.getOpposite());
+		BlockState mast = level.getBlockState(behind);
+		if (!(mast.getBlock() instanceof SignalMastBlock))
+			return null;
+		if (isTall() && !(level.getBlockState(behind.above())
+			.getBlock() instanceof SignalMastBlock))
+			return null;
+		return mast;
 	}
 
 	private boolean canAttach(LevelReader level, BlockPos pos, Direction facing, SignalMount mount) {
@@ -145,16 +158,8 @@ public abstract class MountedSignalBlock extends Block
 		if (support == null)
 			return true;
 		BlockPos supportPos = pos.relative(support);
-		if (mount == SignalMount.MAST)
-			// hohe Signale tragen eine Halterstange je Hälfte und brauchen dahinter zwei Mastblöcke
-			return isMast(level, supportPos) && (!isTall() || isMast(level, supportPos.above()));
 		return level.getBlockState(supportPos)
 			.isFaceSturdy(level, supportPos, support.getOpposite());
-	}
-
-	private static boolean isMast(LevelReader level, BlockPos pos) {
-		return level.getBlockState(pos)
-			.getBlock() instanceof SignalMastBlock;
 	}
 
 	@Override
@@ -213,11 +218,12 @@ public abstract class MountedSignalBlock extends Block
 		for (Direction facing : Direction.Plane.HORIZONTAL) {
 			Map<SignalMount, VoxelShape> byMount = new EnumMap<>(SignalMount.class);
 			VoxelShape screen = rotatedBox(facing, 3, 0, 3.5, 13, 16, 9.5);
-			// bündig: Schirm um 9,5 px nach hinten an die Blockkante gerückt (wie im Asset-Generator)
-			VoxelShape flush = rotatedBox(facing, 3, 0, 12, 13, 16, 16);
 			byMount.put(SignalMount.NONE, screen);
-			byMount.put(SignalMount.BACK, flush);
-			byMount.put(SignalMount.MAST, flush);
+			// hinten montiert: Kopf (z 2,5..6,5) um den Versatz nach hinten an die Blockkante
+			for (SignalMount mount : SignalMount.values())
+				if (mount.isFlush())
+					byMount.put(mount, rotatedBox(facing, 3, 0, 2.5 + mount.getFlushShift(), 13, 16,
+						6.5 + mount.getFlushShift()));
 			byMount.put(SignalMount.LEFT, Shapes.or(screen, rotatedBox(facing, 9.5, 1, 6.5, 16, 15, 9.5)));
 			byMount.put(SignalMount.RIGHT, Shapes.or(screen, rotatedBox(facing, 0, 1, 6.5, 6.5, 15, 9.5)));
 			shapes.put(facing, byMount);
@@ -228,12 +234,13 @@ public abstract class MountedSignalBlock extends Block
 	/**
 	 * Punkt für Bedienfelder an der Seite des Schirms (Modellraum, Pixel), gedreht in Blockkoordinaten.
 	 * {@code plusX}: Seite bei x = 13 (aus Sicht des Betrachters vor dem Schirm links), sonst x = 3.
-	 * Die Tiefe folgt der Montage: Schirmmitte mittig im Block oder bündig an der Rückkante.
+	 * Die Tiefe folgt der Montage: Schirmmitte mittig im Block oder an der hinteren Blockkante.
 	 */
 	public static Vec3 sideSlot(BlockState state, boolean plusX, double y) {
 		double x = plusX ? 13.25 : 2.75;
-		double z = state.getValue(MOUNT)
-			.isFlush() ? 14.75 : 5.25;
+		// Mitte des Schirms (z 4..6,5), mit dem Kopf nach hinten versetzt
+		double z = 5.25 + state.getValue(MOUNT)
+			.getFlushShift();
 		Direction facing = state.getValue(FACING);
 		double rx = switch (facing) {
 			case EAST -> 16 - z;

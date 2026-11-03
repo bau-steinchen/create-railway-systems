@@ -28,7 +28,9 @@ An addon for [Create](https://github.com/Creators-of-Create/Create) that brings 
 | H/V light distant signal | Vr0 (expect stop), Vr1 (expect proceed), Vr2 (expect reduced speed) |
 | H/V main signal with distant signal on the mast | Hp + Vr, distant signal dark when Hp0 |
 | Light shunting signal (dwarf signal) | Sh0 (stop, movement prohibited), Sh1 (movement permitted) |
-| Signal mast | Mast for building signals of any height |
+| Signal mast | Standard mast: two plates with rungs in between |
+| Light signal mast | Slim mast: a single pole |
+| Lattice signal mast | Wide square lattice mast: corner posts with diagonal braces |
 
 ### German Ks signals
 
@@ -69,7 +71,7 @@ A signal can't be placed without a link.
 
 - **Free-standing:** The signal stands on a mast. Put signal mast blocks underneath to make it as tall as you like.
 - **On a wall:** Placed against a solid block behind it (e.g. a tunnel or bridge wall), the signal head moves to the back edge of the block and sits flat on the wall, without a mast or brackets.
-- **On a signal mast:** Placed against a signal mast block, the head also sits flush at the block edge, and two holder bars connect it to the mast. Two-block-tall signals need a mast block behind both halves. This way one mast column can carry signals on several sides and at any height.
+- **On a signal mast:** Placed against any of the three signal mast blocks, the head also sits flush at the edge of its own block, without a mast of its own, and two short holder bars reach to the mast surface. Two-block-tall signals need a mast block behind both halves. This way one mast column can carry signals on several sides and at any height. Masts turn to face the player when placed and can be rotated with the wrench; signals mounted on them follow.
 - **Side brackets:** Placed against a solid block to the left or right, the signal keeps its centred position and gets a horizontal bracket to that block.
 - If the supporting block is removed, the signal stands on its own mast again; if a mast is replaced by a solid block, it sits flat on the wall.
 - **Main signals are two blocks tall:** H/V main signal, H/V main signal with distant signal on the mast, Ks main signal and Ks multi-section signal. The block above the placement position must be free. Breaking one half removes the other as well. Linking, wrench and pick-block work on both halves. Distant signals and the shunting signal are one block tall.
@@ -127,7 +129,7 @@ A signal head can be designed in [Blockbench](https://www.blockbench.net/). The 
 
 Without a file in `tools/models/`, the built-in geometry is used.
 
-The signal mast block can be replaced the same way with `tools/models/signal_mast.json` (no lamps or markers; every element is drawn). Signals without their own `mast` then use this mast too, repeated every 16 px and cut to height. Where a screen or sign intersects the mast, the mast is left out at that height. The Mastschild and the overlay boxes move in front of the mast. Wall brackets keep their built-in shape.
+The signal mast blocks can be replaced the same way with `tools/models/signal_mast.json`, `signal_mast_light.json` or `signal_mast_lattice.json` (no lamps or markers; every element is drawn). Signals without their own `mast` then use the standard mast too, repeated every 16 px and cut to height. Where a screen or sign intersects the mast, the mast is left out at that height. The Mastschild and the overlay boxes move in front of the mast. Wall brackets keep their built-in shape.
 
 **The names of elements (or their group) control their function:**
 

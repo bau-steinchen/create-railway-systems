@@ -34,5 +34,9 @@ public class ModItems {
 		() -> new LinkedSignalBlockItem(ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get(), new Item.Properties()));
 
 	public static final DeferredItem<BlockItem> SIGNAL_MAST = ITEMS.registerSimpleBlockItem(ModBlocks.SIGNAL_MAST);
+	public static final DeferredItem<BlockItem> SIGNAL_MAST_LIGHT =
+		ITEMS.registerSimpleBlockItem(ModBlocks.SIGNAL_MAST_LIGHT);
+	public static final DeferredItem<BlockItem> SIGNAL_MAST_LATTICE =
+		ITEMS.registerSimpleBlockItem(ModBlocks.SIGNAL_MAST_LATTICE);
 
 }

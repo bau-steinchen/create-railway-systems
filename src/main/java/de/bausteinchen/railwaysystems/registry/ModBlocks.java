@@ -42,7 +42,14 @@ public class ModBlocks {
 		BLOCKS.register("ks_mehrabschnittssignal", () -> new KsMehrabschnittssignalBlock(signalProperties()));
 
 	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST =
-		BLOCKS.register("signal_mast", () -> new SignalMastBlock(signalProperties()));
+		BLOCKS.register("signal_mast", () -> new SignalMastBlock(SignalMastBlock.Type.STANDARD, signalProperties()));
+
+	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST_LIGHT =
+		BLOCKS.register("signal_mast_light", () -> new SignalMastBlock(SignalMastBlock.Type.LIGHT, signalProperties()));
+
+	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST_LATTICE =
+		BLOCKS.register("signal_mast_lattice",
+			() -> new SignalMastBlock(SignalMastBlock.Type.LATTICE, signalProperties()));
 
 	private static BlockBehaviour.Properties signalProperties() {
 		return BlockBehaviour.Properties.of()

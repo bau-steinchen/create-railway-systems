@@ -1,7 +1,11 @@
 {
   "variants": {
-    "": {
+    "axis=z": {
       "model": "create_railway_systems:block/signal_mast"
+    },
+    "axis=x": {
+      "model": "create_railway_systems:block/signal_mast",
+      "y": 90
     }
   }
 }

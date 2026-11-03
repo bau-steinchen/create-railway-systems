@@ -8,6 +8,8 @@
   "block.create_railway_systems.ks_vorsignal": "Ks-Vorsignal",
   "block.create_railway_systems.ks_mehrabschnittssignal": "Ks-Mehrabschnittssignal",
   "block.create_railway_systems.signal_mast": "Signalmast",
+  "block.create_railway_systems.signal_mast_light": "Leichter Signalmast",
+  "block.create_railway_systems.signal_mast_lattice": "Gittermast",
   "create.create_railway_systems.signal.set": "An Create-Signal gebunden",
   "create.create_railway_systems.signal.success": "Signal platziert und gebunden",
   "create.create_railway_systems.signal.clear": "Bindung gelöscht",

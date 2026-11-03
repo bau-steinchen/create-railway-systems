@@ -75,6 +75,36 @@
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast",
       "y": 270
     },
+    "aspect=vr0,facing=north,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate"
+    },
+    "aspect=vr0,facing=east,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice"
+    },
+    "aspect=vr0,facing=east,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice",
+      "y": 270
+    },
     "aspect=vr1,facing=north,mount=none": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1"
     },
@@ -150,6 +180,36 @@
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast",
       "y": 270
     },
+    "aspect=vr1,facing=north,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate"
+    },
+    "aspect=vr1,facing=east,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice"
+    },
+    "aspect=vr1,facing=east,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice",
+      "y": 270
+    },
     "aspect=vr2,facing=north,mount=none": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2"
     },
@@ -223,6 +283,36 @@
     },
     "aspect=vr2,facing=west,mount=mast": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate"
+    },
+    "aspect=vr2,facing=east,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice"
+    },
+    "aspect=vr2,facing=east,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice",
       "y": 270
     }
   }

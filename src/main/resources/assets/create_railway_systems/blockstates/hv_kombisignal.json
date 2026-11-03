@@ -150,6 +150,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_upper",
       "y": 270
     },
+    "aspect=hp0,distant=vr0,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_lower"
+    },
+    "aspect=hp0,distant=vr0,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr0,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr0,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr0,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_upper"
+    },
+    "aspect=hp0,distant=vr0,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr0,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr0,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr0,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_lower"
+    },
+    "aspect=hp0,distant=vr0,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr0,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr0,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr0,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_upper"
+    },
+    "aspect=hp0,distant=vr0,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr0,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr0,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr0_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=hp0,distant=vr1,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_lower"
     },
@@ -298,6 +358,66 @@
     },
     "aspect=hp0,distant=vr1,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_upper",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr1,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_lower"
+    },
+    "aspect=hp0,distant=vr1,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr1,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr1,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr1,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_upper"
+    },
+    "aspect=hp0,distant=vr1,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr1,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr1,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr1,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_lower"
+    },
+    "aspect=hp0,distant=vr1,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr1,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr1,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr1,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_upper"
+    },
+    "aspect=hp0,distant=vr1,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr1,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr1,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr1_mast_lattice_upper",
       "y": 270
     },
     "aspect=hp0,distant=vr2,facing=north,half=lower,mount=none": {
@@ -450,6 +570,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_upper",
       "y": 270
     },
+    "aspect=hp0,distant=vr2,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_lower"
+    },
+    "aspect=hp0,distant=vr2,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr2,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr2,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr2,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_upper"
+    },
+    "aspect=hp0,distant=vr2,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr2,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr2,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr2,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_lower"
+    },
+    "aspect=hp0,distant=vr2,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr2,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr2,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=vr2,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_upper"
+    },
+    "aspect=hp0,distant=vr2,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=vr2,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=vr2,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_vr2_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=hp0,distant=dark,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_lower"
     },
@@ -598,6 +778,66 @@
     },
     "aspect=hp0,distant=dark,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_upper",
+      "y": 270
+    },
+    "aspect=hp0,distant=dark,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_lower"
+    },
+    "aspect=hp0,distant=dark,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=dark,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=dark,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=dark,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_upper"
+    },
+    "aspect=hp0,distant=dark,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=dark,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=dark,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp0,distant=dark,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_lower"
+    },
+    "aspect=hp0,distant=dark,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp0,distant=dark,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp0,distant=dark,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp0,distant=dark,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_upper"
+    },
+    "aspect=hp0,distant=dark,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp0,distant=dark,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp0,distant=dark,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_upper",
       "y": 270
     },
     "aspect=hp1,distant=vr0,facing=north,half=lower,mount=none": {
@@ -750,6 +990,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_upper",
       "y": 270
     },
+    "aspect=hp1,distant=vr0,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_lower"
+    },
+    "aspect=hp1,distant=vr0,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr0,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr0,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr0,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_upper"
+    },
+    "aspect=hp1,distant=vr0,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr0,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr0,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr0,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_lower"
+    },
+    "aspect=hp1,distant=vr0,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr0,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr0,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr0,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_upper"
+    },
+    "aspect=hp1,distant=vr0,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr0,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr0,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr0_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=hp1,distant=vr1,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_lower"
     },
@@ -898,6 +1198,66 @@
     },
     "aspect=hp1,distant=vr1,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_upper",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr1,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_lower"
+    },
+    "aspect=hp1,distant=vr1,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr1,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr1,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr1,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_upper"
+    },
+    "aspect=hp1,distant=vr1,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr1,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr1,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr1,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_lower"
+    },
+    "aspect=hp1,distant=vr1,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr1,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr1,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr1,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_upper"
+    },
+    "aspect=hp1,distant=vr1,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr1,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr1,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr1_mast_lattice_upper",
       "y": 270
     },
     "aspect=hp1,distant=vr2,facing=north,half=lower,mount=none": {
@@ -1050,6 +1410,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_upper",
       "y": 270
     },
+    "aspect=hp1,distant=vr2,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_lower"
+    },
+    "aspect=hp1,distant=vr2,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr2,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr2,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr2,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_upper"
+    },
+    "aspect=hp1,distant=vr2,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr2,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr2,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr2,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_lower"
+    },
+    "aspect=hp1,distant=vr2,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr2,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr2,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=vr2,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_upper"
+    },
+    "aspect=hp1,distant=vr2,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=vr2,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=vr2,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_vr2_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=hp1,distant=dark,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_lower"
     },
@@ -1198,6 +1618,66 @@
     },
     "aspect=hp1,distant=dark,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_upper",
+      "y": 270
+    },
+    "aspect=hp1,distant=dark,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_lower"
+    },
+    "aspect=hp1,distant=dark,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=dark,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=dark,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=dark,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_upper"
+    },
+    "aspect=hp1,distant=dark,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=dark,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=dark,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp1,distant=dark,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_lower"
+    },
+    "aspect=hp1,distant=dark,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp1,distant=dark,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp1,distant=dark,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp1,distant=dark,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_upper"
+    },
+    "aspect=hp1,distant=dark,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp1,distant=dark,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp1,distant=dark,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp1_dark_mast_lattice_upper",
       "y": 270
     },
     "aspect=hp2,distant=vr0,facing=north,half=lower,mount=none": {
@@ -1350,6 +1830,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_upper",
       "y": 270
     },
+    "aspect=hp2,distant=vr0,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_lower"
+    },
+    "aspect=hp2,distant=vr0,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr0,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr0,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr0,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_upper"
+    },
+    "aspect=hp2,distant=vr0,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr0,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr0,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr0,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_lower"
+    },
+    "aspect=hp2,distant=vr0,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr0,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr0,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr0,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_upper"
+    },
+    "aspect=hp2,distant=vr0,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr0,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr0,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr0_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=hp2,distant=vr1,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_lower"
     },
@@ -1498,6 +2038,66 @@
     },
     "aspect=hp2,distant=vr1,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_upper",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr1,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_lower"
+    },
+    "aspect=hp2,distant=vr1,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr1,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr1,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr1,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_upper"
+    },
+    "aspect=hp2,distant=vr1,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr1,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr1,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr1,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_lower"
+    },
+    "aspect=hp2,distant=vr1,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr1,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr1,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr1,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_upper"
+    },
+    "aspect=hp2,distant=vr1,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr1,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr1,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr1_mast_lattice_upper",
       "y": 270
     },
     "aspect=hp2,distant=vr2,facing=north,half=lower,mount=none": {
@@ -1650,6 +2250,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_upper",
       "y": 270
     },
+    "aspect=hp2,distant=vr2,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_lower"
+    },
+    "aspect=hp2,distant=vr2,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr2,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr2,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr2,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_upper"
+    },
+    "aspect=hp2,distant=vr2,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr2,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr2,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr2,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_lower"
+    },
+    "aspect=hp2,distant=vr2,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr2,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr2,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=vr2,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_upper"
+    },
+    "aspect=hp2,distant=vr2,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=vr2,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=vr2,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_vr2_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=hp2,distant=dark,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_lower"
     },
@@ -1798,6 +2458,66 @@
     },
     "aspect=hp2,distant=dark,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_upper",
+      "y": 270
+    },
+    "aspect=hp2,distant=dark,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_lower"
+    },
+    "aspect=hp2,distant=dark,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=dark,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=dark,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=dark,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_upper"
+    },
+    "aspect=hp2,distant=dark,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=dark,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=dark,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=hp2,distant=dark,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_lower"
+    },
+    "aspect=hp2,distant=dark,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=hp2,distant=dark,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=hp2,distant=dark,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=hp2,distant=dark,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_upper"
+    },
+    "aspect=hp2,distant=dark,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=hp2,distant=dark,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=hp2,distant=dark,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_lattice_upper",
       "y": 270
     },
     "aspect=off,distant=vr0,facing=north,half=lower,mount=none": {
@@ -1950,6 +2670,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_upper",
       "y": 270
     },
+    "aspect=off,distant=vr0,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_lower"
+    },
+    "aspect=off,distant=vr0,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_upper"
+    },
+    "aspect=off,distant=vr0,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_lower"
+    },
+    "aspect=off,distant=vr0,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr0,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_upper"
+    },
+    "aspect=off,distant=vr0,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr0,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr0,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr0_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=off,distant=vr1,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_off_vr1_lower"
     },
@@ -2098,6 +2878,66 @@
     },
     "aspect=off,distant=vr1,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_lower"
+    },
+    "aspect=off,distant=vr1,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_upper"
+    },
+    "aspect=off,distant=vr1,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_lower"
+    },
+    "aspect=off,distant=vr1,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr1,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_upper"
+    },
+    "aspect=off,distant=vr1,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr1,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr1,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr1_mast_lattice_upper",
       "y": 270
     },
     "aspect=off,distant=vr2,facing=north,half=lower,mount=none": {
@@ -2250,6 +3090,66 @@
       "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_upper",
       "y": 270
     },
+    "aspect=off,distant=vr2,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_lower"
+    },
+    "aspect=off,distant=vr2,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_upper"
+    },
+    "aspect=off,distant=vr2,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_lower"
+    },
+    "aspect=off,distant=vr2,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=off,distant=vr2,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_upper"
+    },
+    "aspect=off,distant=vr2,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=off,distant=vr2,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=off,distant=vr2,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_vr2_mast_lattice_upper",
+      "y": 270
+    },
     "aspect=off,distant=dark,facing=north,half=lower,mount=none": {
       "model": "create_railway_systems:block/hv_kombisignal_off_dark_lower"
     },
@@ -2398,6 +3298,66 @@
     },
     "aspect=off,distant=dark,facing=west,half=upper,mount=mast": {
       "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_upper",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_lower"
+    },
+    "aspect=off,distant=dark,facing=east,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_lower",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_lower",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=lower,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_lower",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_upper"
+    },
+    "aspect=off,distant=dark,facing=east,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_upper",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_upper",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=upper,mount=mast_plate": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_plate_upper",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_lower"
+    },
+    "aspect=off,distant=dark,facing=east,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_lower",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_lower",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=lower,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_lower",
+      "y": 270
+    },
+    "aspect=off,distant=dark,facing=north,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_upper"
+    },
+    "aspect=off,distant=dark,facing=east,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_upper",
+      "y": 90
+    },
+    "aspect=off,distant=dark,facing=south,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_upper",
+      "y": 180
+    },
+    "aspect=off,distant=dark,facing=west,half=upper,mount=mast_lattice": {
+      "model": "create_railway_systems:block/hv_kombisignal_off_dark_mast_lattice_upper",
       "y": 270
     }
   }
