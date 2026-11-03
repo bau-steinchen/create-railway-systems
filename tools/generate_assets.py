@@ -87,7 +87,8 @@ def glow(element):
 def mastschild(vx0, vx1, y0, y1, texture="#mastschild"):
     """Schild vor dem Mast; nur die Front trägt das Schildbild, Kanten in Mastfarbe."""
     x0, x1 = mirror_x(vx0, vx1)
-    return box([x0, y0, 5.5], [x1, y1, 6.5], "#mast", north=texture, name="mastschild")
+    z1 = mast_front()
+    return box([x0, y0, z1 - 1], [x1, y1, z1], "#mast", north=texture, name="mastschild")
 
 
 def mirror_x(x0, x1):
@@ -104,8 +105,71 @@ def lamp(vx0, y0, size, color, lit, name=None):
 
 
 def post(height=16):
-    # deckungsgleich mit dem Signalmast-Block, damit kein Versatz am Übergang entsteht
+    # deckungsgleich mit dem Signalmast-Block, damit kein Versatz am Übergang entsteht;
+    # mit eigenem Signalmast-Modell ersetzt fit_mast() dieses Element
     return box([6.5, 0, 6.5], [9.5, height, 9.5], "#mast", name="mast")
+
+
+def mast_elements():
+    """Elemente des eigenen Signalmast-Modells (tools/models/signal_mast.json) oder None."""
+    bb = BLOCKBENCH.get("signal_mast")
+    return bb.mast + bb.body if bb else None
+
+
+def mast_front():
+    """Vorderkante (kleinstes z) des Masts; das Mastschild sitzt direkt davor."""
+    elements = mast_elements()
+    return min([6.5] + [e["from"][2] for e in elements]) if elements else 6.5
+
+
+def overlaps(a, b, axis):
+    return a["from"][axis] < b["to"][axis] and b["from"][axis] < a["to"][axis]
+
+
+def fit_mast(elements, covers=None):
+    """Eingebauten Mast ("mast"-Element von post()) durch das eigene Signalmast-Modell ersetzen.
+
+    Das Modell wird alle 16 px wiederholt und auf die Masthöhe gekürzt. Wo ein fester Teil des Signals
+    (Schirm, Schild) den Mast in x und z schneidet, fällt der Mast in dessen Höhe weg: deckungsgleiche
+    Rückflächen würden sonst flimmern. Overlay-Kästen enden stattdessen vor dem Mast (siehe zs_box).
+    covers: diese Teile statt der übrigen Elemente der Liste.
+    """
+    custom = mast_elements()
+    if not custom:
+        return elements
+    if covers is None:
+        covers = [e for e in elements if e.get("name") not in ("mast", "arm")]
+    covers = [c for c in covers if "rotation" not in c]
+
+    result = []
+    for element in elements:
+        if element.get("name") != "mast":
+            result.append(element)
+            continue
+        height = element["to"][1]
+        for k in range(int(-(-height // 16))):
+            for part in custom:
+                piece = clip_y(shift_y(part, -16 * k), 0, height)
+                if piece:
+                    result += uncovered(piece, covers)
+    return result
+
+
+def uncovered(piece, covers):
+    """Teile von piece außerhalb der y-Bereiche, in denen ein cover es in x und z schneidet."""
+    gaps = sorted((c["from"][1], c["to"][1]) for c in covers if overlaps(piece, c, 0) and overlaps(piece, c, 2))
+    if "rotation" in piece:
+        # gedrehte Teile lassen sich nicht schneiden: ganz weg, wenn ihre Mitte verdeckt ist
+        mid = (piece["from"][1] + piece["to"][1]) / 2
+        return [] if any(a <= mid < b for a, b in gaps) else [piece]
+    pieces, y = [], piece["from"][1]
+    for a, b in gaps + [(piece["to"][1], piece["to"][1])]:
+        if a > y:
+            part = clip_y(piece, y, min(a, piece["to"][1]))
+            if part:
+                pieces.append(shift_y(part, -y))
+        y = max(y, b)
+    return pieces
 
 
 def support(mount, arm_heights, height=16, name="arm"):
@@ -289,14 +353,14 @@ def hauptsignal_elements(lit, mount):
     elements.append(mastschild(6.5, 9.5, 1, 6))
     elements += main_screen(lit, *spec["screen"], spec["lamps"])
     elements += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
-    return elements
+    return fit_mast(elements)
 
 
 def vorsignal_elements(lit, mount):
     bb = BLOCKBENCH.get("hv_vorsignal")
     if bb:
         return bb.assemble(lit, mount, HV_VOR["arms"], 16)
-    return support(mount, HV_VOR["arms"]) + main_screen(lit, 3, 13, 4, 12, HV_VOR["lamps"])
+    return fit_mast(support(mount, HV_VOR["arms"]) + main_screen(lit, 3, 13, 4, 12, HV_VOR["lamps"]))
 
 
 def kombisignal_elements(lit, mount):
@@ -310,13 +374,13 @@ def kombisignal_elements(lit, mount):
     elements += [hood(vx, ly, size) for vx, ly, size in spec["lamps"].values()]
     elements.append(mastschild(6.5, 9.5, 10.75, 16.5))
     elements += main_screen(lit, 3, 13, 2.5, 10.5, spec["vr_lamps"])
-    return elements
+    return fit_mast(elements)
 
 
 def sperrsignal_foot(on_mast, top=2.5):
     if on_mast:
         # Maststummel deckungsgleich mit dem Signalmast
-        return [box([6.5, 0, 6.5], [9.5, top, 9.5], "#mast")]
+        return [box([6.5, 0, 6.5], [9.5, top, 9.5], "#mast", name="mast")]
     # Betonsockel mit kurzem Halter
     return [box([5, 0, 5], [11, 2, 11], "#concrete", name="sockel"),
             box([7, 2, 7], [9, 2.5, 9], "#mast", name="sockel")]
@@ -342,7 +406,7 @@ def sperrsignal_model(lit, on_mast):
     rechts Nummernschild und weiß-rot-weißes Mastschild."""
     bb = BLOCKBENCH.get("sh_sperrsignal")
     if not bb:
-        return model(sperrsignal_foot(on_mast) + sperrsignal_head(lit))
+        return model(fit_mast(sperrsignal_foot(on_mast) + sperrsignal_head(lit)))
     if not bb.sockel:
         foot = sperrsignal_foot(on_mast)
     elif on_mast:
@@ -350,7 +414,7 @@ def sperrsignal_model(lit, on_mast):
         foot = sperrsignal_foot(True, top=max(e["to"][1] for e in bb.sockel))
     else:
         foot = copy.deepcopy(bb.sockel)
-    return model(foot + bb.body + bb.lamps_for(lit), bb)
+    return model(fit_mast(foot + bb.body + bb.lamps_for(lit)), bb)
 
 
 # --- Ks-Signale (Multipart: Träger, Schirm und Zs3/Zs3v-Anzeiger als getrennte Teile) ---
@@ -438,8 +502,9 @@ def ks_screen(spec, lit):
 
 
 def zs_box(vx0, vx1, y0, y1, texture="#zs_box", name=None):
+    # endet vor einem tieferen eigenen Mast: die Kästen sind Overlays und fehlen oft, der Mast bleibt daher ganz
     x0, x1 = mirror_x(vx0, vx1)
-    return [box([x0, y0, 4], [x1, y1, 6.5], "#zs_box", north=texture, name=name)]
+    return [box([x0, y0, 4], [x1, y1, mast_front()], "#zs_box", north=texture, name=name)]
 
 
 def zs_digit(vx0, vx1, y0, y1, texture="#digit"):
@@ -551,6 +616,8 @@ def generate_ks():
         parts = []
         for mount in MOUNTS:
             elements = bb.support(mount, spec["arms"], height) if bb else support(mount, spec["arms"], height)
+            covers = bb.body if bb else spec["extras"]() + ks_screen(spec, set())
+            elements = fit_mast(elements, covers)
             write_part(parts, f"{name}_support_{mount}", elements, {"mount": mount}, tall, bb)
         # mit Blockbench-Modell: fester Teil = alles außer Lampen, je Begriff nur die Lampen
         extras = bb.body if bb else spec["extras"]()
@@ -565,6 +632,7 @@ def generate_ks():
             item_elements = bb.assemble(KS_LIT["ks1"], "none", spec["arms"], height)
         else:
             item_elements = support("none", spec["arms"], height) + extras + ks_screen(spec, KS_LIT["ks1"])
+        item_elements = fit_mast(item_elements)
         places = overlay_places(name)
         if "zs3v" in places:
             item_elements += overlay_box(places["zs3v"])
@@ -623,9 +691,15 @@ def generate_models():
         for on_mast in (False, True):
             write_json(ASSETS / "models/block" / f"sh_sperrsignal_{a}{'_mast' if on_mast else ''}.json",
                        sperrsignal_model(SH_LIT[a], on_mast))
-    write_json(ASSETS / "models/block/signal_mast.json",
-               {"parent": "block/block", "textures": {"particle": tex("signal_mast"), "mast": tex("signal_mast")},
-                "elements": [box([6.5, 0, 6.5], [9.5, 16, 9.5], "#mast")]})
+    mast_bb = BLOCKBENCH.get("signal_mast")
+    if mast_bb:
+        write_json(ASSETS / "models/block/signal_mast.json",
+                   model(mast_bb.mast + mast_bb.body, mast_bb, **{"particle": tex("signal_mast")}
+                         if "particle" not in mast_bb.textures else {}))
+    else:
+        write_json(ASSETS / "models/block/signal_mast.json",
+                   {"parent": "block/block", "textures": {"particle": tex("signal_mast"), "mast": tex("signal_mast")},
+                    "elements": [box([6.5, 0, 6.5], [9.5, 16, 9.5], "#mast")]})
 
     write_json(ASSETS / "blockstates/hv_hauptsignal.json",
                variants([("aspect", HP), ("mount", MOUNTS), ("half", HALVES)],
@@ -686,6 +760,7 @@ def signal_lamps():
     lamps = {"hv_hauptsignal": set(HV_HAUPT["lamps"]), "hv_vorsignal": set(HV_VOR["lamps"]),
              "hv_kombisignal": set(HV_KOMBI["lamps"]) | set(HV_KOMBI["vr_lamps"]), "sh_sperrsignal": set(SH_LAMPS)}
     lamps.update({name: set(spec["lamps"]) for name, spec in KS_TYPES.items()})
+    lamps["signal_mast"] = set()  # Signalmast-Block: nur fester Körper
     return lamps
 
 
@@ -802,6 +877,10 @@ class BlockbenchModel:
             element.setdefault("neoforge_data", {"block_light": raw["light_emission"],
                                                  "sky_light": raw["light_emission"]})
         rotation = element.get("rotation")
+        if rotation is not None and rotation.get("angle") == 0 and not rotation.get("rescale"):
+            # Blockbench schreibt den Drehpunkt auch ohne Drehung mit; ohne Drehung lässt sich das Element schneiden
+            del element["rotation"]
+            rotation = None
         if rotation is not None:
             if "angle" not in rotation:
                 self.fail(f"'{label}' ist um mehrere Achsen gedreht; Minecraft 1.21.1 erlaubt nur eine")
@@ -837,7 +916,7 @@ class BlockbenchModel:
         return support(mount, self.arm_heights or arm_heights, height)
 
     def assemble(self, lit, mount, arm_heights, height):
-        return self.support(mount, arm_heights, height) + copy.deepcopy(self.body) + self.lamps_for(lit)
+        return fit_mast(self.support(mount, arm_heights, height) + copy.deepcopy(self.body) + self.lamps_for(lit))
 
 
 def load_blockbench():
@@ -890,6 +969,7 @@ def write_templates():
         "hv_kombisignal": kombisignal_elements(every["hv_kombisignal"], "none")
         + support("back", HV_KOMBI["arms"], 32),
         "sh_sperrsignal": sperrsignal_foot(False) + sperrsignal_head(every["sh_sperrsignal"]),
+        "signal_mast": [post(16)],
     }
     for name, spec in KS_TYPES.items():
         height = 32 if spec.get("tall") else 16

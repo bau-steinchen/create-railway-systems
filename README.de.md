@@ -124,6 +124,8 @@ Ein Signalkopf lässt sich in [Blockbench](https://www.blockbench.net/) gestalte
 
 Ohne Datei in `tools/models/` gilt die eingebaute Geometrie.
 
+Den Signalmast-Block ersetzt `tools/models/signal_mast.json` genauso (ohne Lampen und Marker, alle Elemente werden gezeichnet). Signale ohne eigenen `mast` nutzen dann ebenfalls diesen Mast, alle 16 px wiederholt und auf ihre Höhe gekürzt. Wo ein Schirm oder Schild den Mast schneidet, fällt der Mast in dieser Höhe weg. Mastschild und Overlay-Kästen rücken vor den Mast. Die Wandausleger behalten ihre eingebaute Form.
+
 **Namen der Elemente (oder ihrer Gruppe) steuern die Funktion:**
 
 | Name | Bedeutung |

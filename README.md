@@ -124,6 +124,8 @@ A signal head can be designed in [Blockbench](https://www.blockbench.net/). The 
 
 Without a file in `tools/models/`, the built-in geometry is used.
 
+The signal mast block can be replaced the same way with `tools/models/signal_mast.json` (no lamps or markers; every element is drawn). Signals without their own `mast` then use this mast too, repeated every 16 px and cut to height. Where a screen or sign intersects the mast, the mast is left out at that height. The Mastschild and the overlay boxes move in front of the mast. Wall brackets keep their built-in shape.
+
 **The names of elements (or their group) control their function:**
 
 | Name | Meaning |
