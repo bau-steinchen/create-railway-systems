@@ -93,10 +93,18 @@ public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalB
 		ms.translate(0.5, 0, 0.5);
 		ms.mulPose(Axis.YP.rotationDegrees(-yRotation(state.getValue(MountedSignalBlock.FACING))));
 		ms.translate(-0.5, 0, -0.5);
-		// hinten montiert sitzt der Kopf an der Blockkante; die Overlay-Modelle sind mittig modelliert
-		if (state.hasProperty(MountedSignalBlock.MOUNT))
+		if (state.hasProperty(MountedSignalBlock.MOUNT)) {
+			// am gedrehten Mast dreht der Kopf um die Mastmitte (Modellraum 8/24 px), im Uhrzeigersinn
+			double tilt = MountedSignalBlock.tiltDegrees(state);
+			if (tilt != 0) {
+				ms.translate(0.5, 0, 1.5);
+				ms.mulPose(Axis.YP.rotationDegrees((float) -tilt));
+				ms.translate(-0.5, 0, -1.5);
+			}
+			// hinten montiert sitzt der Kopf an der Blockkante; die Overlay-Modelle sind mittig modelliert
 			ms.translate(0, 0, state.getValue(MountedSignalBlock.MOUNT)
 				.getFlushShift() / 16);
+		}
 
 		if (features.contains(SignalFeature.ZS3) && be.getZs3() > 0) {
 			draw(ms, consumer, state, model(block, "zs3_box"), light, overlay);

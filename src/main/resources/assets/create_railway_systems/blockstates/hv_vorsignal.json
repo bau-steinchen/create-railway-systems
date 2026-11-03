@@ -1,318 +1,1263 @@
 {
   "variants": {
-    "aspect=vr0,facing=north,mount=none": {
+    "aspect=vr0,facing=north,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0"
     },
-    "aspect=vr0,facing=east,mount=none": {
+    "aspect=vr0,facing=east,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0",
       "y": 90
     },
-    "aspect=vr0,facing=south,mount=none": {
+    "aspect=vr0,facing=south,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0",
       "y": 180
     },
-    "aspect=vr0,facing=west,mount=none": {
+    "aspect=vr0,facing=west,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0",
       "y": 270
     },
-    "aspect=vr0,facing=north,mount=back": {
+    "aspect=vr0,facing=north,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0"
+    },
+    "aspect=vr0,facing=east,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0"
+    },
+    "aspect=vr0,facing=east,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0"
+    },
+    "aspect=vr0,facing=east,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_back"
     },
-    "aspect=vr0,facing=east,mount=back": {
+    "aspect=vr0,facing=east,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
       "y": 90
     },
-    "aspect=vr0,facing=south,mount=back": {
+    "aspect=vr0,facing=south,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
       "y": 180
     },
-    "aspect=vr0,facing=west,mount=back": {
+    "aspect=vr0,facing=west,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
       "y": 270
     },
-    "aspect=vr0,facing=north,mount=left": {
+    "aspect=vr0,facing=north,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back"
+    },
+    "aspect=vr0,facing=east,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back"
+    },
+    "aspect=vr0,facing=east,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back"
+    },
+    "aspect=vr0,facing=east,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_back",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_left"
     },
-    "aspect=vr0,facing=east,mount=left": {
+    "aspect=vr0,facing=east,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
       "y": 90
     },
-    "aspect=vr0,facing=south,mount=left": {
+    "aspect=vr0,facing=south,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
       "y": 180
     },
-    "aspect=vr0,facing=west,mount=left": {
+    "aspect=vr0,facing=west,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
       "y": 270
     },
-    "aspect=vr0,facing=north,mount=right": {
+    "aspect=vr0,facing=north,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left"
+    },
+    "aspect=vr0,facing=east,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left"
+    },
+    "aspect=vr0,facing=east,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left"
+    },
+    "aspect=vr0,facing=east,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_left",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_right"
     },
-    "aspect=vr0,facing=east,mount=right": {
+    "aspect=vr0,facing=east,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
       "y": 90
     },
-    "aspect=vr0,facing=south,mount=right": {
+    "aspect=vr0,facing=south,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
       "y": 180
     },
-    "aspect=vr0,facing=west,mount=right": {
+    "aspect=vr0,facing=west,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
       "y": 270
     },
-    "aspect=vr0,facing=north,mount=mast": {
+    "aspect=vr0,facing=north,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right"
+    },
+    "aspect=vr0,facing=east,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right"
+    },
+    "aspect=vr0,facing=east,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right"
+    },
+    "aspect=vr0,facing=east,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_right",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast"
     },
-    "aspect=vr0,facing=east,mount=mast": {
+    "aspect=vr0,facing=east,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast",
       "y": 90
     },
-    "aspect=vr0,facing=south,mount=mast": {
+    "aspect=vr0,facing=south,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast",
       "y": 180
     },
-    "aspect=vr0,facing=west,mount=mast": {
+    "aspect=vr0,facing=west,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast",
       "y": 270
     },
-    "aspect=vr0,facing=north,mount=mast_plate": {
+    "aspect=vr0,facing=north,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t1"
+    },
+    "aspect=vr0,facing=east,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t1",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t1",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t1",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t2"
+    },
+    "aspect=vr0,facing=east,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t2",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t2",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t2",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t3"
+    },
+    "aspect=vr0,facing=east,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t3",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t3",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_t3",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate"
     },
-    "aspect=vr0,facing=east,mount=mast_plate": {
+    "aspect=vr0,facing=east,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate",
       "y": 90
     },
-    "aspect=vr0,facing=south,mount=mast_plate": {
+    "aspect=vr0,facing=south,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate",
       "y": 180
     },
-    "aspect=vr0,facing=west,mount=mast_plate": {
+    "aspect=vr0,facing=west,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate",
       "y": 270
     },
-    "aspect=vr0,facing=north,mount=mast_lattice": {
+    "aspect=vr0,facing=north,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t1"
+    },
+    "aspect=vr0,facing=east,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t1",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t1",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t1",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t2"
+    },
+    "aspect=vr0,facing=east,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t2",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t2",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t2",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t3"
+    },
+    "aspect=vr0,facing=east,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t3",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t3",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_plate_t3",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice"
     },
-    "aspect=vr0,facing=east,mount=mast_lattice": {
+    "aspect=vr0,facing=east,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice",
       "y": 90
     },
-    "aspect=vr0,facing=south,mount=mast_lattice": {
+    "aspect=vr0,facing=south,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice",
       "y": 180
     },
-    "aspect=vr0,facing=west,mount=mast_lattice": {
+    "aspect=vr0,facing=west,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice",
       "y": 270
     },
-    "aspect=vr1,facing=north,mount=none": {
+    "aspect=vr0,facing=north,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t1"
+    },
+    "aspect=vr0,facing=east,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t1",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t1",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t1",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t2"
+    },
+    "aspect=vr0,facing=east,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t2",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t2",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t2",
+      "y": 270
+    },
+    "aspect=vr0,facing=north,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t3"
+    },
+    "aspect=vr0,facing=east,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t3",
+      "y": 90
+    },
+    "aspect=vr0,facing=south,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t3",
+      "y": 180
+    },
+    "aspect=vr0,facing=west,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr0_mast_lattice_t3",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1"
     },
-    "aspect=vr1,facing=east,mount=none": {
+    "aspect=vr1,facing=east,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1",
       "y": 90
     },
-    "aspect=vr1,facing=south,mount=none": {
+    "aspect=vr1,facing=south,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1",
       "y": 180
     },
-    "aspect=vr1,facing=west,mount=none": {
+    "aspect=vr1,facing=west,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1",
       "y": 270
     },
-    "aspect=vr1,facing=north,mount=back": {
+    "aspect=vr1,facing=north,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1"
+    },
+    "aspect=vr1,facing=east,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1"
+    },
+    "aspect=vr1,facing=east,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1"
+    },
+    "aspect=vr1,facing=east,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_back"
     },
-    "aspect=vr1,facing=east,mount=back": {
+    "aspect=vr1,facing=east,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
       "y": 90
     },
-    "aspect=vr1,facing=south,mount=back": {
+    "aspect=vr1,facing=south,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
       "y": 180
     },
-    "aspect=vr1,facing=west,mount=back": {
+    "aspect=vr1,facing=west,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
       "y": 270
     },
-    "aspect=vr1,facing=north,mount=left": {
+    "aspect=vr1,facing=north,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back"
+    },
+    "aspect=vr1,facing=east,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back"
+    },
+    "aspect=vr1,facing=east,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back"
+    },
+    "aspect=vr1,facing=east,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_back",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_left"
     },
-    "aspect=vr1,facing=east,mount=left": {
+    "aspect=vr1,facing=east,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
       "y": 90
     },
-    "aspect=vr1,facing=south,mount=left": {
+    "aspect=vr1,facing=south,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
       "y": 180
     },
-    "aspect=vr1,facing=west,mount=left": {
+    "aspect=vr1,facing=west,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
       "y": 270
     },
-    "aspect=vr1,facing=north,mount=right": {
+    "aspect=vr1,facing=north,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left"
+    },
+    "aspect=vr1,facing=east,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left"
+    },
+    "aspect=vr1,facing=east,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left"
+    },
+    "aspect=vr1,facing=east,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_left",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_right"
     },
-    "aspect=vr1,facing=east,mount=right": {
+    "aspect=vr1,facing=east,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
       "y": 90
     },
-    "aspect=vr1,facing=south,mount=right": {
+    "aspect=vr1,facing=south,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
       "y": 180
     },
-    "aspect=vr1,facing=west,mount=right": {
+    "aspect=vr1,facing=west,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
       "y": 270
     },
-    "aspect=vr1,facing=north,mount=mast": {
+    "aspect=vr1,facing=north,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right"
+    },
+    "aspect=vr1,facing=east,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right"
+    },
+    "aspect=vr1,facing=east,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right"
+    },
+    "aspect=vr1,facing=east,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_right",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast"
     },
-    "aspect=vr1,facing=east,mount=mast": {
+    "aspect=vr1,facing=east,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast",
       "y": 90
     },
-    "aspect=vr1,facing=south,mount=mast": {
+    "aspect=vr1,facing=south,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast",
       "y": 180
     },
-    "aspect=vr1,facing=west,mount=mast": {
+    "aspect=vr1,facing=west,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast",
       "y": 270
     },
-    "aspect=vr1,facing=north,mount=mast_plate": {
+    "aspect=vr1,facing=north,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t1"
+    },
+    "aspect=vr1,facing=east,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t1",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t1",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t1",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t2"
+    },
+    "aspect=vr1,facing=east,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t2",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t2",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t2",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t3"
+    },
+    "aspect=vr1,facing=east,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t3",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t3",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_t3",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate"
     },
-    "aspect=vr1,facing=east,mount=mast_plate": {
+    "aspect=vr1,facing=east,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate",
       "y": 90
     },
-    "aspect=vr1,facing=south,mount=mast_plate": {
+    "aspect=vr1,facing=south,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate",
       "y": 180
     },
-    "aspect=vr1,facing=west,mount=mast_plate": {
+    "aspect=vr1,facing=west,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate",
       "y": 270
     },
-    "aspect=vr1,facing=north,mount=mast_lattice": {
+    "aspect=vr1,facing=north,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t1"
+    },
+    "aspect=vr1,facing=east,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t1",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t1",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t1",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t2"
+    },
+    "aspect=vr1,facing=east,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t2",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t2",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t2",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t3"
+    },
+    "aspect=vr1,facing=east,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t3",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t3",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_plate_t3",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice"
     },
-    "aspect=vr1,facing=east,mount=mast_lattice": {
+    "aspect=vr1,facing=east,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice",
       "y": 90
     },
-    "aspect=vr1,facing=south,mount=mast_lattice": {
+    "aspect=vr1,facing=south,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice",
       "y": 180
     },
-    "aspect=vr1,facing=west,mount=mast_lattice": {
+    "aspect=vr1,facing=west,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice",
       "y": 270
     },
-    "aspect=vr2,facing=north,mount=none": {
+    "aspect=vr1,facing=north,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t1"
+    },
+    "aspect=vr1,facing=east,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t1",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t1",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t1",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t2"
+    },
+    "aspect=vr1,facing=east,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t2",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t2",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t2",
+      "y": 270
+    },
+    "aspect=vr1,facing=north,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t3"
+    },
+    "aspect=vr1,facing=east,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t3",
+      "y": 90
+    },
+    "aspect=vr1,facing=south,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t3",
+      "y": 180
+    },
+    "aspect=vr1,facing=west,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr1_mast_lattice_t3",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2"
     },
-    "aspect=vr2,facing=east,mount=none": {
+    "aspect=vr2,facing=east,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2",
       "y": 90
     },
-    "aspect=vr2,facing=south,mount=none": {
+    "aspect=vr2,facing=south,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2",
       "y": 180
     },
-    "aspect=vr2,facing=west,mount=none": {
+    "aspect=vr2,facing=west,mount=none,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2",
       "y": 270
     },
-    "aspect=vr2,facing=north,mount=back": {
+    "aspect=vr2,facing=north,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2"
+    },
+    "aspect=vr2,facing=east,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=none,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2"
+    },
+    "aspect=vr2,facing=east,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=none,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2"
+    },
+    "aspect=vr2,facing=east,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=none,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_back"
     },
-    "aspect=vr2,facing=east,mount=back": {
+    "aspect=vr2,facing=east,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
       "y": 90
     },
-    "aspect=vr2,facing=south,mount=back": {
+    "aspect=vr2,facing=south,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
       "y": 180
     },
-    "aspect=vr2,facing=west,mount=back": {
+    "aspect=vr2,facing=west,mount=back,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
       "y": 270
     },
-    "aspect=vr2,facing=north,mount=left": {
+    "aspect=vr2,facing=north,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back"
+    },
+    "aspect=vr2,facing=east,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=back,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back"
+    },
+    "aspect=vr2,facing=east,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=back,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back"
+    },
+    "aspect=vr2,facing=east,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=back,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_back",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_left"
     },
-    "aspect=vr2,facing=east,mount=left": {
+    "aspect=vr2,facing=east,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
       "y": 90
     },
-    "aspect=vr2,facing=south,mount=left": {
+    "aspect=vr2,facing=south,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
       "y": 180
     },
-    "aspect=vr2,facing=west,mount=left": {
+    "aspect=vr2,facing=west,mount=left,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
       "y": 270
     },
-    "aspect=vr2,facing=north,mount=right": {
+    "aspect=vr2,facing=north,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left"
+    },
+    "aspect=vr2,facing=east,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=left,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left"
+    },
+    "aspect=vr2,facing=east,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=left,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left"
+    },
+    "aspect=vr2,facing=east,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=left,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_left",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_right"
     },
-    "aspect=vr2,facing=east,mount=right": {
+    "aspect=vr2,facing=east,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
       "y": 90
     },
-    "aspect=vr2,facing=south,mount=right": {
+    "aspect=vr2,facing=south,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
       "y": 180
     },
-    "aspect=vr2,facing=west,mount=right": {
+    "aspect=vr2,facing=west,mount=right,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
       "y": 270
     },
-    "aspect=vr2,facing=north,mount=mast": {
+    "aspect=vr2,facing=north,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right"
+    },
+    "aspect=vr2,facing=east,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=right,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right"
+    },
+    "aspect=vr2,facing=east,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=right,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right"
+    },
+    "aspect=vr2,facing=east,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=right,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_right",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast"
     },
-    "aspect=vr2,facing=east,mount=mast": {
+    "aspect=vr2,facing=east,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast",
       "y": 90
     },
-    "aspect=vr2,facing=south,mount=mast": {
+    "aspect=vr2,facing=south,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast",
       "y": 180
     },
-    "aspect=vr2,facing=west,mount=mast": {
+    "aspect=vr2,facing=west,mount=mast,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast",
       "y": 270
     },
-    "aspect=vr2,facing=north,mount=mast_plate": {
+    "aspect=vr2,facing=north,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t1"
+    },
+    "aspect=vr2,facing=east,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t1",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t1",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t1",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t2"
+    },
+    "aspect=vr2,facing=east,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t2",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t2",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t2",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t3"
+    },
+    "aspect=vr2,facing=east,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t3",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t3",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_t3",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate"
     },
-    "aspect=vr2,facing=east,mount=mast_plate": {
+    "aspect=vr2,facing=east,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate",
       "y": 90
     },
-    "aspect=vr2,facing=south,mount=mast_plate": {
+    "aspect=vr2,facing=south,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate",
       "y": 180
     },
-    "aspect=vr2,facing=west,mount=mast_plate": {
+    "aspect=vr2,facing=west,mount=mast_plate,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate",
       "y": 270
     },
-    "aspect=vr2,facing=north,mount=mast_lattice": {
+    "aspect=vr2,facing=north,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t1"
+    },
+    "aspect=vr2,facing=east,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t1",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t1",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_plate,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t1",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t2"
+    },
+    "aspect=vr2,facing=east,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t2",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t2",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_plate,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t2",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t3"
+    },
+    "aspect=vr2,facing=east,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t3",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t3",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_plate,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_plate_t3",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice"
     },
-    "aspect=vr2,facing=east,mount=mast_lattice": {
+    "aspect=vr2,facing=east,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice",
       "y": 90
     },
-    "aspect=vr2,facing=south,mount=mast_lattice": {
+    "aspect=vr2,facing=south,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice",
       "y": 180
     },
-    "aspect=vr2,facing=west,mount=mast_lattice": {
+    "aspect=vr2,facing=west,mount=mast_lattice,tilt=0": {
       "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t1"
+    },
+    "aspect=vr2,facing=east,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t1",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t1",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_lattice,tilt=1": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t1",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t2"
+    },
+    "aspect=vr2,facing=east,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t2",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t2",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_lattice,tilt=2": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t2",
+      "y": 270
+    },
+    "aspect=vr2,facing=north,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t3"
+    },
+    "aspect=vr2,facing=east,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t3",
+      "y": 90
+    },
+    "aspect=vr2,facing=south,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t3",
+      "y": 180
+    },
+    "aspect=vr2,facing=west,mount=mast_lattice,tilt=3": {
+      "model": "create_railway_systems:block/hv_vorsignal_vr2_mast_lattice_t3",
       "y": 270
     }
   }

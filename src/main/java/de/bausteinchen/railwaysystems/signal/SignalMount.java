@@ -53,6 +53,13 @@ public enum SignalMount implements StringRepresentable {
 	}
 
 	/**
+	 * Ob das Signal an einem {@link SignalMastBlock} hängt und dessen Drehung folgt.
+	 */
+	public boolean isMast() {
+		return this == MAST || this == MAST_PLATE || this == MAST_LATTICE;
+	}
+
+	/**
 	 * Versatz des Signalkopfs nach hinten in Pixeln. Mittig montiert endet der Kopf bei z = 6,5;
 	 * hinten montiert an der Blockkante. tools/generate_assets.py nutzt denselben Wert.
 	 */

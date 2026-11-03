@@ -1,0 +1,9 @@
+{
+  "parent": "create_railway_systems:block/signal_mast",
+  "transform": {
+    "rotation": {
+      "y": -45.0
+    },
+    "origin": "center"
+  }
+}

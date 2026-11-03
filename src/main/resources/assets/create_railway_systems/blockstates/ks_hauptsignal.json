@@ -63,6 +63,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "lower",
         "facing": "north"
       },
@@ -73,6 +74,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "upper",
         "facing": "north"
       },
@@ -82,7 +84,74 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t1"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t2"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t3"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t1"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t2"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t3"
+      }
+    },
+    {
+      "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "lower",
         "facing": "north"
       },
@@ -93,6 +162,7 @@
     {
       "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "upper",
         "facing": "north"
       },
@@ -102,7 +172,74 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t1"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t2"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t3"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t1"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t2"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t3"
+      }
+    },
+    {
+      "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "north"
       },
@@ -113,11 +250,78 @@
     {
       "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "north"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t1"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t2"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t3"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t1"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t2"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t3"
       }
     },
     {
@@ -166,6 +370,7 @@
     {
       "when": {
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "north"
       },
@@ -175,8 +380,42 @@
     },
     {
       "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t1"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t2"
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t3"
+      }
+    },
+    {
+      "when": {
         "aspect": "hp0",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "north"
       },
@@ -186,8 +425,45 @@
     },
     {
       "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t1"
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t2"
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t3"
+      }
+    },
+    {
+      "when": {
         "aspect": "ks1",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "north"
       },
@@ -197,8 +473,45 @@
     },
     {
       "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t1"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t2"
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t3"
+      }
+    },
+    {
+      "when": {
         "aspect": "off",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "north"
       },
@@ -208,6 +521,42 @@
     },
     {
       "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t1"
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t2"
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t3"
+      }
+    },
+    {
+      "when": {
         "mount": "none",
         "half": "lower",
         "facing": "east"
@@ -275,6 +624,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "lower",
         "facing": "east"
       },
@@ -286,6 +636,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "upper",
         "facing": "east"
       },
@@ -296,7 +647,80 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "lower",
         "facing": "east"
       },
@@ -308,6 +732,7 @@
     {
       "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "upper",
         "facing": "east"
       },
@@ -318,7 +743,80 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "east"
       },
@@ -330,11 +828,84 @@
     {
       "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "east"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t3",
         "y": 90
       }
     },
@@ -388,6 +959,7 @@
     {
       "when": {
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "east"
       },
@@ -398,8 +970,45 @@
     },
     {
       "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "aspect": "hp0",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "east"
       },
@@ -410,8 +1019,48 @@
     },
     {
       "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "aspect": "ks1",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "east"
       },
@@ -422,13 +1071,92 @@
     },
     {
       "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
         "aspect": "off",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "east"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t3",
         "y": 90
       }
     },
@@ -501,6 +1229,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "lower",
         "facing": "south"
       },
@@ -512,6 +1241,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "upper",
         "facing": "south"
       },
@@ -522,7 +1252,80 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "lower",
         "facing": "south"
       },
@@ -534,6 +1337,7 @@
     {
       "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "upper",
         "facing": "south"
       },
@@ -544,7 +1348,80 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "south"
       },
@@ -556,11 +1433,84 @@
     {
       "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "south"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t3",
         "y": 180
       }
     },
@@ -614,6 +1564,7 @@
     {
       "when": {
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "south"
       },
@@ -624,8 +1575,45 @@
     },
     {
       "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "aspect": "hp0",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "south"
       },
@@ -636,8 +1624,48 @@
     },
     {
       "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "aspect": "ks1",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "south"
       },
@@ -648,13 +1676,92 @@
     },
     {
       "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
         "aspect": "off",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "south"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t3",
         "y": 180
       }
     },
@@ -727,6 +1834,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "lower",
         "facing": "west"
       },
@@ -738,6 +1846,7 @@
     {
       "when": {
         "mount": "mast",
+        "tilt": "0",
         "half": "upper",
         "facing": "west"
       },
@@ -748,7 +1857,80 @@
     },
     {
       "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lower_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_upper_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "lower",
         "facing": "west"
       },
@@ -760,6 +1942,7 @@
     {
       "when": {
         "mount": "mast_plate",
+        "tilt": "0",
         "half": "upper",
         "facing": "west"
       },
@@ -770,7 +1953,80 @@
     },
     {
       "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_lower_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_plate",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_plate_upper_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "west"
       },
@@ -782,11 +2038,84 @@
     {
       "when": {
         "mount": "mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "west"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_lower_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_support_mast_lattice_upper_t3",
         "y": 270
       }
     },
@@ -840,6 +2169,7 @@
     {
       "when": {
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "lower",
         "facing": "west"
       },
@@ -850,8 +2180,45 @@
     },
     {
       "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "lower",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_schild_flush_lower_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
         "aspect": "hp0",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "west"
       },
@@ -862,8 +2229,48 @@
     },
     {
       "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "hp0",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_hp0_flush_upper_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
         "aspect": "ks1",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "west"
       },
@@ -874,13 +2281,92 @@
     },
     {
       "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "ks1",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_ks1_flush_upper_t3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
         "aspect": "off",
         "mount": "back|mast|mast_plate|mast_lattice",
+        "tilt": "0",
         "half": "upper",
         "facing": "west"
       },
       "apply": {
         "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "1",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "2",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "aspect": "off",
+        "mount": "mast|mast_plate|mast_lattice",
+        "tilt": "3",
+        "half": "upper",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "create_railway_systems:block/ks_hauptsignal_off_flush_upper_t3",
         "y": 270
       }
     }

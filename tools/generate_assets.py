@@ -40,6 +40,12 @@ MOUNTS = ["none", "back", "left", "right", "mast", "mast_plate", "mast_lattice"]
 FLUSH_SHIFT = 9.5
 MAST_DEPTHS = {"mast": 6.5, "mast_plate": 5.5, "mast_lattice": 3.25}
 FLUSH = ("back", *MAST_DEPTHS)
+MAST_MOUNTS = tuple(MAST_DEPTHS)
+# Signale am gedrehten Mast: Neigung 0..3 (Maststufe mod 4), gefaltet auf -45..+22,5° im Uhrzeigersinn
+TILTS = ["0", "1", "2", "3"]
+# NeoForge-"transform" dreht bei positivem y gegen den Uhrzeigersinn (von oben); Masten und Neigung
+# zählen im Uhrzeigersinn wie Blockstate-"y" und MountedSignalBlock
+TRANSFORM_SIGN = -1
 HALVES = ["lower", "upper"]
 TALL_BLOCKS = {"hv_hauptsignal", "hv_kombisignal", "ks_hauptsignal", "ks_mehrabschnittssignal"}
 VR = ["vr0", "vr1", "vr2"]
@@ -676,18 +682,22 @@ def generate_ks():
             elements = bb.support(mount, spec["arms"], height) if bb else support(mount, spec["arms"], height)
             covers = bb.body if bb else spec["extras"]() + ks_screen(spec, set())
             elements = fit_mast(elements, covers)
-            write_part(parts, f"{name}_support_{mount}", elements, {"mount": mount}, tall, bb)
+            if mount in MAST_MOUNTS:
+                write_tilted_part(parts, f"{name}_support_{mount}", elements, {"mount": mount}, tall, bb, [mount])
+            else:
+                write_part(parts, f"{name}_support_{mount}", elements, {"mount": mount}, tall, bb)
         # mit Blockbench-Modell: fester Teil = alles außer Lampen, je Begriff nur die Lampen
         # Kopf mittig (frei, seitlicher Ausleger) oder hinten an der Blockkante (Wand, Signalmast)
         groups = [("|".join(m for m in MOUNTS if m not in FLUSH), 0, ""), ("|".join(FLUSH), FLUSH_SHIFT, "_flush")]
         for mounts, dz, suffix in groups:
             when = {"mount": mounts}
             body = bb.body if bb else spec["extras"](dz > 0)
-            write_part(parts, f"{name}_schild{suffix}", shift_z(body, dz), when, tall, bb)
+            # hinten montierter Kopf: an der Wand ohne, am Mast mit Neigung
+            write = (lambda *args: write_tilted_part(*args, MAST_MOUNTS)) if dz else write_part
+            write(parts, f"{name}_schild{suffix}", shift_z(body, dz), when, tall, bb)
             for aspect in spec["aspects"]:
                 elements = bb.lamps_for(KS_LIT[aspect]) if bb else ks_screen(spec, KS_LIT[aspect])
-                write_part(parts, f"{name}_{aspect}{suffix}", shift_z(elements, dz), {"aspect": aspect, **when},
-                           tall, bb)
+                write(parts, f"{name}_{aspect}{suffix}", shift_z(elements, dz), {"aspect": aspect, **when}, tall, bb)
         extras = bb.body if bb else spec["extras"]()
 
         write_json(ASSETS / "blockstates" / f"{name}.json", multipart(parts))
@@ -735,6 +745,38 @@ def model_name(base, mount):
     return base if mount == "none" else f"{base}_{mount}"
 
 
+def tilt_degrees(tilt):
+    """Neigung in Grad im Uhrzeigersinn, wie MountedSignalBlock.tiltSteps."""
+    tilt = int(tilt)
+    return (tilt - 4 if tilt >= 2 else tilt) * 22.5
+
+
+def rotated_child(base, suffix, degrees, origin):
+    """Kleines Modell, das base (Modellname) per NeoForge-"transform" um die Hochachse dreht."""
+    name = f"{base}_{suffix}"
+    write_json(ASSETS / "models/block" / f"{name}.json", {
+        "parent": f"{MOD_ID}:block/{base}",
+        "transform": {"rotation": {"y": TRANSFORM_SIGN * degrees}, "origin": origin}})
+    return name
+
+
+def tilted(base, mount, tilt):
+    """Modell eines Signals für Montage und Neigung: am Mast um dessen Mitte (8/24 px) gedreht."""
+    if mount not in MAST_MOUNTS or tilt == "0":
+        return base
+    return rotated_child(base, f"t{tilt}", tilt_degrees(tilt), [0.5, 0, 1.5])
+
+
+def write_tilted_part(parts, name, elements, when, tall, bb, tilt_mounts, **extra):
+    """Multipart-Teil wie write_part; für Mast-Montagen zusätzlich je Neigung ein gedrehtes Kindmodell.
+    when gilt für Neigung 0, die Kindmodelle nur für die Montagen in tilt_mounts."""
+    start = len(parts)
+    write_part(parts, name, elements, {**when, "tilt": "0"}, tall, bb, **extra)
+    for part_when, base in parts[start:]:
+        for tilt in TILTS[1:]:
+            parts.append(({**part_when, "mount": "|".join(tilt_mounts), "tilt": tilt}, tilted(base, MAST_MOUNTS[0], tilt)))
+
+
 def generate_models():
     haupt_bb, kombi_bb = BLOCKBENCH.get("hv_hauptsignal"), BLOCKBENCH.get("hv_kombisignal")
     for mount in MOUNTS:
@@ -765,20 +807,24 @@ def generate_models():
             write_json(ASSETS / "models/block" / f"{name}.json",
                        {"parent": "block/block", "textures": {"particle": tex("signal_mast"), "mast": tex("signal_mast")},
                         "elements": [{k: v for k, v in e.items() if k != "name"} for e in builtin()]})
-        # Achse z: wie modelliert (beim Standardmast Platten nach Nord/Süd), Achse x: um 90° gedreht
+        # 16 Stufen à 22,5° im Uhrzeigersinn: Blockstate dreht in 90°-Schritten, Kindmodelle den Rest
+        models = [name] + [rotated_child(name, f"r{k}", k * 22.5, "center") for k in (1, 2, 3)]
         write_json(ASSETS / "blockstates" / f"{name}.json", {"variants": {
-            "axis=z": {"model": f"{MOD_ID}:block/{name}"}, "axis=x": {"model": f"{MOD_ID}:block/{name}", "y": 90}}})
+            f"rotation={n}": {"model": f"{MOD_ID}:block/{models[n % 4]}", **({"y": 90 * (n // 4)} if n >= 4 else {})}
+            for n in range(16)}})
 
     write_json(ASSETS / "blockstates/hv_hauptsignal.json",
-               variants([("aspect", HP), ("mount", MOUNTS), ("half", HALVES)],
-                        lambda s: model_name(f"hv_hauptsignal_{s['aspect']}", s["mount"]) + f"_{s['half']}"))
+               variants([("aspect", HP), ("mount", MOUNTS), ("half", HALVES), ("tilt", TILTS)],
+                        lambda s: tilted(model_name(f"hv_hauptsignal_{s['aspect']}", s["mount"]) + f"_{s['half']}",
+                                         s["mount"], s["tilt"])))
     write_json(ASSETS / "blockstates/hv_vorsignal.json",
-               variants([("aspect", VR), ("mount", MOUNTS)],
-                        lambda s: model_name(f"hv_vorsignal_{s['aspect']}", s["mount"])))
+               variants([("aspect", VR), ("mount", MOUNTS), ("tilt", TILTS)],
+                        lambda s: tilted(model_name(f"hv_vorsignal_{s['aspect']}", s["mount"]), s["mount"], s["tilt"])))
     write_json(ASSETS / "blockstates/hv_kombisignal.json",
-               variants([("aspect", HP), ("distant", VR + ["dark"]), ("mount", MOUNTS), ("half", HALVES)],
-                        lambda s: model_name(f"hv_kombisignal_{s['aspect']}_{s['distant']}", s["mount"])
-                        + f"_{s['half']}"))
+               variants([("aspect", HP), ("distant", VR + ["dark"]), ("mount", MOUNTS), ("half", HALVES),
+                         ("tilt", TILTS)],
+                        lambda s: tilted(model_name(f"hv_kombisignal_{s['aspect']}_{s['distant']}", s["mount"])
+                                         + f"_{s['half']}", s["mount"], s["tilt"])))
     write_json(ASSETS / "blockstates/sh_sperrsignal.json",
                variants([("aspect", list(SH_LIT)), ("mast", ["false", "true"])],
                         lambda s: f"sh_sperrsignal_{s['aspect']}{'_mast' if s['mast'] == 'true' else ''}"))
