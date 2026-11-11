@@ -1,0 +1,84 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "create_railway_systems:block/traffic_mast",
+    "mast": "create_railway_systems:block/traffic_mast",
+    "screen": "create_railway_systems:block/signal_screen",
+    "backplate": "create_railway_systems:block/traffic_backplate",
+    "lamp_off": "create_railway_systems:block/lamp_off",
+    "lamp_red": "create_railway_systems:block/lamp_red",
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_green": "create_railway_systems:block/lamp_green",
+    "lamp_yellow_blink": "create_railway_systems:block/lamp_yellow_blink"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.25,
+        -2.5,
+        -2.5
+      ],
+      "to": [
+        0.75,
+        2.5,
+        2.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mast",
+          "uv": [
+            0,
+            0,
+            0.25,
+            2.5
+          ]
+        },
+        "east": {
+          "texture": "#mast",
+          "uv": [
+            0,
+            0,
+            2.5,
+            2.5
+          ]
+        },
+        "south": {
+          "texture": "#mast",
+          "uv": [
+            0,
+            0,
+            0.75,
+            2.5
+          ]
+        },
+        "west": {
+          "texture": "#mast",
+          "uv": [
+            0,
+            0,
+            2.5,
+            2.5
+          ]
+        },
+        "up": {
+          "texture": "#mast",
+          "uv": [
+            0,
+            0,
+            0.75,
+            2.5
+          ]
+        },
+        "down": {
+          "texture": "#mast",
+          "uv": [
+            0,
+            0,
+            0.75,
+            2.5
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "create_railway_systems:block/traffic_mast",
+    "mast": "create_railway_systems:block/traffic_mast",
+    "screen": "create_railway_systems:block/signal_screen",
+    "backplate": "create_railway_systems:block/traffic_backplate",
+    "lamp_off": "create_railway_systems:block/lamp_off",
+    "lamp_red": "create_railway_systems:block/lamp_red",
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_green": "create_railway_systems:block/lamp_green",
+    "lamp_yellow_blink": "create_railway_systems:block/lamp_yellow_blink"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        6,
+        3.5
+      ],
+      "to": [
+        10,
+        10,
+        4
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lamp_yellow",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#screen",
+          "uv": [
+            12,
+            6,
+            12.5,
+            10
+          ]
+        },
+        "south": {
+          "texture": "#screen",
+          "uv": [
+            6,
+            6,
+            10,
+            10
+          ]
+        },
+        "west": {
+          "texture": "#screen",
+          "uv": [
+            3.5,
+            6,
+            4,
+            10
+          ]
+        },
+        "up": {
+          "texture": "#screen",
+          "uv": [
+            6,
+            3.5,
+            10,
+            4
+          ]
+        },
+        "down": {
+          "texture": "#screen",
+          "uv": [
+            6,
+            12,
+            10,
+            12.5
+          ]
+        }
+      },
+      "shade": false,
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  ]
+}

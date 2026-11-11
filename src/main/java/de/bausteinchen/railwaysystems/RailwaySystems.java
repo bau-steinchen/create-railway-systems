@@ -2,9 +2,12 @@ package de.bausteinchen.railwaysystems;
 
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
 import de.bausteinchen.railwaysystems.registry.ModBlocks;
+import de.bausteinchen.railwaysystems.network.ModPayloads;
 import de.bausteinchen.railwaysystems.registry.ModCreativeTabs;
+import de.bausteinchen.railwaysystems.registry.ModDataComponents;
 import de.bausteinchen.railwaysystems.registry.ModItems;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
+import de.bausteinchen.railwaysystems.traffic.TrafficSignalLocks;
 
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -24,9 +27,14 @@ public class RailwaySystems {
 		ModItems.ITEMS.register(modBus);
 		ModBlockEntities.BLOCK_ENTITIES.register(modBus);
 		ModCreativeTabs.TABS.register(modBus);
+		ModDataComponents.COMPONENTS.register(modBus);
+		modBus.addListener(ModPayloads::register);
 		container.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
 
-		NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> LinkedSignalBlockEntity.clearAnnouncements());
+		NeoForge.EVENT_BUS.addListener((ServerStoppedEvent e) -> {
+			LinkedSignalBlockEntity.clearAnnouncements();
+			TrafficSignalLocks.clear();
+		});
 	}
 
 	public static ResourceLocation asResource(String path) {

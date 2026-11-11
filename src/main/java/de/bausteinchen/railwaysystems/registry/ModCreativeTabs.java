@@ -26,6 +26,10 @@ public class ModCreativeTabs {
 			output.accept(ModItems.KS_VORSIGNAL.get());
 			output.accept(ModItems.KS_MEHRABSCHNITTSSIGNAL.get());
 			output.accept(ModItems.SIGNAL_MAST.get());
+			output.accept(ModItems.TRAFFIC_MAST.get());
+			output.accept(ModItems.PEDESTRIAN_LIGHT.get());
+			output.accept(ModItems.TRAFFIC_CONTROLLER.get());
+			output.accept(ModItems.TRAFFIC_LINKER.get());
 		})
 		.build());
 

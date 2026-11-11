@@ -2,6 +2,8 @@ package de.bausteinchen.railwaysystems.registry;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockItem;
+import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockItem;
+import de.bausteinchen.railwaysystems.traffic.TrafficLinkerItem;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -34,5 +36,16 @@ public class ModItems {
 		() -> new LinkedSignalBlockItem(ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get(), new Item.Properties()));
 
 	public static final DeferredItem<BlockItem> SIGNAL_MAST = ITEMS.registerSimpleBlockItem(ModBlocks.SIGNAL_MAST);
+
+	public static final DeferredItem<TrafficLightBlockItem> TRAFFIC_MAST = ITEMS.register("ampel_mast",
+		() -> new TrafficLightBlockItem(ModBlocks.TRAFFIC_MAST.get(), new Item.Properties()));
+
+	public static final DeferredItem<TrafficLightBlockItem> PEDESTRIAN_LIGHT = ITEMS.register("fussgaengerampel",
+		() -> new TrafficLightBlockItem(ModBlocks.PEDESTRIAN_LIGHT.get(), new Item.Properties()));
+
+	public static final DeferredItem<BlockItem> TRAFFIC_CONTROLLER = ITEMS.registerSimpleBlockItem(ModBlocks.TRAFFIC_CONTROLLER);
+
+	public static final DeferredItem<TrafficLinkerItem> TRAFFIC_LINKER = ITEMS.register("ampel_programmierer",
+		() -> new TrafficLinkerItem(new Item.Properties()));
 
 }

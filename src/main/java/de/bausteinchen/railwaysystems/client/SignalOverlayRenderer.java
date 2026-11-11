@@ -151,7 +151,7 @@ public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalB
 		};
 	}
 
-	private static void draw(PoseStack ms, VertexConsumer consumer, BlockState state, ResourceLocation location,
+	public static void draw(PoseStack ms, VertexConsumer consumer, BlockState state, ResourceLocation location,
 		int light, int overlay) {
 		BakedModel model = Minecraft.getInstance()
 			.getModelManager()

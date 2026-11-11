@@ -2,7 +2,7 @@
 
 **English** | [Deutsch](README.de.md)
 
-An addon for [Create](https://github.com/Creators-of-Create/Create) that brings modern railway systems to Minecraft. It starts with **German light signals** (H/V, Ks and Sh) and their supplementary signals (Zs1, Zs2, Zs2v, Zs3, Zs3v, Zs6, Zs7, Zs8), which display the state of Create's train signals the way the real ones do.
+An addon for [Create](https://github.com/Creators-of-Create/Create) that brings modern railway systems to Minecraft. It starts with **German light signals** (H/V, Ks and Sh) and their supplementary signals (Zs1, Zs2, Zs2v, Zs3, Zs3v, Zs6, Zs7, Zs8), which display the state of Create's train signals the way the real ones do, plus **traffic lights** with a configurable arm and a programmable controller.
 
 ## Requirements
 
@@ -98,6 +98,43 @@ Left and right are as seen from behind. Right-clicking with the wrench outside t
 - **Zs2v:** Distant signals announce the letter the next main signal's Zs2 is currently showing. If several following signals show different letters, the Zs2v stays dark.
 - **Cross-system:** H/V and Ks signals announce each other. An H/V Hp2 counts as 40 km/h, and a Ks Zs3 makes H/V distant signals show Vr2. With several following signals, the lowest speed is announced.
 
+### Traffic lights
+
+| Block / item | Description |
+|---|---|
+| Traffic light mast with arm | Mast with a curved bend and an arm over the road, vehicle signal head (red, yellow, green) at the end of the arm and optionally on the pole. Height and reach are configurable |
+| Pedestrian light | Red/green with pedestrian symbol. Put signal masts underneath to raise it |
+| Traffic light controller | Cabinet that switches the linked traffic lights according to a signal timing plan |
+| Traffic light programmer | Tool for linking traffic lights to a controller |
+
+**Placing a traffic light mast**
+
+1. Hold the traffic light mast and **click into the air**. In the menu, set the pole height (3–12), reach (2–16), the side of the arm and the signal head on the pole. A sketch shows the shape and the clearance.
+2. Aim at a block: an outline shows pole, arm and signal heads (red if there is no room for the pole). **Right-click** places the mast with this shape. The signal heads face the player, the arm points to the player's left or right.
+3. To change it later, use the **wrench** on the mast to open the same menu.
+
+The vertical pole is made of blocks (collision, clickable). The bend, arm and signal heads above it are only rendered and have no collision. Breaking any part of the pole removes the whole mast.
+
+**Stopping trains:** Like the railway signals, a traffic light can be linked to a Create signal by right-clicking it before placing, e.g. on a phantom track used for road vehicles. While the light shows red, red-yellow or yellow it holds that Create signal at stop and trains wait in front of it. Without a link the light only displays its aspect.
+
+**Linking traffic lights**
+
+1. Right-click the controller with the traffic light programmer.
+2. Right-click the traffic lights one after another (any part of a mast works). Each light goes into the first group of its kind (vehicle or pedestrian); if there is none yet, one is created. Clicking a linked light again unlinks it.
+3. Click into the air to finish.
+
+While a controller is selected, it and all linked lights are outlined, colored by signal group.
+
+**Signal timing plan** (right-click the controller)
+
+- **Timing:** cycle time, yellow time, red-yellow time and intergreen time. Each signal group has a name, a kind (vehicle/pedestrian) and a green window ("green … until", in seconds). A window may wrap around the end of the cycle. The controller adds yellow after green and red-yellow before it for vehicle groups; pedestrian lights go straight from green to red. The timeline shows the sequence: left-click sets the green start, right-click the green end. Shift-click on −/+ changes by 5.
+- **Conflicts:** matrix of conflicting groups that must never be green at the same time. If their green windows overlap or are closer than the intergreen time, the menu shows a warning.
+- **Lights:** all linked lights with their position. Click to change the group (shift-click goes backwards), "Unlink" removes the light.
+
+Changes apply when you click **Save**. **Redstone** on the controller switches to night mode: vehicle lights flash yellow, pedestrian lights are off, linked Create signals stay open.
+
+Example intersection, 60 s cycle: K1 (main road) green 0–25, K2 (side road) green 30–52, F1 (pedestrians parallel to K1) green 0–20. Mark K1/K2 and K2/F1 as conflicting in the matrix.
+
 ## Development
 
 Requires JDK 21 and Python 3.10+ with Pillow (`pip install pillow`).
@@ -169,7 +206,9 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/                              Shared base: linking, block entity, mounting, mast
   signal/hv/                           H/V and Sh signals
   signal/ks/                           Ks signals
-  client/                              Overlay renderers for indicators (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, identification light)
+  traffic/                             Traffic lights: mast, pedestrian light, controller, signal timing plan
+  network/                             Menu packets (client -> server)
+  client/                              Overlay renderer for indicators, traffic light renderer, menus, outlines
 tools/generate_assets.py               Asset generator
 tools/models/                          Custom Blockbench models and textures (optional)
 ```

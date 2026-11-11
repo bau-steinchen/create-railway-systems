@@ -5,6 +5,8 @@ import java.util.function.Supplier;
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 import de.bausteinchen.railwaysystems.signal.SignalLinkBlockEntity;
+import de.bausteinchen.railwaysystems.traffic.TrafficControllerBlockEntity;
+import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockEntity;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,5 +31,14 @@ public class ModBlockEntities {
 		() -> BlockEntityType.Builder.of(SignalLinkBlockEntity::new,
 			ModBlocks.HV_HAUPTSIGNAL.get(), ModBlocks.HV_KOMBISIGNAL.get(), ModBlocks.KS_HAUPTSIGNAL.get(),
 			ModBlocks.KS_MEHRABSCHNITTSSIGNAL.get()).build(null));
+
+	@SuppressWarnings("DataFlowIssue")
+	public static final Supplier<BlockEntityType<TrafficLightBlockEntity>> TRAFFIC_LIGHT = BLOCK_ENTITIES.register("traffic_light",
+		() -> BlockEntityType.Builder.of(TrafficLightBlockEntity::new,
+			ModBlocks.TRAFFIC_MAST.get(), ModBlocks.PEDESTRIAN_LIGHT.get()).build(null));
+
+	@SuppressWarnings("DataFlowIssue")
+	public static final Supplier<BlockEntityType<TrafficControllerBlockEntity>> TRAFFIC_CONTROLLER = BLOCK_ENTITIES.register("traffic_controller",
+		() -> BlockEntityType.Builder.of(TrafficControllerBlockEntity::new, ModBlocks.TRAFFIC_CONTROLLER.get()).build(null));
 
 }

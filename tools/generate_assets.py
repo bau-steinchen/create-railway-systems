@@ -657,6 +657,7 @@ def generate_models():
 def generate_data():
     blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "ks_hauptsignal",
               "ks_vorsignal", "ks_mehrabschnittssignal", "signal_mast"]
+    blocks += ["ampel_mast", "fussgaengerampel", "ampel_steuergeraet"]
     for b in blocks:
         conditions = [{"condition": "minecraft:survives_explosion"}]
         if b in TALL_BLOCKS:
@@ -669,7 +670,197 @@ def generate_data():
                        "conditions": conditions}],
         })
     write_json(DATA / "minecraft/tags/block/mineable/pickaxe.json",
-               {"values": [f"{MOD_ID}:{b}" for b in blocks]})
+               {"values": [f"{MOD_ID}:{b}" for b in blocks + ["ampel_mast_schaft"]]})
+
+
+# --- Straßenampeln ---
+# Mastschaft und Fuß sind Blockmodelle; Bogen, Ausleger und Signalgeber zeichnet der TrafficMastRenderer aus
+# den Teilmodellen unter block/traffic/ (Rohr von einem Block Länge, das er dreht und streckt).
+
+TRAFFIC_TEXTURES = {
+    "particle": tex("traffic_mast"),
+    "mast": tex("traffic_mast"),
+    "screen": tex("signal_screen"),
+    "backplate": tex("traffic_backplate"),
+    "lamp_off": tex("lamp_off"),
+    "lamp_red": tex("lamp_red"),
+    "lamp_yellow": tex("lamp_yellow"),
+    "lamp_green": tex("lamp_green"),
+    "lamp_yellow_blink": tex("lamp_yellow_blink"),
+}
+# Kfz-Signalgeber: Lampe -> Unterkante (px); Lampen 4 px groß, Rot oben
+KFZ_LAMPS = {"red": 11, "yellow": 6, "green": 1}
+PED_LAMPS = {"red": 9, "green": 2}  # Fußgängerampel, Lampen 6 px groß
+
+
+def traffic_model(elements, **textures):
+    return {"parent": "block/block", "textures": {**TRAFFIC_TEXTURES, **textures},
+            "elements": [{k: v for k, v in e.items() if k != "name"} for e in with_uvs(elements)]}
+
+
+def kfz_head():
+    """Signalgeber ohne Lampen: Gehäuse, Schuten, Kontrastblende und Halter nach oben zum Ausleger."""
+    elements = [box([5, 0, 4], [11, 16, 7], "#screen"),
+                box([3, -0.5, 7], [13, 16.5, 7.5], "#screen", north="#backplate"),
+                box([7, 16, 7], [9, 20, 9], "#mast")]
+    for y in KFZ_LAMPS.values():
+        elements.append(box([5.5, y + 4, 2], [10.5, y + 4.5, 4], "#screen"))
+    return elements
+
+
+def kfz_lamp(color, texture):
+    y = KFZ_LAMPS[color]
+    element = box([6, y, 3.5], [10, y + 4, 4], "#screen", north=texture)
+    return [glow(element) if texture != "#lamp_off" else element]
+
+
+def pedestrian_elements(aspect):
+    elements = [box([6.5, 0, 6.5], [9.5, 1, 9.5], "#signal_mast"),
+                box([4, 1, 5], [12, 16, 10], "#screen")]
+    for color, y in PED_LAMPS.items():
+        lit = aspect == color
+        texture = f"#ped_{color}_{'on' if lit else 'off'}"
+        lamp_box = box([5, y, 4.5], [11, y + 6, 5], "#screen", north=texture)
+        elements.append(glow(lamp_box) if lit else lamp_box)
+        elements.append(box([4.5, y + 6, 4], [11.5, y + 6.5, 5], "#screen"))
+    return elements
+
+
+def generate_traffic():
+    shutil.rmtree(ASSETS / "models/block/traffic", ignore_errors=True)
+    folder = ASSETS / "models/block/traffic"
+    write_json(folder / "beam.json", traffic_model([box([0, -2, -2], [16, 2, 2], "#mast")]))
+    write_json(folder / "end_cap.json", traffic_model([box([-0.25, -2.5, -2.5], [0.75, 2.5, 2.5], "#mast")]))
+    write_json(folder / "kfz_head.json", traffic_model(kfz_head()))
+    for color in KFZ_LAMPS:
+        write_json(folder / f"kfz_{color}_off.json", traffic_model(kfz_lamp(color, "#lamp_off")))
+        write_json(folder / f"kfz_{color}_on.json", traffic_model(kfz_lamp(color, f"#lamp_{color}")))
+    write_json(folder / "kfz_yellow_blink.json", traffic_model(kfz_lamp("yellow", "#lamp_yellow_blink")))
+
+    pole = box([6, 0, 6], [10, 16, 10], "#mast")
+    write_json(ASSETS / "models/block/ampel_mast_schaft.json", traffic_model([pole]))
+    write_json(ASSETS / "models/block/ampel_mast.json",
+               traffic_model([box([4.5, 0, 4.5], [11.5, 1, 11.5], "#mast"), pole]))
+    write_json(ASSETS / "blockstates/ampel_mast.json",
+               {"variants": {"": {"model": f"{MOD_ID}:block/ampel_mast"}}})
+    write_json(ASSETS / "blockstates/ampel_mast_schaft.json",
+               {"variants": {"": {"model": f"{MOD_ID}:block/ampel_mast_schaft"}}})
+
+    ped_textures = {f"ped_{c}_{s}": tex(f"ped_{c}_{s}") for c in PED_LAMPS for s in ("on", "off")}
+    for aspect in ("off", "red", "green"):
+        write_json(ASSETS / f"models/block/fussgaengerampel_{aspect}.json",
+                   traffic_model(pedestrian_elements(aspect), signal_mast=tex("signal_mast"),
+                                 particle=tex("signal_screen"), **ped_textures))
+    write_json(ASSETS / "blockstates/fussgaengerampel.json",
+               variants([("aspect", ["off", "red", "green"])], lambda s: f"fussgaengerampel_{s['aspect']}"))
+
+    cabinet = [box([1.5, 0, 2.5], [14.5, 1, 12.5], "#concrete"),
+               box([2, 1, 3], [14, 15, 12], "#cabinet", north="#cabinet_front")]
+    write_json(ASSETS / "models/block/ampel_steuergeraet.json",
+               traffic_model(cabinet, concrete=tex("concrete"), cabinet=tex("traffic_cabinet"),
+                             cabinet_front=tex("traffic_cabinet_front"), particle=tex("traffic_cabinet")))
+    write_json(ASSETS / "blockstates/ampel_steuergeraet.json",
+               variants([], lambda s: "ampel_steuergeraet"))
+
+    write_json(ASSETS / "models/item/fussgaengerampel.json", {"parent": f"{MOD_ID}:block/fussgaengerampel_green"})
+    write_json(ASSETS / "models/item/ampel_steuergeraet.json", {"parent": f"{MOD_ID}:block/ampel_steuergeraet"})
+    for item in ("ampel_mast", "ampel_programmierer"):
+        write_json(ASSETS / "models/item" / f"{item}.json",
+                   {"parent": "item/generated", "textures": {"layer0": f"{MOD_ID}:item/{item}"}})
+
+
+def save_item(img, name):
+    path = ASSETS / "textures/item" / f"{name}.png"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        with Image.open(path) as old:
+            if old.size == img.size and old.convert("RGBA").tobytes() == img.convert("RGBA").tobytes():
+                return
+    img.save(path)
+
+
+def generate_traffic_textures(lamp_img, off, colors):
+    mast = Image.new("RGBA", (16, 16))
+    for x in range(16):
+        for y in range(16):
+            v = 168 + (x * 7 + y * 3) % 4 * 3
+            mast.putpixel((x, y), (v - 4, v, v + 4, 255))
+    save(mast, "traffic_mast")
+
+    # Kontrastblende: schwarz mit weißem Rand
+    plate = Image.new("RGBA", (16, 16), (16, 16, 18, 255))
+    ImageDraw.Draw(plate).rectangle([0, 0, 15, 15], outline=(235, 235, 235, 255))
+    save(plate, "traffic_backplate")
+
+    r, g, b = colors["yellow"]
+    blink = Image.new("RGBA", (16, 32))
+    blink.paste(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255),
+                         (min(255, r + 120), min(255, g + 120), min(255, b + 120), 255)), (0, 0))
+    blink.paste(off, (0, 16))
+    save(blink, "lamp_yellow_blink")
+    write_json(ASSETS / "textures/block/lamp_yellow_blink.png.mcmeta", {"animation": {"frametime": 16}})
+
+    # Fußgängersinnbilder: Rot stehend, Grün gehend (Pixelmännchen auf schwarzem Grund)
+    standing = ["0000001100000000", "0000001100000000", "0000000000000000", "0000011110000000",
+                "0000111111000000", "0001011110100000", "0001011110100000", "0001011110100000",
+                "0000011110000000", "0000011110000000", "0000010010000000", "0000010010000000",
+                "0000010010000000", "0000010010000000", "0000110011000000", "0000000000000000"]
+    walking = ["0000000110000000", "0000000110000000", "0000000000000000", "0000001111000000",
+               "0000011111100000", "0000101111010000", "0001001111001000", "0000001111000100",
+               "0000001111000000", "0000010001000000", "0000100000100000", "0000100000010000",
+               "0001000000010000", "0001000000001000", "0011000000001100", "0000000000000000"]
+    for color, rows, on in (("red", standing, (255, 45, 35)), ("green", walking, (60, 255, 120))):
+        for state, fill in (("on", on), ("off", tuple(c // 5 + 30 for c in on))):
+            img = Image.new("RGBA", (16, 16), (14, 14, 16, 255))
+            for y, row in enumerate(rows):
+                for x, bit in enumerate(row):
+                    if bit == "1":
+                        img.putpixel((x + 1, y), (*fill, 255))
+            save(img, f"ped_{color}_{state}")
+
+    cabinet = Image.new("RGBA", (16, 16))
+    for x in range(16):
+        for y in range(16):
+            v = 150 + (x * 3 + y * 5) % 4 * 2
+            cabinet.putpixel((x, y), (v - 10, v - 2, v - 6, 255))
+    save(cabinet, "traffic_cabinet")
+    front = cabinet.copy()
+    d = ImageDraw.Draw(front)
+    d.rectangle([1, 1, 14, 14], outline=(105, 112, 108, 255))  # Tür
+    d.line([(8, 2), (8, 13)], fill=(105, 112, 108, 255))  # zwei Flügel
+    d.rectangle([6, 7, 6, 9], fill=(60, 60, 60, 255))  # Griffe
+    d.rectangle([10, 7, 10, 9], fill=(60, 60, 60, 255))
+    for y in (3, 5):
+        d.line([(3, y), (6, y)], fill=(110, 118, 112, 255))  # Lüftung
+        d.line([(10, y), (13, y)], fill=(110, 118, 112, 255))
+    save(front, "traffic_cabinet_front")
+
+    # Item-Bilder
+    icon = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(icon)
+    grey, dark = (190, 196, 202, 255), (110, 116, 122, 255)
+    d.rectangle([11, 4, 12, 14], fill=grey)
+    d.rectangle([9, 14, 14, 15], fill=dark)
+    d.point([(10, 3), (11, 3)], fill=grey)
+    d.rectangle([2, 2, 10, 2], fill=grey)
+    d.point([(10, 2), (11, 2)], fill=grey)
+    d.rectangle([3, 3, 3, 3], fill=dark)
+    d.rectangle([2, 4, 4, 11], fill=(20, 20, 22, 255))
+    for y, c in ((5, (230, 40, 30)), (7, (240, 190, 30)), (9, (40, 220, 90))):
+        d.point([(3, y)], fill=(*c, 255))
+    save_item(icon, "ampel_mast")
+
+    tool = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(tool)
+    d.line([(11, 0), (11, 3)], fill=(60, 60, 64, 255))
+    d.rectangle([4, 3, 12, 15], fill=(235, 180, 40, 255), outline=(120, 85, 20, 255))
+    d.rectangle([5, 4, 11, 8], fill=(18, 22, 26, 255))
+    d.line([(6, 5), (8, 5)], fill=(220, 50, 40, 255))
+    d.line([(6, 6), (9, 6)], fill=(240, 190, 30, 255))
+    d.line([(6, 7), (10, 7)], fill=(40, 210, 90, 255))
+    for x, y in ((6, 10), (8, 10), (10, 10), (6, 12), (8, 12), (10, 12)):
+        d.point([(x, y)], fill=(70, 70, 74, 255))
+    save_item(tool, "ampel_programmierer")
 
 
 # --- Eigene Modelle aus Blockbench (tools/models/<block>.json, Format "Java Block/Item") ---
@@ -1068,6 +1259,7 @@ def generate_textures():
     for name, (r, g, b) in colors.items():
         save(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255),
                       (min(255, r + 120), min(255, g + 120), min(255, b + 120), 255)), f"lamp_{name}")
+    generate_traffic_textures(lamp_img, off, colors)
 
 
 if __name__ == "__main__":
@@ -1078,6 +1270,7 @@ if __name__ == "__main__":
     generate_models()
     generate_ks()
     generate_overlays()
+    generate_traffic()
     generate_data()
     generate_textures()
     copy_bb_textures()
