@@ -1,6 +1,10 @@
 package de.bausteinchen.railwaysystems.registry;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.crossing.CrossingBarrierBlock;
+import de.bausteinchen.railwaysystems.crossing.CrossingControllerBlock;
+import de.bausteinchen.railwaysystems.crossing.CrossingLightBlock;
+import de.bausteinchen.railwaysystems.crossing.StAndrewsCrossBlock;
 import de.bausteinchen.railwaysystems.signal.SignalMastBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvHauptsignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.FormHauptsignalBlock;
@@ -80,6 +84,23 @@ public class ModBlocks {
 
 	public static final DeferredBlock<TrafficControllerBlock> TRAFFIC_CONTROLLER =
 		BLOCKS.register("ampel_steuergeraet", () -> new TrafficControllerBlock(signalProperties()));
+
+	// --- Bahnübergang ---
+
+	public static final DeferredBlock<StAndrewsCrossBlock> ANDREASKREUZ =
+		BLOCKS.register("andreaskreuz", () -> new StAndrewsCrossBlock(signalProperties()));
+
+	public static final DeferredBlock<CrossingLightBlock> BUE_LICHTZEICHEN =
+		BLOCKS.register("bue_lichtzeichen", () -> new CrossingLightBlock(signalProperties()));
+
+	public static final DeferredBlock<CrossingLightBlock> BUE_BLINKLICHT =
+		BLOCKS.register("bue_blinklicht", () -> new CrossingLightBlock.Blinker(signalProperties()));
+
+	public static final DeferredBlock<CrossingBarrierBlock> BUE_SCHRANKE =
+		BLOCKS.register("bue_schranke", () -> new CrossingBarrierBlock(signalProperties()));
+
+	public static final DeferredBlock<CrossingControllerBlock> BUE_STEUERUNG =
+		BLOCKS.register("bue_steuerung", () -> new CrossingControllerBlock(signalProperties()));
 
 	private static BlockBehaviour.Properties signalProperties() {
 		return BlockBehaviour.Properties.of()

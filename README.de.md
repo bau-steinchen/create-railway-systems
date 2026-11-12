@@ -153,6 +153,34 @@ Solange ein Steuergerät ausgewählt ist, sind es und alle verbundenen Ampeln um
 
 Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtung) Grün 30–52, F1 (Fußgänger parallel zu K1) Grün 0–20. In der Matrix K1/K2 und K2/F1 als feindlich markieren.
 
+### Bahnübergänge
+
+| Block | Beschreibung |
+|---|---|
+| Andreaskreuz | Zeichen 201 auf einem kurzen Mast |
+| Bahnübergangs-Lichtzeichen (Gelb/Rot) | Beim Einschalten 3 s Gelb, danach Dauerrot |
+| Bahnübergangs-Blinklicht | Einzelnes rotes Licht, das im eingeschalteten Zustand blinkt |
+| Bahnübergangs-Schranke | Antrieb mit rot-weißem Baum, der über die Straße schwenkt |
+| Bahnübergangs-Steuerung | Schaltkasten, der herannahende Züge erkennt und den Bahnübergang schaltet |
+
+Die Lichter sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
+
+**Schranke:** Wird wie die Lichter geschaltet (Redstone oder Funkverbindung hinten am Gehäuse). Nach dem Einschalten wartet sie 5 s (Gelb- und Rotphase der Lichter) und senkt den Baum dann innerhalb von 6 s; beim Ausschalten hebt sie ihn sofort. Mit dem Schraubenschlüssel stellt das Wertefeld oben die Baumlänge ein (2–8 Blöcke), ein Klick auf die Vorderseite des Gehäuses setzt den Baum auf die andere Seite, jede andere Seite dreht die Schranke. Während sich der Baum senkt, schlägt das Läutewerk (abschaltbar mit `crossingBell` in der Server-Config). Der Baum wird nur gezeichnet und hat noch keine Kollision.
+
+**Automatische Zugerkennung:** Mit der Bahnübergangs-Steuerung das Gleis am Bahnübergang anklicken (wie beim Create-Gleisbeobachter) und den Kasten dann neben das Gleis setzen. Die Steuerung beobachtet das Gleis in beide Richtungen und schaltet ein, sobald ein Zug bei seiner aktuellen Geschwindigkeit den Bahnübergang innerhalb der Vorwarnzeit (Standard 20 s) erreichen würde oder ein Zug auf dem Bahnübergang steht. Ausgeschaltet wird 2 s, nachdem der letzte Wagen vorbei ist und kein weiterer Zug kommt. Ein Zug, der vor dem Bahnübergang hält (z. B. an einem Signal), gibt ihn wieder frei und schaltet ihn beim Anfahren erneut ein. Einmal eingeschaltet bleibt der Bahnübergang mindestens geschlossen, bis die Schranken unten sind, und ein Zug, der sich innerhalb von 100 Blöcken langsam nähert, hält ihn geschlossen.
+
+**Richtungsfilter:** Mit dem Schraubenschlüssel schaltet das Wertefeld oben auf der Steuerung zwischen *beide Richtungen* und *nur in Pfeilrichtung* um. Mit Filter zeigt die Markierung auf dem Gleis einen Pfeil wie bei einem Create-Signal; nur Züge, die in diese Richtung fahren, schalten den Bahnübergang ein (z. B. bei zweigleisigen Strecken mit Richtungsbetrieb). Die Pfeilrichtung wird wie bei Create-Signalen beim Anklicken des Gleises festgelegt.
+
+**Signale:** Mit dem Ampel-Programmierer die Steuerung anklicken, danach Create-Signale. Jeder Klick auf ein Signal schaltet weiter: *Deckungssignal* → *Straßensignal* → getrennt.
+- **Deckungssignale** stehen am Gleis vor dem Bahnübergang. Sie zeigen vom Einschalten an Halt, bis der Bahnübergang gesichert ist (Schranken unten, etwa 11,5 s). Ein zu schneller Zug hält dort, statt in den sich schließenden Bahnübergang zu fahren. Die Vorwarnzeit sollte deshalb deutlich über 12 s liegen.
+- **Straßensignale** sind Create-Signale auf einer Straße aus Phantom-Gleisen. Sie bleiben rot, solange der Bahnübergang geschlossen ist und bis die Schranken wieder oben sind; Straßenfahrzeuge warten so vor dem Bahnübergang.
+
+Die Goggles zeigen den Zustand der Steuerung (offen, schließt, gesichert) und die gebundenen Signale.
+
+Eingeschaltet sendet die Steuerung auf der Frequenz ihrer eingebauten Funkverbindung (Sender, zwei Felder hinten) und gibt Redstone aus. Lichter und Schranken des Bahnübergangs auf dieselbe Frequenz stellen. Bei mehreren Gleisen je Gleis eine Steuerung auf derselben Frequenz setzen.
+
+Verfolgt wird nur verbundenes Gleis, nie Kreuzungen mit anderen Gleisen: Fahrzeuge auf einer Straße aus Phantom-Gleisen, die die Bahn kreuzt, werden nicht erkannt. Vorwarnzeit und Suchweite (Standard 600 Blöcke) stehen in der Server-Config (`crossingWarningTime`, `crossingScanDistance`).
+
 ## Entwicklung
 
 Benötigt JDK 21 und Python 3.10+ mit Pillow (`pip install pillow`).
@@ -228,6 +256,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
   traffic/                             Straßenampeln: Mast, Fußgängerampel, Steuergerät, Signalzeitenplan
+  crossing/                            Bahnübergänge: Andreaskreuz, Lichter, Schranke, Steuerung, Zugerkennung
   network/                             Pakete der Menüs (Client -> Server)
   client/                              Overlay-Renderer für Zusatzanzeigen, Ampel-Renderer, Menüs, Umrisse
 tools/generate_assets.py               Asset-Generator
@@ -237,6 +266,7 @@ tools/models/                          Eigene Blockbench-Modelle und Texturen (o
 ## Geplant
 
 - Bessere Texturen
+- Bahnübergänge: Kollision der Schranke, Kopplung mit dem Ampel-Steuergerät, Montage an Masten
 
 ## Lizenz
 
