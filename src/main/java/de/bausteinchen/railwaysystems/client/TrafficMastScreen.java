@@ -18,8 +18,9 @@ import net.minecraft.util.Mth;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 /**
- * Menü für Höhe, Ausladung und Seite eines Ampelmastes. Gespeichert wird beim Schließen: für das Item
- * in der Hand oder, mit Position, für einen platzierten Mast.
+ * Menü für Höhe, Ausladung und Seite eines Peitschenmastes, dazu beim Ampelmast der Signalgeber am Mast
+ * und beim Zebrastreifen-Mast die Höhe des Schildes. Gespeichert wird beim Schließen: für das Item in der
+ * Hand oder, mit Position, für einen platzierten Mast.
  */
 public class TrafficMastScreen extends Screen {
 
@@ -30,17 +31,21 @@ public class TrafficMastScreen extends Screen {
 	@Nullable
 	private final BlockPos pos;
 	private final MastConfig original;
+	private final boolean crosswalk;
 	private int mastHeight;
 	private int reach;
 	private boolean right;
 	private boolean mastHead;
+	private int signHeight;
 	private int left;
 	private int top;
 
-	public TrafficMastScreen(@Nullable BlockPos pos, MastConfig config) {
-		super(Component.translatable(KEY + "title"));
+	public TrafficMastScreen(@Nullable BlockPos pos, MastConfig config, boolean crosswalk) {
+		super(Component.translatable(KEY + (crosswalk ? "title_crosswalk" : "title")));
 		this.pos = pos;
 		this.original = config;
+		this.crosswalk = crosswalk;
+		signHeight = config.signHeight();
 		mastHeight = config.height();
 		reach = config.reach();
 		right = config.right();
@@ -52,7 +57,10 @@ public class TrafficMastScreen extends Screen {
 		left = (width - WIDTH) / 2;
 		top = (height - HEIGHT) / 2;
 		int x = left + 90;
-		spinner(x, top + 26, -1, () -> mastHeight = Mth.clamp(mastHeight - 1, MastConfig.MIN_HEIGHT, MastConfig.MAX_HEIGHT));
+		spinner(x, top + 26, -1, () -> {
+			mastHeight = Mth.clamp(mastHeight - 1, MastConfig.MIN_HEIGHT, MastConfig.MAX_HEIGHT);
+			signHeight = Math.min(signHeight, MastConfig.maxSignHeight(mastHeight));
+		});
 		spinner(x + 46, top + 26, 1, () -> mastHeight = Mth.clamp(mastHeight + 1, MastConfig.MIN_HEIGHT, MastConfig.MAX_HEIGHT));
 		spinner(x, top + 48, -1, () -> reach = Mth.clamp(reach - 1, MastConfig.MIN_REACH, MastConfig.MAX_REACH));
 		spinner(x + 46, top + 48, 1, () -> reach = Mth.clamp(reach + 1, MastConfig.MIN_REACH, MastConfig.MAX_REACH));
@@ -62,12 +70,18 @@ public class TrafficMastScreen extends Screen {
 		})
 			.bounds(x, top + 70, 60, 16)
 			.build());
-		addRenderableWidget(Button.builder(Component.translatable(KEY + (mastHead ? "yes" : "no")), b -> {
-			mastHead = !mastHead;
-			rebuildWidgets();
-		})
-			.bounds(x, top + 92, 60, 16)
-			.build());
+		if (crosswalk) {
+			spinner(x, top + 92, -1, () -> signHeight = Mth.clamp(signHeight - 1, MastConfig.MIN_SIGN_HEIGHT,
+				MastConfig.maxSignHeight(mastHeight)));
+			spinner(x + 46, top + 92, 1, () -> signHeight = Mth.clamp(signHeight + 1, MastConfig.MIN_SIGN_HEIGHT,
+				MastConfig.maxSignHeight(mastHeight)));
+		} else
+			addRenderableWidget(Button.builder(Component.translatable(KEY + (mastHead ? "yes" : "no")), b -> {
+				mastHead = !mastHead;
+				rebuildWidgets();
+			})
+				.bounds(x, top + 92, 60, 16)
+				.build());
 		addRenderableWidget(Button.builder(Component.translatable(KEY + "done"), b -> onClose())
 			.bounds(left + 10, top + HEIGHT - 26, 140, 18)
 			.build());
@@ -86,7 +100,9 @@ public class TrafficMastScreen extends Screen {
 		label(graphics, "height", top + 30);
 		label(graphics, "reach", top + 52);
 		label(graphics, "side", top + 74);
-		label(graphics, "mast_head", top + 96);
+		label(graphics, crosswalk ? "sign_height" : "mast_head", top + 96);
+		if (crosswalk)
+			value(graphics, signHeight, top + 96);
 		value(graphics, mastHeight, top + 30);
 		value(graphics, reach, top + 52);
 		drawSketch(graphics, left + 165, top + 20, 125, 120);
@@ -142,10 +158,24 @@ public class TrafficMastScreen extends Screen {
 		int tip = poleX + dir * (int) (reach * scale);
 		g.fill(Math.min(armStart, tip + dir * thick), armY - thick / 2, Math.max(armStart, tip + dir * thick),
 			armY - thick / 2 + thick, 0xFFB4BAC0);
-		drawHead(g, tip, armY + thick / 2, scale);
-		if (mastHead)
-			drawHead(g, poleX, ground - (int) (2 * scale), scale);
-		String text = Component.translatable(KEY + "clearance", mastHeight + radius - 1.25).getString();
+		double clearance;
+		if (crosswalk) {
+			// Leuchte (12 px) am Ausleger, Schild (10 px) vorn am Mast
+			int lamp = Math.max(6, (int) (scale * 0.75));
+			g.fill(tip - lamp / 2, armY, tip + lamp / 2 + 1, armY + lamp, 0xFF1F5FB4);
+			g.fill(tip - lamp / 2, armY + lamp, tip + lamp / 2 + 1, armY + lamp + 1, 0xFFFFF2C0);
+			int sign = Math.max(5, (int) (scale * 10 / 16));
+			int signBottom = ground - (int) (signHeight * scale);
+			g.fill(poleX - sign / 2, signBottom - sign, poleX - sign / 2 + sign, signBottom, 0xFF1F5FB4);
+			g.renderOutline(poleX - sign / 2, signBottom - sign, sign, sign, 0xFFFFFFFF);
+			clearance = mastHeight + radius - 1;
+		} else {
+			drawHead(g, tip, armY + thick / 2, scale);
+			if (mastHead)
+				drawHead(g, poleX, ground - (int) (2 * scale), scale);
+			clearance = mastHeight + radius - 1.25;
+		}
+		String text = Component.translatable(KEY + "clearance", clearance).getString();
 		g.drawString(font, text, x + 3, y + 3, 0x9AA4AE);
 	}
 
@@ -164,7 +194,7 @@ public class TrafficMastScreen extends Screen {
 	@Override
 	public void removed() {
 		super.removed();
-		MastConfig config = new MastConfig(mastHeight, reach, right, mastHead);
+		MastConfig config = new MastConfig(mastHeight, reach, right, mastHead, signHeight).clamped();
 		if (!config.equals(original) || pos == null)
 			PacketDistributor.sendToServer(new MastConfigPayload(Optional.ofNullable(pos), config));
 	}

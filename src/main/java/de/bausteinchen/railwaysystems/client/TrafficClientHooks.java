@@ -14,11 +14,12 @@ import net.minecraft.core.BlockPos;
 public class TrafficClientHooks {
 
 	/**
-	 * @param pos platzierter Mast, oder null für das Item in der Hand
+	 * @param pos       platzierter Mast, oder null für das Item in der Hand
+	 * @param crosswalk Zebrastreifen-Mast (Schildhöhe statt Ampel am Mast)
 	 */
-	public static void openMastScreen(@Nullable BlockPos pos, MastConfig config) {
+	public static void openMastScreen(@Nullable BlockPos pos, MastConfig config, boolean crosswalk) {
 		Minecraft.getInstance()
-			.setScreen(new TrafficMastScreen(pos, config));
+			.setScreen(new TrafficMastScreen(pos, config, crosswalk));
 	}
 
 	public static void openControllerScreen(BlockPos pos) {

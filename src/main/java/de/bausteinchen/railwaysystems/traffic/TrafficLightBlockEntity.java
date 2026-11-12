@@ -19,6 +19,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -40,7 +41,13 @@ public class TrafficLightBlockEntity extends SmartBlockEntity {
 	private MastConfig config = MastConfig.DEFAULT;
 
 	public TrafficLightBlockEntity(BlockPos pos, BlockState state) {
-		super(ModBlockEntities.TRAFFIC_LIGHT.get(), pos, state);
+		this(ModBlockEntities.TRAFFIC_LIGHT.get(), pos, state);
+	}
+
+	protected TrafficLightBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
+		if (state.getBlock() instanceof AbstractMastBlock mast)
+			config = mast.defaultConfig();
 	}
 
 	@Override
@@ -140,12 +147,12 @@ public class TrafficLightBlockEntity extends SmartBlockEntity {
 
 	@Override
 	protected AABB createRenderBoundingBox() {
-		if (!(getBlockState().getBlock() instanceof TrafficMastBlock))
+		if (!(getBlockState().getBlock() instanceof AbstractMastBlock))
 			return super.createRenderBoundingBox();
 		// Ausleger reicht in jede Richtung bis zur Ausladung; Bogen und Ampel ragen über den Mast hinaus
 		int reach = config.reach() + 1;
 		return new AABB(worldPosition).inflate(reach, 0, reach)
-			.expandTowards(0, config.height() + TrafficMastBlock.BEND_RADIUS + 1, 0);
+			.expandTowards(0, config.height() + AbstractMastBlock.BEND_RADIUS + 1, 0);
 	}
 
 	@Override
@@ -163,7 +170,9 @@ public class TrafficLightBlockEntity extends SmartBlockEntity {
 		super.read(tag, registries, clientPacket);
 		targetOffset = tag.contains("TargetOffset") ? NBTHelper.readBlockPos(tag, "TargetOffset") : null;
 		controllerOffset = tag.contains("ControllerOffset") ? NBTHelper.readBlockPos(tag, "ControllerOffset") : null;
-		MastConfig newConfig = MastConfig.read(tag.getCompound("Mast"));
+		MastConfig fallback = getBlockState().getBlock() instanceof AbstractMastBlock mast ? mast.defaultConfig()
+			: MastConfig.DEFAULT;
+		MastConfig newConfig = MastConfig.read(tag.getCompound("Mast"), fallback);
 		if (!newConfig.equals(config)) {
 			config = newConfig;
 			if (clientPacket)

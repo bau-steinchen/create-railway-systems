@@ -657,7 +657,7 @@ def generate_models():
 def generate_data():
     blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "ks_hauptsignal",
               "ks_vorsignal", "ks_mehrabschnittssignal", "signal_mast"]
-    blocks += ["ampel_mast", "fussgaengerampel", "ampel_steuergeraet"]
+    blocks += ["ampel_mast", "zebrastreifen_mast", "fussgaengerampel", "ampel_steuergeraet"]
     for b in blocks:
         conditions = [{"condition": "minecraft:survives_explosion"}]
         if b in TALL_BLOCKS:
@@ -726,6 +726,37 @@ def pedestrian_elements(aspect):
     return elements
 
 
+def sign_faces(element, texture, sides=("north", "south")):
+    """Ganze Schildtextur auf die angegebenen Seiten; die übrigen Flächen behalten die Gehäusefarbe."""
+    for side in sides:
+        element["faces"][side] = {"texture": texture, "uv": [0, 0, 16, 16]}
+    return element
+
+
+def panel(frm, to, faces):
+    """Flaches Element, das nur die angegebenen Flächen zeichnet (Leuchtflächen vor dem Gehäuse)."""
+    return glow({"from": frm, "to": to, "faces": {f: {"texture": t, "uv": [0, 0, 16, 16]} for f, t in faces.items()}})
+
+
+def zebra_lamp(lit):
+    """Hamburger Zebrastreifenleuchte: Kasten unter dem Ausleger, vorn und hinten Zeichen 350, unten der
+    Strahler für den Überweg. Unbeleuchtet nur das Gehäuse; die eingeschaltete Fassung legt Leuchtflächen
+    knapp davor."""
+    if lit:
+        return [panel([2.5, 0.5, 3.95], [13.5, 11.5, 4], {"north": "#zebra_sign_lit"}),
+                panel([2.5, 0.5, 12], [13.5, 11.5, 12.05], {"south": "#zebra_sign_lit"}),
+                panel([3, -0.05, 5], [13, 0, 11], {"down": "#zebra_light_on"})]
+    housing = sign_faces(box([2, 0, 4], [14, 12, 12], "#mast"), "#zebra_sign")
+    housing["faces"]["down"] = {"texture": "#zebra_light_off", "uv": [0, 0, 16, 16]}
+    return [housing, box([7, 12, 7], [9, 16, 9], "#mast")]
+
+
+def zebra_sign():
+    """Flaches Zeichen 350 vorn am Mastschaft (Schaft 6..10 px) mit zwei Schellen."""
+    plate = sign_faces(box([3, 0, 4.75], [13, 10, 5.25], "#mast"), "#zebra_sign", ("north",))
+    return [plate, box([5.5, 2, 5.25], [10.5, 3, 10.5], "#mast"), box([5.5, 7, 5.25], [10.5, 8, 10.5], "#mast")]
+
+
 def generate_traffic():
     shutil.rmtree(ASSETS / "models/block/traffic", ignore_errors=True)
     folder = ASSETS / "models/block/traffic"
@@ -736,12 +767,19 @@ def generate_traffic():
         write_json(folder / f"kfz_{color}_off.json", traffic_model(kfz_lamp(color, "#lamp_off")))
         write_json(folder / f"kfz_{color}_on.json", traffic_model(kfz_lamp(color, f"#lamp_{color}")))
     write_json(folder / "kfz_yellow_blink.json", traffic_model(kfz_lamp("yellow", "#lamp_yellow_blink")))
+    zebra = {name: tex(name) for name in ("zebra_sign", "zebra_sign_lit", "zebra_light_on", "zebra_light_off")}
+    write_json(folder / "zebra_lamp.json", traffic_model(zebra_lamp(False), **zebra))
+    write_json(folder / "zebra_lamp_on.json", traffic_model(zebra_lamp(True), **zebra))
+    write_json(folder / "zebra_sign.json", traffic_model(zebra_sign(), **zebra))
 
     pole = box([6, 0, 6], [10, 16, 10], "#mast")
     write_json(ASSETS / "models/block/ampel_mast_schaft.json", traffic_model([pole]))
     write_json(ASSETS / "models/block/ampel_mast.json",
                traffic_model([box([4.5, 0, 4.5], [11.5, 1, 11.5], "#mast"), pole]))
     write_json(ASSETS / "blockstates/ampel_mast.json",
+               {"variants": {"": {"model": f"{MOD_ID}:block/ampel_mast"}}})
+    # Zebrastreifen-Mast: gleicher Fuß; Leuchte und Schild zeichnet der Renderer
+    write_json(ASSETS / "blockstates/zebrastreifen_mast.json",
                {"variants": {"": {"model": f"{MOD_ID}:block/ampel_mast"}}})
     write_json(ASSETS / "blockstates/ampel_mast_schaft.json",
                {"variants": {"": {"model": f"{MOD_ID}:block/ampel_mast_schaft"}}})
@@ -764,9 +802,70 @@ def generate_traffic():
 
     write_json(ASSETS / "models/item/fussgaengerampel.json", {"parent": f"{MOD_ID}:block/fussgaengerampel_green"})
     write_json(ASSETS / "models/item/ampel_steuergeraet.json", {"parent": f"{MOD_ID}:block/ampel_steuergeraet"})
-    for item in ("ampel_mast", "ampel_programmierer"):
+    for item in ("ampel_mast", "zebrastreifen_mast", "ampel_programmierer"):
         write_json(ASSETS / "models/item" / f"{item}.json",
                    {"parent": "item/generated", "textures": {"layer0": f"{MOD_ID}:item/{item}"}})
+
+
+def zebra_sign_img(size, blue):
+    """Zeichen 350 (Fußgängerüberweg): blaues Quadrat mit weißem Rand, weißes Dreieck, darin ein
+    Fußgänger auf dem Zebrastreifen. Groß gezeichnet und verkleinert, damit die Kanten weich werden."""
+    s = 128
+    img = Image.new("RGBA", (s, s), (*blue, 255))
+    d = ImageDraw.Draw(img)
+    d.rectangle([3, 3, s - 4, s - 4], outline=(255, 255, 255, 255), width=4)
+    d.polygon([(64, 14), (14, 108), (114, 108)], fill=(255, 255, 255, 255))
+    black = (20, 20, 22, 255)
+    # Zebrastreifen: schräge Balken am Fuß des Dreiecks
+    for i in range(5):
+        x = 34 + i * 13
+        d.polygon([(x, 88), (x + 7, 88), (x + 3, 102), (x - 4, 102)], fill=black)
+    # Fußgänger, nach rechts gehend
+    d.ellipse([60, 32, 72, 44], fill=black)
+    d.line([(65, 47), (61, 70)], fill=black, width=8)
+    d.line([(64, 52), (54, 64)], fill=black, width=5)
+    d.line([(65, 52), (75, 61)], fill=black, width=5)
+    d.line([(61, 69), (51, 86)], fill=black, width=6)
+    d.line([(62, 69), (73, 84)], fill=black, width=6)
+    return img.resize((size, size), Image.LANCZOS)
+
+
+def generate_zebra_textures():
+    save(zebra_sign_img(32, (0, 84, 166)), "zebra_sign")
+    save(zebra_sign_img(32, (40, 140, 255)), "zebra_sign_lit")
+    for name, base in (("zebra_light_on", (255, 246, 214)), ("zebra_light_off", (88, 90, 94))):
+        img = Image.new("RGBA", (16, 16), (*base, 255))
+        d = ImageDraw.Draw(img)
+        # Streuscheibe mit feinem Raster
+        grid = tuple(max(0, c - 22) for c in base)
+        for i in range(1, 16, 3):
+            d.line([(i, 0), (i, 15)], fill=(*grid, 255))
+        d.rectangle([0, 0, 15, 15], outline=(70, 72, 76, 255))
+        save(img, name)
+
+    icon = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    d = ImageDraw.Draw(icon)
+    grey, dark = (190, 196, 202, 255), (110, 116, 122, 255)
+    d.rectangle([11, 4, 12, 14], fill=grey)
+    d.rectangle([9, 14, 14, 15], fill=dark)
+    d.point([(10, 3), (11, 3)], fill=grey)
+    d.rectangle([2, 2, 10, 2], fill=grey)
+    d.point([(10, 2), (11, 2)], fill=grey)
+    d.point([(4, 3)], fill=dark)
+    blue, white, black = (30, 105, 210, 255), (250, 250, 250, 255), (25, 25, 28, 255)
+    # Leuchte: blaues Feld mit weißem Dreieck und Fußgänger, darunter der Strahler
+    d.rectangle([1, 4, 7, 10], fill=blue)
+    d.point([(4, 5)], fill=white)
+    d.line([(3, 6), (5, 6)], fill=white)
+    d.line([(3, 7), (5, 7)], fill=white)
+    d.line([(2, 8), (6, 8)], fill=white)
+    d.line([(2, 9), (6, 9)], fill=white)
+    d.point([(4, 6), (4, 7), (3, 8), (5, 8)], fill=black)
+    d.line([(2, 11), (6, 11)], fill=(255, 236, 170, 255))
+    # Schild am Mast
+    d.rectangle([8, 9, 10, 11], fill=blue)
+    d.point([(9, 10)], fill=white)
+    save_item(icon, "zebrastreifen_mast")
 
 
 def save_item(img, name):
@@ -834,6 +933,8 @@ def generate_traffic_textures(lamp_img, off, colors):
         d.line([(3, y), (6, y)], fill=(110, 118, 112, 255))  # Lüftung
         d.line([(10, y), (13, y)], fill=(110, 118, 112, 255))
     save(front, "traffic_cabinet_front")
+
+    generate_zebra_textures()
 
     # Item-Bilder
     icon = Image.new("RGBA", (16, 16), (0, 0, 0, 0))

@@ -6,8 +6,7 @@ import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.registry.ModDataComponents;
 import de.bausteinchen.railwaysystems.traffic.MastConfig;
 import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockEntity;
-import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockItem;
-import de.bausteinchen.railwaysystems.traffic.TrafficMastBlock;
+import de.bausteinchen.railwaysystems.traffic.AbstractMastBlock;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -18,6 +17,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -49,7 +49,7 @@ public record MastConfigPayload(Optional<BlockPos> pos, MastConfig config) imple
 				.isEmpty()) {
 				for (InteractionHand hand : InteractionHand.values()) {
 					ItemStack stack = player.getItemInHand(hand);
-					if (stack.getItem() instanceof TrafficLightBlockItem item && item.getBlock() instanceof TrafficMastBlock) {
+					if (stack.getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractMastBlock) {
 						stack.set(ModDataComponents.MAST_CONFIG.get(), config);
 						return;
 					}
@@ -63,9 +63,9 @@ public record MastConfigPayload(Optional<BlockPos> pos, MastConfig config) imple
 			if (!level.isLoaded(pos) || player.distanceToSqr(pos.getCenter()) > 64
 				|| !(level.getBlockEntity(pos) instanceof TrafficLightBlockEntity be)
 				|| !(be.getBlockState()
-					.getBlock() instanceof TrafficMastBlock))
+					.getBlock() instanceof AbstractMastBlock))
 				return;
-			if (!TrafficMastBlock.placePole(level, pos, config.height())) {
+			if (!AbstractMastBlock.placePole(level, pos, config.height())) {
 				player.displayClientMessage(Component.translatable(RailwaySystems.MOD_ID + ".traffic_mast.no_space")
 					.withStyle(ChatFormatting.RED), true);
 				return;

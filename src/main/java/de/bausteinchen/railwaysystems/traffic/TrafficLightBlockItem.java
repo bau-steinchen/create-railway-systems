@@ -43,8 +43,8 @@ public class TrafficLightBlockItem extends ClickToLinkBlockItem {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!isMast())
 			return super.use(level, player, hand);
-		if (level.isClientSide && FMLEnvironment.dist == Dist.CLIENT)
-			TrafficClientHooks.openMastScreen(null, TrafficMastBlock.getConfig(stack));
+		if (level.isClientSide && FMLEnvironment.dist == Dist.CLIENT && getBlock() instanceof TrafficMastBlock mast)
+			TrafficClientHooks.openMastScreen(null, mast.getConfig(stack), false);
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
 	}
 
@@ -73,8 +73,8 @@ public class TrafficLightBlockItem extends ClickToLinkBlockItem {
 	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
 		super.appendHoverText(stack, context, tooltip, flag);
 		String prefix = RailwaySystems.MOD_ID + ".traffic_light.tooltip.";
-		if (isMast()) {
-			MastConfig config = TrafficMastBlock.getConfig(stack);
+		if (getBlock() instanceof TrafficMastBlock mast) {
+			MastConfig config = mast.getConfig(stack);
 			tooltip.add(Component.translatable(prefix + "config", config.height(), config.reach(),
 					Component.translatable(prefix + (config.right() ? "right" : "left")))
 				.withStyle(ChatFormatting.GOLD));

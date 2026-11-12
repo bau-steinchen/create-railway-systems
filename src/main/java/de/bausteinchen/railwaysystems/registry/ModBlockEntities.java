@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 import de.bausteinchen.railwaysystems.signal.SignalLinkBlockEntity;
+import de.bausteinchen.railwaysystems.traffic.CrosswalkMastBlockEntity;
 import de.bausteinchen.railwaysystems.traffic.TrafficControllerBlockEntity;
 import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockEntity;
 
@@ -36,6 +37,11 @@ public class ModBlockEntities {
 	public static final Supplier<BlockEntityType<TrafficLightBlockEntity>> TRAFFIC_LIGHT = BLOCK_ENTITIES.register("traffic_light",
 		() -> BlockEntityType.Builder.of(TrafficLightBlockEntity::new,
 			ModBlocks.TRAFFIC_MAST.get(), ModBlocks.PEDESTRIAN_LIGHT.get()).build(null));
+
+	/** Zebrastreifen-Mast; eigener Typ wegen der eingebauten Funkverbindung */
+	@SuppressWarnings("DataFlowIssue")
+	public static final Supplier<BlockEntityType<CrosswalkMastBlockEntity>> CROSSWALK_MAST = BLOCK_ENTITIES.register("crosswalk_mast",
+		() -> BlockEntityType.Builder.of(CrosswalkMastBlockEntity::new, ModBlocks.CROSSWALK_MAST.get()).build(null));
 
 	@SuppressWarnings("DataFlowIssue")
 	public static final Supplier<BlockEntityType<TrafficControllerBlockEntity>> TRAFFIC_CONTROLLER = BLOCK_ENTITIES.register("traffic_controller",

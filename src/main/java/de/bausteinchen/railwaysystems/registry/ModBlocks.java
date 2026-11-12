@@ -9,6 +9,7 @@ import de.bausteinchen.railwaysystems.signal.hv.ShSperrsignalBlock;
 import de.bausteinchen.railwaysystems.signal.ks.KsHauptsignalBlock;
 import de.bausteinchen.railwaysystems.signal.ks.KsMehrabschnittssignalBlock;
 import de.bausteinchen.railwaysystems.signal.ks.KsVorsignalBlock;
+import de.bausteinchen.railwaysystems.traffic.CrosswalkMastBlock;
 import de.bausteinchen.railwaysystems.traffic.PedestrianLightBlock;
 import de.bausteinchen.railwaysystems.traffic.TrafficControllerBlock;
 import de.bausteinchen.railwaysystems.traffic.TrafficMastBlock;
@@ -56,6 +57,9 @@ public class ModBlocks {
 	/** Mastschaft über dem Fußblock; hat kein Item und droppt nichts */
 	public static final DeferredBlock<TrafficMastPoleBlock> TRAFFIC_MAST_POLE =
 		BLOCKS.register("ampel_mast_schaft", () -> new TrafficMastPoleBlock(signalProperties().noLootTable()));
+
+	public static final DeferredBlock<CrosswalkMastBlock> CROSSWALK_MAST =
+		BLOCKS.register("zebrastreifen_mast", () -> new CrosswalkMastBlock(signalProperties()));
 
 	public static final DeferredBlock<PedestrianLightBlock> PEDESTRIAN_LIGHT =
 		BLOCKS.register("fussgaengerampel", () -> new PedestrianLightBlock(signalProperties()));

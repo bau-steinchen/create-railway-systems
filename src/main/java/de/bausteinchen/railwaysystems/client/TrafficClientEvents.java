@@ -7,6 +7,7 @@ import java.util.Set;
 import com.simibubi.create.content.trains.signal.SignalBlockEntity;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.traffic.AbstractMastBlock;
 import de.bausteinchen.railwaysystems.traffic.MastConfig;
 import de.bausteinchen.railwaysystems.traffic.TrafficControllerBlockEntity;
 import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockEntity;
@@ -21,6 +22,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -49,23 +51,23 @@ public class TrafficClientEvents {
 		if (player == null || mc.level == null || mc.screen != null)
 			return;
 		ItemStack stack = player.getMainHandItem();
-		if (stack.getItem() instanceof TrafficLightBlockItem item && item.getBlock() instanceof TrafficMastBlock)
-			showPlacementPreview(mc, player, stack);
+		if (stack.getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractMastBlock mast)
+			showPlacementPreview(mc, player, stack, mast);
 		else if (stack.getItem() instanceof TrafficLinkerItem)
 			showLinks(mc.level, stack);
 	}
 
-	private static void showPlacementPreview(Minecraft mc, LocalPlayer player, ItemStack stack) {
+	private static void showPlacementPreview(Minecraft mc, LocalPlayer player, ItemStack stack, AbstractMastBlock mast) {
 		if (!(mc.hitResult instanceof BlockHitResult hit) || hit.getType() != HitResult.Type.BLOCK)
 			return;
 		ClientLevel level = mc.level;
 		BlockPos clicked = hit.getBlockPos();
 		// beim Binden an ein Create-Signal keine Vorschau
-		if (level.getBlockEntity(clicked) instanceof SignalBlockEntity)
+		if (stack.getItem() instanceof TrafficLightBlockItem && level.getBlockEntity(clicked) instanceof SignalBlockEntity)
 			return;
 		BlockPos pos = level.getBlockState(clicked)
 			.canBeReplaced() ? clicked : clicked.relative(hit.getDirection());
-		MastConfig config = TrafficMastBlock.getConfig(stack);
+		MastConfig config = mast.getConfig(stack);
 		Direction facing = player.getDirection()
 			.getOpposite();
 
@@ -77,7 +79,7 @@ public class TrafficClientEvents {
 		int color = free ? 0x9AC8FF : 0xFF5050;
 
 		for (int i = 0; i < 4; i++) {
-			AABB box = previewBoxes(pos, facing, config)[i];
+			AABB box = previewBoxes(pos, facing, config, mast.isCrosswalk())[i];
 			if (box != null)
 				Outliner.getInstance()
 					.showAABB("traffic_mast_preview_" + i, box)
@@ -87,15 +89,22 @@ public class TrafficClientEvents {
 	}
 
 	/**
-	 * Mastschaft, Ausleger, Signalgeber am Auslegerende und (falls vorhanden) Signalgeber am Mast.
+	 * Mastschaft, Ausleger, Signalgeber bzw. Leuchte am Auslegerende und (falls vorhanden) Signalgeber
+	 * bzw. Schild am Mast.
 	 */
-	public static AABB[] previewBoxes(BlockPos pos, Direction facing, MastConfig config) {
+	public static AABB[] previewBoxes(BlockPos pos, Direction facing, MastConfig config, boolean crosswalk) {
 		double side = config.right() ? -1 : 1;
-		double armY = config.height() + TrafficMastBlock.BEND_RADIUS;
+		double armY = config.height() + AbstractMastBlock.BEND_RADIUS;
 		double tipX = 0.5 + side * config.reach();
 		double px = 2 / 16.0;
 		AABB pole = box(pos, facing, 0.5 - px, 0, 0.5 - px, 0.5 + px, config.height(), 0.5 + px);
 		AABB arm = box(pos, facing, 0.5, config.height(), 0.5 - px, tipX + side * 3 / 16.0, armY + px, 0.5 + px);
+		if (crosswalk) {
+			AABB lamp = box(pos, facing, tipX - 6 / 16.0, armY - 1, 4 / 16.0, tipX + 6 / 16.0, armY, 12 / 16.0);
+			AABB sign = box(pos, facing, 3 / 16.0, config.signHeight(), 4.75 / 16, 13 / 16.0, config.signHeight() + 10 / 16.0,
+				6 / 16.0);
+			return new AABB[] { pole, arm, lamp, sign };
+		}
 		AABB head = box(pos, facing, tipX - 3 / 16.0, armY - 1.25, 2 / 16.0, tipX + 3 / 16.0, armY, 0.5);
 		AABB mastHead = config.mastHead() ? box(pos, facing, 5 / 16.0, 1.25, 0.5 / 16, 11 / 16.0, 2.25, 6 / 16.0) : null;
 		return new AABB[] { pole, arm, head, mastHead };

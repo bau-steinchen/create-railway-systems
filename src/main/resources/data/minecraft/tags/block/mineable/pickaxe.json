@@ -9,6 +9,7 @@
     "create_railway_systems:ks_mehrabschnittssignal",
     "create_railway_systems:signal_mast",
     "create_railway_systems:ampel_mast",
+    "create_railway_systems:zebrastreifen_mast",
     "create_railway_systems:fussgaengerampel",
     "create_railway_systems:ampel_steuergeraet",
     "create_railway_systems:ampel_mast_schaft"

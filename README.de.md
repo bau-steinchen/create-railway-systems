@@ -103,6 +103,7 @@ Links und rechts gelten von hinten gesehen. Ein Rechtsklick mit dem Schraubensch
 | Block / Item | Beschreibung |
 |---|---|
 | Ampelmast mit Ausleger | Peitschenmast mit Bogen und Ausleger über die Fahrbahn, Kfz-Signalgeber (Rot, Gelb, Grün) am Auslegerende und optional am Mast. Höhe und Ausladung einstellbar |
+| Zebrastreifen-Mast mit Leuchte | Gleicher Mast mit einer Zebrastreifenleuchte über der Fahrbahn (beidseitig Zeichen 350, darunter der Strahler, wie in Hamburg) und einem flachen Zeichen 350 am Mast. Höhe, Ausladung und Schildhöhe einstellbar; die Leuchte schaltet ein eingebauter Funkempfänger (Redstone Link) |
 | Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen |
 | Ampel-Steuergerät | Schaltschrank, der die verbundenen Ampeln nach einem Signalzeitenplan schaltet |
 | Ampel-Programmierer | Werkzeug zum Verbinden von Ampeln mit einem Steuergerät |
@@ -114,6 +115,8 @@ Links und rechts gelten von hinten gesehen. Ein Rechtsklick mit dem Schraubensch
 3. Nachträglich ändern: **Schraubenschlüssel** auf den Mast öffnet dasselbe Menü.
 
 Der senkrechte Mast besteht aus Blöcken (Kollision, anklickbar). Bogen, Ausleger und Signalgeber darüber werden nur gezeichnet und haben keine Kollision. Abbauen eines beliebigen Mastteils baut den ganzen Mast ab.
+
+**Zebrastreifen-Mast:** Aufstellen und Ändern wie beim Ampelmast; statt der Ampel am Mast stellt das Menü die Höhe des Schildes am Mast ein. Im Mastfuß steckt ein Redstone-Link-Empfänger, seine beiden Frequenzfelder sitzen hinten am Fuß. Solange auf der Frequenz ein Redstone-Signal ankommt, leuchtet die Zebrastreifenleuchte.
 
 **Züge anhalten:** Wie die Eisenbahnsignale lässt sich eine Ampel vor dem Platzieren per Rechtsklick an ein Create-Signal binden, z. B. auf einer Strecke aus Phantom-Gleisen für Straßenfahrzeuge. Zeigt die Ampel Rot, Rot-Gelb oder Gelb, hält sie dieses Create-Signal geschlossen, und Züge halten davor. Ohne Bindung zeigt die Ampel nur an.
 

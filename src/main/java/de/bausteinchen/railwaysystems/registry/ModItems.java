@@ -2,6 +2,7 @@ package de.bausteinchen.railwaysystems.registry;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockItem;
+import de.bausteinchen.railwaysystems.traffic.CrosswalkMastItem;
 import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockItem;
 import de.bausteinchen.railwaysystems.traffic.TrafficLinkerItem;
 
@@ -39,6 +40,9 @@ public class ModItems {
 
 	public static final DeferredItem<TrafficLightBlockItem> TRAFFIC_MAST = ITEMS.register("ampel_mast",
 		() -> new TrafficLightBlockItem(ModBlocks.TRAFFIC_MAST.get(), new Item.Properties()));
+
+	public static final DeferredItem<CrosswalkMastItem> CROSSWALK_MAST = ITEMS.register("zebrastreifen_mast",
+		() -> new CrosswalkMastItem(ModBlocks.CROSSWALK_MAST.get(), new Item.Properties()));
 
 	public static final DeferredItem<TrafficLightBlockItem> PEDESTRIAN_LIGHT = ITEMS.register("fussgaengerampel",
 		() -> new TrafficLightBlockItem(ModBlocks.PEDESTRIAN_LIGHT.get(), new Item.Properties()));

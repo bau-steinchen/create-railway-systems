@@ -43,7 +43,7 @@ public class TrafficMastPoleBlock extends Block implements IWrenchable, TrafficL
 			.is(ModBlocks.TRAFFIC_MAST_POLE.get()))
 			p = p.below();
 		return level.getBlockState(p)
-			.is(ModBlocks.TRAFFIC_MAST.get()) ? p : pos;
+			.getBlock() instanceof AbstractMastBlock ? p : pos;
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class TrafficMastPoleBlock extends Block implements IWrenchable, TrafficL
 	@Override
 	protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState,
 		LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-		if (direction == Direction.DOWN && !neighborState.is(this) && !neighborState.is(ModBlocks.TRAFFIC_MAST.get()))
+		if (direction == Direction.DOWN && !neighborState.is(this) && !(neighborState.getBlock() instanceof AbstractMastBlock))
 			return Blocks.AIR.defaultBlockState();
 		return state;
 	}
@@ -71,7 +71,8 @@ public class TrafficMastPoleBlock extends Block implements IWrenchable, TrafficL
 	@Override
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos,
 		Player player) {
-		return new ItemStack(ModBlocks.TRAFFIC_MAST.get());
+		BlockState base = level.getBlockState(findBase(level, pos));
+		return new ItemStack(base.getBlock() instanceof AbstractMastBlock ? base.getBlock() : ModBlocks.TRAFFIC_MAST.get());
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class TrafficMastPoleBlock extends Block implements IWrenchable, TrafficL
 		Level level = context.getLevel();
 		BlockPos base = findBase(level, context.getClickedPos());
 		BlockState baseState = level.getBlockState(base);
-		if (!(baseState.getBlock() instanceof TrafficMastBlock mast) || context.getPlayer() == null)
+		if (!(baseState.getBlock() instanceof AbstractMastBlock mast) || context.getPlayer() == null)
 			return InteractionResult.PASS;
 		UseOnContext baseContext = new UseOnContext(context.getPlayer(), context.getHand(),
 			new BlockHitResult(context.getClickLocation(), context.getClickedFace(), base, context.isInside()));

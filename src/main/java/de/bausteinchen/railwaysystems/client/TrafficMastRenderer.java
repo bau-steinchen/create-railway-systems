@@ -5,9 +5,11 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
+import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.traffic.AbstractMastBlock;
+import de.bausteinchen.railwaysystems.traffic.CrosswalkMastBlock;
 import de.bausteinchen.railwaysystems.traffic.MastConfig;
 import de.bausteinchen.railwaysystems.traffic.TrafficAspect;
 import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockEntity;
@@ -25,30 +27,36 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Zeichnet Bogen, Ausleger und Signalgeber eines Ampelmastes. Der Mastschaft selbst besteht aus
- * Blöcken mit eigenem Modell.
+ * Zeichnet Bogen, Ausleger und Anbauteile eines Peitschenmastes: beim Ampelmast die Signalgeber, beim
+ * Zebrastreifen-Mast Leuchte und Schild. Der Mastschaft selbst besteht aus Blöcken mit eigenem Modell.
+ * Die Frequenzfelder der Funkverbindung zeichnet der {@link SmartBlockEntityRenderer}.
  * <p>
  * Modellraum wie bei den Signalen: Signalgeber zeigen nach Norden; aus Sicht des Fahrers (blickt nach
  * Süden) ist links +x.
  */
-public class TrafficMastRenderer extends SafeBlockEntityRenderer<TrafficLightBlockEntity> {
+public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends SmartBlockEntityRenderer<T> {
 
 	public static final ResourceLocation BEAM = RailwaySystems.asResource("block/traffic/beam");
 	public static final ResourceLocation END_CAP = RailwaySystems.asResource("block/traffic/end_cap");
 	public static final ResourceLocation HEAD = RailwaySystems.asResource("block/traffic/kfz_head");
+	public static final ResourceLocation ZEBRA_LAMP = RailwaySystems.asResource("block/traffic/zebra_lamp");
+	public static final ResourceLocation ZEBRA_LAMP_ON = RailwaySystems.asResource("block/traffic/zebra_lamp_on");
+	public static final ResourceLocation ZEBRA_SIGN = RailwaySystems.asResource("block/traffic/zebra_sign");
 	private static final String[] LAMPS = { "red", "yellow", "green" };
 
 	/** Höhe des Halters über der Oberkante des Signalgebers, in Blöcken */
 	private static final double HEAD_HANGER = 4 / 16.0;
 	private static final int BEND_SEGMENTS = 8;
 
-	public TrafficMastRenderer(BlockEntityRendererProvider.Context context) {}
+	public TrafficMastRenderer(BlockEntityRendererProvider.Context context) {
+		super(context);
+	}
 
 	/**
 	 * Alle Modelle des Renderers, zum Registrieren beim Laden der Modelle.
 	 */
 	public static List<ResourceLocation> getModels() {
-		List<ResourceLocation> models = new java.util.ArrayList<>(List.of(BEAM, END_CAP, HEAD));
+		List<ResourceLocation> models = new java.util.ArrayList<>(List.of(BEAM, END_CAP, HEAD, ZEBRA_LAMP, ZEBRA_LAMP_ON, ZEBRA_SIGN));
 		for (String lamp : LAMPS) {
 			models.add(lamp(lamp, false));
 			models.add(lamp(lamp, true));
@@ -62,14 +70,13 @@ public class TrafficMastRenderer extends SafeBlockEntityRenderer<TrafficLightBlo
 	}
 
 	@Override
-	protected void renderSafe(TrafficLightBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
-		int light, int overlay) {
+	protected void renderSafe(T be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 		BlockState state = be.getBlockState();
-		if (!(state.getBlock() instanceof TrafficMastBlock) || be.getLevel() == null)
+		if (!(state.getBlock() instanceof AbstractMastBlock) || be.getLevel() == null)
 			return;
 		MastConfig config = be.getConfig();
-		Direction facing = state.getValue(TrafficMastBlock.FACING);
-		TrafficAspect aspect = state.getValue(TrafficMastBlock.ASPECT);
+		Direction facing = state.getValue(AbstractMastBlock.FACING);
 		VertexConsumer consumer = buffer.getBuffer(RenderType.cutout());
 
 		ms.pushPose();
@@ -78,7 +85,7 @@ public class TrafficMastRenderer extends SafeBlockEntityRenderer<TrafficLightBlo
 		ms.translate(-0.5, 0, -0.5);
 
 		double side = config.right() ? -1 : 1;
-		double radius = TrafficMastBlock.BEND_RADIUS;
+		double radius = AbstractMastBlock.BEND_RADIUS;
 		double poleTop = config.height();
 		double armY = poleTop + radius;
 
@@ -105,11 +112,27 @@ public class TrafficMastRenderer extends SafeBlockEntityRenderer<TrafficLightBlo
 		draw(ms, consumer, state, END_CAP, lightAt(be, facing, endX, armY), overlay);
 		ms.popPose();
 
-		// Signalgeber hängt mit dem Halter am Ausleger
-		head(be, ms, consumer, state, facing, aspect, tipX - 0.5, armY - 1 - HEAD_HANGER, 0, overlay);
-		if (config.mastHead())
-			// am Mast, etwas vor den Schaft gesetzt
-			head(be, ms, consumer, state, facing, aspect, 0, 1.25, -1.5 / 16, overlay);
+		if (state.getBlock() instanceof CrosswalkMastBlock) {
+			// Leuchte hängt mit dem Halter am Ausleger, Schild sitzt vorn am Schaft
+			boolean lit = state.getValue(CrosswalkMastBlock.LIT);
+			ms.pushPose();
+			ms.translate(tipX - 0.5, armY - 1, 0);
+			draw(ms, consumer, state, ZEBRA_LAMP, lightAt(be, facing, tipX, armY - 0.5), overlay);
+			if (lit)
+				draw(ms, consumer, state, ZEBRA_LAMP_ON, LightTexture.FULL_BRIGHT, overlay);
+			ms.popPose();
+			ms.pushPose();
+			ms.translate(0, config.signHeight(), 0);
+			draw(ms, consumer, state, ZEBRA_SIGN, lightAt(be, facing, 0.5, config.signHeight() + 0.3), overlay);
+			ms.popPose();
+		} else if (state.getBlock() instanceof TrafficMastBlock) {
+			TrafficAspect aspect = state.getValue(TrafficMastBlock.ASPECT);
+			// Signalgeber hängt mit dem Halter am Ausleger
+			head(be, ms, consumer, state, facing, aspect, tipX - 0.5, armY - 1 - HEAD_HANGER, 0, overlay);
+			if (config.mastHead())
+				// am Mast, etwas vor den Schaft gesetzt
+				head(be, ms, consumer, state, facing, aspect, 0, 1.25, -1.5 / 16, overlay);
+		}
 
 		ms.popPose();
 	}
