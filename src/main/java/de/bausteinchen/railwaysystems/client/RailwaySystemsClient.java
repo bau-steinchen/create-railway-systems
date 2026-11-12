@@ -21,6 +21,8 @@ public class RailwaySystemsClient {
 	public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerBlockEntityRenderer(ModBlockEntities.LINKED_SIGNAL.get(), SignalOverlayRenderer::new);
 		event.registerBlockEntityRenderer(ModBlockEntities.SIGNAL_LINK.get(), SmartBlockEntityRenderer::new);
+		event.registerBlockEntityRenderer(ModBlockEntities.TRAFFIC_LIGHT.get(), TrafficMastRenderer::new);
+		event.registerBlockEntityRenderer(ModBlockEntities.CROSSWALK_MAST.get(), TrafficMastRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -32,6 +34,8 @@ public class RailwaySystemsClient {
 						.forEach(location -> event.register(ModelResourceLocation.standalone(location)));
 			});
 		event.register(ModelResourceLocation.standalone(SignalOverlayRenderer.FORM_ARM));
+		TrafficMastRenderer.getModels()
+			.forEach(location -> event.register(ModelResourceLocation.standalone(location)));
 	}
 
 }

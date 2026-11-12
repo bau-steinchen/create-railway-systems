@@ -2,7 +2,7 @@
 
 [English](README.md) | **Deutsch**
 
-Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moderne Bahnsysteme in Minecraft bringt. Den Anfang machen **deutsche Lichtsignale** (H/V, Ks und Sh) mit Zusatzsignalen (Zs1, Zs2, Zs2v, Zs3, Zs3v, Zs6, Zs7, Zs8), die den Zustand der Create-Zugsignale vorbildgerecht anzeigen.
+Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moderne Bahnsysteme in Minecraft bringt. Den Anfang machen **deutsche Lichtsignale** (H/V, Ks und Sh) mit Zusatzsignalen (Zs1, Zs2, Zs2v, Zs3, Zs3v, Zs6, Zs7, Zs8), die den Zustand der Create-Zugsignale vorbildgerecht anzeigen, sowie **Straßenampeln** mit einstellbarem Ausleger und programmierbarem Steuergerät.
 
 ## Voraussetzungen
 
@@ -113,6 +113,46 @@ Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschl�
 - **Zs2v:** Vorsignale kündigen den Buchstaben an, den der Zs2 des nächsten Hauptsignals gerade zeigt. Führen mehrere Folgesignale unterschiedliche Buchstaben, bleibt der Zs2v dunkel.
 - **Systemübergreifend:** H/V- und Ks-Signale kündigen sich gegenseitig an. Ein H/V-Hp2 gilt als 40 km/h, ein Ks-Zs3 lässt H/V-Vorsignale Vr2 zeigen. Bei mehreren Folgesignalen wird die niedrigste Geschwindigkeit angekündigt.
 
+### Straßenampeln
+
+| Block / Item | Beschreibung |
+|---|---|
+| Ampelmast mit Ausleger | Peitschenmast mit Bogen und Ausleger über die Fahrbahn, Kfz-Signalgeber (Rot, Gelb, Grün) am Auslegerende und optional am Mast. Höhe und Ausladung einstellbar |
+| Zebrastreifen-Mast mit Leuchte | Gleicher Mast mit einer Zebrastreifenleuchte über der Fahrbahn (beidseitig Zeichen 350, darunter der Strahler, wie in Hamburg) und einem flachen Zeichen 350 am Mast. Höhe, Ausladung und Schildhöhe einstellbar; die Leuchte schaltet ein eingebauter Funkempfänger (Redstone Link) |
+| Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen |
+| Ampel-Steuergerät | Schaltschrank, der die verbundenen Ampeln nach einem Signalzeitenplan schaltet |
+| Ampel-Programmierer | Werkzeug zum Verbinden von Ampeln mit einem Steuergerät |
+
+**Ampelmast aufstellen**
+
+1. Den Ampelmast in die Hand nehmen und **in die Luft klicken**. Im Menü Masthöhe (3–12), Ausladung (2–16), Seite des Auslegers und den Signalgeber am Mast einstellen. Eine Skizze zeigt die Bauform und die Durchfahrtshöhe.
+2. Auf einen Block zielen: Ein Umriss zeigt Mast, Ausleger und Signalgeber (rot, wenn der Platz für den Mast fehlt). **Rechtsklick** platziert den Mast mit dieser Bauform. Die Signalgeber zeigen zum Spieler, der Ausleger aus seiner Sicht nach links bzw. rechts.
+3. Nachträglich ändern: **Schraubenschlüssel** auf den Mast öffnet dasselbe Menü.
+
+Der senkrechte Mast besteht aus Blöcken (Kollision, anklickbar). Bogen, Ausleger und Signalgeber darüber werden nur gezeichnet und haben keine Kollision. Abbauen eines beliebigen Mastteils baut den ganzen Mast ab.
+
+**Zebrastreifen-Mast:** Aufstellen und Ändern wie beim Ampelmast; statt der Ampel am Mast stellt das Menü die Höhe des Schildes am Mast ein. Im Mastfuß steckt ein Redstone-Link-Empfänger, seine beiden Frequenzfelder sitzen hinten am Fuß. Solange auf der Frequenz ein Redstone-Signal ankommt, leuchtet die Zebrastreifenleuchte.
+
+**Züge anhalten:** Wie die Eisenbahnsignale lässt sich eine Ampel vor dem Platzieren per Rechtsklick an ein Create-Signal binden, z. B. auf einer Strecke aus Phantom-Gleisen für Straßenfahrzeuge. Zeigt die Ampel Rot, Rot-Gelb oder Gelb, hält sie dieses Create-Signal geschlossen, und Züge halten davor. Ohne Bindung zeigt die Ampel nur an.
+
+**Ampeln verbinden**
+
+1. Mit dem Ampel-Programmierer das Steuergerät rechtsklicken.
+2. Nacheinander die Ampeln rechtsklicken (beim Mast geht jedes Mastteil). Jede Ampel kommt in die erste Gruppe ihrer Art (Kfz bzw. Fußgänger). Gibt es noch keine, wird eine angelegt. Nochmaliges Anklicken trennt die Ampel wieder.
+3. In die Luft klicken beendet das Verbinden.
+
+Solange ein Steuergerät ausgewählt ist, sind es und alle verbundenen Ampeln umrandet, farbig nach Signalgruppe.
+
+**Signalzeitenplan** (Rechtsklick auf das Steuergerät)
+
+- **Zeitenplan:** Umlaufzeit, Gelbzeit, Rot-Gelb-Zeit und Zwischenzeit. Je Signalgruppe ein Name, die Art (Kfz/Fuß) und das Grünfenster („Grün ab … bis“, in Sekunden). Ein Fenster darf über das Umlaufende hinausreichen. Gelb nach dem Grün und Rot-Gelb davor setzt das Steuergerät bei Kfz-Gruppen selbst ein, Fußgänger springen von Grün direkt auf Rot. Der Zeitbalken zeigt den Ablauf: Linksklick setzt den Grünbeginn, Rechtsklick das Grünende. Umschalt-Klick auf −/+ ändert um 5.
+- **Konflikte:** Matrix der feindlichen Gruppen, die nie gleichzeitig Grün haben dürfen. Überschneiden sich deren Grünzeiten oder liegen sie näher als die Zwischenzeit beieinander, zeigt das Menü eine Warnung.
+- **Ampeln:** Alle verbundenen Ampeln mit Position. Die Gruppe wechselt per Klick (Umschalt-Klick rückwärts), „Trennen“ entfernt die Ampel.
+
+Änderungen gelten mit **Speichern**. **Redstone** am Steuergerät schaltet auf Nachtbetrieb: Kfz-Ampeln blinken gelb, Fußgängerampeln sind aus, gebundene Create-Signale bleiben frei.
+
+Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtung) Grün 30–52, F1 (Fußgänger parallel zu K1) Grün 0–20. In der Matrix K1/K2 und K2/F1 als feindlich markieren.
+
 ## Entwicklung
 
 Benötigt JDK 21 und Python 3.10+ mit Pillow (`pip install pillow`).
@@ -187,7 +227,9 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
-  client/                              Overlay-Renderer für Zusatzanzeigen (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, Kennlicht)
+  traffic/                             Straßenampeln: Mast, Fußgängerampel, Steuergerät, Signalzeitenplan
+  network/                             Pakete der Menüs (Client -> Server)
+  client/                              Overlay-Renderer für Zusatzanzeigen, Ampel-Renderer, Menüs, Umrisse
 tools/generate_assets.py               Asset-Generator
 tools/models/                          Eigene Blockbench-Modelle und Texturen (optional)
 ```

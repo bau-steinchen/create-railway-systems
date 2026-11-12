@@ -30,6 +30,11 @@ public class ModCreativeTabs {
 			output.accept(ModItems.SIGNAL_MAST.get());
 			output.accept(ModItems.SIGNAL_MAST_LIGHT.get());
 			output.accept(ModItems.SIGNAL_MAST_LATTICE.get());
+			output.accept(ModItems.TRAFFIC_MAST.get());
+			output.accept(ModItems.CROSSWALK_MAST.get());
+			output.accept(ModItems.PEDESTRIAN_LIGHT.get());
+			output.accept(ModItems.TRAFFIC_CONTROLLER.get());
+			output.accept(ModItems.TRAFFIC_LINKER.get());
 		})
 		.build());
 

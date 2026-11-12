@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "create_railway_systems:item/zebrastreifen_mast"
+  }
+}
