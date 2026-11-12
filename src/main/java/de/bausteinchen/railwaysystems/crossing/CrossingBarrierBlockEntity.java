@@ -9,7 +9,9 @@ import com.simibubi.create.foundation.blockEntity.behaviour.CenteredSideValueBox
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 
+import de.bausteinchen.railwaysystems.Config;
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
+import de.bausteinchen.railwaysystems.registry.ModSounds;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.animation.LerpedFloat.Chaser;
 import net.minecraft.core.BlockPos;
@@ -17,13 +19,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 /**
  * Schrankenantrieb: Eingeschaltet (Redstone am Block oder Funkverbindung auf der Rückseite) senkt er den
  * Baum nach {@link #LOWER_DELAY_TICKS}, damit das Lichtzeichen erst Gelb und Rot zeigen kann; beim
- * Ausschalten hebt er ihn sofort. Der Winkel läuft auf Server und Client gleich mit, damit der Server
+ * Ausschalten hebt er ihn sofort. Bis der Baum unten ist, schlägt das Läutewerk. Der Winkel läuft auf Server und Client gleich mit, damit der Server
  * später wissen kann, wann die Schranke unten ist.
  */
 public class CrossingBarrierBlockEntity extends SmartBlockEntity {
@@ -32,6 +35,8 @@ public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 	public static final int LOWER_DELAY_TICKS = 100;
 	/** Dauer einer Bewegung zwischen offen und geschlossen: 6 s */
 	public static final int MOVE_TICKS = 120;
+	/** Abstand der Glockenschläge: 2 je Sekunde */
+	public static final int BELL_INTERVAL = 10;
 	public static final int MIN_LENGTH = 2, MAX_LENGTH = 8, DEFAULT_LENGTH = 4;
 	/** Baumwinkel in Grad: offen senkrecht, geschlossen waagerecht */
 	public static final float OPEN = 90, CLOSED = 0;
@@ -98,6 +103,12 @@ public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 				.startWithValue(target);
 		angle.chase(target, (OPEN - CLOSED) / MOVE_TICKS, Chaser.LINEAR);
 		angle.tickChaser();
+
+		// Läutewerk vom Einschalten, bis der Baum unten ist; Spielzeit statt eigenem Zähler, damit alle
+		// Schranken eines Übergangs im Gleichtakt schlagen
+		if (!level.isClientSide && activeTicks >= 0 && angle.getValue() > CLOSED + 0.01f
+			&& level.getGameTime() % BELL_INTERVAL == 0 && Config.CROSSING_BELL.get())
+			level.playSound(null, worldPosition, ModSounds.CROSSING_BELL.get(), SoundSource.BLOCKS, 0.8f, 1);
 	}
 
 	/** Baumwinkel in Grad (90 = offen, 0 = geschlossen) */

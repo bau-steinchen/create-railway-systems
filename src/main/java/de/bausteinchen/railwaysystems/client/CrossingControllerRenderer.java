@@ -40,7 +40,9 @@ public class CrossingControllerRenderer extends SmartBlockEntityRenderer<Crossin
 		TransformStack.of(ms)
 			.translate(targetPosition.subtract(be.getBlockPos()));
 		TrackTargetingBehaviour.render(level, targetPosition, target.getTargetDirection(), target.getTargetBezier(), ms,
-			buffer, light, overlay, RenderedTrackOverlayType.OBSERVER, 1);
+			buffer, light, overlay,
+			// mit Richtungsfilter zeigt der Signal-Pfeil, welche Fahrtrichtung beachtet wird
+			be.isArrowOnly() ? RenderedTrackOverlayType.SIGNAL : RenderedTrackOverlayType.OBSERVER, 1);
 		ms.popPose();
 	}
 

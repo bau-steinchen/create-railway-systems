@@ -4,8 +4,13 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.simibubi.create.content.trains.signal.SignalBlockEntity;
+
 import de.bausteinchen.railwaysystems.Config;
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.crossing.CrossingControllerBlock;
+import de.bausteinchen.railwaysystems.crossing.CrossingControllerBlockEntity;
+import de.bausteinchen.railwaysystems.crossing.CrossingControllerBlockEntity.SignalRole;
 import de.bausteinchen.railwaysystems.registry.ModDataComponents;
 
 import net.minecraft.ChatFormatting;
@@ -26,6 +31,9 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * Ampel-Programmierer: Rechtsklick auf ein Steuergerät wählt es aus, danach verbindet (oder trennt)
  * jeder Rechtsklick auf eine Ampel sie mit diesem Steuergerät. Ein Klick in die Luft beendet das Verbinden.
+ * <p>
+ * Ist eine Bahnübergangs-Steuerung ausgewählt, schaltet ein Rechtsklick auf ein Create-Signal dessen
+ * Rolle weiter: Deckungssignal → Straßensignal → nicht gebunden.
  */
 public class TrafficLinkerItem extends Item {
 
@@ -46,15 +54,20 @@ public class TrafficLinkerItem extends Item {
 		Player player = context.getPlayer();
 		ItemStack stack = context.getItemInHand();
 
-		if (state.getBlock() instanceof TrafficControllerBlock) {
+		if (state.getBlock() instanceof TrafficControllerBlock || state.getBlock() instanceof CrossingControllerBlock) {
 			if (!level.isClientSide) {
 				stack.set(ModDataComponents.SELECTED_CONTROLLER.get(), GlobalPos.of(level.dimension(), pos));
-				message(player, "selected", ChatFormatting.GREEN);
+				message(player, state.getBlock() instanceof CrossingControllerBlock ? "crossing_selected" : "selected",
+					ChatFormatting.GREEN);
 			}
 			return InteractionResult.sidedSuccess(level.isClientSide);
 		}
 
 		GlobalPos selected = getSelected(stack);
+		if (selected != null && selected.dimension() == level.dimension()
+			&& level.getBlockState(selected.pos())
+				.getBlock() instanceof CrossingControllerBlock)
+			return linkCrossingSignal(level, pos, player, stack, selected.pos());
 		if (!(state.getBlock() instanceof TrafficLight light))
 			// bei laufender Auswahl nichts tun, statt die Auswahl wie ein Klick in die Luft zu beenden
 			return selected != null ? InteractionResult.FAIL : InteractionResult.PASS;
@@ -106,6 +119,33 @@ public class TrafficLinkerItem extends Item {
 					.name();
 		player.displayClientMessage(Component.translatable(key("added"), name)
 			.withStyle(ChatFormatting.GREEN), true);
+		return InteractionResult.SUCCESS;
+	}
+
+	/**
+	 * Bahnübergangs-Steuerung ausgewählt: Create-Signal als Deckungs- oder Straßensignal binden.
+	 */
+	private InteractionResult linkCrossingSignal(Level level, BlockPos pos, @Nullable Player player, ItemStack stack,
+		BlockPos controllerPos) {
+		if (!(level.getBlockEntity(pos) instanceof SignalBlockEntity))
+			return InteractionResult.FAIL;
+		if (level.isClientSide)
+			return InteractionResult.SUCCESS;
+		if (!(level.getBlockEntity(controllerPos) instanceof CrossingControllerBlockEntity controller)) {
+			stack.remove(ModDataComponents.SELECTED_CONTROLLER.get());
+			message(player, "controller_missing", ChatFormatting.RED);
+			return InteractionResult.FAIL;
+		}
+		if (!pos.closerThan(controllerPos, Config.TRAFFIC_LINK_RANGE.get())) {
+			message(player, "too_far", ChatFormatting.RED);
+			return InteractionResult.FAIL;
+		}
+		SignalRole role = controller.cycleSignal(pos);
+		if (role == null)
+			message(player, "crossing_removed", ChatFormatting.YELLOW);
+		else
+			message(player, "crossing_" + role.name()
+				.toLowerCase(), ChatFormatting.GREEN);
 		return InteractionResult.SUCCESS;
 	}
 

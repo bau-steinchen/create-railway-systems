@@ -75,7 +75,7 @@
   "create_railway_systems.traffic_mast.screen.no": "no",
   "create_railway_systems.traffic_mast.screen.done": "Done",
   "create_railway_systems.traffic_mast.screen.clearance": "Clearance: %s blocks",
-  "create_railway_systems.traffic_linker.tooltip": "Right-click a controller, then the traffic lights. Click again to unlink. Click into the air to finish.",
+  "create_railway_systems.traffic_linker.tooltip": "Right-click a controller, then the traffic lights. Clicking again unlinks. With a level crossing controller selected, clicking a Create signal cycles: protecting signal, road signal, unbound. Click into the air to finish.",
   "create_railway_systems.traffic_linker.selected": "Controller selected: click traffic lights, click into the air to finish",
   "create_railway_systems.traffic_linker.no_controller": "Click a controller first",
   "create_railway_systems.traffic_linker.controller_missing": "Controller not found",
@@ -113,5 +113,18 @@
   "create_railway_systems.traffic_controller.screen.lights.empty": "No traffic lights linked. Link them with the Traffic Light Programmer.",
   "create_railway_systems.traffic_controller.screen.group": "Group %s",
   "create_railway_systems.traffic_controller.screen.unlink": "Unlink",
-  "create_railway_systems.traffic_controller.screen.conflicts.hint": "Click a cell to toggle. Applies in both directions."
+  "create_railway_systems.traffic_controller.screen.conflicts.hint": "Click a cell to toggle. Applies in both directions.",
+  "create_railway_systems.crossing_controller.direction": "Watched direction of travel",
+  "create_railway_systems.crossing_controller.direction.both": "Both directions",
+  "create_railway_systems.crossing_controller.direction.arrow": "Arrow direction only",
+  "create_railway_systems.crossing_controller.title": "Level crossing:",
+  "create_railway_systems.crossing_controller.status.off": "Open",
+  "create_railway_systems.crossing_controller.status.closing": "Closing",
+  "create_railway_systems.crossing_controller.status.secured": "Secured",
+  "create_railway_systems.crossing_controller.signals": "Protecting signals: %s, road signals: %s",
+  "create_railway_systems.traffic_linker.crossing_selected": "Crossing controller selected: click Create signals, click into the air to finish",
+  "create_railway_systems.traffic_linker.crossing_cover": "Bound as protecting signal (railway, red until the crossing is secured)",
+  "create_railway_systems.traffic_linker.crossing_road": "Bound as road signal (red while the crossing is closed)",
+  "create_railway_systems.traffic_linker.crossing_removed": "Signal unbound",
+  "create_railway_systems.subtitle.crossing_bell": "Level crossing bell rings"
 }

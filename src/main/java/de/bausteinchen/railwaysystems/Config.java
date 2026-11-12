@@ -24,6 +24,10 @@ public class Config {
 			"Sollte mindestens Vorwarnzeit x Höchstgeschwindigkeit der Züge sein.")
 		.defineInRange("crossingScanDistance", 600, 32, 4096);
 
+	public static final ModConfigSpec.BooleanValue CROSSING_BELL = BUILDER
+		.comment("Bahnübergang: Schranken läuten, während sie sich schließen")
+		.define("crossingBell", true);
+
 	public static final ModConfigSpec SPEC = BUILDER.build();
 
 }

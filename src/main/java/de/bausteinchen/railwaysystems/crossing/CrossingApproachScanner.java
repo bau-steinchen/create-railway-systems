@@ -31,7 +31,12 @@ import com.simibubi.create.content.trains.graph.TrackNode;
  * <li>er ihn gerade befährt (Wagen auf beiden Seiten) bzw. ein Drehgestell unmittelbar daran steht.</li>
  * </ul>
  * Ein Zug, der vor dem Übergang steht (z. B. vor einem Signal), zählt nicht; er schaltet ihn erst wieder
- * ein, wenn er anfährt.
+ * ein, wenn er anfährt. Ein Zug, der sich langsamer nähert, als es die Vorwarnzeit verlangt, schaltet
+ * nicht ein, hält einen bereits eingeschalteten Übergang aber offen, solange er nah genug ist
+ * ({@link Result#NEAR}); so bleibt der Übergang z. B. geschlossen, während ein Zug am Deckungssignal anfährt.
+ * <p>
+ * Mit Richtungsfilter zählen nur Züge, die in Pfeilrichtung des Gleispunkts fahren, also von Seite B
+ * (entgegen der Pfeilrichtung) kommen. Create legt den ersten Knoten des Punkts in Pfeilrichtung.
  */
 public class CrossingApproachScanner {
 
@@ -41,6 +46,18 @@ public class CrossingApproachScanner {
 	private static final double ON_CROSSING = 1.5;
 	/** Wegnetz nach so vielen Abfragen neu ablaufen, falls Gleise geändert wurden */
 	private static final int REBUILD_INTERVAL = 5;
+
+	/** Abstand (Blöcke), bis zu dem ein langsam nähernder Zug einen eingeschalteten Übergang offen hält */
+	public static final double KEEP_ALIVE_DISTANCE = 100;
+
+	public enum Result {
+		/** kein Zug, der den Übergang betrifft */
+		NONE,
+		/** Zug nähert sich langsam in der Nähe: nur eingeschaltet lassen */
+		NEAR,
+		/** einschalten */
+		TRIGGER
+	}
 
 	private record Reach(double distance, boolean sideA) {}
 
@@ -61,45 +78,47 @@ public class CrossingApproachScanner {
 	/**
 	 * @param warningTicks Vorwarnzeit: so lange vor Ankunft eines Zuges wird eingeschaltet
 	 * @param maxDistance  Höchstentfernung der Suche in Blöcken
-	 * @return ob ein Zug den Bahnübergang gerade einschaltet
+	 * @param arrowOnly    nur Züge in Pfeilrichtung des Gleispunkts beachten
 	 */
-	public boolean scan(@Nullable LevelCrossingPoint point, int warningTicks, double maxDistance) {
+	public Result scan(@Nullable LevelCrossingPoint point, int warningTicks, double maxDistance, boolean arrowOnly) {
 		TrackGraph current = point == null ? null : findGraph(point);
 		if (current == null) {
 			reset();
-			return false;
+			return Result.NONE;
 		}
 		if (current != graph || builtFor != maxDistance || age++ % REBUILD_INTERVAL == 0 || !isValid(current))
 			rebuild(current, point, maxDistance);
 		if (crossingEdge == null)
-			return false;
+			return Result.NONE;
 
-		boolean triggered = false;
+		Result result = Result.NONE;
 		Set<UUID> seen = new HashSet<>();
 		for (Train train : Create.RAILWAYS.trains.values()) {
 			if (train.graph != graph || train.derailed || train.invalid)
 				continue;
-			Double distance = trainDistance(train);
-			if (distance == null) {
-				lastDistance.remove(train.id);
+			Double distance = trainDistance(train, arrowOnly);
+			if (distance == null)
 				continue;
-			}
 			seen.add(train.id);
+			// alle Züge betrachten, damit lastDistance für jeden aktuell bleibt
+			Double previous = lastDistance.put(train.id, Math.max(distance, 0));
 			if (distance < 0) {
 				// befährt den Übergang
-				lastDistance.put(train.id, 0d);
-				triggered = true;
+				result = Result.TRIGGER;
 				continue;
 			}
-			Double previous = lastDistance.put(train.id, distance);
 			double speed = Math.abs(train.speed);
 			boolean approaching = previous != null && distance < previous - 1e-3;
-			if (approaching && speed >= MIN_SPEED && distance / speed <= warningTicks)
-				triggered = true;
+			if (!approaching || speed < MIN_SPEED)
+				continue;
+			if (distance / speed <= warningTicks)
+				result = Result.TRIGGER;
+			else if (distance <= KEEP_ALIVE_DISTANCE && result == Result.NONE)
+				result = Result.NEAR;
 		}
 		lastDistance.keySet()
 			.retainAll(seen);
-		return triggered;
+		return result;
 	}
 
 	/**
@@ -107,7 +126,7 @@ public class CrossingApproachScanner {
 	 * er außerhalb des Suchbereichs ist.
 	 */
 	@Nullable
-	private Double trainDistance(Train train) {
+	private Double trainDistance(Train train, boolean arrowOnly) {
 		double minA = Double.MAX_VALUE, minB = Double.MAX_VALUE;
 		for (Carriage carriage : train.carriages) {
 			for (TravellingPoint tp : new TravellingPoint[] { carriage.getLeadingPoint(), carriage.getTrailingPoint() }) {
@@ -130,6 +149,8 @@ public class CrossingApproachScanner {
 		// Wagen auf beiden Seiten, die zusammen nicht weiter auseinander liegen als der Zug lang ist
 		if (minA != Double.MAX_VALUE && minB != Double.MAX_VALUE && minA + minB <= trainLength(train) + 4)
 			return -1d;
+		if (arrowOnly)
+			return minB == Double.MAX_VALUE ? null : minB;
 		return min;
 	}
 

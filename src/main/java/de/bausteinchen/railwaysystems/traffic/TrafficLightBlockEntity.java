@@ -1,21 +1,17 @@
 package de.bausteinchen.railwaysystems.traffic;
 
 import java.util.List;
-import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.simibubi.create.content.trains.signal.SignalBlockEntity;
-import com.simibubi.create.content.trains.signal.SignalBoundary;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
+import de.bausteinchen.railwaysystems.signal.SignalHolds;
 
-import net.createmod.catnip.data.Iterate;
 import net.createmod.catnip.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -27,10 +23,8 @@ import net.minecraft.world.phys.AABB;
  * Daten einer Straßenampel: gebundenes Create-Signal, zuständiges Steuergerät und bei Masten die
  * Bauform des Auslegers.
  * <p>
- * Zeigt die Ampel Rot, Rot-Gelb oder Gelb, hält sie das gebundene Create-Signal geschlossen. Dazu
- * meldet sie es bei dessen {@link SignalBoundary} als redstone-gespeist, genauso wie Create es bei
- * einem Redstone-Signal am Signalblock selbst tut; Züge halten dann davor. Der Abgleich läuft jeden
- * Tick über {@link TrafficSignalLocks}, nichts davon wird gespeichert.
+ * Zeigt die Ampel Rot, Rot-Gelb oder Gelb, hält sie das gebundene Create-Signal über
+ * {@link SignalHolds} geschlossen; Züge halten dann davor.
  */
 public class TrafficLightBlockEntity extends SmartBlockEntity {
 
@@ -69,30 +63,8 @@ public class TrafficLightBlockEntity extends SmartBlockEntity {
 
 	private void updateHold() {
 		BlockPos target = getTargetPosition();
-		if (target == null)
-			return;
-		GlobalPos signal = GlobalPos.of(level.dimension(), target);
-		TrafficSignalLocks.set(signal, worldPosition, getAspect().holdsTraffic());
-		apply(target, TrafficSignalLocks.isHeld(signal));
-	}
-
-	/**
-	 * Eintrag des Create-Signals in seiner {@link SignalBoundary} setzen: rot erzwungen, solange eine Ampel
-	 * hält, sonst so, wie Create ihn selbst aus dem Redstone am Signal setzen würde.
-	 */
-	private void apply(BlockPos target, boolean held) {
-		if (!level.isLoaded(target) || !(level.getBlockEntity(target) instanceof SignalBlockEntity sbe))
-			return;
-		SignalBoundary boundary = sbe.getSignal();
-		if (boundary == null)
-			return;
-		boolean forced = held || sbe.getReportedPower();
-		for (boolean side : Iterate.trueAndFalse) {
-			Map<BlockPos, Boolean> signals = boundary.blockEntities.get(side);
-			Boolean current = signals.get(target);
-			if (current != null && current != forced)
-				signals.put(target, forced);
-		}
+		if (target != null)
+			SignalHolds.set(level, target, worldPosition, getAspect().holdsTraffic());
 	}
 
 	private void release() {
@@ -100,11 +72,8 @@ public class TrafficLightBlockEntity extends SmartBlockEntity {
 		if (level == null || level.isClientSide)
 			return;
 		BlockPos target = getTargetPosition();
-		if (target == null)
-			return;
-		GlobalPos signal = GlobalPos.of(level.dimension(), target);
-		TrafficSignalLocks.set(signal, worldPosition, false);
-		apply(target, TrafficSignalLocks.isHeld(signal));
+		if (target != null)
+			SignalHolds.release(level, target, worldPosition);
 	}
 
 	@Override

@@ -75,7 +75,7 @@
   "create_railway_systems.traffic_mast.screen.no": "nein",
   "create_railway_systems.traffic_mast.screen.done": "Fertig",
   "create_railway_systems.traffic_mast.screen.clearance": "Durchfahrtshöhe: %s Blöcke",
-  "create_railway_systems.traffic_linker.tooltip": "Rechtsklick auf ein Steuergerät, dann auf die Ampeln. Nochmal anklicken trennt. Klick in die Luft beendet.",
+  "create_railway_systems.traffic_linker.tooltip": "Rechtsklick auf ein Steuergerät, dann auf die Ampeln. Nochmal anklicken trennt. Bei einer BÜ-Steuerung schaltet ein Klick auf ein Create-Signal weiter: Deckungssignal, Straßensignal, getrennt. Klick in die Luft beendet.",
   "create_railway_systems.traffic_linker.selected": "Steuergerät ausgewählt: Ampeln anklicken, in die Luft klicken zum Beenden",
   "create_railway_systems.traffic_linker.no_controller": "Zuerst ein Steuergerät anklicken",
   "create_railway_systems.traffic_linker.controller_missing": "Steuergerät nicht gefunden",
@@ -113,5 +113,18 @@
   "create_railway_systems.traffic_controller.screen.lights.empty": "Keine Ampeln verbunden. Mit dem Ampel-Programmierer verbinden.",
   "create_railway_systems.traffic_controller.screen.group": "Gruppe %s",
   "create_railway_systems.traffic_controller.screen.unlink": "Trennen",
-  "create_railway_systems.traffic_controller.screen.conflicts.hint": "Feld anklicken: feindlich ja/nein. Gilt in beide Richtungen."
+  "create_railway_systems.traffic_controller.screen.conflicts.hint": "Feld anklicken: feindlich ja/nein. Gilt in beide Richtungen.",
+  "create_railway_systems.crossing_controller.direction": "Beobachtete Fahrtrichtung",
+  "create_railway_systems.crossing_controller.direction.both": "Beide Richtungen",
+  "create_railway_systems.crossing_controller.direction.arrow": "Nur in Pfeilrichtung",
+  "create_railway_systems.crossing_controller.title": "Bahnübergang:",
+  "create_railway_systems.crossing_controller.status.off": "Offen",
+  "create_railway_systems.crossing_controller.status.closing": "Schließt",
+  "create_railway_systems.crossing_controller.status.secured": "Gesichert",
+  "create_railway_systems.crossing_controller.signals": "Deckungssignale: %s, Straßensignale: %s",
+  "create_railway_systems.traffic_linker.crossing_selected": "BÜ-Steuerung ausgewählt: Create-Signale anklicken, in die Luft klicken zum Beenden",
+  "create_railway_systems.traffic_linker.crossing_cover": "Als Deckungssignal gebunden (Gleis, Halt bis der BÜ gesichert ist)",
+  "create_railway_systems.traffic_linker.crossing_road": "Als Straßensignal gebunden (Halt solange der BÜ geschlossen ist)",
+  "create_railway_systems.traffic_linker.crossing_removed": "Signal getrennt",
+  "create_railway_systems.subtitle.crossing_bell": "Läutewerk am Bahnübergang"
 }
