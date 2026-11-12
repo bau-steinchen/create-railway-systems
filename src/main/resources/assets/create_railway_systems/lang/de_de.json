@@ -43,6 +43,8 @@
   "block.create_railway_systems.andreaskreuz": "Andreaskreuz",
   "block.create_railway_systems.bue_lichtzeichen": "Bahnübergangs-Lichtzeichen (Gelb/Rot)",
   "block.create_railway_systems.bue_blinklicht": "Bahnübergangs-Blinklicht",
+  "block.create_railway_systems.bue_schranke": "Bahnübergangs-Schranke",
+  "create_railway_systems.barrier.length": "Länge des Schrankenbaums",
   "block.create_railway_systems.ampel_steuergeraet": "Ampel-Steuergerät",
   "item.create_railway_systems.ampel_programmierer": "Ampel-Programmierer",
   "create.create_railway_systems.traffic_light.set": "An Create-Signal gebunden",

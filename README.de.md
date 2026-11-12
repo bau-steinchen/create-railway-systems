@@ -160,10 +160,13 @@ Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtu
 | Andreaskreuz | Zeichen 201 auf einem kurzen Mast |
 | Bahnübergangs-Lichtzeichen (Gelb/Rot) | Beim Einschalten 3 s Gelb, danach Dauerrot |
 | Bahnübergangs-Blinklicht | Einzelnes rotes Licht, das im eingeschalteten Zustand blinkt |
+| Bahnübergangs-Schranke | Antrieb mit rot-weißem Baum, der über die Straße schwenkt |
 
 Die Lichter sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
 
-**Zugerkennung vorerst:** Create-Gleisbeobachter einige Dutzend Blöcke vor dem Bahnübergang aufstellen (je Richtung einen) und ihr Signal per Redstone Link an die Lichter senden, z. B. über ein Latch, das ein zweiter Beobachter hinter dem Bahnübergang zurücksetzt. Automatische Zugerkennung, Schranken und ein BÜ-Steuergerät sind geplant.
+**Schranke:** Wird wie die Lichter geschaltet (Redstone oder Funkverbindung hinten am Gehäuse). Nach dem Einschalten wartet sie 5 s (Gelb- und Rotphase der Lichter) und senkt den Baum dann innerhalb von 6 s; beim Ausschalten hebt sie ihn sofort. Mit dem Schraubenschlüssel stellt das Wertefeld oben die Baumlänge ein (2–8 Blöcke), ein Klick auf die Vorderseite des Gehäuses setzt den Baum auf die andere Seite, jede andere Seite dreht die Schranke. Der Baum wird nur gezeichnet und hat noch keine Kollision.
+
+**Zugerkennung vorerst:** Create-Gleisbeobachter einige Dutzend Blöcke vor dem Bahnübergang aufstellen (je Richtung einen) und ihr Signal per Redstone Link an die Lichter senden, z. B. über ein Latch, das ein zweiter Beobachter hinter dem Bahnübergang zurücksetzt. Automatische Zugerkennung und ein BÜ-Steuergerät sind geplant.
 
 ## Entwicklung
 
@@ -240,7 +243,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
   traffic/                             Straßenampeln: Mast, Fußgängerampel, Steuergerät, Signalzeitenplan
-  crossing/                            Bahnübergänge: Andreaskreuz, Lichtzeichen
+  crossing/                            Bahnübergänge: Andreaskreuz, Lichtzeichen, Schranke
   network/                             Pakete der Menüs (Client -> Server)
   client/                              Overlay-Renderer für Zusatzanzeigen, Ampel-Renderer, Menüs, Umrisse
 tools/generate_assets.py               Asset-Generator
@@ -250,7 +253,7 @@ tools/models/                          Eigene Blockbench-Modelle und Texturen (o
 ## Geplant
 
 - Bessere Texturen
-- Bahnübergänge: Schranken, Steuergerät mit automatischer Zugerkennung, Signalabhängigkeit, Läutewerk
+- Bahnübergänge: Steuergerät mit automatischer Zugerkennung, Signalabhängigkeit, Läutewerk, Kollision der Schranke
 
 ## Lizenz
 

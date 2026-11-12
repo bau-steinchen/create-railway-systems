@@ -65,5 +65,6 @@ public class ModItems {
 	public static final DeferredItem<BlockItem> ANDREASKREUZ = ITEMS.registerSimpleBlockItem(ModBlocks.ANDREASKREUZ);
 	public static final DeferredItem<BlockItem> BUE_LICHTZEICHEN = ITEMS.registerSimpleBlockItem(ModBlocks.BUE_LICHTZEICHEN);
 	public static final DeferredItem<BlockItem> BUE_BLINKLICHT = ITEMS.registerSimpleBlockItem(ModBlocks.BUE_BLINKLICHT);
+	public static final DeferredItem<BlockItem> BUE_SCHRANKE = ITEMS.registerSimpleBlockItem(ModBlocks.BUE_SCHRANKE);
 
 }

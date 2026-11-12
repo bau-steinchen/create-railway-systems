@@ -3,6 +3,7 @@ package de.bausteinchen.railwaysystems.registry;
 import java.util.function.Supplier;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.crossing.CrossingBarrierBlockEntity;
 import de.bausteinchen.railwaysystems.crossing.CrossingLightBlockEntity;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 import de.bausteinchen.railwaysystems.signal.SignalLinkBlockEntity;
@@ -55,5 +56,10 @@ public class ModBlockEntities {
 	public static final Supplier<BlockEntityType<CrossingLightBlockEntity>> CROSSING_LIGHT = BLOCK_ENTITIES.register("crossing_light",
 		() -> BlockEntityType.Builder.of(CrossingLightBlockEntity::new, ModBlocks.BUE_LICHTZEICHEN.get(),
 			ModBlocks.BUE_BLINKLICHT.get()).build(null));
+
+	/** Schrankenantrieb */
+	@SuppressWarnings("DataFlowIssue")
+	public static final Supplier<BlockEntityType<CrossingBarrierBlockEntity>> CROSSING_BARRIER = BLOCK_ENTITIES.register("crossing_barrier",
+		() -> BlockEntityType.Builder.of(CrossingBarrierBlockEntity::new, ModBlocks.BUE_SCHRANKE.get()).build(null));
 
 }

@@ -1,6 +1,7 @@
 package de.bausteinchen.railwaysystems.registry;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.crossing.CrossingBarrierBlock;
 import de.bausteinchen.railwaysystems.crossing.CrossingLightBlock;
 import de.bausteinchen.railwaysystems.crossing.StAndrewsCrossBlock;
 import de.bausteinchen.railwaysystems.signal.SignalMastBlock;
@@ -93,6 +94,9 @@ public class ModBlocks {
 
 	public static final DeferredBlock<CrossingLightBlock> BUE_BLINKLICHT =
 		BLOCKS.register("bue_blinklicht", () -> new CrossingLightBlock.Blinker(signalProperties()));
+
+	public static final DeferredBlock<CrossingBarrierBlock> BUE_SCHRANKE =
+		BLOCKS.register("bue_schranke", () -> new CrossingBarrierBlock(signalProperties()));
 
 	private static BlockBehaviour.Properties signalProperties() {
 		return BlockBehaviour.Properties.of()

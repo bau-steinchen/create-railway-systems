@@ -10,25 +10,38 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Frequenzfeld der Funkverbindung im Bahnübergangs-Lichtzeichen: hinter dem Mast, das erste über dem
+ * Frequenzfeld der Funkverbindung an Bahnübergangs-Blöcken: auf der Rückseite, das erste über dem
  * zweiten wie beim Redstone Link.
  */
 public class CrossingLinkSlot extends ValueBoxTransform.Dual {
 
+	/** Lichtzeichen: knapp hinter dem Mast (6,5..9,5 px) */
+	public static final float BEHIND_POST = 9.75f;
+
+	private final float depth;
+
 	public CrossingLinkSlot(boolean first) {
+		this(first, BEHIND_POST);
+	}
+
+	/**
+	 * @param depth Abstand der Felder von der Vorderseite in Pixeln (Modell mit Front nach Norden)
+	 */
+	public CrossingLinkSlot(boolean first, float depth) {
 		super(first);
+		this.depth = depth;
 	}
 
 	@Override
 	public Vec3 getLocalOffset(LevelAccessor level, BlockPos pos, BlockState state) {
-		if (!state.hasProperty(CrossingLightBlock.FACING))
+		if (!state.hasProperty(HorizontalDirectionalBlock.FACING))
 			return null;
-		// knapp hinter der Mastrückseite (Mast 6,5..9,5 px)
-		Vec3 location = VecHelper.voxelSpace(8, isFirst() ? 11.5 : 5.5, 9.75);
+		Vec3 location = VecHelper.voxelSpace(8, isFirst() ? 11.5 : 5.5, depth);
 		return VecHelper.rotateCentered(location, AngleHelper.horizontalAngle(back(state)), Axis.Y);
 	}
 
@@ -39,7 +52,7 @@ public class CrossingLinkSlot extends ValueBoxTransform.Dual {
 	}
 
 	private static Direction back(BlockState state) {
-		return state.getValue(CrossingLightBlock.FACING)
+		return state.getValue(HorizontalDirectionalBlock.FACING)
 			.getOpposite();
 	}
 

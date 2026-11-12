@@ -9,7 +9,10 @@
     "lamp_red": "create_railway_systems:block/lamp_red",
     "lamp_yellow": "create_railway_systems:block/lamp_yellow",
     "lamp_red_blink": "create_railway_systems:block/lamp_red_blink",
-    "andreaskreuz": "create_railway_systems:block/andreaskreuz"
+    "andreaskreuz": "create_railway_systems:block/andreaskreuz",
+    "housing": "create_railway_systems:block/traffic_mast",
+    "concrete": "create_railway_systems:block/concrete",
+    "boom": "create_railway_systems:block/bue_schrankenbaum"
   },
   "elements": [
     {

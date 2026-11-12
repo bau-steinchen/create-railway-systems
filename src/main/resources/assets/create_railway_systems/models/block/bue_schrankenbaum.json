@@ -1,0 +1,87 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "create_railway_systems:block/signal_mast",
+    "mast": "create_railway_systems:block/signal_mast",
+    "screen": "create_railway_systems:block/signal_screen",
+    "backplate": "create_railway_systems:block/traffic_backplate",
+    "lamp_off": "create_railway_systems:block/lamp_off",
+    "lamp_red": "create_railway_systems:block/lamp_red",
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_red_blink": "create_railway_systems:block/lamp_red_blink",
+    "andreaskreuz": "create_railway_systems:block/andreaskreuz",
+    "housing": "create_railway_systems:block/traffic_mast",
+    "concrete": "create_railway_systems:block/concrete",
+    "boom": "create_railway_systems:block/bue_schrankenbaum"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        -1.25,
+        -0.75
+      ],
+      "to": [
+        16,
+        1.25,
+        0.75
+      ],
+      "faces": {
+        "north": {
+          "texture": "#boom",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#boom",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        "south": {
+          "texture": "#boom",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#boom",
+          "uv": [
+            0,
+            0,
+            2,
+            2
+          ]
+        },
+        "up": {
+          "texture": "#boom",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#boom",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    }
+  ]
+}

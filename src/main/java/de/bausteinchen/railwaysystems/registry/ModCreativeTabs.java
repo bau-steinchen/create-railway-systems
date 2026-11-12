@@ -38,6 +38,7 @@ public class ModCreativeTabs {
 			output.accept(ModItems.ANDREASKREUZ.get());
 			output.accept(ModItems.BUE_LICHTZEICHEN.get());
 			output.accept(ModItems.BUE_BLINKLICHT.get());
+			output.accept(ModItems.BUE_SCHRANKE.get());
 		})
 		.build());
 

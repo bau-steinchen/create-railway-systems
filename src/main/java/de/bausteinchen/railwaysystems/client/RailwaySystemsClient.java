@@ -24,6 +24,7 @@ public class RailwaySystemsClient {
 		event.registerBlockEntityRenderer(ModBlockEntities.TRAFFIC_LIGHT.get(), TrafficMastRenderer::new);
 		event.registerBlockEntityRenderer(ModBlockEntities.CROSSWALK_MAST.get(), TrafficMastRenderer::new);
 		event.registerBlockEntityRenderer(ModBlockEntities.CROSSING_LIGHT.get(), SmartBlockEntityRenderer::new);
+		event.registerBlockEntityRenderer(ModBlockEntities.CROSSING_BARRIER.get(), CrossingBarrierRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -35,6 +36,8 @@ public class RailwaySystemsClient {
 						.forEach(location -> event.register(ModelResourceLocation.standalone(location)));
 			});
 		event.register(ModelResourceLocation.standalone(SignalOverlayRenderer.FORM_ARM));
+		event.register(ModelResourceLocation.standalone(CrossingBarrierRenderer.BOOM));
+		event.register(ModelResourceLocation.standalone(CrossingBarrierRenderer.BOOM_TIP));
 		TrafficMastRenderer.getModels()
 			.forEach(location -> event.register(ModelResourceLocation.standalone(location)));
 	}

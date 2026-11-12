@@ -950,7 +950,7 @@ def generate_data():
     blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "ks_hauptsignal",
               "ks_vorsignal", "ks_mehrabschnittssignal", *FORM_TYPES, *MAST_BLOCKS]
     blocks += ["ampel_mast", "zebrastreifen_mast", "fussgaengerampel", "ampel_steuergeraet"]
-    blocks += ["andreaskreuz", "bue_lichtzeichen", "bue_blinklicht"]
+    blocks += ["andreaskreuz", "bue_lichtzeichen", "bue_blinklicht", "bue_schranke"]
     for b in blocks:
         conditions = [{"condition": "minecraft:survives_explosion"}]
         if b in TALL_BLOCKS or b in FORM_TYPES:
@@ -1175,6 +1175,9 @@ CROSSING_TEXTURES = {
     "lamp_yellow": tex("lamp_yellow"),
     "lamp_red_blink": tex("lamp_red_blink"),
     "andreaskreuz": tex("andreaskreuz"),
+    "housing": tex("traffic_mast"),
+    "concrete": tex("concrete"),
+    "boom": tex("bue_schrankenbaum"),
 }
 # Lichtzeichen: Lampe -> Unterkante (px); Lampen 5 px groß, Gelb über Rot
 BUE_LAMPS = {"yellow": 9, "red": 2.5}
@@ -1224,6 +1227,38 @@ def blinklicht_elements(phase):
             *crossing_lamp(5, 6, "#lamp_red_blink" if lit else "#lamp_off", lit)]
 
 
+# Schranke: Drehpunkt des Baums wie CrossingBarrierBlock.PIVOT_Y/PIVOT_Z
+BARRIER_PIVOT = (8, 10, 3.25)
+
+
+def barrier_housing():
+    px, py, pz = BARRIER_PIVOT
+    return [box([3, 0, 3], [13, 1, 13], "#concrete"),
+            box([4, 1, 4], [12, 14, 13], "#housing"),
+            box([5, 14, 5], [11, 14.5, 12], "#housing"),
+            # Lager des Baums vorn am Gehäuse
+            box([px - 1.5, py - 1.5, 2], [px + 1.5, py + 1.5, 4], "#mast")]
+
+
+def boom_segment():
+    """Ein Block Baum, Drehpunkt im Ursprung: x 0..16, mittig um y = 0 und z = 0. Rot-weiß gestreift auf
+    allen Längsseiten."""
+    element = box([0, -1.25, -0.75], [16, 1.25, 0.75], "#boom")
+    for side in ("north", "south", "up", "down"):
+        element["faces"][side] = {"texture": "#boom", "uv": [0, 0, 16, 16]}
+    element["faces"]["west"] = {"texture": "#boom", "uv": [0, 0, 2, 2]}
+    element["faces"]["east"] = {"texture": "#boom", "uv": [0, 0, 2, 2]}
+    return element
+
+
+def boom_tip():
+    """Endkappe mit rotem Licht auf beiden Seiten (der Baum kann nach links oder rechts zeigen)."""
+    cap = box([0, -1.5, -1], [1, 1.5, 1], "#boom")
+    lamp_box = {"from": [0.1, -1, -1.05], "to": [0.9, 1, 1.05],
+                "faces": {f: {"texture": "#lamp_red", "uv": [4, 4, 12, 12]} for f in ("north", "south")}}
+    return [cap, glow(lamp_box)]
+
+
 def generate_crossing():
     write_json(ASSETS / "models/block/andreaskreuz.json", crossing_model(andreaskreuz_elements()))
     write_json(ASSETS / "blockstates/andreaskreuz.json", variants([], lambda s: "andreaskreuz"))
@@ -1236,6 +1271,21 @@ def generate_crossing():
         write_json(ASSETS / f"blockstates/{block}.json",
                    variants([("phase", phases)], lambda s, b=block: f"{b}_{s['phase']}"))
         write_json(ASSETS / f"models/item/{block}.json", {"parent": f"{MOD_ID}:block/{block}_red"})
+
+    # Schranke: Antrieb als Blockmodell, Baum zeichnet der CrossingBarrierRenderer aus Segmenten
+    write_json(ASSETS / "models/block/bue_schranke.json", crossing_model(barrier_housing()))
+    write_json(ASSETS / "blockstates/bue_schranke.json",
+               variants([("side", ["left", "right"]), ("closed", ["false", "true"])], lambda s: "bue_schranke"))
+    write_json(ASSETS / "models/block/bue_schrankenbaum.json", crossing_model([boom_segment()]))
+    write_json(ASSETS / "models/block/bue_schrankenbaum_ende.json", crossing_model(boom_tip()))
+    # Item: Antrieb mit kurzem, waagerechtem Baum nach links
+    px, py, pz = BARRIER_PIVOT
+    item_boom = box([px, py - 1.25, pz - 0.75], [px + 16, py + 1.25, pz + 0.75], "#boom")
+    for side in ("north", "south", "up", "down"):
+        item_boom["faces"][side] = {"texture": "#boom", "uv": [0, 0, 16, 16]}
+    write_json(ASSETS / "models/item/bue_schranke.json",
+               {**crossing_model(barrier_housing() + [item_boom]),
+                "display": {"gui": {"rotation": [30, 225, 0], "translation": [0, 0, 0], "scale": [0.5, 0.5, 0.5]}}})
 
 
 def generate_crossing_textures(lamp_img, off, colors):
@@ -1257,6 +1307,13 @@ def generate_crossing_textures(lamp_img, off, colors):
     d.rectangle([0, 0, 0, 15], fill=(205, 25, 30, 255))
     d.rectangle([15, 0, 15, 15], fill=(205, 25, 30, 255))
     save(cross, "andreaskreuz")
+
+    # Schrankenbaum: rot-weiße Felder, zwei je Block
+    boom = Image.new("RGBA", (16, 16), (240, 240, 236, 255))
+    d = ImageDraw.Draw(boom)
+    d.rectangle([0, 0, 3, 15], fill=(205, 25, 30, 255))
+    d.rectangle([8, 0, 11, 15], fill=(205, 25, 30, 255))
+    save(boom, "bue_schrankenbaum")
 
 
 def save_item(img, name):
