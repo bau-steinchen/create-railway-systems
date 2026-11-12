@@ -1,0 +1,13 @@
+{
+  "parent": "create_railway_systems:block/hv_kombisignal_hp2_dark_mast_plate_lower",
+  "transform": {
+    "rotation": {
+      "y": 22.5
+    },
+    "origin": [
+      0.5,
+      0,
+      1.5
+    ]
+  }
+}

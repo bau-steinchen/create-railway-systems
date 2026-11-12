@@ -16,8 +16,10 @@ import de.bausteinchen.railwaysystems.signal.MountedSignalBlock;
 import de.bausteinchen.railwaysystems.signal.SignalFeature;
 import de.bausteinchen.railwaysystems.signal.SignalLetterBehaviour;
 import de.bausteinchen.railwaysystems.signal.SignalOptions.Zusatz;
+import de.bausteinchen.railwaysystems.signal.hv.FormHauptsignalBlock;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -33,10 +35,16 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 
 /**
  * Zeichnet die Zusatzanzeigen eines Signals (Zs2, Zs2v, Zs3, Zs3v, Zs1/Zs7/Zs8, Zs6, Kennlicht) aus den Daten
- * des Block-Entity. Die Modelle liegen unter {@code block/overlay/<signal>/<teil>} und sind wie
- * die Signalmodelle mit dem Schirm nach Norden entworfen.
+ * des Block-Entity, dazu die schwenkenden Flügel der Formsignale. Die Modelle liegen unter
+ * {@code block/overlay/<signal>/<teil>} bzw. {@code block/form_arm} und sind wie die Signalmodelle
+ * mit dem Schirm nach Norden entworfen.
  */
 public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalBlockEntity> {
+
+	/** Flügelmodell; Drehpunkt bei (8, 8, 8) px, der Flügel zeigt nach -x (vom Zug aus nach rechts). */
+	public static final ResourceLocation FORM_ARM = RailwaySystems.asResource("block/form_arm");
+	/** Drehpunkte von Ober- und Unterflügel im Modellraum (Pixel), wie im Asset-Generator. */
+	private static final double[][] ARM_PIVOTS = { { 6, 42, 5 }, { 6, 26, 5 } };
 
 	public SignalOverlayRenderer(BlockEntityRendererProvider.Context context) {}
 
@@ -82,7 +90,8 @@ public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalB
 		if (!(state.getBlock() instanceof LinkedSignal signal) || !state.hasProperty(MountedSignalBlock.FACING))
 			return;
 		Set<SignalFeature> features = signal.getFeatures();
-		if (features.isEmpty())
+		boolean form = state.getBlock() instanceof FormHauptsignalBlock;
+		if (features.isEmpty() && !form)
 			return;
 
 		Block block = state.getBlock();
@@ -93,6 +102,20 @@ public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalB
 		ms.translate(0.5, 0, 0.5);
 		ms.mulPose(Axis.YP.rotationDegrees(-yRotation(state.getValue(MountedSignalBlock.FACING))));
 		ms.translate(-0.5, 0, -0.5);
+		if (state.hasProperty(MountedSignalBlock.MOUNT)) {
+			// am gedrehten Mast dreht der Kopf um die Mastmitte (Modellraum 8/24 px), im Uhrzeigersinn
+			double tilt = MountedSignalBlock.tiltDegrees(state);
+			if (tilt != 0) {
+				ms.translate(0.5, 0, 1.5);
+				ms.mulPose(Axis.YP.rotationDegrees((float) -tilt));
+				ms.translate(-0.5, 0, -1.5);
+			}
+			// hinten montiert sitzt der Kopf an der Blockkante; die Overlay-Modelle sind mittig modelliert
+			ms.translate(0, 0, state.getValue(MountedSignalBlock.MOUNT)
+				.getFlushShift() / 16);
+		}
+		if (form)
+			drawArms(be, (FormHauptsignalBlock) state.getBlock(), partialTicks, ms, consumer, overlay);
 
 		if (features.contains(SignalFeature.ZS3) && be.getZs3() > 0) {
 			draw(ms, consumer, state, model(block, "zs3_box"), light, overlay);
@@ -137,6 +160,26 @@ public class SignalOverlayRenderer extends SafeBlockEntityRenderer<LinkedSignalB
 		}
 
 		ms.popPose();
+	}
+
+	/**
+	 * Flügel um ihren Drehpunkt in die aktuelle (animierte) Stellung drehen; beleuchtet wie der Block,
+	 * in dessen Höhe der Drehpunkt liegt.
+	 */
+	private static void drawArms(LinkedSignalBlockEntity be, FormHauptsignalBlock block, float partialTicks,
+		PoseStack ms, VertexConsumer consumer, int overlay) {
+		for (int arm = 0; arm < block.getArms(); arm++) {
+			double[] pivot = ARM_PIVOTS[arm];
+			int light = be.getLevel() == null ? LightTexture.FULL_BRIGHT
+				: LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos()
+					.above((int) (pivot[1] / 16)));
+			ms.pushPose();
+			ms.translate(pivot[0] / 16, pivot[1] / 16, pivot[2] / 16);
+			ms.mulPose(Axis.ZP.rotationDegrees(be.getArmAngle(arm, partialTicks)));
+			ms.translate(-0.5, -0.5, -0.5);
+			draw(ms, consumer, be.getBlockState(), FORM_ARM, light, overlay);
+			ms.popPose();
+		}
 	}
 
 	/**

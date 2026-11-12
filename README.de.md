@@ -28,7 +28,18 @@ Ein Addon für [Create](https://github.com/Creators-of-Create/Create), das moder
 | H/V-Lichtvorsignal | Vr0 (Halt erwarten), Vr1 (Fahrt erwarten), Vr2 (Langsamfahrt erwarten) |
 | H/V-Hauptsignal mit Vorsignal am Mast | Hp + Vr, Vorsignal dunkel bei Hp0 |
 | Lichtsperrsignal (Zwergsignal) | Sh0 (Halt! Fahrverbot), Sh1 (Fahrverbot aufgehoben) |
-| Signalmast | Mast zum Aufbauen beliebig hoher Signale |
+| Signalmast | Standardmast: zwei Platten mit Sprossen dazwischen |
+| Leichter Signalmast | Schlanker Mast: ein einzelner Stab |
+| Gittermast | Breiter, quadratischer Gittermast: Eckstiele mit diagonalen Streben |
+
+### Deutsche H/V-Formsignale
+
+| Block | Signalbegriffe |
+|---|---|
+| Formhauptsignal (einflügelig) | Hp0 (Flügel waagerecht), Hp1 (Flügel 45° schräg nach oben) |
+| Formhauptsignal (zweiflügelig) | Hp0 (Oberflügel waagerecht, Unterflügel hängt senkrecht am Mast), Hp1 und Hp2 (beide Flügel 45° schräg nach oben; nachts an der Laterne zu unterscheiden) |
+
+Die Flügel schwenken weich in die neue Stellung und ragen über den Block hinaus; die Hitbox bleibt in den Blöcken des Signals. Nachts zeigt eine Laterne Rot (Hp0), Grün (Hp1) oder Grün über Gelb (Hp2). Formsignale sind drei Blöcke hoch und haben noch keine Zusatzanzeiger.
 
 ### Deutsche Ks-Signale
 
@@ -68,27 +79,31 @@ Ohne Bindung lässt sich ein Signal nicht platzieren.
 ### Aufstellung
 
 - **Frei stehend:** Das Signal steht auf einem Mast. Mit Signalmast-Blöcken darunter wird es beliebig hoch.
-- **Wandmontage:** Gegen die Seite eines festen Blocks gesetzt (z. B. Tunnel- oder Brückenwand), bekommt das Signal waagerechte Ausleger statt eines Masts. Die Ausleger zeigen nach hinten oder zur Seite, je nachdem wo der Block liegt. Wird der Block entfernt, steht das Signal wieder auf einem Mast.
-- **Hauptsignale sind zwei Blöcke hoch:** H/V-Hauptsignal, H/V-Hauptsignal mit Vorsignal am Mast, Ks-Hauptsignal und Ks-Mehrabschnittssignal. Über dem Platzierungsort muss ein Block frei sein. Wird eine Hälfte abgebaut, verschwindet auch die andere. Bindung, Schraubenschlüssel und Aufnehmen funktionieren an beiden Hälften. Vorsignale und das Lichtsperrsignal sind einen Block hoch.
+- **An der Wand:** Gegen einen festen Block dahinter gesetzt (z. B. Tunnel- oder Brückenwand), rückt der Signalkopf an die hintere Blockkante und sitzt flach auf der Wand, ohne Mast und Ausleger.
+- **Am Signalmast:** Gegen einen der drei Signalmast-Blöcke gesetzt, sitzt der Kopf ebenfalls bündig an der Kante seines eigenen Blocks, ohne eigenen Mast, und zwei kurze Halterstangen reichen bis an die Mastoberfläche. Zwei Blöcke hohe Signale brauchen hinter beiden Hälften einen Mastblock. So trägt eine Mastsäule Signale an mehreren Seiten und in beliebiger Höhe. Masten drehen sich in 16 Stufen zu 22,5°: Beim Platzieren richten sie sich nach der Blickrichtung aus, jeder Klick mit dem Schraubenschlüssel dreht sie eine Stufe weiter. Ein Signal am Mast dreht sich mit, um die Mastmitte zur nächstgelegenen Mastseite; Signale woanders behalten ihre gewohnte Ausrichtung. Masten aus Welten vor dieser Version stehen wieder in Grundstellung.
+- **Seitlicher Ausleger:** Gegen einen festen Block links oder rechts gesetzt, bleibt das Signal mittig und bekommt einen waagerechten Ausleger zu diesem Block.
+- Wird der tragende Block entfernt, steht das Signal wieder auf seinem eigenen Mast; wird ein Mast durch einen festen Block ersetzt, sitzt es flach an der Wand.
+- **Hauptsignale sind zwei Blöcke hoch:** H/V-Hauptsignal, H/V-Hauptsignal mit Vorsignal am Mast, Ks-Hauptsignal und Ks-Mehrabschnittssignal. Über dem Platzierungsort muss ein Block frei sein. Wird eine Hälfte abgebaut, verschwindet auch die andere. Bindung, Schraubenschlüssel und Aufnehmen funktionieren an beiden Hälften. Formhauptsignale sind drei Blöcke hoch und brauchen zwei freie Blöcke darüber. Vorsignale und das Lichtsperrsignal sind einen Block hoch.
 - **Lichtsperrsignal:** Auf dem Boden oder einem festen Block steht es auf einem kleinen Fuß. Steht darunter ein Signalmast, sitzt es ohne Fuß direkt auf dem Mast.
 - Der Schirm zeigt beim Platzieren immer zum Spieler.
 
 ### Ausstattung einstellen
 
-H/V-Hauptsignale, H/V-Kombisignale, Ks-Hauptsignale und Ks-Mehrabschnittssignale haben auf der **Rückseite der unteren Hälfte** vier Create-Wertefelder im Quadrat. Mit dem **Schraubenschlüssel** auf ein Feld zielen, Rechtsklick gedrückt halten und auswählen:
+H/V-Hauptsignale, H/V-Kombisignale, Ks-Hauptsignale und Ks-Mehrabschnittssignale haben an den **Seiten der unteren Hälfte** vier Create-Wertefelder, zwei je Seite. So bleiben sie auch bei Wandmontage erreichbar. Mit dem **Schraubenschlüssel** auf ein Feld zielen, Rechtsklick gedrückt halten und auswählen:
 
-| | links | rechts |
+| | rechte Seite | linke Seite |
 |---|---|---|
 | **oben** | Ersatzsignal: keins, Zs1, Zs7 oder Zs8 | Zs2-Buchstabe: keiner oder A–Z |
 | **unten** | Gegengleisanzeiger: keiner oder Zs6 | Betrieb: in Betrieb oder abgeschaltet (Kennlicht) |
 
-Links und rechts gelten von hinten gesehen. Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7/Zs8 und Zs2 kann an der oberen oder unteren Hälfte anliegen, z. B. als Hebel, Redstone-Block oder Redstone-Staub direkt neben dem Signal.
+Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschlüssel außerhalb der Felder stellt wie bisher Hp2 (H/V) bzw. Zs3 (Ks) ein. Redstone für Zs1/Zs7/Zs8 und Zs2 kann an der oberen oder unteren Hälfte anliegen, z. B. als Hebel, Redstone-Block oder Redstone-Staub direkt neben dem Signal.
 
-**Eingebaute Funkverbindung:** Die zwei Blöcke hohen Signale haben auf der Rückseite der **oberen Hälfte** zwei Frequenzfelder wie ein Create-Redstone-Link. Mit einem Gegenstand in der Hand auf ein Feld rechtsklicken setzt die Frequenz. Sendet ein Redstone-Link auf derselben Frequenz, wirkt das wie Redstone am Signal. Ein zusätzlicher Redstone-Link-Block am Signal ist nicht nötig.
+**Eingebaute Funkverbindung:** Die zwei Blöcke hohen Signale haben an der linken Seite der **oberen Hälfte** (von vorn gesehen) zwei Frequenzfelder wie ein Create-Redstone-Link. Mit einem Gegenstand in der Hand auf ein Feld rechtsklicken setzt die Frequenz. Sendet ein Redstone-Link auf derselben Frequenz, wirkt das wie Redstone am Signal. Ein zusätzlicher Redstone-Link-Block am Signal ist nicht nötig.
 
 ### Signallogik
 
 - **H/V-Hauptsignal:** Create-Signal rot → Hp0, grün/gelb → Hp1. Create kennt keine Geschwindigkeiten. Mit dem **Create-Schraubenschlüssel** schaltest du deshalb zwischen Hp1 und Hp2 um.
+- **Formhauptsignal:** Logik wie beim H/V-Hauptsignal. Nur das zweiflügelige kann Hp2 zeigen (Vorwahl per Schraubenschlüssel); beim einflügeligen dreht der Schraubenschlüssel das Signal.
 - **H/V-Vorsignal:** Wird an das Create-Signal des **angekündigten** Hauptsignals gebunden und steht im Bremswegabstand davor. Gibt das Hauptsignal dort eine Geschwindigkeit vor (Hp2 oder Ks-Zs3), zeigt es Vr2.
 - **H/V-Hauptsignal mit Vorsignal am Mast:** Der Hauptsignalteil arbeitet wie das H/V-Hauptsignal. Der Vorsignalteil kündigt automatisch die Signale am Ende des Blockabschnitts an. Gibt es durch Weichen mehrere Folgesignale, erwartet es nur Fahrt, wenn alle Fahrt zeigen, sonst Vr0. Zeigt das eigene Hauptsignal Hp0, ist das Vorsignal dunkel.
 - **Lichtsperrsignal:** Create-Signal rot → Sh0, grün/gelb → Sh1.
@@ -164,13 +179,15 @@ Ein Signalkopf lässt sich in [Blockbench](https://www.blockbench.net/) gestalte
 
 Ohne Datei in `tools/models/` gilt die eingebaute Geometrie.
 
+Die Signalmast-Blöcke ersetzen `tools/models/signal_mast.json`, `signal_mast_light.json` oder `signal_mast_lattice.json` genauso (ohne Lampen und Marker, alle Elemente werden gezeichnet). Signale ohne eigenen `mast` nutzen dann ebenfalls den Standardmast, alle 16 px wiederholt und auf ihre Höhe gekürzt. Wo ein Schirm oder Schild den Mast schneidet, fällt der Mast in dieser Höhe weg. Mastschild und Overlay-Kästen rücken vor den Mast. Die Wandausleger behalten ihre eingebaute Form.
+
 **Namen der Elemente (oder ihrer Gruppe) steuern die Funktion:**
 
 | Name | Bedeutung |
 |---|---|
 | `lamp_<name>` | Lampe. Ihre **Nordfläche** zeigt je nach Begriff die passende Lampentextur, an oder aus. Leuchten stellt das Skript ein. |
 | `mast` | Nur sichtbar, wenn das Signal frei steht. Ohne `mast` kommt der eingebaute Mast. |
-| `arm` | Nur Markierung: Höhe (y von–bis) der Wandausleger, wird selbst nicht gezeichnet. |
+| `arm` | Nur Markierung: Höhe (y von–bis) der Halterstangen zum Signalmast und der seitlichen Ausleger, wird selbst nicht gezeichnet. |
 | `sockel` | Nur Lichtsperrsignal: Fuß, wenn es nicht auf einem Signalmast steht. Auf dem Mast ersetzt ihn ein Maststummel bis zur Sockeloberkante. |
 | `kennlicht`, `zs1`, `zs7` | Nur Markierung: Lage der Lampen dieser Overlay-Anzeigen. Bei `zs1`/`zs7` ein Element je Lampe. |
 | `zs2`, `zs2v`, `zs3`, `zs3v`, `zs6` | Nur Markierung: Kasten der Anzeige. Das Skript setzt Gehäuse und Zeichen davor ein; der Zs8 nutzt den Kasten des Zs6. |
@@ -193,6 +210,7 @@ Eine angehängte Zahl ist erlaubt (`arm2`, `lamp_red2`, `zs12`), `mastschild` z�
 **Regeln:**
 
 - Der Schirm zeigt nach **Norden**. Die übrigen Richtungen dreht der Blockstate.
+- Die Rückseite des Signalkopfs liegt bei z = 6,5 wie in den Vorlagen. An Wand oder Signalmast rückt der ganze Kopf samt Overlays um 9,5 px nach hinten an die Blockkante.
 - Zwei Blöcke hohe Signale (H/V-Haupt-, H/V-Kombi-, Ks-Haupt- und Ks-Mehrabschnittssignal) werden in 0–32 px Höhe gebaut, die anderen in 0–16 px. Das Skript teilt hohe Modelle an y = 16. Gedrehte Elemente werden nicht geschnitten, sondern landen ganz in der Hälfte ihrer Mitte.
 - Alle Koordinaten liegen zwischen −16 und 32. Gedreht wird nur um **eine** Achse in Schritten von 22,5° (−45 bis 45). Sonst bricht das Skript mit einer Meldung ab.
 - Texturen liegen in `src/main/resources/assets/create_railway_systems/textures/block/` oder in `tools/models/textures/`. Von dort kopiert das Skript sie mit; das ersetzt auch Platzhalter wie `lamp_red.png`. Andere Texturpfade im Export werden auf den Dateinamen zurückgeführt.

@@ -104,9 +104,16 @@ public abstract class HvSignalBlock extends MountedSignalBlock {
 		return hasMainAspect() ? "create_railway_systems.hv_signal.tooltip.wrench" : null;
 	}
 
+	/**
+	 * Ob der Schraubenschlüssel Hp2 vorwählt; sonst dreht er das Signal.
+	 */
+	protected boolean wrenchSelectsHp2() {
+		return hasMainAspect();
+	}
+
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
-		if (!hasMainAspect())
+		if (!wrenchSelectsHp2())
 			return super.onWrenched(state, context);
 
 		// Create kennt keine Geschwindigkeitsbegriffe: Hp2 wird per Schraubenschlüssel vorgewählt

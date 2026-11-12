@@ -33,6 +33,7 @@ public class RailwaySystemsClient {
 					SignalOverlayRenderer.getModels(entry.get(), signal.getFeatures())
 						.forEach(location -> event.register(ModelResourceLocation.standalone(location)));
 			});
+		event.register(ModelResourceLocation.standalone(SignalOverlayRenderer.FORM_ARM));
 		TrafficMastRenderer.getModels()
 			.forEach(location -> event.register(ModelResourceLocation.standalone(location)));
 	}

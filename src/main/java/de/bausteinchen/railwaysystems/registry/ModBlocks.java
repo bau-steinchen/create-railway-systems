@@ -3,6 +3,7 @@ package de.bausteinchen.railwaysystems.registry;
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.signal.SignalMastBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvHauptsignalBlock;
+import de.bausteinchen.railwaysystems.signal.hv.FormHauptsignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvKombisignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.HvVorsignalBlock;
 import de.bausteinchen.railwaysystems.signal.hv.ShSperrsignalBlock;
@@ -46,8 +47,21 @@ public class ModBlocks {
 	public static final DeferredBlock<KsMehrabschnittssignalBlock> KS_MEHRABSCHNITTSSIGNAL =
 		BLOCKS.register("ks_mehrabschnittssignal", () -> new KsMehrabschnittssignalBlock(signalProperties()));
 
+	public static final DeferredBlock<FormHauptsignalBlock> FORM_HAUPTSIGNAL_1 =
+		BLOCKS.register("form_hauptsignal_1", () -> new FormHauptsignalBlock(1, signalProperties()));
+
+	public static final DeferredBlock<FormHauptsignalBlock> FORM_HAUPTSIGNAL_2 =
+		BLOCKS.register("form_hauptsignal_2", () -> new FormHauptsignalBlock(2, signalProperties()));
+
 	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST =
-		BLOCKS.register("signal_mast", () -> new SignalMastBlock(signalProperties()));
+		BLOCKS.register("signal_mast", () -> new SignalMastBlock(SignalMastBlock.Type.STANDARD, signalProperties()));
+
+	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST_LIGHT =
+		BLOCKS.register("signal_mast_light", () -> new SignalMastBlock(SignalMastBlock.Type.LIGHT, signalProperties()));
+
+	public static final DeferredBlock<SignalMastBlock> SIGNAL_MAST_LATTICE =
+		BLOCKS.register("signal_mast_lattice",
+			() -> new SignalMastBlock(SignalMastBlock.Type.LATTICE, signalProperties()));
 
 	// --- Straßenampeln ---
 

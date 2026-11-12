@@ -1,0 +1,13 @@
+{
+  "parent": "create_railway_systems:block/hv_hauptsignal_off_mast_upper",
+  "transform": {
+    "rotation": {
+      "y": 22.5
+    },
+    "origin": [
+      0.5,
+      0,
+      1.5
+    ]
+  }
+}

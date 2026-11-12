@@ -1,0 +1,13 @@
+{
+  "parent": "create_railway_systems:block/hv_kombisignal_hp0_dark_mast_lattice_lower",
+  "transform": {
+    "rotation": {
+      "y": 45.0
+    },
+    "origin": [
+      0.5,
+      0,
+      1.5
+    ]
+  }
+}
