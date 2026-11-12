@@ -1,0 +1,230 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "create_railway_systems:block/traffic_cabinet",
+    "mast": "create_railway_systems:block/signal_mast",
+    "screen": "create_railway_systems:block/signal_screen",
+    "backplate": "create_railway_systems:block/traffic_backplate",
+    "lamp_off": "create_railway_systems:block/lamp_off",
+    "lamp_red": "create_railway_systems:block/lamp_red",
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_red_blink": "create_railway_systems:block/lamp_red_blink",
+    "andreaskreuz": "create_railway_systems:block/andreaskreuz",
+    "housing": "create_railway_systems:block/traffic_mast",
+    "concrete": "create_railway_systems:block/concrete",
+    "boom": "create_railway_systems:block/bue_schrankenbaum",
+    "cabinet": "create_railway_systems:block/traffic_cabinet",
+    "cabinet_front": "create_railway_systems:block/bue_steuerung_front"
+  },
+  "elements": [
+    {
+      "from": [
+        1.5,
+        0,
+        2.5
+      ],
+      "to": [
+        14.5,
+        1,
+        12.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#concrete",
+          "uv": [
+            1.5,
+            15,
+            14.5,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#concrete",
+          "uv": [
+            3.5,
+            15,
+            13.5,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#concrete",
+          "uv": [
+            1.5,
+            15,
+            14.5,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#concrete",
+          "uv": [
+            2.5,
+            15,
+            12.5,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#concrete",
+          "uv": [
+            1.5,
+            2.5,
+            14.5,
+            12.5
+          ]
+        },
+        "down": {
+          "texture": "#concrete",
+          "uv": [
+            1.5,
+            3.5,
+            14.5,
+            13.5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        1,
+        3
+      ],
+      "to": [
+        14,
+        15,
+        12
+      ],
+      "faces": {
+        "north": {
+          "texture": "#cabinet_front",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#cabinet",
+          "uv": [
+            4,
+            1,
+            13,
+            15
+          ]
+        },
+        "south": {
+          "texture": "#cabinet",
+          "uv": [
+            2,
+            1,
+            14,
+            15
+          ]
+        },
+        "west": {
+          "texture": "#cabinet",
+          "uv": [
+            3,
+            1,
+            12,
+            15
+          ]
+        },
+        "up": {
+          "texture": "#cabinet",
+          "uv": [
+            2,
+            3,
+            14,
+            12
+          ]
+        },
+        "down": {
+          "texture": "#cabinet",
+          "uv": [
+            2,
+            4,
+            14,
+            13
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        12,
+        2.5
+      ],
+      "to": [
+        9.5,
+        14,
+        3
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lamp_red",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#housing",
+          "uv": [
+            13,
+            2,
+            13.5,
+            4
+          ]
+        },
+        "south": {
+          "texture": "#housing",
+          "uv": [
+            6.5,
+            2,
+            9.5,
+            4
+          ]
+        },
+        "west": {
+          "texture": "#housing",
+          "uv": [
+            2.5,
+            2,
+            3,
+            4
+          ]
+        },
+        "up": {
+          "texture": "#housing",
+          "uv": [
+            6.5,
+            2.5,
+            9.5,
+            3
+          ]
+        },
+        "down": {
+          "texture": "#housing",
+          "uv": [
+            6.5,
+            13,
+            9.5,
+            13.5
+          ]
+        }
+      },
+      "shade": false,
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  ]
+}

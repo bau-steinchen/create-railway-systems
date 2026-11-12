@@ -950,7 +950,7 @@ def generate_data():
     blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "ks_hauptsignal",
               "ks_vorsignal", "ks_mehrabschnittssignal", *FORM_TYPES, *MAST_BLOCKS]
     blocks += ["ampel_mast", "zebrastreifen_mast", "fussgaengerampel", "ampel_steuergeraet"]
-    blocks += ["andreaskreuz", "bue_lichtzeichen", "bue_blinklicht", "bue_schranke"]
+    blocks += ["andreaskreuz", "bue_lichtzeichen", "bue_blinklicht", "bue_schranke", "bue_steuerung"]
     for b in blocks:
         conditions = [{"condition": "minecraft:survives_explosion"}]
         if b in TALL_BLOCKS or b in FORM_TYPES:
@@ -1259,6 +1259,14 @@ def boom_tip():
     return [cap, glow(lamp_box)]
 
 
+def controller_elements(active):
+    """Schaltkasten wie das Ampel-Steuergerät, oben vorn eine Meldeleuchte (rot, wenn eingeschaltet)."""
+    lamp_box = box([6.5, 12, 2.5], [9.5, 14, 3], "#housing", north="#lamp_red" if active else "#lamp_off")
+    return [box([1.5, 0, 2.5], [14.5, 1, 12.5], "#concrete"),
+            box([2, 1, 3], [14, 15, 12], "#cabinet", north="#cabinet_front"),
+            glow(lamp_box) if active else lamp_box]
+
+
 def generate_crossing():
     write_json(ASSETS / "models/block/andreaskreuz.json", crossing_model(andreaskreuz_elements()))
     write_json(ASSETS / "blockstates/andreaskreuz.json", variants([], lambda s: "andreaskreuz"))
@@ -1271,6 +1279,17 @@ def generate_crossing():
         write_json(ASSETS / f"blockstates/{block}.json",
                    variants([("phase", phases)], lambda s, b=block: f"{b}_{s['phase']}"))
         write_json(ASSETS / f"models/item/{block}.json", {"parent": f"{MOD_ID}:block/{block}_red"})
+
+    # Steuerung: Schaltkasten mit Meldeleuchte
+    cabinet = {"cabinet": tex("traffic_cabinet"), "cabinet_front": tex("bue_steuerung_front")}
+    for active in ("false", "true"):
+        write_json(ASSETS / f"models/block/bue_steuerung_{'on' if active == 'true' else 'off'}.json",
+                   {**crossing_model(controller_elements(active == "true")),
+                    "textures": {**CROSSING_TEXTURES, **cabinet, "particle": tex("traffic_cabinet")}})
+    write_json(ASSETS / "blockstates/bue_steuerung.json",
+               variants([("active", ["false", "true"])],
+                        lambda s: f"bue_steuerung_{'on' if s['active'] == 'true' else 'off'}"))
+    write_json(ASSETS / "models/item/bue_steuerung.json", {"parent": f"{MOD_ID}:block/bue_steuerung_off"})
 
     # Schranke: Antrieb als Blockmodell, Baum zeichnet der CrossingBarrierRenderer aus Segmenten
     write_json(ASSETS / "models/block/bue_schranke.json", crossing_model(barrier_housing()))
@@ -1314,6 +1333,14 @@ def generate_crossing_textures(lamp_img, off, colors):
     d.rectangle([0, 0, 3, 15], fill=(205, 25, 30, 255))
     d.rectangle([8, 0, 11, 15], fill=(205, 25, 30, 255))
     save(boom, "bue_schrankenbaum")
+
+    # Front der BÜ-Steuerung: Tür mit kleinem Andreaskreuz
+    with Image.open(ASSETS / "textures/block/traffic_cabinet_front.png") as base:
+        front = base.convert("RGBA")
+    d = ImageDraw.Draw(front)
+    d.line([(4, 6), (11, 12)], fill=(205, 25, 30, 255), width=2)
+    d.line([(4, 12), (11, 6)], fill=(205, 25, 30, 255), width=2)
+    save(front, "bue_steuerung_front")
 
 
 def save_item(img, name):

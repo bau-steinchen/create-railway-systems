@@ -39,6 +39,7 @@ public class ModCreativeTabs {
 			output.accept(ModItems.BUE_LICHTZEICHEN.get());
 			output.accept(ModItems.BUE_BLINKLICHT.get());
 			output.accept(ModItems.BUE_SCHRANKE.get());
+			output.accept(ModItems.BUE_STEUERUNG.get());
 		})
 		.build());
 

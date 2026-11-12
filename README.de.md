@@ -161,12 +161,17 @@ Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtu
 | Bahnübergangs-Lichtzeichen (Gelb/Rot) | Beim Einschalten 3 s Gelb, danach Dauerrot |
 | Bahnübergangs-Blinklicht | Einzelnes rotes Licht, das im eingeschalteten Zustand blinkt |
 | Bahnübergangs-Schranke | Antrieb mit rot-weißem Baum, der über die Straße schwenkt |
+| Bahnübergangs-Steuerung | Schaltkasten, der herannahende Züge erkennt und den Bahnübergang schaltet |
 
 Die Lichter sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
 
 **Schranke:** Wird wie die Lichter geschaltet (Redstone oder Funkverbindung hinten am Gehäuse). Nach dem Einschalten wartet sie 5 s (Gelb- und Rotphase der Lichter) und senkt den Baum dann innerhalb von 6 s; beim Ausschalten hebt sie ihn sofort. Mit dem Schraubenschlüssel stellt das Wertefeld oben die Baumlänge ein (2–8 Blöcke), ein Klick auf die Vorderseite des Gehäuses setzt den Baum auf die andere Seite, jede andere Seite dreht die Schranke. Der Baum wird nur gezeichnet und hat noch keine Kollision.
 
-**Zugerkennung vorerst:** Create-Gleisbeobachter einige Dutzend Blöcke vor dem Bahnübergang aufstellen (je Richtung einen) und ihr Signal per Redstone Link an die Lichter senden, z. B. über ein Latch, das ein zweiter Beobachter hinter dem Bahnübergang zurücksetzt. Automatische Zugerkennung und ein BÜ-Steuergerät sind geplant.
+**Automatische Zugerkennung:** Mit der Bahnübergangs-Steuerung das Gleis am Bahnübergang anklicken (wie beim Create-Gleisbeobachter) und den Kasten dann neben das Gleis setzen. Die Steuerung beobachtet das Gleis in beide Richtungen und schaltet ein, sobald ein Zug bei seiner aktuellen Geschwindigkeit den Bahnübergang innerhalb der Vorwarnzeit (Standard 20 s) erreichen würde oder ein Zug auf dem Bahnübergang steht. Ausgeschaltet wird 2 s, nachdem der letzte Wagen vorbei ist und kein weiterer Zug kommt. Ein Zug, der vor dem Bahnübergang hält (z. B. an einem Signal), gibt ihn wieder frei und schaltet ihn beim Anfahren erneut ein.
+
+Eingeschaltet sendet die Steuerung auf der Frequenz ihrer eingebauten Funkverbindung (Sender, zwei Felder hinten) und gibt Redstone aus. Lichter und Schranken des Bahnübergangs auf dieselbe Frequenz stellen. Bei mehreren Gleisen je Gleis eine Steuerung auf derselben Frequenz setzen.
+
+Verfolgt wird nur verbundenes Gleis, nie Kreuzungen mit anderen Gleisen: Fahrzeuge auf einer Straße aus Phantom-Gleisen, die die Bahn kreuzt, werden nicht erkannt. Vorwarnzeit und Suchweite (Standard 600 Blöcke) stehen in der Server-Config (`crossingWarningTime`, `crossingScanDistance`).
 
 ## Entwicklung
 
@@ -243,7 +248,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
   traffic/                             Straßenampeln: Mast, Fußgängerampel, Steuergerät, Signalzeitenplan
-  crossing/                            Bahnübergänge: Andreaskreuz, Lichtzeichen, Schranke
+  crossing/                            Bahnübergänge: Andreaskreuz, Lichter, Schranke, Steuerung, Zugerkennung
   network/                             Pakete der Menüs (Client -> Server)
   client/                              Overlay-Renderer für Zusatzanzeigen, Ampel-Renderer, Menüs, Umrisse
 tools/generate_assets.py               Asset-Generator
@@ -253,7 +258,7 @@ tools/models/                          Eigene Blockbench-Modelle und Texturen (o
 ## Geplant
 
 - Bessere Texturen
-- Bahnübergänge: Steuergerät mit automatischer Zugerkennung, Signalabhängigkeit, Läutewerk, Kollision der Schranke
+- Bahnübergänge: Signalabhängigkeit, Läutewerk, Kollision der Schranke, Richtungsfilter
 
 ## Lizenz
 

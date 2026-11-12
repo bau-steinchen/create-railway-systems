@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.crossing.CrossingBarrierBlockEntity;
+import de.bausteinchen.railwaysystems.crossing.CrossingControllerBlockEntity;
 import de.bausteinchen.railwaysystems.crossing.CrossingLightBlockEntity;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockEntity;
 import de.bausteinchen.railwaysystems.signal.SignalLinkBlockEntity;
@@ -61,5 +62,10 @@ public class ModBlockEntities {
 	@SuppressWarnings("DataFlowIssue")
 	public static final Supplier<BlockEntityType<CrossingBarrierBlockEntity>> CROSSING_BARRIER = BLOCK_ENTITIES.register("crossing_barrier",
 		() -> BlockEntityType.Builder.of(CrossingBarrierBlockEntity::new, ModBlocks.BUE_SCHRANKE.get()).build(null));
+
+	/** Bahnübergangs-Steuerung mit Zugerkennung */
+	@SuppressWarnings("DataFlowIssue")
+	public static final Supplier<BlockEntityType<CrossingControllerBlockEntity>> CROSSING_CONTROLLER = BLOCK_ENTITIES.register("crossing_controller",
+		() -> BlockEntityType.Builder.of(CrossingControllerBlockEntity::new, ModBlocks.BUE_STEUERUNG.get()).build(null));
 
 }

@@ -20,6 +20,7 @@
     "create_railway_systems:bue_lichtzeichen",
     "create_railway_systems:bue_blinklicht",
     "create_railway_systems:bue_schranke",
+    "create_railway_systems:bue_steuerung",
     "create_railway_systems:ampel_mast_schaft"
   ]
 }

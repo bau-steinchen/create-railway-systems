@@ -44,6 +44,7 @@
   "block.create_railway_systems.bue_lichtzeichen": "Bahnübergangs-Lichtzeichen (Gelb/Rot)",
   "block.create_railway_systems.bue_blinklicht": "Bahnübergangs-Blinklicht",
   "block.create_railway_systems.bue_schranke": "Bahnübergangs-Schranke",
+  "block.create_railway_systems.bue_steuerung": "Bahnübergangs-Steuerung",
   "create_railway_systems.barrier.length": "Länge des Schrankenbaums",
   "block.create_railway_systems.ampel_steuergeraet": "Ampel-Steuergerät",
   "item.create_railway_systems.ampel_programmierer": "Ampel-Programmierer",

@@ -39,6 +39,11 @@ public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 	private int receivedStrength;
 	/** Ticks seit dem Einschalten; -1 = aus */
 	private int activeTicks = -1;
+	/**
+	 * Nach dem Laden kommt das Funksignal erst an, wenn auch der Sender geladen ist; so lange nicht
+	 * ausschalten, sonst begänne ein laufender Bahnübergang nach jedem Neuladen von vorn.
+	 */
+	private int loadGrace = 20;
 	private LerpedFloat angle;
 	private ScrollValueBehaviour length;
 
@@ -71,7 +76,11 @@ public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 
 		if (!level.isClientSide) {
 			boolean active = receivedStrength > 0 || level.hasNeighborSignal(worldPosition);
-			if (!active)
+			if (loadGrace > 0)
+				loadGrace--;
+			if (!active && loadGrace > 0 && activeTicks >= 0)
+				active = true;
+			else if (!active)
 				activeTicks = -1;
 			else if (activeTicks < LOWER_DELAY_TICKS)
 				activeTicks++;

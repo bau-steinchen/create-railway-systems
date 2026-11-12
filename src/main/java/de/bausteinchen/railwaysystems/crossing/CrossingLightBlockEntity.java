@@ -26,6 +26,11 @@ public class CrossingLightBlockEntity extends SmartBlockEntity {
 	private int receivedStrength;
 	/** Ticks seit dem Einschalten; -1 = aus */
 	private int activeTicks = -1;
+	/**
+	 * Nach dem Laden kommt das Funksignal erst an, wenn auch der Sender geladen ist; so lange nicht
+	 * ausschalten, sonst begänne ein laufender Bahnübergang nach jedem Neuladen von vorn.
+	 */
+	private int loadGrace = 20;
 
 	public CrossingLightBlockEntity(BlockPos pos, BlockState state) {
 		super(ModBlockEntities.CROSSING_LIGHT.get(), pos, state);
@@ -47,6 +52,10 @@ public class CrossingLightBlockEntity extends SmartBlockEntity {
 			return;
 
 		boolean active = receivedStrength > 0 || level.hasNeighborSignal(worldPosition);
+		if (loadGrace > 0)
+			loadGrace--;
+		if (!active && loadGrace > 0 && activeTicks >= 0)
+			return;
 		if (!active)
 			activeTicks = -1;
 		else if (activeTicks < YELLOW_TICKS)

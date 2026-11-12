@@ -44,6 +44,7 @@
   "block.create_railway_systems.bue_lichtzeichen": "Level Crossing Light (Yellow/Red)",
   "block.create_railway_systems.bue_blinklicht": "Level Crossing Flashing Light",
   "block.create_railway_systems.bue_schranke": "Level Crossing Barrier",
+  "block.create_railway_systems.bue_steuerung": "Level Crossing Controller",
   "create_railway_systems.barrier.length": "Boom length",
   "block.create_railway_systems.ampel_steuergeraet": "Traffic Light Controller",
   "item.create_railway_systems.ampel_programmierer": "Traffic Light Programmer",
