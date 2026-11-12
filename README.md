@@ -153,6 +153,18 @@ Changes apply when you click **Save**. **Redstone** on the controller switches t
 
 Example intersection, 60 s cycle: K1 (main road) green 0–25, K2 (side road) green 30–52, F1 (pedestrians parallel to K1) green 0–20. Mark K1/K2 and K2/F1 as conflicting in the matrix.
 
+### Level crossings
+
+| Block | Description |
+|---|---|
+| St. Andrew's cross | Sign 201 on a short post |
+| Level crossing light (yellow/red) | German "Lichtzeichen": when switched on it shows yellow for 3 s, then steady red |
+| Level crossing flashing light | Single red light that flashes while switched on |
+
+The lights are switched on while a redstone signal reaches the block or while their built-in redstone link receiver (two frequency slots on the back of the post) receives a signal. The post runs through the whole block, so a St. Andrew's cross can sit on top and signal masts can go underneath.
+
+**Train detection for now:** place Create track observers a few dozen blocks before the crossing (one per direction) and send their signal to the lights over a redstone link, e.g. through a latch that a second observer behind the crossing resets. Automatic train detection, barriers and a crossing controller are planned.
+
 ## Development
 
 Requires JDK 21 and Python 3.10+ with Pillow (`pip install pillow`).
@@ -228,6 +240,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/hv/                           H/V and Sh signals
   signal/ks/                           Ks signals
   traffic/                             Traffic lights: mast, pedestrian light, controller, signal timing plan
+  crossing/                            Level crossings: St. Andrew's cross, crossing lights
   network/                             Menu packets (client -> server)
   client/                              Overlay renderer for indicators, traffic light renderer, menus, outlines
 tools/generate_assets.py               Asset generator
@@ -237,6 +250,7 @@ tools/models/                          Custom Blockbench models and textures (op
 ## Planned
 
 - Better textures
+- Level crossings: barriers, controller with automatic train detection, signal interlocking, bell
 
 ## License
 

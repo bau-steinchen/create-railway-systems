@@ -950,6 +950,7 @@ def generate_data():
     blocks = ["hv_hauptsignal", "hv_vorsignal", "hv_kombisignal", "sh_sperrsignal", "ks_hauptsignal",
               "ks_vorsignal", "ks_mehrabschnittssignal", *FORM_TYPES, *MAST_BLOCKS]
     blocks += ["ampel_mast", "zebrastreifen_mast", "fussgaengerampel", "ampel_steuergeraet"]
+    blocks += ["andreaskreuz", "bue_lichtzeichen", "bue_blinklicht"]
     for b in blocks:
         conditions = [{"condition": "minecraft:survives_explosion"}]
         if b in TALL_BLOCKS or b in FORM_TYPES:
@@ -1158,6 +1159,104 @@ def generate_zebra_textures():
     d.rectangle([8, 9, 10, 11], fill=blue)
     d.point([(9, 10)], fill=white)
     save_item(icon, "zebrastreifen_mast")
+
+
+# --- Bahnübergang ---
+# Andreaskreuz und Lichtzeichen stehen auf einem Mast, deckungsgleich mit dem Signalmast-Block
+# (6,5..9,5 px), damit sie sich mit Signalmasten und miteinander stapeln lassen.
+
+CROSSING_TEXTURES = {
+    "particle": tex("signal_mast"),
+    "mast": tex("signal_mast"),
+    "screen": tex("signal_screen"),
+    "backplate": tex("traffic_backplate"),
+    "lamp_off": tex("lamp_off"),
+    "lamp_red": tex("lamp_red"),
+    "lamp_yellow": tex("lamp_yellow"),
+    "lamp_red_blink": tex("lamp_red_blink"),
+    "andreaskreuz": tex("andreaskreuz"),
+}
+# Lichtzeichen: Lampe -> Unterkante (px); Lampen 5 px groß, Gelb über Rot
+BUE_LAMPS = {"yellow": 9, "red": 2.5}
+
+
+def crossing_model(elements):
+    return {"parent": "block/block", "textures": CROSSING_TEXTURES,
+            "elements": [{k: v for k, v in e.items() if k != "name"} for e in with_uvs(elements)]}
+
+
+def crossing_post(height=16):
+    return box([6.5, 0, 6.5], [9.5, height, 9.5], "#mast")
+
+
+def cross_board(angle, z0):
+    """Ein Balken des Andreaskreuzes, um die Blickachse gedreht; Vorder- und Rückseite zeigen die
+    Schildtextur (weiß mit rotem Rand)."""
+    element = box([-2, 7, z0], [18, 10, z0 + 0.75], "#andreaskreuz")
+    for side in ("north", "south"):
+        element["faces"][side] = {"texture": "#andreaskreuz", "uv": [0, 0, 16, 16]}
+    element["rotation"] = {"origin": [8, 8.5, z0], "axis": "z", "angle": angle}
+    return element
+
+
+def andreaskreuz_elements():
+    # zwei Balken leicht versetzt hintereinander, damit sich die Flächen in der Mitte nicht überlagern
+    return [crossing_post(10), cross_board(45, 5.25), cross_board(-45, 6)]
+
+
+def crossing_lamp(vy0, size, texture, lit):
+    element = box([8 - size / 2, vy0, 5], [8 + size / 2, vy0 + size, 5.5], "#screen", north=texture)
+    hood = box([7.5 - size / 2, vy0 + size, 3.5], [8.5 + size / 2, vy0 + size + 0.5, 5.5], "#screen")
+    return [glow(element) if lit else element, hood]
+
+
+def lichtzeichen_elements(phase):
+    elements = [crossing_post(), box([3, 1, 5.5], [13, 15, 6.5], "#screen", north="#backplate")]
+    for color, y in BUE_LAMPS.items():
+        lit = phase == color
+        elements += crossing_lamp(y, 5, f"#lamp_{color}" if lit else "#lamp_off", lit)
+    return elements
+
+
+def blinklicht_elements(phase):
+    lit = phase == "red"
+    return [crossing_post(), box([3.5, 3, 5.5], [12.5, 13, 6.5], "#screen", north="#backplate"),
+            *crossing_lamp(5, 6, "#lamp_red_blink" if lit else "#lamp_off", lit)]
+
+
+def generate_crossing():
+    write_json(ASSETS / "models/block/andreaskreuz.json", crossing_model(andreaskreuz_elements()))
+    write_json(ASSETS / "blockstates/andreaskreuz.json", variants([], lambda s: "andreaskreuz"))
+    write_json(ASSETS / "models/item/andreaskreuz.json", {"parent": f"{MOD_ID}:block/andreaskreuz"})
+
+    for block, phases, elements in (("bue_lichtzeichen", ["off", "yellow", "red"], lichtzeichen_elements),
+                                    ("bue_blinklicht", ["off", "red"], blinklicht_elements)):
+        for phase in phases:
+            write_json(ASSETS / f"models/block/{block}_{phase}.json", crossing_model(elements(phase)))
+        write_json(ASSETS / f"blockstates/{block}.json",
+                   variants([("phase", phases)], lambda s, b=block: f"{b}_{s['phase']}"))
+        write_json(ASSETS / f"models/item/{block}.json", {"parent": f"{MOD_ID}:block/{block}_red"})
+
+
+def generate_crossing_textures(lamp_img, off, colors):
+    r, g, b = colors["red"]
+    blink = Image.new("RGBA", (16, 32))
+    blink.paste(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255),
+                         (min(255, r + 120), min(255, g + 120), min(255, b + 120), 255)), (0, 0))
+    blink.paste(off, (0, 16))
+    save(blink, "lamp_red_blink")
+    # etwa 1 Hz wie ein echtes Blinklicht
+    write_json(ASSETS / "textures/block/lamp_red_blink.png.mcmeta", {"animation": {"frametime": 10}})
+
+    # Andreaskreuz-Balken: weiß mit rotem Rand; die Textur wird auf 20 x 3 px gestreckt,
+    # daher oben und unten breitere Ränder als an den Enden
+    cross = Image.new("RGBA", (16, 16), (240, 240, 236, 255))
+    d = ImageDraw.Draw(cross)
+    d.rectangle([0, 0, 15, 3], fill=(205, 25, 30, 255))
+    d.rectangle([0, 12, 15, 15], fill=(205, 25, 30, 255))
+    d.rectangle([0, 0, 0, 15], fill=(205, 25, 30, 255))
+    d.rectangle([15, 0, 15, 15], fill=(205, 25, 30, 255))
+    save(cross, "andreaskreuz")
 
 
 def save_item(img, name):
@@ -1671,6 +1770,7 @@ def generate_textures():
         save(lamp_img((r, g, b, 255), (r // 2, g // 2, b // 2, 255),
                       (min(255, r + 120), min(255, g + 120), min(255, b + 120), 255)), f"lamp_{name}")
     generate_traffic_textures(lamp_img, off, colors)
+    generate_crossing_textures(lamp_img, off, colors)
 
 
 if __name__ == "__main__":
@@ -1683,6 +1783,7 @@ if __name__ == "__main__":
     generate_form()
     generate_overlays()
     generate_traffic()
+    generate_crossing()
     generate_data()
     generate_textures()
     copy_bb_textures()

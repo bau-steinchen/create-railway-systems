@@ -153,6 +153,18 @@ Solange ein Steuergerät ausgewählt ist, sind es und alle verbundenen Ampeln um
 
 Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtung) Grün 30–52, F1 (Fußgänger parallel zu K1) Grün 0–20. In der Matrix K1/K2 und K2/F1 als feindlich markieren.
 
+### Bahnübergänge
+
+| Block | Beschreibung |
+|---|---|
+| Andreaskreuz | Zeichen 201 auf einem kurzen Mast |
+| Bahnübergangs-Lichtzeichen (Gelb/Rot) | Beim Einschalten 3 s Gelb, danach Dauerrot |
+| Bahnübergangs-Blinklicht | Einzelnes rotes Licht, das im eingeschalteten Zustand blinkt |
+
+Die Lichter sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
+
+**Zugerkennung vorerst:** Create-Gleisbeobachter einige Dutzend Blöcke vor dem Bahnübergang aufstellen (je Richtung einen) und ihr Signal per Redstone Link an die Lichter senden, z. B. über ein Latch, das ein zweiter Beobachter hinter dem Bahnübergang zurücksetzt. Automatische Zugerkennung, Schranken und ein BÜ-Steuergerät sind geplant.
+
 ## Entwicklung
 
 Benötigt JDK 21 und Python 3.10+ mit Pillow (`pip install pillow`).
@@ -228,6 +240,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
   traffic/                             Straßenampeln: Mast, Fußgängerampel, Steuergerät, Signalzeitenplan
+  crossing/                            Bahnübergänge: Andreaskreuz, Lichtzeichen
   network/                             Pakete der Menüs (Client -> Server)
   client/                              Overlay-Renderer für Zusatzanzeigen, Ampel-Renderer, Menüs, Umrisse
 tools/generate_assets.py               Asset-Generator
@@ -237,6 +250,7 @@ tools/models/                          Eigene Blockbench-Modelle und Texturen (o
 ## Geplant
 
 - Bessere Texturen
+- Bahnübergänge: Schranken, Steuergerät mit automatischer Zugerkennung, Signalabhängigkeit, Läutewerk
 
 ## Lizenz
 

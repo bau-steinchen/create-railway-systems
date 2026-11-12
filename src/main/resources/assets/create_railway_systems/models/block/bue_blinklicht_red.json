@@ -1,0 +1,293 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "create_railway_systems:block/signal_mast",
+    "mast": "create_railway_systems:block/signal_mast",
+    "screen": "create_railway_systems:block/signal_screen",
+    "backplate": "create_railway_systems:block/traffic_backplate",
+    "lamp_off": "create_railway_systems:block/lamp_off",
+    "lamp_red": "create_railway_systems:block/lamp_red",
+    "lamp_yellow": "create_railway_systems:block/lamp_yellow",
+    "lamp_red_blink": "create_railway_systems:block/lamp_red_blink",
+    "andreaskreuz": "create_railway_systems:block/andreaskreuz"
+  },
+  "elements": [
+    {
+      "from": [
+        6.5,
+        0,
+        6.5
+      ],
+      "to": [
+        9.5,
+        16,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            0,
+            9.5,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            0,
+            9.5,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            0,
+            9.5,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            0,
+            9.5,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            6.5,
+            9.5,
+            9.5
+          ]
+        },
+        "down": {
+          "texture": "#mast",
+          "uv": [
+            6.5,
+            6.5,
+            9.5,
+            9.5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        3.5,
+        3,
+        5.5
+      ],
+      "to": [
+        12.5,
+        13,
+        6.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#backplate",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#screen",
+          "uv": [
+            9.5,
+            3,
+            10.5,
+            13
+          ]
+        },
+        "south": {
+          "texture": "#screen",
+          "uv": [
+            3.5,
+            3,
+            12.5,
+            13
+          ]
+        },
+        "west": {
+          "texture": "#screen",
+          "uv": [
+            5.5,
+            3,
+            6.5,
+            13
+          ]
+        },
+        "up": {
+          "texture": "#screen",
+          "uv": [
+            3.5,
+            5.5,
+            12.5,
+            6.5
+          ]
+        },
+        "down": {
+          "texture": "#screen",
+          "uv": [
+            3.5,
+            9.5,
+            12.5,
+            10.5
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        5.0,
+        5,
+        5
+      ],
+      "to": [
+        11.0,
+        11,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#lamp_red_blink",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#screen",
+          "uv": [
+            10.5,
+            5,
+            11,
+            11
+          ]
+        },
+        "south": {
+          "texture": "#screen",
+          "uv": [
+            5.0,
+            5,
+            11.0,
+            11
+          ]
+        },
+        "west": {
+          "texture": "#screen",
+          "uv": [
+            5,
+            5,
+            5.5,
+            11
+          ]
+        },
+        "up": {
+          "texture": "#screen",
+          "uv": [
+            5.0,
+            5,
+            11.0,
+            5.5
+          ]
+        },
+        "down": {
+          "texture": "#screen",
+          "uv": [
+            5.0,
+            10.5,
+            11.0,
+            11
+          ]
+        }
+      },
+      "shade": false,
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    },
+    {
+      "from": [
+        4.5,
+        11,
+        3.5
+      ],
+      "to": [
+        11.5,
+        11.5,
+        5.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#screen",
+          "uv": [
+            4.5,
+            4.5,
+            11.5,
+            5
+          ]
+        },
+        "east": {
+          "texture": "#screen",
+          "uv": [
+            10.5,
+            4.5,
+            12.5,
+            5
+          ]
+        },
+        "south": {
+          "texture": "#screen",
+          "uv": [
+            4.5,
+            4.5,
+            11.5,
+            5
+          ]
+        },
+        "west": {
+          "texture": "#screen",
+          "uv": [
+            3.5,
+            4.5,
+            5.5,
+            5
+          ]
+        },
+        "up": {
+          "texture": "#screen",
+          "uv": [
+            4.5,
+            3.5,
+            11.5,
+            5.5
+          ]
+        },
+        "down": {
+          "texture": "#screen",
+          "uv": [
+            4.5,
+            10.5,
+            11.5,
+            12.5
+          ]
+        }
+      }
+    }
+  ]
+}
