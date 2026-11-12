@@ -10,3 +10,4 @@ bin/
 *.class
 __pycache__/
 tools/models/vorlagen/
+.eclipse
