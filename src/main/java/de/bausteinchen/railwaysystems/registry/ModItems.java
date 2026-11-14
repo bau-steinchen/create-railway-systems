@@ -1,6 +1,9 @@
 package de.bausteinchen.railwaysystems.registry;
 
+import com.simibubi.create.content.trains.track.TrackTargetingBlockItem;
+
 import de.bausteinchen.railwaysystems.RailwaySystems;
+import de.bausteinchen.railwaysystems.crossing.LevelCrossingPoint;
 import de.bausteinchen.railwaysystems.signal.LinkedSignalBlockItem;
 import de.bausteinchen.railwaysystems.traffic.CrosswalkMastItem;
 import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockItem;
@@ -61,5 +64,13 @@ public class ModItems {
 
 	public static final DeferredItem<TrafficLinkerItem> TRAFFIC_LINKER = ITEMS.register("ampel_programmierer",
 		() -> new TrafficLinkerItem(new Item.Properties()));
+
+	public static final DeferredItem<BlockItem> ANDREASKREUZ = ITEMS.registerSimpleBlockItem(ModBlocks.ANDREASKREUZ);
+	public static final DeferredItem<BlockItem> BUE_LICHTZEICHEN = ITEMS.registerSimpleBlockItem(ModBlocks.BUE_LICHTZEICHEN);
+	public static final DeferredItem<BlockItem> BUE_BLINKLICHT = ITEMS.registerSimpleBlockItem(ModBlocks.BUE_BLINKLICHT);
+	public static final DeferredItem<BlockItem> BUE_SCHRANKE = ITEMS.registerSimpleBlockItem(ModBlocks.BUE_SCHRANKE);
+	/** wird wie ein Create-Gleisbeobachter erst auf das Gleis geklickt und dann daneben gesetzt */
+	public static final DeferredItem<TrackTargetingBlockItem> BUE_STEUERUNG = ITEMS.register("bue_steuerung",
+		() -> new TrackTargetingBlockItem(ModBlocks.BUE_STEUERUNG.get(), new Item.Properties(), LevelCrossingPoint.TYPE));
 
 }

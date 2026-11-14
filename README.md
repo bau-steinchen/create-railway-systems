@@ -119,7 +119,7 @@ Left and right are as seen from the front. Right-clicking with the wrench outsid
 |---|---|
 | Traffic light mast with arm | Mast with a curved bend and an arm over the road, vehicle signal head (red, yellow, green) at the end of the arm and optionally on the pole. Height and reach are configurable |
 | Crosswalk light mast | Same mast with a crosswalk light over the road (sign 350 on both sides, lamp underneath, as used in Hamburg) and a flat sign 350 on the pole. Height, reach and sign height are configurable; the light is switched by a built-in redstone link receiver |
-| Pedestrian light | Red/green with pedestrian symbol. Put signal masts underneath to raise it, or right-click the pole of a traffic light mast to mount it there |
+| Pedestrian light | Red/green with pedestrian symbol. Put signal masts underneath to raise it, or right-click the pole of a traffic light or crosswalk mast to mount it there |
 | Traffic light controller | Cabinet that switches the linked traffic lights according to a signal timing plan |
 | Traffic light programmer | Tool for linking traffic lights to a controller |
 
@@ -133,7 +133,7 @@ The vertical pole is made of blocks (collision, clickable). The bend, arm and si
 
 **Crosswalk light mast:** Placed and adjusted like the traffic light mast; instead of the signal head on the pole, the menu sets the height of the sign on the pole. The foot of the mast holds a redstone link receiver with its two frequency slots on the back. While a redstone signal arrives on that frequency, the crosswalk light shines.
 
-**Pedestrian light on the mast:** right-click a block of the pole with the pedestrian light. It is mounted on the side you clicked (clicking from above or below: facing you). It is a light of its own and is linked to the controller like a standalone pedestrian light, by clicking it. Sneak + wrench takes it off again; it also drops when the mast is broken.
+**Pedestrian light on the mast:** right-click a block of the pole of a traffic light or crosswalk mast with the pedestrian light. It is mounted on the side you clicked (clicking from above or below: facing you). It is a light of its own and is linked to the controller like a standalone pedestrian light, by clicking it. Sneak + wrench takes it off again; it also drops when the mast is broken.
 
 **Stopping trains:** Like the railway signals, a traffic light can be linked to a Create signal by right-clicking it before placing, e.g. on a phantom track used for road vehicles. While the light shows red, red-yellow or yellow it holds that Create signal at stop and trains wait in front of it. Without a link the light only displays its aspect.
 
@@ -154,6 +154,34 @@ While a controller is selected, it and all linked lights are outlined, colored b
 Changes apply when you click **Save**. **Redstone** on the controller switches to night mode: vehicle lights flash yellow, pedestrian lights are off, linked Create signals stay open.
 
 Example intersection, 60 s cycle: K1 (main road) green 0–25, K2 (side road) green 30–52, F1 (pedestrians parallel to K1) green 0–20. Mark K1/K2 and K2/F1 as conflicting in the matrix.
+
+### Level crossings
+
+| Block | Description |
+|---|---|
+| St. Andrew's cross | Sign 201 on a short post |
+| Level crossing light (yellow/red) | German "Lichtzeichen": when switched on it shows yellow for 3 s, then steady red |
+| Level crossing flashing light | Single red light that flashes while switched on |
+| Level crossing barrier | Drive housing with a red-and-white boom that swings down across the road |
+| Level crossing controller | Cabinet that detects approaching trains and switches the crossing |
+
+Both lights sit in front of a black contrast plate with a white border. They are switched on while a redstone signal reaches the block or while their built-in redstone link receiver (two frequency slots on the back of the post) receives a signal. The post runs through the whole block, so a St. Andrew's cross can sit on top and signal masts can go underneath.
+
+**Barrier:** switched like the lights (redstone or the link receiver on the back of the housing). After switching on it waits 5 s (yellow and red phase of the lights), then lowers the boom within 6 s; when switched off it raises it right away. With the wrench, the value box on top sets the boom length (2–8 blocks), clicking the front of the housing moves the boom to the other side, any other face rotates the barrier. While the boom is lowering, the bell rings (can be turned off with `crossingBell` in the server config). The boom is only rendered and has no collision yet.
+
+**Automatic train detection:** Right-click the track at the crossing with the level crossing controller (like a Create track observer), then place the cabinet next to the track. The controller watches the track in both directions and switches on as soon as a train would reach the crossing within the warning time (default 20 s) at its current speed, or while a train is on the crossing. It switches off 2 s after the last car has passed and no other train is approaching. A train that stops in front of the crossing (e.g. at a signal) lets it open again and switches it on once it starts moving. Once switched on, the crossing stays closed at least until the barriers are down, and a train slowly approaching within 100 blocks keeps it closed.
+
+**Direction filter:** With the wrench, the value box on top of the controller switches between *both directions* and *arrow direction only*. With the filter, the track marker shows an arrow like a Create signal; only trains travelling in that direction switch the crossing on (useful on double track with one track per direction). The arrow direction is chosen when clicking the track, just like with Create signals.
+
+**Signals:** With the traffic light programmer, right-click the controller, then Create signals. Each click on a signal cycles: *protecting signal* → *road signal* → unbound.
+- **Protecting signals** stand on the railway in front of the crossing. They are held at stop from switching on until the crossing is secured (barriers down, about 11.5 s). A train that comes too fast stops there instead of running into a closing crossing. The warning time should therefore be well above 12 s.
+- **Road signals** are Create signals on a road made of phantom tracks. They stay red while the crossing is closed and until the barriers are up again, so road vehicles wait in front of the crossing.
+
+The goggles show the state of the controller (open, closing, secured) and the bound signals.
+
+While active, the controller sends a signal on the frequency of its built-in redstone link transmitter (two slots on the back) and emits redstone. Put the same frequency on the lights and barriers of the crossing. With several tracks, place one controller per track on the same frequency.
+
+Only connected track is followed, never crossings with other tracks: vehicles on a road made of phantom tracks that crosses the railway are not detected. Warning time and search distance (default 600 blocks) are in the server config (`crossingWarningTime`, `crossingScanDistance`).
 
 ## Development
 
@@ -226,10 +254,11 @@ A trailing number is allowed (`arm2`, `lamp_red2`, `zs12`), but `mastschild` doe
 src/main/java/de/bausteinchen/railwaysystems/
   RailwaySystems.java, Config.java     Entry point and server config
   registry/                            Blocks, items, block entities, creative tab
-  signal/                              Shared base: linking, block entity, mounting, mast
+  signal/                              Shared base: linking, block entity, mounting, mast, holding Create signals
   signal/hv/                           H/V and Sh signals
   signal/ks/                           Ks signals
   traffic/                             Traffic lights: mast, pedestrian light, controller, signal timing plan
+  crossing/                            Level crossings: St. Andrew's cross, lights, barrier, controller, train detection
   network/                             Menu packets (client -> server)
   client/                              Overlay renderer for indicators, traffic light renderer, menus, outlines
 tools/generate_assets.py               Asset generator
@@ -239,6 +268,7 @@ tools/models/                          Custom Blockbench models and textures (op
 ## Planned
 
 - Better textures
+- Level crossings: barrier collision, coupling with the traffic light controller, mounting on masts
 
 ## License
 

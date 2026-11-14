@@ -35,6 +35,11 @@ public class ModCreativeTabs {
 			output.accept(ModItems.PEDESTRIAN_LIGHT.get());
 			output.accept(ModItems.TRAFFIC_CONTROLLER.get());
 			output.accept(ModItems.TRAFFIC_LINKER.get());
+			output.accept(ModItems.ANDREASKREUZ.get());
+			output.accept(ModItems.BUE_LICHTZEICHEN.get());
+			output.accept(ModItems.BUE_BLINKLICHT.get());
+			output.accept(ModItems.BUE_SCHRANKE.get());
+			output.accept(ModItems.BUE_STEUERUNG.get());
 		})
 		.build());
 

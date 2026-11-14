@@ -14,6 +14,20 @@ public class Config {
 		.comment("Maximale Entfernung (Blöcke) zwischen Ampel-Steuergerät und verbundener Ampel")
 		.defineInRange("trafficLinkRange", 64, 1, 256);
 
+	public static final ModConfigSpec.IntValue CROSSING_WARNING_TIME = BUILDER
+		.comment("Bahnübergang: so viele Sekunden vor Ankunft eines Zuges schaltet die Steuerung ein",
+			"(Lichtzeichen 3 s Gelb, Schranke senkt nach 5 s innerhalb von 6 s)")
+		.defineInRange("crossingWarningTime", 20, 5, 120);
+
+	public static final ModConfigSpec.IntValue CROSSING_SCAN_DISTANCE = BUILDER
+		.comment("Bahnübergang: bis zu dieser Gleisentfernung (Blöcke) sucht die Steuerung nach Zügen.",
+			"Sollte mindestens Vorwarnzeit x Höchstgeschwindigkeit der Züge sein.")
+		.defineInRange("crossingScanDistance", 600, 32, 4096);
+
+	public static final ModConfigSpec.BooleanValue CROSSING_BELL = BUILDER
+		.comment("Bahnübergang: Schranken läuten, während sie sich schließen")
+		.define("crossingBell", true);
+
 	public static final ModConfigSpec SPEC = BUILDER.build();
 
 }

@@ -119,7 +119,7 @@ Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschl�
 |---|---|
 | Ampelmast mit Ausleger | Peitschenmast mit Bogen und Ausleger über die Fahrbahn, Kfz-Signalgeber (Rot, Gelb, Grün) am Auslegerende und optional am Mast. Höhe und Ausladung einstellbar |
 | Zebrastreifen-Mast mit Leuchte | Gleicher Mast mit einer Zebrastreifenleuchte über der Fahrbahn (beidseitig Zeichen 350, darunter der Strahler, wie in Hamburg) und einem flachen Zeichen 350 am Mast. Höhe, Ausladung und Schildhöhe einstellbar; die Leuchte schaltet ein eingebauter Funkempfänger (Redstone Link) |
-| Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen, oder per Rechtsklick an den Schaft eines Ampelmastes bauen |
+| Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen, oder per Rechtsklick an den Schaft eines Ampel- oder Zebrastreifen-Mastes bauen |
 | Ampel-Steuergerät | Schaltschrank, der die verbundenen Ampeln nach einem Signalzeitenplan schaltet |
 | Ampel-Programmierer | Werkzeug zum Verbinden von Ampeln mit einem Steuergerät |
 
@@ -133,7 +133,7 @@ Der senkrechte Mast besteht aus Blöcken (Kollision, anklickbar). Bogen, Auslege
 
 **Zebrastreifen-Mast:** Aufstellen und Ändern wie beim Ampelmast; statt der Ampel am Mast stellt das Menü die Höhe des Schildes am Mast ein. Im Mastfuß steckt ein Redstone-Link-Empfänger, seine beiden Frequenzfelder sitzen hinten am Fuß. Solange auf der Frequenz ein Redstone-Signal ankommt, leuchtet die Zebrastreifenleuchte.
 
-**Fußgängerampel am Mast:** Mit der Fußgängerampel einen Block des Mastschafts rechtsklicken. Sie wird an der angeklickten Seite angebaut (Klick von oben oder unten: zum Spieler hin). Sie ist eine eigene Ampel und wird wie eine freistehende Fußgängerampel durch Anklicken mit dem Steuergerät verbunden. Schraubenschlüssel + Schleichen nimmt sie wieder ab; beim Abbau des Mastes droppt sie ebenfalls.
+**Fußgängerampel am Mast:** Mit der Fußgängerampel einen Block des Schafts eines Ampel- oder Zebrastreifen-Mastes rechtsklicken. Sie wird an der angeklickten Seite angebaut (Klick von oben oder unten: zum Spieler hin). Sie ist eine eigene Ampel und wird wie eine freistehende Fußgängerampel durch Anklicken mit dem Steuergerät verbunden. Schraubenschlüssel + Schleichen nimmt sie wieder ab; beim Abbau des Mastes droppt sie ebenfalls.
 
 **Züge anhalten:** Wie die Eisenbahnsignale lässt sich eine Ampel vor dem Platzieren per Rechtsklick an ein Create-Signal binden, z. B. auf einer Strecke aus Phantom-Gleisen für Straßenfahrzeuge. Zeigt die Ampel Rot, Rot-Gelb oder Gelb, hält sie dieses Create-Signal geschlossen, und Züge halten davor. Ohne Bindung zeigt die Ampel nur an.
 
@@ -154,6 +154,34 @@ Solange ein Steuergerät ausgewählt ist, sind es und alle verbundenen Ampeln um
 Änderungen gelten mit **Speichern**. **Redstone** am Steuergerät schaltet auf Nachtbetrieb: Kfz-Ampeln blinken gelb, Fußgängerampeln sind aus, gebundene Create-Signale bleiben frei.
 
 Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtung) Grün 30–52, F1 (Fußgänger parallel zu K1) Grün 0–20. In der Matrix K1/K2 und K2/F1 als feindlich markieren.
+
+### Bahnübergänge
+
+| Block | Beschreibung |
+|---|---|
+| Andreaskreuz | Zeichen 201 auf einem kurzen Mast |
+| Bahnübergangs-Lichtzeichen (Gelb/Rot) | Beim Einschalten 3 s Gelb, danach Dauerrot |
+| Bahnübergangs-Blinklicht | Einzelnes rotes Licht, das im eingeschalteten Zustand blinkt |
+| Bahnübergangs-Schranke | Antrieb mit rot-weißem Baum, der über die Straße schwenkt |
+| Bahnübergangs-Steuerung | Schaltkasten, der herannahende Züge erkennt und den Bahnübergang schaltet |
+
+Beide Lichter sitzen vor einer schwarzen Kontrastblende mit weißem Rand. Sie sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
+
+**Schranke:** Wird wie die Lichter geschaltet (Redstone oder Funkverbindung hinten am Gehäuse). Nach dem Einschalten wartet sie 5 s (Gelb- und Rotphase der Lichter) und senkt den Baum dann innerhalb von 6 s; beim Ausschalten hebt sie ihn sofort. Mit dem Schraubenschlüssel stellt das Wertefeld oben die Baumlänge ein (2–8 Blöcke), ein Klick auf die Vorderseite des Gehäuses setzt den Baum auf die andere Seite, jede andere Seite dreht die Schranke. Während sich der Baum senkt, schlägt das Läutewerk (abschaltbar mit `crossingBell` in der Server-Config). Der Baum wird nur gezeichnet und hat noch keine Kollision.
+
+**Automatische Zugerkennung:** Mit der Bahnübergangs-Steuerung das Gleis am Bahnübergang anklicken (wie beim Create-Gleisbeobachter) und den Kasten dann neben das Gleis setzen. Die Steuerung beobachtet das Gleis in beide Richtungen und schaltet ein, sobald ein Zug bei seiner aktuellen Geschwindigkeit den Bahnübergang innerhalb der Vorwarnzeit (Standard 20 s) erreichen würde oder ein Zug auf dem Bahnübergang steht. Ausgeschaltet wird 2 s, nachdem der letzte Wagen vorbei ist und kein weiterer Zug kommt. Ein Zug, der vor dem Bahnübergang hält (z. B. an einem Signal), gibt ihn wieder frei und schaltet ihn beim Anfahren erneut ein. Einmal eingeschaltet bleibt der Bahnübergang mindestens geschlossen, bis die Schranken unten sind, und ein Zug, der sich innerhalb von 100 Blöcken langsam nähert, hält ihn geschlossen.
+
+**Richtungsfilter:** Mit dem Schraubenschlüssel schaltet das Wertefeld oben auf der Steuerung zwischen *beide Richtungen* und *nur in Pfeilrichtung* um. Mit Filter zeigt die Markierung auf dem Gleis einen Pfeil wie bei einem Create-Signal; nur Züge, die in diese Richtung fahren, schalten den Bahnübergang ein (z. B. bei zweigleisigen Strecken mit Richtungsbetrieb). Die Pfeilrichtung wird wie bei Create-Signalen beim Anklicken des Gleises festgelegt.
+
+**Signale:** Mit dem Ampel-Programmierer die Steuerung anklicken, danach Create-Signale. Jeder Klick auf ein Signal schaltet weiter: *Deckungssignal* → *Straßensignal* → getrennt.
+- **Deckungssignale** stehen am Gleis vor dem Bahnübergang. Sie zeigen vom Einschalten an Halt, bis der Bahnübergang gesichert ist (Schranken unten, etwa 11,5 s). Ein zu schneller Zug hält dort, statt in den sich schließenden Bahnübergang zu fahren. Die Vorwarnzeit sollte deshalb deutlich über 12 s liegen.
+- **Straßensignale** sind Create-Signale auf einer Straße aus Phantom-Gleisen. Sie bleiben rot, solange der Bahnübergang geschlossen ist und bis die Schranken wieder oben sind; Straßenfahrzeuge warten so vor dem Bahnübergang.
+
+Die Goggles zeigen den Zustand der Steuerung (offen, schließt, gesichert) und die gebundenen Signale.
+
+Eingeschaltet sendet die Steuerung auf der Frequenz ihrer eingebauten Funkverbindung (Sender, zwei Felder hinten) und gibt Redstone aus. Lichter und Schranken des Bahnübergangs auf dieselbe Frequenz stellen. Bei mehreren Gleisen je Gleis eine Steuerung auf derselben Frequenz setzen.
+
+Verfolgt wird nur verbundenes Gleis, nie Kreuzungen mit anderen Gleisen: Fahrzeuge auf einer Straße aus Phantom-Gleisen, die die Bahn kreuzt, werden nicht erkannt. Vorwarnzeit und Suchweite (Standard 600 Blöcke) stehen in der Server-Config (`crossingWarningTime`, `crossingScanDistance`).
 
 ## Entwicklung
 
@@ -226,10 +254,11 @@ Eine angehängte Zahl ist erlaubt (`arm2`, `lamp_red2`, `zs12`), `mastschild` z�
 src/main/java/de/bausteinchen/railwaysystems/
   RailwaySystems.java, Config.java     Einstieg und Server-Config
   registry/                            Blöcke, Items, Block-Entities, Kreativ-Tab
-  signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast
+  signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast, Halten von Create-Signalen
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
   traffic/                             Straßenampeln: Mast, Fußgängerampel, Steuergerät, Signalzeitenplan
+  crossing/                            Bahnübergänge: Andreaskreuz, Lichter, Schranke, Steuerung, Zugerkennung
   network/                             Pakete der Menüs (Client -> Server)
   client/                              Overlay-Renderer für Zusatzanzeigen, Ampel-Renderer, Menüs, Umrisse
 tools/generate_assets.py               Asset-Generator
@@ -239,6 +268,7 @@ tools/models/                          Eigene Blockbench-Modelle und Texturen (o
 ## Geplant
 
 - Bessere Texturen
+- Bahnübergänge: Kollision der Schranke, Kopplung mit dem Ampel-Steuergerät, Montage an Masten
 
 ## Lizenz
 

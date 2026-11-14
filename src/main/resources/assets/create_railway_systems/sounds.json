@@ -1,0 +1,11 @@
+{
+  "crossing_bell": {
+    "subtitle": "create_railway_systems.subtitle.crossing_bell",
+    "sounds": [
+      {
+        "name": "minecraft:note/bell",
+        "pitch": 1.2
+      }
+    ]
+  }
+}

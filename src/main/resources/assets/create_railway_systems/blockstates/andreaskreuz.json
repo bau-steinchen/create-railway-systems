@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "create_railway_systems:block/andreaskreuz"
+    },
+    "facing=east": {
+      "model": "create_railway_systems:block/andreaskreuz",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "create_railway_systems:block/andreaskreuz",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "create_railway_systems:block/andreaskreuz",
+      "y": 270
+    }
+  }
+}
