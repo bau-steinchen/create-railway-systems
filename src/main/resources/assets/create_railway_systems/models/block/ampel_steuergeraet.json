@@ -4,7 +4,6 @@
     "particle": "create_railway_systems:block/traffic_cabinet",
     "mast": "create_railway_systems:block/traffic_mast",
     "screen": "create_railway_systems:block/signal_screen",
-    "backplate": "create_railway_systems:block/traffic_backplate",
     "lamp_off": "create_railway_systems:block/lamp_off",
     "lamp_red": "create_railway_systems:block/lamp_red",
     "lamp_yellow": "create_railway_systems:block/lamp_yellow",

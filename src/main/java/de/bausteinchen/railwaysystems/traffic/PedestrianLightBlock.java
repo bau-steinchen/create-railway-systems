@@ -63,7 +63,7 @@ public class PedestrianLightBlock extends Block implements IBE<TrafficLightBlock
 	}
 
 	@Override
-	public boolean isPedestrian() {
+	public boolean isPedestrian(BlockState state) {
 		return true;
 	}
 
@@ -74,12 +74,18 @@ public class PedestrianLightBlock extends Block implements IBE<TrafficLightBlock
 
 	@Override
 	public BlockState withAspect(BlockState state, TrafficAspect aspect) {
-		TrafficAspect shown = switch (aspect) {
+		return state.setValue(ASPECT, shown(aspect));
+	}
+
+	/**
+	 * Begriff einer Fußgängerampel: alles außer Grün und Aus wird Rot.
+	 */
+	public static TrafficAspect shown(TrafficAspect aspect) {
+		return switch (aspect) {
 			case OFF, YELLOW_BLINK -> TrafficAspect.OFF;
 			case GREEN -> TrafficAspect.GREEN;
 			default -> TrafficAspect.RED;
 		};
-		return state.setValue(ASPECT, shown);
 	}
 
 	@Override

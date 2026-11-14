@@ -68,7 +68,7 @@ public class ModBlocks {
 	public static final DeferredBlock<TrafficMastBlock> TRAFFIC_MAST =
 		BLOCKS.register("ampel_mast", () -> new TrafficMastBlock(signalProperties()));
 
-	/** Mastschaft über dem Fußblock; hat kein Item und droppt nichts */
+	/** Mastschaft über dem Fußblock; hat kein Item und keinen Loot (eine angebaute Fußgängerampel gibt er selbst zurück) */
 	public static final DeferredBlock<TrafficMastPoleBlock> TRAFFIC_MAST_POLE =
 		BLOCKS.register("ampel_mast_schaft", () -> new TrafficMastPoleBlock(signalProperties().noLootTable()));
 

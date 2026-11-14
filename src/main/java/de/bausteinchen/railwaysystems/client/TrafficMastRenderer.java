@@ -5,6 +5,8 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import org.joml.Vector3f;
+
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
@@ -15,16 +17,22 @@ import de.bausteinchen.railwaysystems.traffic.TrafficAspect;
 import de.bausteinchen.railwaysystems.traffic.TrafficLightBlockEntity;
 import de.bausteinchen.railwaysystems.traffic.TrafficMastBlock;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.data.ModelData;
 
 /**
  * Zeichnet Bogen, Ausleger und Anbauteile eines Peitschenmastes: beim Ampelmast die Signalgeber, beim
@@ -47,6 +55,9 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 	/** Höhe des Halters über der Oberkante des Signalgebers, in Blöcken */
 	private static final double HEAD_HANGER = 4 / 16.0;
 	private static final int BEND_SEGMENTS = 8;
+	private static final Direction[] SIDES = { Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH,
+		Direction.WEST, Direction.EAST, null };
+	private static final RandomSource RANDOM = RandomSource.create();
 
 	public TrafficMastRenderer(BlockEntityRendererProvider.Context context) {
 		super(context);
@@ -119,7 +130,7 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 			ms.translate(tipX - 0.5, armY - 1, 0);
 			draw(ms, consumer, state, ZEBRA_LAMP, lightAt(be, facing, tipX, armY - 0.5), overlay);
 			if (lit)
-				draw(ms, consumer, state, ZEBRA_LAMP_ON, LightTexture.FULL_BRIGHT, overlay);
+				draw(ms, consumer, state, ZEBRA_LAMP_ON, LightTexture.FULL_BRIGHT, overlay, false);
 			ms.popPose();
 			ms.pushPose();
 			ms.translate(0, config.signHeight(), 0);
@@ -130,8 +141,8 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 			// Signalgeber hängt mit dem Halter am Ausleger
 			head(be, ms, consumer, state, facing, aspect, tipX - 0.5, armY - 1 - HEAD_HANGER, 0, overlay);
 			if (config.mastHead())
-				// am Mast, etwas vor den Schaft gesetzt
-				head(be, ms, consumer, state, facing, aspect, 0, 1.25, -1.5 / 16, overlay);
+				// am Mast, Gehäuserückseite liegt am Schaft an
+				head(be, ms, consumer, state, facing, aspect, 0, config.mastHeadY(), -1 / 16.0, overlay);
 		}
 
 		ms.popPose();
@@ -169,7 +180,8 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 		for (int i = 0; i < LAMPS.length; i++) {
 			ResourceLocation model = lit[i] && aspect == TrafficAspect.YELLOW_BLINK
 				? RailwaySystems.asResource("block/traffic/kfz_yellow_blink") : lamp(LAMPS[i], lit[i]);
-			draw(ms, consumer, state, model, lit[i] ? LightTexture.FULL_BRIGHT : light, overlay);
+			// leuchtende Lampen nicht abdunkeln
+			draw(ms, consumer, state, model, lit[i] ? LightTexture.FULL_BRIGHT : light, overlay, !lit[i]);
 		}
 		ms.popPose();
 	}
@@ -196,9 +208,43 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 		};
 	}
 
+	/**
+	 * Modell mit der Flächenschattierung zeichnen, die Blöcke in der Welt bekommen (oben hell, Seiten dunkler).
+	 * Ohne sie wären Bogen und Ausleger auf allen Seiten so hell wie die Oberseite und wirkten neben dem
+	 * Mastschaft fast weiß. Die Richtung kommt aus der gedrehten Normale, weil die Teile schräg liegen können.
+	 */
 	private static void draw(PoseStack ms, VertexConsumer consumer, BlockState state, ResourceLocation location,
 		int light, int overlay) {
-		SignalOverlayRenderer.draw(ms, consumer, state, location, light, overlay);
+		draw(ms, consumer, state, location, light, overlay, true);
+	}
+
+	private static void draw(PoseStack ms, VertexConsumer consumer, BlockState state, ResourceLocation location,
+		int light, int overlay, boolean shaded) {
+		BakedModel model = Minecraft.getInstance()
+			.getModelManager()
+			.getModel(ModelResourceLocation.standalone(location));
+		PoseStack.Pose pose = ms.last();
+		int[] lights = { light, light, light, light };
+		for (Direction side : SIDES) {
+			RANDOM.setSeed(42);
+			for (BakedQuad quad : model.getQuads(state, side, RANDOM, ModelData.EMPTY, RenderType.cutout())) {
+				float shade = shaded && quad.isShade() ? shade(pose, quad.getDirection()) : 1;
+				consumer.putBulkData(pose, quad, new float[] { shade, shade, shade, shade }, 1, 1, 1, 1, lights,
+					overlay, false);
+			}
+		}
+	}
+
+	/**
+	 * Helligkeit wie bei Blöcken (oben 1, unten 0,5, Nord/Süd 0,8, Ost/West 0,6), für schräge Flächen
+	 * nach den Anteilen der Normale gemischt.
+	 */
+	private static float shade(PoseStack.Pose pose, Direction direction) {
+		Vector3f n = pose.normal()
+			.transform(new Vector3f(direction.getStepX(), direction.getStepY(), direction.getStepZ()))
+			.normalize();
+		float up = n.y > 0 ? 1 : 0.5f;
+		return n.x * n.x * 0.6f + n.y * n.y * up + n.z * n.z * 0.8f;
 	}
 
 	@Override

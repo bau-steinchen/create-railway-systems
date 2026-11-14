@@ -38,7 +38,7 @@ public class ModBlockEntities {
 	@SuppressWarnings("DataFlowIssue")
 	public static final Supplier<BlockEntityType<TrafficLightBlockEntity>> TRAFFIC_LIGHT = BLOCK_ENTITIES.register("traffic_light",
 		() -> BlockEntityType.Builder.of(TrafficLightBlockEntity::new,
-			ModBlocks.TRAFFIC_MAST.get(), ModBlocks.PEDESTRIAN_LIGHT.get()).build(null));
+			ModBlocks.TRAFFIC_MAST.get(), ModBlocks.TRAFFIC_MAST_POLE.get(), ModBlocks.PEDESTRIAN_LIGHT.get()).build(null));
 
 	/** Zebrastreifen-Mast; eigener Typ wegen der eingebauten Funkverbindung */
 	@SuppressWarnings("DataFlowIssue")

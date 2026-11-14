@@ -106,7 +106,9 @@ public class TrafficClientEvents {
 			return new AABB[] { pole, arm, lamp, sign };
 		}
 		AABB head = box(pos, facing, tipX - 3 / 16.0, armY - 1.25, 2 / 16.0, tipX + 3 / 16.0, armY, 0.5);
-		AABB mastHead = config.mastHead() ? box(pos, facing, 5 / 16.0, 1.25, 0.5 / 16, 11 / 16.0, 2.25, 6 / 16.0) : null;
+		double headY = config.mastHeadY();
+		AABB mastHead = config.mastHead() ? box(pos, facing, 5 / 16.0, headY, 1 / 16.0, 11 / 16.0, headY + 1, 6 / 16.0)
+			: null;
 		return new AABB[] { pole, arm, head, mastHead };
 	}
 
