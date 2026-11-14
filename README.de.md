@@ -119,7 +119,7 @@ Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschl�
 |---|---|
 | Ampelmast mit Ausleger | Peitschenmast mit Bogen und Ausleger über die Fahrbahn, Kfz-Signalgeber (Rot, Gelb, Grün) am Auslegerende und optional am Mast. Höhe und Ausladung einstellbar |
 | Zebrastreifen-Mast mit Leuchte | Gleicher Mast mit einer Zebrastreifenleuchte über der Fahrbahn (beidseitig Zeichen 350, darunter der Strahler, wie in Hamburg) und einem flachen Zeichen 350 am Mast. Höhe, Ausladung und Schildhöhe einstellbar; die Leuchte schaltet ein eingebauter Funkempfänger (Redstone Link) |
-| Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen, oder per Rechtsklick an den Schaft eines Ampelmastes bauen |
+| Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen, oder per Rechtsklick an den Schaft eines Ampel- oder Zebrastreifen-Mastes bauen |
 | Ampel-Steuergerät | Schaltschrank, der die verbundenen Ampeln nach einem Signalzeitenplan schaltet |
 | Ampel-Programmierer | Werkzeug zum Verbinden von Ampeln mit einem Steuergerät |
 
@@ -133,7 +133,7 @@ Der senkrechte Mast besteht aus Blöcken (Kollision, anklickbar). Bogen, Auslege
 
 **Zebrastreifen-Mast:** Aufstellen und Ändern wie beim Ampelmast; statt der Ampel am Mast stellt das Menü die Höhe des Schildes am Mast ein. Im Mastfuß steckt ein Redstone-Link-Empfänger, seine beiden Frequenzfelder sitzen hinten am Fuß. Solange auf der Frequenz ein Redstone-Signal ankommt, leuchtet die Zebrastreifenleuchte.
 
-**Fußgängerampel am Mast:** Mit der Fußgängerampel einen Block des Mastschafts rechtsklicken. Sie wird an der angeklickten Seite angebaut (Klick von oben oder unten: zum Spieler hin). Sie ist eine eigene Ampel und wird wie eine freistehende Fußgängerampel durch Anklicken mit dem Steuergerät verbunden. Schraubenschlüssel + Schleichen nimmt sie wieder ab; beim Abbau des Mastes droppt sie ebenfalls.
+**Fußgängerampel am Mast:** Mit der Fußgängerampel einen Block des Schafts eines Ampel- oder Zebrastreifen-Mastes rechtsklicken. Sie wird an der angeklickten Seite angebaut (Klick von oben oder unten: zum Spieler hin). Sie ist eine eigene Ampel und wird wie eine freistehende Fußgängerampel durch Anklicken mit dem Steuergerät verbunden. Schraubenschlüssel + Schleichen nimmt sie wieder ab; beim Abbau des Mastes droppt sie ebenfalls.
 
 **Züge anhalten:** Wie die Eisenbahnsignale lässt sich eine Ampel vor dem Platzieren per Rechtsklick an ein Create-Signal binden, z. B. auf einer Strecke aus Phantom-Gleisen für Straßenfahrzeuge. Zeigt die Ampel Rot, Rot-Gelb oder Gelb, hält sie dieses Create-Signal geschlossen, und Züge halten davor. Ohne Bindung zeigt die Ampel nur an.
 
@@ -165,7 +165,7 @@ Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtu
 | Bahnübergangs-Schranke | Antrieb mit rot-weißem Baum, der über die Straße schwenkt |
 | Bahnübergangs-Steuerung | Schaltkasten, der herannahende Züge erkennt und den Bahnübergang schaltet |
 
-Die Lichter sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
+Beide Lichter sitzen vor einer schwarzen Kontrastblende mit weißem Rand. Sie sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
 
 **Schranke:** Wird wie die Lichter geschaltet (Redstone oder Funkverbindung hinten am Gehäuse). Nach dem Einschalten wartet sie 5 s (Gelb- und Rotphase der Lichter) und senkt den Baum dann innerhalb von 6 s; beim Ausschalten hebt sie ihn sofort. Mit dem Schraubenschlüssel stellt das Wertefeld oben die Baumlänge ein (2–8 Blöcke), ein Klick auf die Vorderseite des Gehäuses setzt den Baum auf die andere Seite, jede andere Seite dreht die Schranke. Während sich der Baum senkt, schlägt das Läutewerk (abschaltbar mit `crossingBell` in der Server-Config). Der Baum wird nur gezeichnet und hat noch keine Kollision.
 
@@ -254,7 +254,7 @@ Eine angehängte Zahl ist erlaubt (`arm2`, `lamp_red2`, `zs12`), `mastschild` z�
 src/main/java/de/bausteinchen/railwaysystems/
   RailwaySystems.java, Config.java     Einstieg und Server-Config
   registry/                            Blöcke, Items, Block-Entities, Kreativ-Tab
-  signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast
+  signal/                              Gemeinsame Basis: Bindung, Block-Entity, Montage, Mast, Halten von Create-Signalen
   signal/hv/                           H/V- und Sh-Signale
   signal/ks/                           Ks-Signale
   traffic/                             Straßenampeln: Mast, Fußgängerampel, Steuergerät, Signalzeitenplan
