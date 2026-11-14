@@ -36,7 +36,7 @@ public class TrafficMastBlock extends AbstractMastBlock implements TrafficLight 
 	}
 
 	@Override
-	public boolean isPedestrian() {
+	public boolean isPedestrian(BlockState state) {
 		return false;
 	}
 

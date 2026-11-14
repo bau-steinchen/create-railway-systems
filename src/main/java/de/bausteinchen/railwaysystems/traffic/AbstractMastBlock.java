@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
@@ -119,6 +120,14 @@ public abstract class AbstractMastBlock extends Block implements IBE<TrafficLigh
 		for (BlockPos p = top.below(); p.getY() >= base.getY() + height; p = p.below())
 			level.setBlock(p, Blocks.AIR.defaultBlockState(), 3);
 		return true;
+	}
+
+	@Override
+	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+		// im Kreativmodus keine Fußgängerampeln vom Schaft droppen
+		if (!level.isClientSide && player.isCreative())
+			TrafficMastPoleBlock.detachAllPedestrians(level, pos);
+		return super.playerWillDestroy(level, pos, state, player);
 	}
 
 	@Override

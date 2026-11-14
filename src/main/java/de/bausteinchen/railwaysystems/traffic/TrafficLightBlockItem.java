@@ -8,9 +8,16 @@ import com.simibubi.create.content.trains.signal.SignalBlockEntity;
 import de.bausteinchen.railwaysystems.Config;
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.client.TrafficClientHooks;
+import de.bausteinchen.railwaysystems.registry.ModBlocks;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -36,6 +43,35 @@ public class TrafficLightBlockItem extends ClickToLinkBlockItem {
 
 	private boolean isMast() {
 		return getBlock() instanceof TrafficMastBlock;
+	}
+
+	@Override
+	public InteractionResult useOn(UseOnContext context) {
+		// Fußgängerampel auf den Schaft eines Ampelmastes: wird dort angebaut statt als eigener Block davor
+		Level level = context.getLevel();
+		BlockPos pos = context.getClickedPos();
+		BlockState state = level.getBlockState(pos);
+		if (!(getBlock() instanceof PedestrianLightBlock) || !state.is(ModBlocks.TRAFFIC_MAST_POLE.get())
+			|| state.getValue(TrafficMastPoleBlock.PEDESTRIAN))
+			return super.useOn(context);
+		if (!level.isClientSide) {
+			Direction face = context.getClickedFace();
+			Direction facing = face.getAxis()
+				.isHorizontal() ? face : context.getHorizontalDirection()
+					.getOpposite();
+			TrafficMastPoleBlock.attachPedestrian(level, pos, state, facing);
+			Player player = context.getPlayer();
+			ItemStack stack = context.getItemInHand();
+			// Bindung an ein Create-Signal übernehmen, wie beim Platzieren
+			updateCustomBlockEntityTag(level, player, pos, stack);
+			SoundType sound = level.getBlockState(pos)
+				.getSoundType(level, pos, player);
+			level.playSound(null, pos, sound.getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1) / 2,
+				sound.getPitch() * 0.8f);
+			if (player == null || !player.isCreative())
+				stack.shrink(1);
+		}
+		return InteractionResult.sidedSuccess(level.isClientSide);
 	}
 
 	@Override
@@ -81,6 +117,9 @@ public class TrafficLightBlockItem extends ClickToLinkBlockItem {
 			tooltip.add(Component.translatable(prefix + "menu")
 				.withStyle(ChatFormatting.GRAY));
 		}
+		if (getBlock() instanceof PedestrianLightBlock)
+			tooltip.add(Component.translatable(prefix + "mount")
+				.withStyle(ChatFormatting.GRAY));
 		tooltip.add(Component.translatable(prefix + "link")
 			.withStyle(ChatFormatting.GRAY));
 	}
