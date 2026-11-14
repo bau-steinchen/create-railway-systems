@@ -119,19 +119,21 @@ Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschl�
 |---|---|
 | Ampelmast mit Ausleger | Peitschenmast mit Bogen und Ausleger über die Fahrbahn, Kfz-Signalgeber (Rot, Gelb, Grün) am Auslegerende und optional am Mast. Höhe und Ausladung einstellbar |
 | Zebrastreifen-Mast mit Leuchte | Gleicher Mast mit einer Zebrastreifenleuchte über der Fahrbahn (beidseitig Zeichen 350, darunter der Strahler, wie in Hamburg) und einem flachen Zeichen 350 am Mast. Höhe, Ausladung und Schildhöhe einstellbar; die Leuchte schaltet ein eingebauter Funkempfänger (Redstone Link) |
-| Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen |
+| Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen, oder per Rechtsklick an den Schaft eines Ampelmastes bauen |
 | Ampel-Steuergerät | Schaltschrank, der die verbundenen Ampeln nach einem Signalzeitenplan schaltet |
 | Ampel-Programmierer | Werkzeug zum Verbinden von Ampeln mit einem Steuergerät |
 
 **Ampelmast aufstellen**
 
-1. Den Ampelmast in die Hand nehmen und **in die Luft klicken**. Im Menü Masthöhe (3–12), Ausladung (2–16), Seite des Auslegers und den Signalgeber am Mast einstellen. Eine Skizze zeigt die Bauform und die Durchfahrtshöhe.
+1. Den Ampelmast in die Hand nehmen und **in die Luft klicken**. Im Menü Masthöhe (3–12), Ausladung (2–16), Seite des Auslegers, den Signalgeber am Mast und dessen Höhe (in Viertelblöcken) einstellen. Eine Skizze zeigt die Bauform und die Durchfahrtshöhe.
 2. Auf einen Block zielen: Ein Umriss zeigt Mast, Ausleger und Signalgeber (rot, wenn der Platz für den Mast fehlt). **Rechtsklick** platziert den Mast mit dieser Bauform. Die Signalgeber zeigen zum Spieler, der Ausleger aus seiner Sicht nach links bzw. rechts.
 3. Nachträglich ändern: **Schraubenschlüssel** auf den Mast öffnet dasselbe Menü.
 
 Der senkrechte Mast besteht aus Blöcken (Kollision, anklickbar). Bogen, Ausleger und Signalgeber darüber werden nur gezeichnet und haben keine Kollision. Abbauen eines beliebigen Mastteils baut den ganzen Mast ab.
 
 **Zebrastreifen-Mast:** Aufstellen und Ändern wie beim Ampelmast; statt der Ampel am Mast stellt das Menü die Höhe des Schildes am Mast ein. Im Mastfuß steckt ein Redstone-Link-Empfänger, seine beiden Frequenzfelder sitzen hinten am Fuß. Solange auf der Frequenz ein Redstone-Signal ankommt, leuchtet die Zebrastreifenleuchte.
+
+**Fußgängerampel am Mast:** Mit der Fußgängerampel einen Block des Mastschafts rechtsklicken. Sie wird an der angeklickten Seite angebaut (Klick von oben oder unten: zum Spieler hin). Sie ist eine eigene Ampel und wird wie eine freistehende Fußgängerampel durch Anklicken mit dem Steuergerät verbunden. Schraubenschlüssel + Schleichen nimmt sie wieder ab; beim Abbau des Mastes droppt sie ebenfalls.
 
 **Züge anhalten:** Wie die Eisenbahnsignale lässt sich eine Ampel vor dem Platzieren per Rechtsklick an ein Create-Signal binden, z. B. auf einer Strecke aus Phantom-Gleisen für Straßenfahrzeuge. Zeigt die Ampel Rot, Rot-Gelb oder Gelb, hält sie dieses Create-Signal geschlossen, und Züge halten davor. Ohne Bindung zeigt die Ampel nur an.
 

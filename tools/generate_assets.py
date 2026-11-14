@@ -973,7 +973,6 @@ TRAFFIC_TEXTURES = {
     "particle": tex("traffic_mast"),
     "mast": tex("traffic_mast"),
     "screen": tex("signal_screen"),
-    "backplate": tex("traffic_backplate"),
     "lamp_off": tex("lamp_off"),
     "lamp_red": tex("lamp_red"),
     "lamp_yellow": tex("lamp_yellow"),
@@ -991,9 +990,8 @@ def traffic_model(elements, **textures):
 
 
 def kfz_head():
-    """Signalgeber ohne Lampen: Gehäuse, Schuten, Kontrastblende und Halter nach oben zum Ausleger."""
+    """Signalgeber ohne Lampen: Gehäuse, Schuten und Halter nach oben zum Ausleger."""
     elements = [box([5, 0, 4], [11, 16, 7], "#screen"),
-                box([3, -0.5, 7], [13, 16.5, 7.5], "#screen", north="#backplate"),
                 box([7, 16, 7], [9, 20, 9], "#mast")]
     for y in KFZ_LAMPS.values():
         elements.append(box([5.5, y + 4, 2], [10.5, y + 4.5, 4], "#screen"))
@@ -1006,15 +1004,21 @@ def kfz_lamp(color, texture):
     return [glow(element) if texture != "#lamp_off" else element]
 
 
-def pedestrian_elements(aspect):
-    elements = [box([6.5, 0, 6.5], [9.5, 1, 9.5], "#signal_mast"),
-                box([4, 1, 5], [12, 16, 10], "#screen")]
+def pedestrian_elements(aspect, on_mast=False):
+    """Fußgängerampel; on_mast: ohne eigenen Mastfuß, Gehäuse hinten an den Schaft des Ampelmastes gesetzt."""
+    dz = -4 if on_mast else 0
+    elements = [] if on_mast else [box([6.5, 0, 6.5], [9.5, 1, 9.5], "#signal_mast")]
+    elements.append(box([4, 1, 5 + dz], [12, 16, 10 + dz], "#screen"))
+    if on_mast:
+        # Schellen um den Schaft
+        for y in (3, 13):
+            elements.append(box([5.5, y, 5.5], [10.5, y + 1.5, 10.5], "#screen"))
     for color, y in PED_LAMPS.items():
         lit = aspect == color
         texture = f"#ped_{color}_{'on' if lit else 'off'}"
-        lamp_box = box([5, y, 4.5], [11, y + 6, 5], "#screen", north=texture)
+        lamp_box = box([5, y, 4.5 + dz], [11, y + 6, 5 + dz], "#screen", north=texture)
         elements.append(glow(lamp_box) if lit else lamp_box)
-        elements.append(box([4.5, y + 6, 4], [11.5, y + 6.5, 5], "#screen"))
+        elements.append(box([4.5, y + 6, 4 + dz], [11.5, y + 6.5, 5 + dz], "#screen"))
     return elements
 
 
@@ -1073,13 +1077,24 @@ def generate_traffic():
     # Zebrastreifen-Mast: gleicher Fuß; Leuchte und Schild zeichnet der Renderer
     write_json(ASSETS / "blockstates/zebrastreifen_mast.json",
                {"variants": {"": {"model": f"{MOD_ID}:block/ampel_mast"}}})
-    write_json(ASSETS / "blockstates/ampel_mast_schaft.json",
-               {"variants": {"": {"model": f"{MOD_ID}:block/ampel_mast_schaft"}}})
+    # Schaft, optional mit angebauter Fußgängerampel
+    schaft_parts = [{"apply": {"model": f"{MOD_ID}:block/ampel_mast_schaft"}}]
+    for aspect in ("off", "red", "green"):
+        for facing, y in FACINGS.items():
+            apply = {"model": f"{MOD_ID}:block/fussgaengerampel_mast_{aspect}"}
+            if y:
+                apply["y"] = y
+            schaft_parts.append({"when": {"pedestrian": "true", "facing": facing, "aspect": aspect},
+                                 "apply": apply})
+    write_json(ASSETS / "blockstates/ampel_mast_schaft.json", {"multipart": schaft_parts})
 
     ped_textures = {f"ped_{c}_{s}": tex(f"ped_{c}_{s}") for c in PED_LAMPS for s in ("on", "off")}
     for aspect in ("off", "red", "green"):
         write_json(ASSETS / f"models/block/fussgaengerampel_{aspect}.json",
                    traffic_model(pedestrian_elements(aspect), signal_mast=tex("signal_mast"),
+                                 particle=tex("signal_screen"), **ped_textures))
+        write_json(ASSETS / f"models/block/fussgaengerampel_mast_{aspect}.json",
+                   traffic_model(pedestrian_elements(aspect, on_mast=True),
                                  particle=tex("signal_screen"), **ped_textures))
     write_json(ASSETS / "blockstates/fussgaengerampel.json",
                variants([("aspect", ["off", "red", "green"])], lambda s: f"fussgaengerampel_{s['aspect']}"))
@@ -1178,10 +1193,6 @@ def generate_traffic_textures(lamp_img, off, colors):
             mast.putpixel((x, y), (v - 4, v, v + 4, 255))
     save(mast, "traffic_mast")
 
-    # Kontrastblende: schwarz mit weißem Rand
-    plate = Image.new("RGBA", (16, 16), (16, 16, 18, 255))
-    ImageDraw.Draw(plate).rectangle([0, 0, 15, 15], outline=(235, 235, 235, 255))
-    save(plate, "traffic_backplate")
 
     r, g, b = colors["yellow"]
     blink = Image.new("RGBA", (16, 32))

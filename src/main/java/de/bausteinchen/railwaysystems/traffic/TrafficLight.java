@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public interface TrafficLight {
 
-	boolean isPedestrian();
+	boolean isPedestrian(BlockState state);
 
 	/**
 	 * Position des Blocks mit Block-Entity (bei Masten der Fußblock).

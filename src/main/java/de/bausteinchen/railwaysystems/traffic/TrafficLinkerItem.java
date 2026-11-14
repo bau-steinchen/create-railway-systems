@@ -96,7 +96,7 @@ public class TrafficLinkerItem extends Item {
 			if (old != null)
 				old.removeLight(lightPos);
 		}
-		int group = controller.addLight(lightPos, mainLight.isPedestrian());
+		int group = controller.addLight(lightPos, mainLight.isPedestrian(level.getBlockState(lightPos)));
 		String name = controller.getPlan()
 			.groups()
 			.isEmpty() ? "-"
