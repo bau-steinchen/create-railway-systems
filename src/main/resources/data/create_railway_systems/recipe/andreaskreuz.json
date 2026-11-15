@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "create:iron_sheet"
+    },
+    "K": {
+      "tag": "c:rods/wooden"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "W": {
+      "tag": "c:dyes/white"
+    }
+  },
+  "pattern": [
+    "R W",
+    " I ",
+    "WKR"
+  ],
+  "result": {
+    "count": 2,
+    "id": "create_railway_systems:andreaskreuz"
+  }
+}

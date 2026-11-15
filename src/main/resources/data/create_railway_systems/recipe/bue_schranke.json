@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "item": "create:cogwheel"
+    },
+    "K": {
+      "tag": "c:rods/wooden"
+    },
+    "L": {
+      "item": "create:redstone_link"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "W": {
+      "tag": "c:dyes/white"
+    },
+    "X": {
+      "item": "create:andesite_casing"
+    }
+  },
+  "pattern": [
+    "RKW",
+    "CXL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:bue_schranke"
+  }
+}

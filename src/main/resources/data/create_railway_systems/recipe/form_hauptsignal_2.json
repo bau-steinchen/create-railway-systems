@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "create_railway_systems:form_hauptsignal_1"
+    },
+    {
+      "item": "create:iron_sheet"
+    },
+    {
+      "tag": "c:dyes/red"
+    },
+    {
+      "tag": "c:dyes/white"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:form_hauptsignal_2"
+  }
+}

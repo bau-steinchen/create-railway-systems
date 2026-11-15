@@ -966,6 +966,90 @@ def generate_data():
                {"values": [f"{MOD_ID}:{b}" for b in blocks + ["ampel_mast_schaft"]]})
 
 
+# --- Rezepte ---
+# Die Rezepte selbst stehen in tools/recipes.py; hier werden sie geprüft und als JSON geschrieben.
+
+JAVA = TOOLS.parent / "src" / "main" / "java" / "de" / "bausteinchen" / "railwaysystems" / "registry"
+
+
+def mod_item_ids():
+    """Item-IDs aus ModItems.java (register("...") und registerSimpleBlockItem(ModBlocks.X))."""
+    blocks = dict(re.findall(r'(\w+)\s*=\s*BLOCKS\.register\w*\(\s*"([^"]+)"',
+                             (JAVA / "ModBlocks.java").read_text(encoding="utf-8")))
+    items_src = (JAVA / "ModItems.java").read_text(encoding="utf-8")
+    ids = re.findall(r'ITEMS\.register\w*\(\s*"([^"]+)"', items_src)
+    for const in re.findall(r'registerSimpleBlockItem\(\s*ModBlocks\.(\w+)', items_src):
+        if const not in blocks:
+            sys.exit(f"Rezepte: Block ModBlocks.{const} nicht gefunden")
+        ids.append(blocks[const])
+    return set(ids)
+
+
+def full_id(name):
+    return name if ":" in name else f"{MOD_ID}:{name}"
+
+
+def ingredient(name):
+    return {"tag": name[1:]} if name.startswith("#") else {"item": full_id(name)}
+
+
+def generate_recipes():
+    sys.path.insert(0, str(TOOLS))
+    import recipes
+
+    errors = []
+    seen = {}
+    for r in recipes.RECIPES:
+        name = r["result"]
+        if name in seen:
+            errors.append(f"{name}: mehr als ein Rezept")
+        seen[name] = r
+        if r["kind"] == "shaped":
+            used = set("".join(r["pattern"])) - {" "}
+            if len(r["pattern"]) > 3 or any(len(row) > 3 for row in r["pattern"]):
+                errors.append(f"{name}: Muster größer als 3x3")
+            if len({len(row) for row in r["pattern"]}) > 1:
+                errors.append(f"{name}: Musterzeilen unterschiedlich lang")
+            for c in sorted(used - set(r["key"])):
+                errors.append(f"{name}: Zeichen '{c}' im Muster hat keine Zutat")
+            for c in sorted(set(r["key"]) - used):
+                errors.append(f"{name}: Zutat '{c}' wird im Muster nicht benutzt")
+    items = mod_item_ids()
+    for missing in sorted(items - set(seen)):
+        errors.append(f"{missing}: kein Rezept")
+    for unknown in sorted(set(seen) - items):
+        errors.append(f"{unknown}: kein Item dieser Mod")
+    if errors:
+        sys.exit("Fehler in tools/recipes.py:\n  " + "\n  ".join(errors))
+
+    for name, r in seen.items():
+        result = {"count": r["count"], "id": full_id(name)}
+        if r["kind"] == "shaped":
+            parts = list(r["key"].values())
+            recipe = {"type": "minecraft:crafting_shaped", "category": "redstone",
+                      "key": {c: ingredient(v) for c, v in sorted(r["key"].items())},
+                      "pattern": r["pattern"], "result": result}
+        else:
+            parts = r["ingredients"]
+            recipe = {"type": "minecraft:crafting_shapeless", "category": "redstone",
+                      "ingredients": [ingredient(v) for v in parts], "result": result}
+        write_json(DATA / MOD_ID / "recipe" / f"{name}.json", recipe)
+
+        unlock = r["unlock"] or next((p for p in parts if p.startswith("create:")), parts[0])
+        recipe_id = full_id(name)
+        write_json(DATA / MOD_ID / "advancement/recipes/redstone" / f"{name}.json", {
+            "parent": "minecraft:recipes/root",
+            "criteria": {
+                "has_the_recipe": {"trigger": "minecraft:recipe_unlocked", "conditions": {"recipe": recipe_id}},
+                "has_ingredient": {"trigger": "minecraft:inventory_changed",
+                                   "conditions": {"items": [{"items": unlock if unlock.startswith("#")
+                                                             else full_id(unlock)}]}},
+            },
+            "requirements": [["has_the_recipe", "has_ingredient"]],
+            "rewards": {"recipes": [recipe_id]},
+        })
+
+
 # --- Straßenampeln ---
 # Mastschaft und Fuß sind Blockmodelle; Bogen, Ausleger und Signalgeber zeichnet der TrafficMastRenderer aus
 # den Teilmodellen unter block/traffic/ (Rohr von einem Block Länge, das er dreht und streckt).
@@ -1885,12 +1969,15 @@ if __name__ == "__main__":
     generate_traffic()
     generate_crossing()
     generate_data()
+    generate_recipes()
     generate_textures()
     copy_bb_textures()
     # Modelle früherer Läufe entfernen (z. B. nach Wechsel zwischen Blockbench- und eingebautem Modell);
     # block/overlay räumt generate_overlays() selbst auf
-    for folder in ("blockstates", "models/block", "models/item"):
-        for path in (ASSETS / folder).glob("*.json"):
+    folders = [ASSETS / f for f in ("blockstates", "models/block", "models/item")]
+    folders += [DATA / MOD_ID / "recipe", DATA / MOD_ID / "advancement/recipes/redstone"]
+    for folder in folders:
+        for path in folder.glob("*.json"):
             if path.resolve() not in WRITTEN:
                 path.unlink()
     print("Assets erzeugt unter", ROOT)
