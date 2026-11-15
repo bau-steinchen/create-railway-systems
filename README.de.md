@@ -118,7 +118,7 @@ Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschl�
 | Block / Item | Beschreibung |
 |---|---|
 | Ampelmast mit Ausleger | Peitschenmast mit Bogen und Ausleger über die Fahrbahn, Kfz-Signalgeber (Rot, Gelb, Grün) am Auslegerende und optional am Mast. Höhe und Ausladung einstellbar |
-| Zebrastreifen-Mast mit Leuchte | Gleicher Mast mit einer Zebrastreifenleuchte über der Fahrbahn (beidseitig Zeichen 350, darunter der Strahler, wie in Hamburg) und einem flachen Zeichen 350 am Mast. Höhe, Ausladung und Schildhöhe einstellbar; die Leuchte schaltet ein eingebauter Funkempfänger (Redstone Link) |
+| Zebrastreifen-Mast mit Leuchte | Gleicher Mast mit einer Zebrastreifenleuchte über der Fahrbahn (beidseitig Zeichen 350, darunter der Strahler, wie in Hamburg) und einem flachen Zeichen 350 vorn und hinten am Mast. Höhe, Ausladung und Schildhöhe einstellbar; die Leuchte schaltet ein eingebauter Funkempfänger (Redstone Link) |
 | Fußgängerampel | Rot/Grün mit Sinnbild. Signalmasten darunter setzen, um sie höher zu stellen, oder per Rechtsklick an den Schaft eines Ampel- oder Zebrastreifen-Mastes bauen |
 | Ampel-Steuergerät | Schaltschrank, der die verbundenen Ampeln nach einem Signalzeitenplan schaltet |
 | Ampel-Programmierer | Werkzeug zum Verbinden von Ampeln mit einem Steuergerät |
@@ -129,7 +129,7 @@ Links und rechts gelten von vorn gesehen. Ein Rechtsklick mit dem Schraubenschl�
 2. Auf einen Block zielen: Ein Umriss zeigt Mast, Ausleger und Signalgeber (rot, wenn der Platz für den Mast fehlt). **Rechtsklick** platziert den Mast mit dieser Bauform. Die Signalgeber zeigen zum Spieler, der Ausleger aus seiner Sicht nach links bzw. rechts.
 3. Nachträglich ändern: **Schraubenschlüssel** auf den Mast öffnet dasselbe Menü.
 
-Der senkrechte Mast besteht aus Blöcken (Kollision, anklickbar). Bogen, Ausleger und Signalgeber darüber werden nur gezeichnet und haben keine Kollision. Abbauen eines beliebigen Mastteils baut den ganzen Mast ab.
+Der senkrechte Mast besteht aus Blöcken (Kollision, anklickbar). Bogen (Radius 2,5 Blöcke, bei sehr kurzem Ausleger kleiner), Ausleger und Signalgeber werden nur gezeichnet und haben keine Kollision. Abbauen eines beliebigen Mastteils baut den ganzen Mast ab.
 
 **Zebrastreifen-Mast:** Aufstellen und Ändern wie beim Ampelmast; statt der Ampel am Mast stellt das Menü die Höhe des Schildes am Mast ein. Im Mastfuß steckt ein Redstone-Link-Empfänger, seine beiden Frequenzfelder sitzen hinten am Fuß. Solange auf der Frequenz ein Redstone-Signal ankommt, leuchtet die Zebrastreifenleuchte.
 

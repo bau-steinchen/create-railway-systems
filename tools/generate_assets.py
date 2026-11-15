@@ -991,9 +991,8 @@ def traffic_model(elements, **textures):
 
 
 def kfz_head():
-    """Signalgeber ohne Lampen: Gehäuse, Schuten und Halter nach oben zum Ausleger."""
-    elements = [box([5, 0, 4], [11, 16, 7], "#screen"),
-                box([7, 16, 7], [9, 20, 9], "#mast")]
+    """Signalgeber ohne Lampen: Gehäuse und Schuten. Er sitzt mit der Rückseite am Ausleger bzw. Mast."""
+    elements = [box([5, 0, 4], [11, 16, 7], "#screen")]
     for y in KFZ_LAMPS.values():
         elements.append(box([5.5, y + 4, 2], [10.5, y + 4.5, 4], "#screen"))
     return elements
@@ -1049,9 +1048,10 @@ def zebra_lamp(lit):
 
 
 def zebra_sign():
-    """Flaches Zeichen 350 vorn am Mastschaft (Schaft 6..10 px) mit zwei Schellen."""
-    plate = sign_faces(box([3, 0, 4.75], [13, 10, 5.25], "#mast"), "#zebra_sign", ("north",))
-    return [plate, box([5.5, 2, 5.25], [10.5, 3, 10.5], "#mast"), box([5.5, 7, 5.25], [10.5, 8, 10.5], "#mast")]
+    """Flaches Zeichen 350 vorn und hinten am Mastschaft (Schaft 6..10 px), von zwei Schellen gehalten."""
+    front = sign_faces(box([3, 0, 4.75], [13, 10, 5.25], "#mast"), "#zebra_sign", ("north",))
+    back = sign_faces(box([3, 0, 10.75], [13, 10, 11.25], "#mast"), "#zebra_sign", ("south",))
+    return [front, back, box([5.5, 2, 5.25], [10.5, 3, 10.75], "#mast"), box([5.5, 7, 5.25], [10.5, 8, 10.75], "#mast")]
 
 
 def generate_traffic():

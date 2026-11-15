@@ -52,9 +52,9 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 	public static final ResourceLocation ZEBRA_SIGN = RailwaySystems.asResource("block/traffic/zebra_sign");
 	private static final String[] LAMPS = { "red", "yellow", "green" };
 
-	/** Höhe des Halters über der Oberkante des Signalgebers, in Blöcken */
-	private static final double HEAD_HANGER = 4 / 16.0;
-	private static final int BEND_SEGMENTS = 8;
+	/** Signalgeber nach vorn gesetzt, damit die Gehäuserückseite (7 px) am Rohr (6..10 px) anliegt */
+	private static final double HEAD_OFFSET_Z = -1 / 16.0;
+	private static final int BEND_SEGMENTS = 16;
 	private static final Direction[] SIDES = { Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH,
 		Direction.WEST, Direction.EAST, null };
 	private static final RandomSource RANDOM = RandomSource.create();
@@ -96,7 +96,7 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 		ms.translate(-0.5, 0, -0.5);
 
 		double side = config.right() ? -1 : 1;
-		double radius = AbstractMastBlock.BEND_RADIUS;
+		double radius = AbstractMastBlock.bendRadius(config.reach());
 		double poleTop = config.height();
 		double armY = poleTop + radius;
 
@@ -138,11 +138,11 @@ public class TrafficMastRenderer<T extends TrafficLightBlockEntity> extends Smar
 			ms.popPose();
 		} else if (state.getBlock() instanceof TrafficMastBlock) {
 			TrafficAspect aspect = state.getValue(TrafficMastBlock.ASPECT);
-			// Signalgeber hängt mit dem Halter am Ausleger
-			head(be, ms, consumer, state, facing, aspect, tipX - 0.5, armY - 1 - HEAD_HANGER, 0, overlay);
+			// Signalgeber mittig am Ausleger, das Rohr läuft hinter dem Gehäuse durch
+			head(be, ms, consumer, state, facing, aspect, tipX - 0.5, armY - 0.5, HEAD_OFFSET_Z, overlay);
 			if (config.mastHead())
 				// am Mast, Gehäuserückseite liegt am Schaft an
-				head(be, ms, consumer, state, facing, aspect, 0, config.mastHeadY(), -1 / 16.0, overlay);
+				head(be, ms, consumer, state, facing, aspect, 0, config.mastHeadY(), HEAD_OFFSET_Z, overlay);
 		}
 
 		ms.popPose();

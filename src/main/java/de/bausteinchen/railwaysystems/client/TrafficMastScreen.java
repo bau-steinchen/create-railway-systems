@@ -158,7 +158,7 @@ public class TrafficMastScreen extends Screen {
 	 */
 	private void drawSketch(GuiGraphics g, int x, int y, int w, int h) {
 		g.fill(x, y, x + w, y + h, 0xFF1C2228);
-		double radius = TrafficMastBlock.BEND_RADIUS;
+		double radius = TrafficMastBlock.bendRadius(reach);
 		double spanX = reach + 1.5;
 		double spanY = mastHeight + radius + 0.5;
 		// oben Platz für die Beschriftung lassen
@@ -175,7 +175,7 @@ public class TrafficMastScreen extends Screen {
 		int poleTop = ground - (int) (mastHeight * scale);
 		g.fill(poleX - thick / 2, poleTop, poleX - thick / 2 + thick, ground, 0xFFB4BAC0);
 		// Bogen als Polygonzug aus kleinen Rechtecken
-		int steps = 12;
+		int steps = 20;
 		for (int i = 0; i <= steps; i++) {
 			double t = i / (double) steps * Math.PI / 2;
 			int px = poleX + dir * (int) (radius * (1 - Math.cos(t)) * scale);
@@ -199,18 +199,23 @@ public class TrafficMastScreen extends Screen {
 			g.renderOutline(poleX - sign / 2, signBottom - sign, sign, sign, 0xFFFFFFFF);
 			clearance = mastHeight + radius - 1;
 		} else {
-			drawHead(g, tip, armY + thick / 2, scale);
+			// mittig am Ausleger
+			drawHead(g, tip, armY - headHeight(scale) / 2, scale);
 			if (mastHead)
 				drawHead(g, poleX, ground - (int) ((mastHeadHeight / 4.0 + 1) * scale), scale);
-			clearance = mastHeight + radius - 1.25;
+			clearance = mastHeight + radius - 0.5;
 		}
 		String text = Component.translatable(KEY + "clearance", clearance).getString();
 		g.drawString(font, text, x + 3, y + 3, 0x9AA4AE);
 	}
 
+	private static int headHeight(double scale) {
+		return Math.max(9, (int) (scale * 1.0));
+	}
+
 	private void drawHead(GuiGraphics g, int cx, int topY, double scale) {
 		int hw = Math.max(3, (int) (scale * 0.2));
-		int hh = Math.max(9, (int) (scale * 1.0));
+		int hh = headHeight(scale);
 		g.fill(cx - hw, topY, cx + hw, topY + hh, 0xFF15181B);
 		int lamp = Math.max(1, hh / 3 - 1);
 		int[] colors = { 0xFFE02020, 0xFFE0B020, 0xFF20C040 };
