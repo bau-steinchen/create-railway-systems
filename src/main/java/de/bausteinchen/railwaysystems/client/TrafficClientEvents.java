@@ -94,7 +94,7 @@ public class TrafficClientEvents {
 	 */
 	public static AABB[] previewBoxes(BlockPos pos, Direction facing, MastConfig config, boolean crosswalk) {
 		double side = config.right() ? -1 : 1;
-		double armY = config.height() + AbstractMastBlock.BEND_RADIUS;
+		double armY = config.height() + AbstractMastBlock.bendRadius(config.reach());
 		double tipX = 0.5 + side * config.reach();
 		double px = 2 / 16.0;
 		AABB pole = box(pos, facing, 0.5 - px, 0, 0.5 - px, 0.5 + px, config.height(), 0.5 + px);
@@ -102,10 +102,10 @@ public class TrafficClientEvents {
 		if (crosswalk) {
 			AABB lamp = box(pos, facing, tipX - 6 / 16.0, armY - 1, 4 / 16.0, tipX + 6 / 16.0, armY, 12 / 16.0);
 			AABB sign = box(pos, facing, 3 / 16.0, config.signHeight(), 4.75 / 16, 13 / 16.0, config.signHeight() + 10 / 16.0,
-				6 / 16.0);
+				11.25 / 16);
 			return new AABB[] { pole, arm, lamp, sign };
 		}
-		AABB head = box(pos, facing, tipX - 3 / 16.0, armY - 1.25, 2 / 16.0, tipX + 3 / 16.0, armY, 0.5);
+		AABB head = box(pos, facing, tipX - 3 / 16.0, armY - 0.5, 1 / 16.0, tipX + 3 / 16.0, armY + 0.5, 0.5);
 		double headY = config.mastHeadY();
 		AABB mastHead = config.mastHead() ? box(pos, facing, 5 / 16.0, headY, 1 / 16.0, 11 / 16.0, headY + 1, 6 / 16.0)
 			: null;

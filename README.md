@@ -118,7 +118,7 @@ Left and right are as seen from the front. Right-clicking with the wrench outsid
 | Block / item | Description |
 |---|---|
 | Traffic light mast with arm | Mast with a curved bend and an arm over the road, vehicle signal head (red, yellow, green) at the end of the arm and optionally on the pole. Height and reach are configurable |
-| Crosswalk light mast | Same mast with a crosswalk light over the road (sign 350 on both sides, lamp underneath, as used in Hamburg) and a flat sign 350 on the pole. Height, reach and sign height are configurable; the light is switched by a built-in redstone link receiver |
+| Crosswalk light mast | Same mast with a crosswalk light over the road (sign 350 on both sides, lamp underneath, as used in Hamburg) and a flat sign 350 on the front and back of the pole. Height, reach and sign height are configurable; the light is switched by a built-in redstone link receiver |
 | Pedestrian light | Red/green with pedestrian symbol. Put signal masts underneath to raise it, or right-click the pole of a traffic light or crosswalk mast to mount it there |
 | Traffic light controller | Cabinet that switches the linked traffic lights according to a signal timing plan |
 | Traffic light programmer | Tool for linking traffic lights to a controller |
@@ -129,7 +129,7 @@ Left and right are as seen from the front. Right-clicking with the wrench outsid
 2. Aim at a block: an outline shows pole, arm and signal heads (red if there is no room for the pole). **Right-click** places the mast with this shape. The signal heads face the player, the arm points to the player's left or right.
 3. To change it later, use the **wrench** on the mast to open the same menu.
 
-The vertical pole is made of blocks (collision, clickable). The bend, arm and signal heads above it are only rendered and have no collision. Breaking any part of the pole removes the whole mast.
+The vertical pole is made of blocks (collision, clickable). The bend (radius 2.5 blocks, smaller on very short arms), the arm and the signal heads are only rendered and have no collision. Breaking any part of the pole removes the whole mast.
 
 **Crosswalk light mast:** Placed and adjusted like the traffic light mast; instead of the signal head on the pole, the menu sets the height of the sign on the pole. The foot of the mast holds a redstone link receiver with its two frequency slots on the back. While a redstone signal arrives on that frequency, the crosswalk light shines.
 

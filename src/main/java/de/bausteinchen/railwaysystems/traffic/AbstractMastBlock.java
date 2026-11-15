@@ -44,8 +44,16 @@ public abstract class AbstractMastBlock extends Block implements IBE<TrafficLigh
 
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-	/** Radius des Bogens zwischen Mast und Ausleger, in Blöcken */
-	public static final double BEND_RADIUS = 1.5;
+	/** Größter Radius des Bogens zwischen Mast und Ausleger, in Blöcken */
+	public static final double BEND_RADIUS = 2.5;
+
+	/**
+	 * Radius des Bogens bei dieser Ausladung: bei kurzen Auslegern kleiner, damit der Bogen vor der Ampel
+	 * bzw. Leuchte am Auslegerende in die Waagerechte kommt.
+	 */
+	public static double bendRadius(int reach) {
+		return Math.min(BEND_RADIUS, reach - 0.5);
+	}
 
 	private static final VoxelShape SHAPE = Shapes.or(Block.box(4.5, 0, 4.5, 11.5, 1, 11.5), Block.box(6, 0, 6, 10, 16, 10));
 
