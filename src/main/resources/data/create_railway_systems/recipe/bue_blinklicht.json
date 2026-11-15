@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "create:iron_sheet"
+    },
+    "L": {
+      "item": "create:redstone_link"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    }
+  },
+  "pattern": [
+    " T ",
+    "IRI",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:bue_blinklicht"
+  }
+}

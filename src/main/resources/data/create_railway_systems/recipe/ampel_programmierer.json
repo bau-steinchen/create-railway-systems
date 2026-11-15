@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": {
+      "item": "create:brass_sheet"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    }
+  },
+  "pattern": [
+    "T",
+    "B",
+    "R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:ampel_programmierer"
+  }
+}

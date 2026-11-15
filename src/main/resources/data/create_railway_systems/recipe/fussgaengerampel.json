@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "tag": "c:dyes/green"
+    },
+    "I": {
+      "item": "create:iron_sheet"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    }
+  },
+  "pattern": [
+    "RTI",
+    "GTI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:fussgaengerampel"
+  }
+}

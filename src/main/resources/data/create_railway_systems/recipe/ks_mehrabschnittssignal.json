@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "create_railway_systems:ks_hauptsignal"
+    },
+    {
+      "item": "create_railway_systems:ks_vorsignal"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:ks_mehrabschnittssignal"
+  }
+}

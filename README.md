@@ -183,6 +183,115 @@ While active, the controller sends a signal on the frequency of its built-in red
 
 Only connected track is followed, never crossings with other tracks: vehicles on a road made of phantom tracks that crosses the railway are not detected. Warning time and search distance (default 600 blocks) are in the server config (`crossingWarningTime`, `crossingScanDistance`).
 
+## Crafting
+
+Everything can be crafted in survival at the crafting table, mostly from Create parts. The recipe book shows a recipe once you pick up one of its key ingredients (usually the first Create part); JEI/EMI show all recipes.
+
+| Item | Main ingredients |
+|---|---|
+| Signal mast / light signal mast / lattice signal mast (4 each) | Iron sheets / iron bars |
+| H/V main and distant signal | Create train signal, electron tube, dyes, iron sheets, signal mast |
+| Ks main and distant signal | like H/V, with brass sheets |
+| H/V combined, Ks multi-section signal | main signal + distant signal (shapeless) |
+| Sh shunting signal | Create train signal, electron tube, white and red dye, iron sheets |
+| Semaphore signal (1 arm / 2 arms) | Create train signal, andesite alloy, iron sheet, dyes, signal mast / 1-arm signal + iron sheet + dyes |
+| Traffic light mast, pedestrian light | Electron tubes, red/yellow/green dye, iron sheets |
+| Crosswalk light mast | Electron tube, redstone link, blue dye, iron sheets |
+| Traffic light controller | Brass casing, electron tube, comparators, redstone |
+| Traffic light programmer | Electron tube, brass sheet, redstone |
+| St. Andrew's cross (2) | Iron sheet, red and white dye, stick |
+| Level crossing light / flashing light | Electron tube(s), dyes, iron sheets, redstone link |
+| Level crossing barrier | Andesite casing, cogwheel, redstone link, stick, dyes |
+| Level crossing controller | Create train observer, railway casing, redstone link |
+
+The exact patterns are in [`tools/recipes.py`](tools/recipes.py).
+
+### Editing recipes (in the source)
+
+All recipes are defined in **`tools/recipes.py`**. The JSON files under `src/main/resources/data/create_railway_systems/recipe/` and the recipe book unlocks under `.../advancement/recipes/` are generated from it. Don't edit them by hand, the next generator run overwrites them.
+
+1. Change the recipe in `tools/recipes.py`.
+2. Run `python tools/generate_assets.py`.
+3. Rebuild (`./gradlew build`) or restart the test client. In a running world, `/reload` also loads changed recipes.
+
+**Format:**
+
+```python
+# shaped: up to 3 rows of up to 3 characters, space = empty slot, one letter per ingredient
+shaped("hv_hauptsignal", ["RTG", "ISI", " M "],
+       R=RED, T=TUBE, G=GREEN, I=IRON_SHEET, S=TRACK_SIGNAL, M="signal_mast"),
+
+# shapeless: list of ingredients, repeat an ingredient to need it twice
+shapeless("hv_kombisignal", ["hv_hauptsignal", "hv_vorsignal"], unlock="hv_hauptsignal"),
+
+# optional for both: count = number of items crafted (default 1),
+#                    unlock = ingredient that unlocks the recipe in the recipe book
+shaped("signal_mast", ["I", "I", "I"], count=4, I=IRON_SHEET),
+```
+
+**Ingredients:**
+
+| Notation | Meaning | Example |
+|---|---|---|
+| `namespace:item` | an item of any mod | `"create:electron_tube"`, `"minecraft:comparator"` |
+| `#namespace:tag` | any item with this tag | `"#c:dyes/red"`, `"#c:ingots/iron"` |
+| `name` without namespace | an item of this mod | `"signal_mast"` |
+
+Common ingredients are defined as constants at the top of the file (`TUBE`, `TRACK_SIGNAL`, `LINK`, `IRON_SHEET`, `BRASS_SHEET`, `RED` …). Changing a constant changes every recipe that uses it.
+
+**Checks:** The generator aborts with a message if an item of the mod has no recipe or more than one, if a letter in a pattern has no ingredient or an ingredient is not used, or if a pattern is larger than 3×3 or has rows of different length. Example:
+
+```
+Fehler in tools/recipes.py:
+  signal_mast: Zeichen 'X' im Muster hat keine Zutat
+  bue_steuerung: kein Rezept
+```
+
+New blocks or items therefore need a recipe in `tools/recipes.py` before the generator runs through.
+
+### Changing recipes without rebuilding (servers, modpacks)
+
+Recipes are normal data files, so a datapack can replace or remove them. Create a folder in `<world>/datapacks/`, e.g. `railway-recipes/`:
+
+```
+railway-recipes/
+  pack.mcmeta
+  data/create_railway_systems/recipe/
+    hv_hauptsignal.json      replaces the H/V main signal recipe
+    andreaskreuz.json        removes the St. Andrew's cross recipe
+```
+
+`pack.mcmeta`:
+
+```json
+{ "pack": { "pack_format": 48, "description": "Custom railway recipes" } }
+```
+
+A replacement uses the normal Minecraft format; the generated files in the mod are good templates:
+
+```json
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": ["RTG", " S "],
+  "key": {
+    "R": { "tag": "c:dyes/red" },
+    "G": { "tag": "c:dyes/green" },
+    "T": { "item": "create:electron_tube" },
+    "S": { "item": "create:track_signal" }
+  },
+  "result": { "id": "create_railway_systems:hv_hauptsignal", "count": 1 }
+}
+```
+
+To remove a recipe, the file only contains a condition that is never met:
+
+```json
+{ "neoforge:conditions": [{ "type": "neoforge:false" }] }
+```
+
+Apply with `/reload`. KubeJS or CraftTweaker work as well.
+
 ## Development
 
 Requires JDK 21 and Python 3.10+ with Pillow (`pip install pillow`).
@@ -192,7 +301,7 @@ Requires JDK 21 and Python 3.10+ with Pillow (`pip install pillow`).
 ./gradlew runClient                            # start test client
 ./gradlew runClient -PquickPlay=<world>        # start test client directly into a singleplayer world
 ./gradlew runServer                            # start test server
-python tools/generate_assets.py                # regenerate models, blockstates, textures, loot tables
+python tools/generate_assets.py                # regenerate models, blockstates, textures, loot tables, recipes
 python tools/generate_assets.py --vorlagen     # export the built-in signals as Blockbench templates
 ```
 
@@ -262,6 +371,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   network/                             Menu packets (client -> server)
   client/                              Overlay renderer for indicators, traffic light renderer, menus, outlines
 tools/generate_assets.py               Asset generator
+tools/recipes.py                       Crafting recipes (input for the generator)
 tools/models/                          Custom Blockbench models and textures (optional)
 ```
 

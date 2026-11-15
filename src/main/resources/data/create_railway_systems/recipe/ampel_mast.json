@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "tag": "c:dyes/green"
+    },
+    "I": {
+      "item": "create:iron_sheet"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    },
+    "Y": {
+      "tag": "c:dyes/yellow"
+    }
+  },
+  "pattern": [
+    "RTI",
+    "YTI",
+    "GTI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:ampel_mast"
+  }
+}
