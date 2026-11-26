@@ -26,6 +26,7 @@ public class RailwaySystemsClient {
 		event.registerBlockEntityRenderer(ModBlockEntities.CROSSING_LIGHT.get(), SmartBlockEntityRenderer::new);
 		event.registerBlockEntityRenderer(ModBlockEntities.CROSSING_BARRIER.get(), CrossingBarrierRenderer::new);
 		event.registerBlockEntityRenderer(ModBlockEntities.CROSSING_CONTROLLER.get(), CrossingControllerRenderer::new);
+		event.registerBlockEntityRenderer(ModBlockEntities.TRAFFIC_CONTROLLER.get(), SmartBlockEntityRenderer::new);
 	}
 
 	@SubscribeEvent

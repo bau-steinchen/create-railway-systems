@@ -153,6 +153,8 @@ While a controller is selected, it and all linked lights are outlined, colored b
 
 Changes apply when you click **Save**. **Redstone** on the controller switches to night mode: vehicle lights flash yellow, pedestrian lights are off, linked Create signals stay open.
 
+**Coupling with a level crossing:** The controller contains a redstone link receiver, its two frequency slots are on the back. Set the same frequency as the level crossing controller. When the crossing switches on, vehicle groups that currently show green turn yellow for the yellow time and then red; all other groups and the pedestrian lights show red, linked Create signals hold. The cycle keeps running meanwhile. When the crossing switches off, the lights follow the plan again; a vehicle group whose green window is running shows red-yellow first. The crossing takes priority over night mode.
+
 Example intersection, 60 s cycle: K1 (main road) green 0–25, K2 (side road) green 30–52, F1 (pedestrians parallel to K1) green 0–20. Mark K1/K2 and K2/F1 as conflicting in the matrix.
 
 ### Level crossings
@@ -179,7 +181,7 @@ Both lights sit in front of a black contrast plate with a white border. They are
 
 The goggles show the state of the controller (open, closing, secured) and the bound signals.
 
-While active, the controller sends a signal on the frequency of its built-in redstone link transmitter (two slots on the back) and emits redstone. Put the same frequency on the lights and barriers of the crossing. With several tracks, place one controller per track on the same frequency.
+While active, the controller sends a signal on the frequency of its built-in redstone link transmitter (two slots on the back) and emits redstone. Put the same frequency on the lights and barriers of the crossing, and on a nearby traffic light controller (see traffic lights). With several tracks, place one controller per track on the same frequency.
 
 Only connected track is followed, never crossings with other tracks: vehicles on a road made of phantom tracks that crosses the railway are not detected. Warning time and search distance (default 600 blocks) are in the server config (`crossingWarningTime`, `crossingScanDistance`).
 
@@ -378,7 +380,7 @@ tools/models/                          Custom Blockbench models and textures (op
 ## Planned
 
 - Better textures
-- Level crossings: barrier collision, coupling with the traffic light controller, mounting on masts
+- Level crossings: barrier collision, mounting on masts
 
 ## License
 
