@@ -1396,6 +1396,11 @@ def generate_crossing():
                variants([("side", ["left", "right"]), ("closed", ["false", "true"])], lambda s: "bue_schranke"))
     write_json(ASSETS / "models/block/bue_schrankenbaum.json", crossing_model([boom_segment()]))
     write_json(ASSETS / "models/block/bue_schrankenbaum_ende.json", crossing_model(boom_tip()))
+    # Kollision unter dem geschlossenen Baum: unsichtbar, Modell nur für Partikel
+    write_json(ASSETS / "models/block/bue_schrankenbaum_kollision.json",
+               {"textures": {"particle": tex("bue_schrankenbaum")}})
+    write_json(ASSETS / "blockstates/bue_schrankenbaum_kollision.json",
+               {"variants": {"": {"model": f"{MOD_ID}:block/bue_schrankenbaum_kollision"}}})
     # Item: Antrieb mit kurzem, waagerechtem Baum nach links
     px, py, pz = BARRIER_PIVOT
     item_boom = box([px, py - 1.25, pz - 0.75], [px + 16, py + 1.25, pz + 0.75], "#boom")

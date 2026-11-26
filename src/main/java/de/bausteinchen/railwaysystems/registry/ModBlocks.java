@@ -2,6 +2,7 @@ package de.bausteinchen.railwaysystems.registry;
 
 import de.bausteinchen.railwaysystems.RailwaySystems;
 import de.bausteinchen.railwaysystems.crossing.CrossingBarrierBlock;
+import de.bausteinchen.railwaysystems.crossing.CrossingBarrierCollisionBlock;
 import de.bausteinchen.railwaysystems.crossing.CrossingControllerBlock;
 import de.bausteinchen.railwaysystems.crossing.CrossingLightBlock;
 import de.bausteinchen.railwaysystems.crossing.StAndrewsCrossBlock;
@@ -23,6 +24,7 @@ import de.bausteinchen.railwaysystems.traffic.TrafficMastPoleBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -98,6 +100,17 @@ public class ModBlocks {
 
 	public static final DeferredBlock<CrossingBarrierBlock> BUE_SCHRANKE =
 		BLOCKS.register("bue_schranke", () -> new CrossingBarrierBlock(signalProperties()));
+
+	/** Unsichtbare Kollision unter dem geschlossenen Schrankenbaum; kein Item, kein Loot, nicht abbaubar */
+	public static final DeferredBlock<CrossingBarrierCollisionBlock> BUE_SCHRANKENBAUM_KOLLISION =
+		BLOCKS.register("bue_schrankenbaum_kollision", () -> new CrossingBarrierCollisionBlock(BlockBehaviour.Properties.of()
+			.strength(-1, 3600000)
+			.noLootTable()
+			.noOcclusion()
+			.isSuffocating((state, level, pos) -> false)
+			.isViewBlocking((state, level, pos) -> false)
+			.isValidSpawn((state, level, pos, type) -> false)
+			.pushReaction(PushReaction.BLOCK)));
 
 	public static final DeferredBlock<CrossingControllerBlock> BUE_STEUERUNG =
 		BLOCKS.register("bue_steuerung", () -> new CrossingControllerBlock(signalProperties()));

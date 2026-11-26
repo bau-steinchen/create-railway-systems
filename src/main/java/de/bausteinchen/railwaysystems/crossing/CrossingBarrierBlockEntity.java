@@ -11,6 +11,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollVa
 
 import de.bausteinchen.railwaysystems.Config;
 import de.bausteinchen.railwaysystems.registry.ModBlockEntities;
+import de.bausteinchen.railwaysystems.registry.ModBlocks;
 import de.bausteinchen.railwaysystems.registry.ModSounds;
 import net.createmod.catnip.animation.LerpedFloat;
 import net.createmod.catnip.animation.LerpedFloat.Chaser;
@@ -27,7 +28,8 @@ import net.minecraft.world.phys.AABB;
  * Schrankenantrieb: Eingeschaltet (Redstone am Block oder Funkverbindung auf der Rückseite) senkt er den
  * Baum nach {@link #LOWER_DELAY_TICKS}, damit das Lichtzeichen erst Gelb und Rot zeigen kann; beim
  * Ausschalten hebt er ihn sofort. Bis der Baum unten ist, schlägt das Läutewerk. Der Winkel läuft auf Server und Client gleich mit, damit der Server
- * später wissen kann, wann die Schranke unten ist.
+ * wissen kann, wann die Schranke unten ist: dann setzt er die {@link CrossingBarrierCollisionBlock Kollision}
+ * unter den Baum.
  */
 public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 
@@ -65,7 +67,11 @@ public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 			new CenteredSideValueBoxTransform((state, side) -> side == Direction.UP));
 		length.between(MIN_LENGTH, MAX_LENGTH);
 		length.setValue(DEFAULT_LENGTH);
-		length.withCallback(value -> invalidateRenderBoundingBox());
+		length.withCallback(value -> {
+			invalidateRenderBoundingBox();
+			// alte Kollision weg; die passende zur neuen Länge setzt der nächste Tick
+			removeCollision();
+		});
 		length.requiresWrench();
 		behaviours.add(length);
 	}
@@ -93,6 +99,8 @@ public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 			if (closed != state.getValue(CrossingBarrierBlock.CLOSED)) {
 				state = state.setValue(CrossingBarrierBlock.CLOSED, closed);
 				level.setBlock(worldPosition, state, 3);
+				if (!closed)
+					removeCollision();
 			}
 		}
 
@@ -109,6 +117,56 @@ public class CrossingBarrierBlockEntity extends SmartBlockEntity {
 		if (!level.isClientSide && activeTicks >= 0 && angle.getValue() > CLOSED + 0.01f
 			&& level.getGameTime() % BELL_INTERVAL == 0 && Config.CROSSING_BELL.get())
 			level.playSound(null, worldPosition, ModSounds.CROSSING_BELL.get(), SoundSource.BLOCKS, 0.8f, 1);
+
+		if (!level.isClientSide && isFullyClosed())
+			placeCollision();
+	}
+
+	/** Richtung, in die der geschlossene Baum vom Antrieb aus zeigt */
+	private Direction boomDirection() {
+		BlockState state = getBlockState();
+		Direction facing = state.getValue(CrossingBarrierBlock.FACING);
+		// von vorn gesehen liegt links im Uhrzeigersinn neben der Front (siehe CrossingBarrierRenderer)
+		return state.getValue(CrossingBarrierBlock.SIDE) == BarrierSide.LEFT ? facing.getClockWise()
+			: facing.getCounterClockWise();
+	}
+
+	/** Kollision in die Luftblöcke unter dem Baum setzen; feste Blöcke bleiben unberührt */
+	private void placeCollision() {
+		BlockState collision = ModBlocks.BUE_SCHRANKENBAUM_KOLLISION.get()
+			.defaultBlockState()
+			.setValue(CrossingBarrierCollisionBlock.FACING, getBlockState().getValue(CrossingBarrierBlock.FACING));
+		Direction direction = boomDirection();
+		for (int i = 1; i <= getLength(); i++) {
+			BlockPos pos = worldPosition.relative(direction, i);
+			if (level.isLoaded(pos) && level.getBlockState(pos)
+				.isAir())
+				level.setBlock(pos, collision, 3);
+		}
+	}
+
+	/** Kollision unter dem Baum wieder entfernen (nur Kollisionsblöcke) */
+	public void removeCollision() {
+		if (level == null || level.isClientSide)
+			return;
+		Direction direction = boomDirection();
+		for (int i = 1; i <= MAX_LENGTH; i++) {
+			BlockPos pos = worldPosition.relative(direction, i);
+			if (level.isLoaded(pos) && level.getBlockState(pos)
+				.is(ModBlocks.BUE_SCHRANKENBAUM_KOLLISION.get()))
+				level.removeBlock(pos, false);
+		}
+	}
+
+	/** Der geschlossene Baum liegt über {@code pos} */
+	public boolean holdsCollisionAt(BlockPos pos) {
+		if (!isFullyClosed())
+			return false;
+		Direction direction = boomDirection();
+		for (int i = 1; i <= getLength(); i++)
+			if (pos.equals(worldPosition.relative(direction, i)))
+				return true;
+		return false;
 	}
 
 	/** Baumwinkel in Grad (90 = offen, 0 = geschlossen) */
