@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "tag": "c:dyes/green"
+    },
+    "I": {
+      "item": "create:iron_sheet"
+    },
+    "M": {
+      "item": "create_railway_systems:signal_mast"
+    },
+    "S": {
+      "item": "create:track_signal"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    },
+    "Y": {
+      "tag": "c:dyes/yellow"
+    }
+  },
+  "pattern": [
+    "YTG",
+    "ISI",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:hv_vorsignal"
+  }
+}

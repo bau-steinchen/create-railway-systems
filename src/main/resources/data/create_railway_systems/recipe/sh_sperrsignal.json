@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "create:iron_sheet"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "S": {
+      "item": "create:track_signal"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    },
+    "W": {
+      "tag": "c:dyes/white"
+    }
+  },
+  "pattern": [
+    "WTR",
+    "ISI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:sh_sperrsignal"
+  }
+}

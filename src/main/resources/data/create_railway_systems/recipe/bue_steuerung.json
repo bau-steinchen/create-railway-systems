@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "L": {
+      "item": "create:redstone_link"
+    },
+    "O": {
+      "item": "create:track_observer"
+    },
+    "X": {
+      "item": "create:railway_casing"
+    }
+  },
+  "pattern": [
+    "O",
+    "X",
+    "L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:bue_steuerung"
+  }
+}

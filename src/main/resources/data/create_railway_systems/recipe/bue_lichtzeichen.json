@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "create:iron_sheet"
+    },
+    "L": {
+      "item": "create:redstone_link"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    },
+    "Y": {
+      "tag": "c:dyes/yellow"
+    }
+  },
+  "pattern": [
+    "ITY",
+    "ITR",
+    "ILI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:bue_lichtzeichen"
+  }
+}

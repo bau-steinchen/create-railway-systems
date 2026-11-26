@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": {
+      "item": "create:brass_sheet"
+    },
+    "G": {
+      "tag": "c:dyes/green"
+    },
+    "M": {
+      "item": "create_railway_systems:signal_mast"
+    },
+    "R": {
+      "tag": "c:dyes/red"
+    },
+    "S": {
+      "item": "create:track_signal"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    }
+  },
+  "pattern": [
+    "RTG",
+    "BSB",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:ks_hauptsignal"
+  }
+}

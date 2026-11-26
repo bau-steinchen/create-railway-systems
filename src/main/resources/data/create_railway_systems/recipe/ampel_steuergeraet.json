@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "K": {
+      "item": "minecraft:comparator"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    },
+    "X": {
+      "item": "create:brass_casing"
+    }
+  },
+  "pattern": [
+    "RTR",
+    "KXK"
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_railway_systems:ampel_steuergeraet"
+  }
+}

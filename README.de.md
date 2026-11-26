@@ -183,6 +183,115 @@ Eingeschaltet sendet die Steuerung auf der Frequenz ihrer eingebauten Funkverbin
 
 Verfolgt wird nur verbundenes Gleis, nie Kreuzungen mit anderen Gleisen: Fahrzeuge auf einer Straße aus Phantom-Gleisen, die die Bahn kreuzt, werden nicht erkannt. Vorwarnzeit und Suchweite (Standard 600 Blöcke) stehen in der Server-Config (`crossingWarningTime`, `crossingScanDistance`).
 
+## Rezepte
+
+Alles lässt sich im Survival an der Werkbank herstellen, überwiegend aus Create-Teilen. Das Rezeptbuch zeigt ein Rezept, sobald man eine seiner Schlüsselzutaten aufhebt (meist das erste Create-Teil); JEI/EMI zeigen alle Rezepte.
+
+| Item | Hauptzutaten |
+|---|---|
+| Signalmast / leichter Signalmast / Gittermast (je 4) | Eisenbleche / Eisengitter |
+| H/V-Haupt- und -Vorsignal | Create-Zugsignal, Elektronenröhre, Farbstoffe, Eisenbleche, Signalmast |
+| Ks-Haupt- und -Vorsignal | wie H/V, mit Messingblech |
+| H/V-Kombisignal, Ks-Mehrabschnittssignal | Hauptsignal + Vorsignal (formlos) |
+| Sh-Sperrsignal | Create-Zugsignal, Elektronenröhre, weißer und roter Farbstoff, Eisenbleche |
+| Formsignal (1-/2-flüglig) | Create-Zugsignal, Andesitlegierung, Eisenblech, Farbstoffe, Signalmast / einflügliges Signal + Eisenblech + Farbstoffe |
+| Ampelmast, Fußgängerampel | Elektronenröhren, roter/gelber/grüner Farbstoff, Eisenbleche |
+| Zebrastreifen-Mast | Elektronenröhre, Redstone-Link, blauer Farbstoff, Eisenbleche |
+| Ampel-Steuergerät | Messinggehäuse, Elektronenröhre, Komparatoren, Redstone |
+| Ampel-Programmierer | Elektronenröhre, Messingblech, Redstone |
+| Andreaskreuz (2) | Eisenblech, roter und weißer Farbstoff, Stock |
+| BÜ-Lichtzeichen / Blinklicht | Elektronenröhre(n), Farbstoffe, Eisenbleche, Redstone-Link |
+| BÜ-Schranke | Andesitgehäuse, Zahnrad, Redstone-Link, Stock, Farbstoffe |
+| BÜ-Steuerung | Create-Gleisbeobachter, Zuggehäuse, Redstone-Link |
+
+Die genauen Muster stehen in [`tools/recipes.py`](tools/recipes.py).
+
+### Rezepte ändern (im Quellcode)
+
+Alle Rezepte sind in **`tools/recipes.py`** definiert. Die JSON-Dateien unter `src/main/resources/data/create_railway_systems/recipe/` und die Freischaltungen fürs Rezeptbuch unter `.../advancement/recipes/` werden daraus erzeugt. Nicht von Hand bearbeiten, der nächste Generatorlauf überschreibt sie.
+
+1. Rezept in `tools/recipes.py` ändern.
+2. `python tools/generate_assets.py` ausführen.
+3. Neu bauen (`./gradlew build`) oder den Testclient neu starten. In einer laufenden Welt lädt auch `/reload` geänderte Rezepte.
+
+**Format:**
+
+```python
+# geformt: bis zu 3 Zeilen mit bis zu 3 Zeichen, Leerzeichen = leeres Feld, ein Buchstabe je Zutat
+shaped("hv_hauptsignal", ["RTG", "ISI", " M "],
+       R=RED, T=TUBE, G=GREEN, I=IRON_SHEET, S=TRACK_SIGNAL, M="signal_mast"),
+
+# formlos: Liste der Zutaten, eine Zutat doppelt eintragen = zweimal nötig
+shapeless("hv_kombisignal", ["hv_hauptsignal", "hv_vorsignal"], unlock="hv_hauptsignal"),
+
+# optional für beide: count = Anzahl hergestellter Items (Standard 1),
+#                     unlock = Zutat, die das Rezept im Rezeptbuch freischaltet
+shaped("signal_mast", ["I", "I", "I"], count=4, I=IRON_SHEET),
+```
+
+**Zutaten:**
+
+| Schreibweise | Bedeutung | Beispiel |
+|---|---|---|
+| `namespace:item` | ein Item einer beliebigen Mod | `"create:electron_tube"`, `"minecraft:comparator"` |
+| `#namespace:tag` | jedes Item mit diesem Tag | `"#c:dyes/red"`, `"#c:ingots/iron"` |
+| `name` ohne Namespace | ein Item dieser Mod | `"signal_mast"` |
+
+Häufige Zutaten sind oben in der Datei als Konstanten definiert (`TUBE`, `TRACK_SIGNAL`, `LINK`, `IRON_SHEET`, `BRASS_SHEET`, `RED` …). Eine Konstante zu ändern ändert jedes Rezept, das sie benutzt.
+
+**Prüfungen:** Der Generator bricht mit einer Meldung ab, wenn ein Item der Mod kein oder mehr als ein Rezept hat, ein Buchstabe im Muster keine Zutat hat oder eine Zutat nicht benutzt wird, oder ein Muster größer als 3×3 ist bzw. unterschiedlich lange Zeilen hat. Beispiel:
+
+```
+Fehler in tools/recipes.py:
+  signal_mast: Zeichen 'X' im Muster hat keine Zutat
+  bue_steuerung: kein Rezept
+```
+
+Neue Blöcke oder Items brauchen deshalb ein Rezept in `tools/recipes.py`, bevor der Generator durchläuft.
+
+### Rezepte ohne Neubau ändern (Server, Modpacks)
+
+Rezepte sind normale Datendateien, ein Datapack kann sie also ersetzen oder entfernen. Dazu in `<Welt>/datapacks/` einen Ordner anlegen, z. B. `bahn-rezepte/`:
+
+```
+bahn-rezepte/
+  pack.mcmeta
+  data/create_railway_systems/recipe/
+    hv_hauptsignal.json      ersetzt das Rezept des H/V-Hauptsignals
+    andreaskreuz.json        entfernt das Rezept des Andreaskreuzes
+```
+
+`pack.mcmeta`:
+
+```json
+{ "pack": { "pack_format": 48, "description": "Eigene Bahn-Rezepte" } }
+```
+
+Ein Ersatz nutzt das normale Minecraft-Format; die erzeugten Dateien der Mod eignen sich als Vorlage:
+
+```json
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": ["RTG", " S "],
+  "key": {
+    "R": { "tag": "c:dyes/red" },
+    "G": { "tag": "c:dyes/green" },
+    "T": { "item": "create:electron_tube" },
+    "S": { "item": "create:track_signal" }
+  },
+  "result": { "id": "create_railway_systems:hv_hauptsignal", "count": 1 }
+}
+```
+
+Zum Entfernen enthält die Datei nur eine Bedingung, die nie erfüllt ist:
+
+```json
+{ "neoforge:conditions": [{ "type": "neoforge:false" }] }
+```
+
+Übernehmen mit `/reload`. KubeJS oder CraftTweaker gehen ebenfalls.
+
 ## Entwicklung
 
 Benötigt JDK 21 und Python 3.10+ mit Pillow (`pip install pillow`).
@@ -192,7 +301,7 @@ Benötigt JDK 21 und Python 3.10+ mit Pillow (`pip install pillow`).
 ./gradlew runClient                            # Testclient starten
 ./gradlew runClient -PquickPlay=<Welt>         # Testclient direkt in eine Einzelspielerwelt starten
 ./gradlew runServer                            # Testserver starten
-python tools/generate_assets.py                # Modelle, Blockstates, Texturen, Loot-Tables neu erzeugen
+python tools/generate_assets.py                # Modelle, Blockstates, Texturen, Loot-Tables, Rezepte neu erzeugen
 python tools/generate_assets.py --vorlagen     # eingebaute Signale als Blockbench-Vorlagen ausgeben
 ```
 
@@ -262,6 +371,7 @@ src/main/java/de/bausteinchen/railwaysystems/
   network/                             Pakete der Menüs (Client -> Server)
   client/                              Overlay-Renderer für Zusatzanzeigen, Ampel-Renderer, Menüs, Umrisse
 tools/generate_assets.py               Asset-Generator
+tools/recipes.py                       Werkbank-Rezepte (Eingabe für den Generator)
 tools/models/                          Eigene Blockbench-Modelle und Texturen (optional)
 ```
 
