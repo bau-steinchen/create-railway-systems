@@ -29,7 +29,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 /**
  * Schrankenantrieb am Bahnübergang. Der Baum wird nur gezeichnet ({@code CrossingBarrierRenderer}) und
  * schwenkt zwischen senkrecht (offen) und waagerecht (geschlossen); seine Länge ist ein Wertefeld oben
- * auf dem Antrieb. {@link #CLOSED} ist der Sollzustand, den die Block-Entity aus Redstone bzw.
+ * auf dem Antrieb. Geschlossen liegen unter ihm unsichtbare {@link CrossingBarrierCollisionBlock
+ * Kollisionsblöcke}. {@link #CLOSED} ist der Sollzustand, den die Block-Entity aus Redstone bzw.
  * Funkverbindung ableitet.
  * <p>
  * Schraubenschlüssel auf die Vorderseite: Baum auf die andere Seite; auf jede andere Seite: drehen.
@@ -74,9 +75,12 @@ public class CrossingBarrierBlock extends Block implements IBE<CrossingBarrierBl
 
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+		Level level = context.getLevel();
+		// Baum zeigt danach woandershin: alte Kollision weg, die neue setzt der nächste Tick
+		if (!level.isClientSide && level.getBlockEntity(context.getClickedPos()) instanceof CrossingBarrierBlockEntity be)
+			be.removeCollision();
 		if (context.getClickedFace() != state.getValue(FACING))
 			return IWrenchable.super.onWrenched(state, context);
-		Level level = context.getLevel();
 		if (!level.isClientSide) {
 			level.setBlock(context.getClickedPos(), state.setValue(SIDE, state.getValue(SIDE)
 				.opposite()), 3);
@@ -105,6 +109,8 @@ public class CrossingBarrierBlock extends Block implements IBE<CrossingBarrierBl
 
 	@Override
 	protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+		if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof CrossingBarrierBlockEntity be)
+			be.removeCollision();
 		IBE.onRemove(state, level, pos, newState);
 	}
 
