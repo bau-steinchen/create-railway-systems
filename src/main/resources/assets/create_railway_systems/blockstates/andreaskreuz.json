@@ -1,18 +1,63 @@
 {
   "variants": {
-    "facing=north": {
+    "facing=north,mount=none": {
       "model": "create_railway_systems:block/andreaskreuz"
     },
-    "facing=east": {
+    "facing=east,mount=none": {
       "model": "create_railway_systems:block/andreaskreuz",
       "y": 90
     },
-    "facing=south": {
+    "facing=south,mount=none": {
       "model": "create_railway_systems:block/andreaskreuz",
       "y": 180
     },
-    "facing=west": {
+    "facing=west,mount=none": {
       "model": "create_railway_systems:block/andreaskreuz",
+      "y": 270
+    },
+    "facing=north,mount=mast": {
+      "model": "create_railway_systems:block/andreaskreuz_mast"
+    },
+    "facing=east,mount=mast": {
+      "model": "create_railway_systems:block/andreaskreuz_mast",
+      "y": 90
+    },
+    "facing=south,mount=mast": {
+      "model": "create_railway_systems:block/andreaskreuz_mast",
+      "y": 180
+    },
+    "facing=west,mount=mast": {
+      "model": "create_railway_systems:block/andreaskreuz_mast",
+      "y": 270
+    },
+    "facing=north,mount=mast_plate": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_plate"
+    },
+    "facing=east,mount=mast_plate": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_plate",
+      "y": 90
+    },
+    "facing=south,mount=mast_plate": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_plate",
+      "y": 180
+    },
+    "facing=west,mount=mast_plate": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_plate",
+      "y": 270
+    },
+    "facing=north,mount=mast_lattice": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_lattice"
+    },
+    "facing=east,mount=mast_lattice": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_lattice",
+      "y": 90
+    },
+    "facing=south,mount=mast_lattice": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_lattice",
+      "y": 180
+    },
+    "facing=west,mount=mast_lattice": {
+      "model": "create_railway_systems:block/andreaskreuz_mast_lattice",
       "y": 270
     }
   }

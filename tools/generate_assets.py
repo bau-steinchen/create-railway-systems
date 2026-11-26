@@ -1303,7 +1303,7 @@ def cross_board(angle, z0):
 
 def andreaskreuz_elements():
     # zwei Balken leicht versetzt hintereinander, damit sich die Flächen in der Mitte nicht überlagern
-    return [crossing_post(10), cross_board(45, 5.25), cross_board(-45, 6)]
+    return [cross_board(45, 5.25), cross_board(-45, 6)]
 
 
 def crossing_lamp(vy0, size, texture, lit):
@@ -1313,7 +1313,7 @@ def crossing_lamp(vy0, size, texture, lit):
 
 
 def lichtzeichen_elements(phase):
-    elements = [crossing_post(), box([3, 1, 5.5], [13, 15, 6.5], "#screen", north="#backplate")]
+    elements = [box([3, 1, 5.5], [13, 15, 6.5], "#screen", north="#backplate")]
     for color, y in BUE_LAMPS.items():
         lit = phase == color
         elements += crossing_lamp(y, 5, f"#lamp_{color}" if lit else "#lamp_off", lit)
@@ -1322,8 +1322,20 @@ def lichtzeichen_elements(phase):
 
 def blinklicht_elements(phase):
     lit = phase == "red"
-    return [crossing_post(), box([3.5, 3, 5.5], [12.5, 13, 6.5], "#screen", north="#backplate"),
+    return [box([3.5, 3, 5.5], [12.5, 13, 6.5], "#screen", north="#backplate"),
             *crossing_lamp(5, 6, "#lamp_red_blink" if lit else "#lamp_off", lit)]
+
+
+# An einem Signalmast (CrossingMount): ohne Pfosten, an die hintere Blockkante gerückt, mit Halterstangen
+# bis an den Mast. Rückseite mittig: Blende bei z = 6,5, Andreaskreuz bei z = 6,75.
+CROSSING_MOUNTS = ["none", *MAST_MOUNTS]
+
+
+def crossing_mounted(elements, mount, post_height, back, arm_heights):
+    """Bahnübergangs-Block frei auf eigenem Pfosten oder bündig vor einem Signalmast."""
+    if mount == "none":
+        return [crossing_post(post_height)] + elements
+    return support(mount, arm_heights) + shift_z(elements, 16 - back)
 
 
 # Schranke: Drehpunkt des Baums wie CrossingBarrierBlock.PIVOT_Y/PIVOT_Z
@@ -1367,16 +1379,24 @@ def controller_elements(active):
 
 
 def generate_crossing():
-    write_json(ASSETS / "models/block/andreaskreuz.json", crossing_model(andreaskreuz_elements()))
-    write_json(ASSETS / "blockstates/andreaskreuz.json", variants([], lambda s: "andreaskreuz"))
+    for mount in CROSSING_MOUNTS:
+        # eine Halterstange am Kreuzungspunkt der Balken
+        write_json(ASSETS / f"models/block/{model_name('andreaskreuz', mount)}.json",
+                   crossing_model(crossing_mounted(andreaskreuz_elements(), mount, 10, 6.75, [(7.5, 9.5)])))
+    write_json(ASSETS / "blockstates/andreaskreuz.json",
+               variants([("mount", CROSSING_MOUNTS)], lambda s: model_name("andreaskreuz", s["mount"])))
     write_json(ASSETS / "models/item/andreaskreuz.json", {"parent": f"{MOD_ID}:block/andreaskreuz"})
 
-    for block, phases, elements in (("bue_lichtzeichen", ["off", "yellow", "red"], lichtzeichen_elements),
-                                    ("bue_blinklicht", ["off", "red"], blinklicht_elements)):
+    for block, phases, elements, arms in (
+            ("bue_lichtzeichen", ["off", "yellow", "red"], lichtzeichen_elements, [(3, 5), (11, 13)]),
+            ("bue_blinklicht", ["off", "red"], blinklicht_elements, [(4.5, 6.5), (9.5, 11.5)])):
         for phase in phases:
-            write_json(ASSETS / f"models/block/{block}_{phase}.json", crossing_model(elements(phase)))
+            for mount in CROSSING_MOUNTS:
+                write_json(ASSETS / f"models/block/{model_name(f'{block}_{phase}', mount)}.json",
+                           crossing_model(crossing_mounted(elements(phase), mount, 16, 6.5, arms)))
         write_json(ASSETS / f"blockstates/{block}.json",
-                   variants([("phase", phases)], lambda s, b=block: f"{b}_{s['phase']}"))
+                   variants([("phase", phases), ("mount", CROSSING_MOUNTS)],
+                            lambda s, b=block: model_name(f"{b}_{s['phase']}", s["mount"])))
         write_json(ASSETS / f"models/item/{block}.json", {"parent": f"{MOD_ID}:block/{block}_red"})
 
     # Steuerung: Schaltkasten mit Meldeleuchte

@@ -167,6 +167,8 @@ Example intersection, 60 s cycle: K1 (main road) green 0–25, K2 (side road) gr
 
 Both lights sit in front of a black contrast plate with a white border. They are switched on while a redstone signal reaches the block or while their built-in redstone link receiver (two frequency slots on the back of the post) receives a signal. The post runs through the whole block, so a St. Andrew's cross can sit on top and signal masts can go underneath.
 
+**On signal masts:** Like light signals, the crossing light, flashing light and St. Andrew's cross can be placed against the side of a signal mast (standard, light, lattice). They then hang flush in front of it without their own post, held by short brackets; several can be stacked on the same mast. The frequency slots of the lights then sit beside the plate. This only works on unrotated masts (mast step 0, 4, 8, 12); on masts turned at an angle the block stands freely. When the mast is removed, the block stands on its own post again.
+
 **Barrier:** switched like the lights (redstone or the link receiver on the back of the housing). After switching on it waits 5 s (yellow and red phase of the lights), then lowers the boom within 6 s; when switched off it raises it right away. With the wrench, the value box on top sets the boom length (2–8 blocks), clicking the front of the housing moves the boom to the other side, any other face rotates the barrier. While the boom is lowering, the bell rings (can be turned off with `crossingBell` in the server config). The boom is only rendered and has no collision yet.
 
 **Automatic train detection:** Right-click the track at the crossing with the level crossing controller (like a Create track observer), then place the cabinet next to the track. The controller watches the track in both directions and switches on as soon as a train would reach the crossing within the warning time (default 20 s) at its current speed, or while a train is on the crossing. It switches off 2 s after the last car has passed and no other train is approaching. A train that stops in front of the crossing (e.g. at a signal) lets it open again and switches it on once it starts moving. Once switched on, the crossing stays closed at least until the barriers are down, and a train slowly approaching within 100 blocks keeps it closed.
@@ -378,7 +380,7 @@ tools/models/                          Custom Blockbench models and textures (op
 ## Planned
 
 - Better textures
-- Level crossings: barrier collision, coupling with the traffic light controller, mounting on masts
+- Level crossings: barrier collision, coupling with the traffic light controller
 
 ## License
 
