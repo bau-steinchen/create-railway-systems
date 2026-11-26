@@ -153,6 +153,8 @@ Solange ein Steuergerät ausgewählt ist, sind es und alle verbundenen Ampeln um
 
 Änderungen gelten mit **Speichern**. **Redstone** am Steuergerät schaltet auf Nachtbetrieb: Kfz-Ampeln blinken gelb, Fußgängerampeln sind aus, gebundene Create-Signale bleiben frei.
 
+**Kopplung mit dem Bahnübergang:** Im Steuergerät steckt ein Redstone-Link-Empfänger, seine beiden Frequenzfelder sitzen hinten. Dieselbe Frequenz wie die Bahnübergangs-Steuerung einstellen. Schaltet der Bahnübergang ein, zeigen Kfz-Gruppen, die gerade Grün haben, für die Gelbzeit Gelb und dann Rot; alle anderen Gruppen und die Fußgängerampeln zeigen Rot, gebundene Create-Signale halten. Der Umlauf läuft dabei weiter. Schaltet der Bahnübergang aus, folgen die Ampeln wieder dem Plan; eine Kfz-Gruppe, deren Grün gerade läuft, zeigt zuerst Rot-Gelb. Der Bahnübergang geht vor dem Nachtbetrieb.
+
 Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtung) Grün 30–52, F1 (Fußgänger parallel zu K1) Grün 0–20. In der Matrix K1/K2 und K2/F1 als feindlich markieren.
 
 ### Bahnübergänge
@@ -179,7 +181,7 @@ Beide Lichter sitzen vor einer schwarzen Kontrastblende mit weißem Rand. Sie si
 
 Die Goggles zeigen den Zustand der Steuerung (offen, schließt, gesichert) und die gebundenen Signale.
 
-Eingeschaltet sendet die Steuerung auf der Frequenz ihrer eingebauten Funkverbindung (Sender, zwei Felder hinten) und gibt Redstone aus. Lichter und Schranken des Bahnübergangs auf dieselbe Frequenz stellen. Bei mehreren Gleisen je Gleis eine Steuerung auf derselben Frequenz setzen.
+Eingeschaltet sendet die Steuerung auf der Frequenz ihrer eingebauten Funkverbindung (Sender, zwei Felder hinten) und gibt Redstone aus. Lichter und Schranken des Bahnübergangs auf dieselbe Frequenz stellen, ebenso ein Ampel-Steuergerät in der Nähe (siehe Straßenampeln). Bei mehreren Gleisen je Gleis eine Steuerung auf derselben Frequenz setzen.
 
 Verfolgt wird nur verbundenes Gleis, nie Kreuzungen mit anderen Gleisen: Fahrzeuge auf einer Straße aus Phantom-Gleisen, die die Bahn kreuzt, werden nicht erkannt. Vorwarnzeit und Suchweite (Standard 600 Blöcke) stehen in der Server-Config (`crossingWarningTime`, `crossingScanDistance`).
 
@@ -268,7 +270,7 @@ tools/models/                          Eigene Blockbench-Modelle und Texturen (o
 ## Geplant
 
 - Bessere Texturen
-- Bahnübergänge: Kollision der Schranke, Kopplung mit dem Ampel-Steuergerät, Montage an Masten
+- Bahnübergänge: Kollision der Schranke, Montage an Masten
 
 ## Lizenz
 
