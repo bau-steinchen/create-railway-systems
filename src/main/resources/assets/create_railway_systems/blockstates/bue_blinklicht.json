@@ -1,33 +1,123 @@
 {
   "variants": {
-    "facing=north,phase=off": {
+    "facing=north,mount=none,phase=off": {
       "model": "create_railway_systems:block/bue_blinklicht_off"
     },
-    "facing=east,phase=off": {
+    "facing=east,mount=none,phase=off": {
       "model": "create_railway_systems:block/bue_blinklicht_off",
       "y": 90
     },
-    "facing=south,phase=off": {
+    "facing=south,mount=none,phase=off": {
       "model": "create_railway_systems:block/bue_blinklicht_off",
       "y": 180
     },
-    "facing=west,phase=off": {
+    "facing=west,mount=none,phase=off": {
       "model": "create_railway_systems:block/bue_blinklicht_off",
       "y": 270
     },
-    "facing=north,phase=red": {
+    "facing=north,mount=mast,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast"
+    },
+    "facing=east,mount=mast,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast",
+      "y": 90
+    },
+    "facing=south,mount=mast,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast",
+      "y": 180
+    },
+    "facing=west,mount=mast,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast",
+      "y": 270
+    },
+    "facing=north,mount=mast_plate,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_plate"
+    },
+    "facing=east,mount=mast_plate,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_plate",
+      "y": 90
+    },
+    "facing=south,mount=mast_plate,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_plate",
+      "y": 180
+    },
+    "facing=west,mount=mast_plate,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_plate",
+      "y": 270
+    },
+    "facing=north,mount=mast_lattice,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_lattice"
+    },
+    "facing=east,mount=mast_lattice,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_lattice",
+      "y": 90
+    },
+    "facing=south,mount=mast_lattice,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_lattice",
+      "y": 180
+    },
+    "facing=west,mount=mast_lattice,phase=off": {
+      "model": "create_railway_systems:block/bue_blinklicht_off_mast_lattice",
+      "y": 270
+    },
+    "facing=north,mount=none,phase=red": {
       "model": "create_railway_systems:block/bue_blinklicht_red"
     },
-    "facing=east,phase=red": {
+    "facing=east,mount=none,phase=red": {
       "model": "create_railway_systems:block/bue_blinklicht_red",
       "y": 90
     },
-    "facing=south,phase=red": {
+    "facing=south,mount=none,phase=red": {
       "model": "create_railway_systems:block/bue_blinklicht_red",
       "y": 180
     },
-    "facing=west,phase=red": {
+    "facing=west,mount=none,phase=red": {
       "model": "create_railway_systems:block/bue_blinklicht_red",
+      "y": 270
+    },
+    "facing=north,mount=mast,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast"
+    },
+    "facing=east,mount=mast,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast",
+      "y": 90
+    },
+    "facing=south,mount=mast,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast",
+      "y": 180
+    },
+    "facing=west,mount=mast,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast",
+      "y": 270
+    },
+    "facing=north,mount=mast_plate,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_plate"
+    },
+    "facing=east,mount=mast_plate,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_plate",
+      "y": 90
+    },
+    "facing=south,mount=mast_plate,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_plate",
+      "y": 180
+    },
+    "facing=west,mount=mast_plate,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_plate",
+      "y": 270
+    },
+    "facing=north,mount=mast_lattice,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_lattice"
+    },
+    "facing=east,mount=mast_lattice,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_lattice",
+      "y": 90
+    },
+    "facing=south,mount=mast_lattice,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_lattice",
+      "y": 180
+    },
+    "facing=west,mount=mast_lattice,phase=red": {
+      "model": "create_railway_systems:block/bue_blinklicht_red_mast_lattice",
       "y": 270
     }
   }

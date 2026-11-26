@@ -167,6 +167,8 @@ Beispiel Kreuzung, Umlauf 60 s: K1 (Hauptrichtung) Grün 0–25, K2 (Nebenrichtu
 
 Beide Lichter sitzen vor einer schwarzen Kontrastblende mit weißem Rand. Sie sind eingeschaltet, solange Redstone am Block anliegt oder ihre eingebaute Funkverbindung (Create Redstone Link, zwei Frequenzfelder hinten am Mast) ein Signal empfängt. Der Mast läuft durch den ganzen Block: Ein Andreaskreuz passt obendrauf, Signalmasten darunter.
 
+**An Signalmasten:** Lichtzeichen, Blinklicht und Andreaskreuz lassen sich wie Lichtsignale gegen die Seite eines Signalmasts (Standard, leicht, Gitter) setzen. Sie hängen dann ohne eigenen Mast bündig davor, mit kurzen Halterstangen; mehrere übereinander am selben Mast gehen. Die Frequenzfelder der Lichter sitzen dann seitlich neben der Blende. Das geht nur an ungedrehten Masten (Maststufe 0, 4, 8, 12); an schräg gedrehten Masten wird frei aufgestellt. Wird der Mast abgebaut, steht der Block wieder auf eigenem Mast.
+
 **Schranke:** Wird wie die Lichter geschaltet (Redstone oder Funkverbindung hinten am Gehäuse). Nach dem Einschalten wartet sie 5 s (Gelb- und Rotphase der Lichter) und senkt den Baum dann innerhalb von 6 s; beim Ausschalten hebt sie ihn sofort. Mit dem Schraubenschlüssel stellt das Wertefeld oben die Baumlänge ein (2–8 Blöcke), ein Klick auf die Vorderseite des Gehäuses setzt den Baum auf die andere Seite, jede andere Seite dreht die Schranke. Während sich der Baum senkt, schlägt das Läutewerk (abschaltbar mit `crossingBell` in der Server-Config). Der Baum wird nur gezeichnet und hat noch keine Kollision.
 
 **Automatische Zugerkennung:** Mit der Bahnübergangs-Steuerung das Gleis am Bahnübergang anklicken (wie beim Create-Gleisbeobachter) und den Kasten dann neben das Gleis setzen. Die Steuerung beobachtet das Gleis in beide Richtungen und schaltet ein, sobald ein Zug bei seiner aktuellen Geschwindigkeit den Bahnübergang innerhalb der Vorwarnzeit (Standard 20 s) erreichen würde oder ein Zug auf dem Bahnübergang steht. Ausgeschaltet wird 2 s, nachdem der letzte Wagen vorbei ist und kein weiterer Zug kommt. Ein Zug, der vor dem Bahnübergang hält (z. B. an einem Signal), gibt ihn wieder frei und schaltet ihn beim Anfahren erneut ein. Einmal eingeschaltet bleibt der Bahnübergang mindestens geschlossen, bis die Schranken unten sind, und ein Zug, der sich innerhalb von 100 Blöcken langsam nähert, hält ihn geschlossen.
@@ -268,7 +270,7 @@ tools/models/                          Eigene Blockbench-Modelle und Texturen (o
 ## Geplant
 
 - Bessere Texturen
-- Bahnübergänge: Kollision der Schranke, Kopplung mit dem Ampel-Steuergerät, Montage an Masten
+- Bahnübergänge: Kollision der Schranke, Kopplung mit dem Ampel-Steuergerät
 
 ## Lizenz
 
